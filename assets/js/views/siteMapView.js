@@ -67,7 +67,7 @@ export default class SiteMapView {
 
         // Add click handler for Show Sites button
         this.$container.find('#show-on-map-button').click(() => {
-            const queryParamArray = this.downloadFormView.getQueryParamArray();
+            const queryParamArray = this.downloadFormView.getQueryParamArray().filter(param => param.name !== 'csrf_token');
             const queryString = getQueryString(queryParamArray);
             const siteIds = filter(queryParamArray, (param) => {
                 return param.name === 'siteid';
