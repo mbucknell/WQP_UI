@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## [Unreleased](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.22.0...master)
+### Fixed
+-   When NLDI is queried, the distance parameter is not used if no distance is specified
 
 ## [5.22.0](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.21.0...WQP_UI-5.22.0) - 2020-06-24
 ### Changed
