@@ -88,13 +88,13 @@ export const setDataFromUrl = function(url) {
 };
 
 export const getUrl = function(dataSource) {
-    var result = '';
-    var dataSourceString = dataSource ? '/' + dataSource : '';
+    let result = '';
+
     if (modelData.featureSource && modelData.featureId && modelData.navigation) {
-        result = Config.NLDI_SERVICES_ENDPOINT + modelData.featureSource.id + '/' + modelData.featureId +
-            '/navigate/' + modelData.navigation.id +
-            dataSourceString +
-            '?distance=' + modelData.distance;
+        const dataSourceString = dataSource ? '/' + dataSource : '';
+        const distanceParameter = modelData.distance ? `?distance=${modelData.distance}` : '';
+        result = `${Config.NLDI_SERVICES_ENDPOINT}${modelData.featureSource.id}/${modelData.featureId}/` +
+            `navigate/${modelData.navigation.id}${dataSourceString}${distanceParameter}`;
     }
     return result;
 };
