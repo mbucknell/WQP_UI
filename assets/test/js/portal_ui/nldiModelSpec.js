@@ -73,7 +73,8 @@ describe('nldiModel', function() {
         nldiModel.setData('navigation', nldiModel.NAVIGATION_MODES[2]);
         nldiModel.setData('distance', 12);
 
-        expect(nldiModel.getUrl()).toEqual(Config.NLDI_SERVICES_ENDPOINT + 'nwissite/USGS-01010101/navigate/UT?distance=12');
+        expect(nldiModel.getUrl())
+            .toEqual(`${Config.NLDI_SERVICES_ENDPOINT}nwissite/USGS-01010101/navigate/UT?distance=12`);
     });
 
     it('Expects getUrl with a data source parameter adds that to the NLDI query url', function() {
@@ -82,8 +83,17 @@ describe('nldiModel', function() {
         nldiModel.setData('navigation', nldiModel.NAVIGATION_MODES[2]);
         nldiModel.setData('distance', 12);
 
-        expect(nldiModel.getUrl('dsSource')).toEqual(Config.NLDI_SERVICES_ENDPOINT + 'nwissite/USGS-01010101/navigate/UT/dsSource?distance=12');
+        expect(nldiModel.getUrl('dsSource'))
+            .toEqual(`${Config.NLDI_SERVICES_ENDPOINT}nwissite/USGS-01010101/navigate/UT/dsSource?distance=12`);
+    });
 
+    it('Expects getUrl without a distance parameter does not contain the distance query parameter', function() {
+        nldiModel.setData('featureSource', nldiModel.FEATURE_SOURCES[1]);
+        nldiModel.setData('featureId', 'USGS-01010101');
+        nldiModel.setData('navigation', nldiModel.NAVIGATION_MODES[2]);
+
+        expect(nldiModel.getUrl('dsSource'))
+            .toEqual(`${Config.NLDI_SERVICES_ENDPOINT}nwissite/USGS-01010101/navigate/UT/dsSource`);
     });
 
     it('Expects setUrl will set the appropriate model elements', () => {
