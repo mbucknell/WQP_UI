@@ -26,7 +26,7 @@ module.exports = function (config) {
         files: [
             'dist/scripts/vendor.js',
             'test/resources/testConfig.js',
-            {pattern: 'test/js/**/*.js', watched: false},
+            {pattern: 'test/js/karmaEntrySpec.js', watched: false},
             {pattern: 'js/hbTemplates/*.hbs', included: false}
         ],
 
@@ -50,7 +50,7 @@ module.exports = function (config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ['spec'],
 
         rollupPreprocessor: {
             /**
