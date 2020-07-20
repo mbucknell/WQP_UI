@@ -34,7 +34,7 @@ devenv: env instance/config.py requirements
 
 env:
 	@echo 'Creating the virtualenv env'
-	virtualenv --python=python3 --no-download env
+	virtualenv --python=python3.8 --no-download env
 
 requirements: env
 	@echo 'Installing requirements.txt'
