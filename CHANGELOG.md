@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -   All javascript tests must now be imported into assets/test/js/karmaEntrySpec.js. A single test bundle is now created rather than a bundle for each spec.
 ### Fixed
 -   When NLDI is queried, the distance parameter is not used if no distance is specified
+-   Fixed styling issue with the NLDI point selector.
 
 ## [5.22.0](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.21.0...WQP_UI-5.22.0) - 2020-06-24
 ### Changed
