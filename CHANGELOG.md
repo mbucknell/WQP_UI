@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## [Unreleased](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.23.0...master)
 
-## [5.23.0](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.22.0...WQP_UI-5.22.0) - 2020-07-22
+## [5.23.0](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.22.0...WQP_UI-5.23.0) - 2020-07-22
 ### Changed
 -   All javascript tests must now be imported into assets/test/js/karmaEntrySpec.js. A single test bundle is now created rather than a bundle for each spec.
 ### Fixed
