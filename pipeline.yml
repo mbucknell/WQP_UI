@@ -28,3 +28,9 @@ urlRules:
     conditions:
       - "/*"
     priority: 503
+tags:
+  wma:costCenter: TBD
+  wma:organization: iow
+  wma:contact: TBD
+  wma:taggingVersion: 0.0.1
+  wma:project_id: wqp
