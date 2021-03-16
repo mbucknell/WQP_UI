@@ -1,0 +1,11 @@
+// Change the background color to test and make sure the compiling is working
+
+body, html{
+	background-color: aquamarine !important;
+}
+
+// Variables
+$black: #000;
+
+// Import all other custom scss files
+@import "layout.scss";
