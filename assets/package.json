@@ -13,9 +13,8 @@
     "test:watch": "mkdir -p dist/scripts && run-p build:vendorjs && karma start --debug --no-single-run --browsers Chrome",
     "build": "run-p build:* && npm run hash-assets",
     "build:css": "run-p buildcss:*",
-    "buildcss:theme_usgs": "lessc less/usgs_theme/custom.less > dist/nwis_qw_custom.css && uglifycss --output dist/nwis_qw_custom.css dist/nwis_qw_custom.css && postcss dist/nwis_qw_custom.css --no-map --use autoprefixer -o dist/nwis_qw_custom.css",
-    "buildcss:wqp_theme": "lessc less/wqp_theme/custom.less > dist/custom.css && uglifycss --output dist/custom.css dist/custom.css && postcss dist/custom.css --no-map --use autoprefixer -o dist/custom.css",
-    "buildcss:vendor": "lessc less/vendor.less > dist/vendor.css && uglifycss --output dist/vendor.css dist/vendor.css && postcss dist/vendor.css --no-map --use autoprefixer -o dist/vendor.css",
+    "buildcss:custom": "sass scss/custom/custom.scss dist/custom.css && uglifycss --output dist/custom.css dist/custom.css && postcss dist/custom.css --no-map --use autoprefixer -o dist/custom.css",
+    "buildcss:vendor": "sass scss/vendor/vendor.scss dist/vendor.css && uglifycss --output dist/vendor.css dist/vendor.css && postcss dist/vendor.css --no-map --use autoprefixer -o dist/vendor.css",
     "build:fonts": "mkdir -p dist/fonts && cp node_modules/font-awesome/fonts/* dist/fonts",
     "build:templates": "mkdir -p dist/js/hbTemplates && cp js/hbTemplates/* dist/js/hbTemplates",
     "build:images": "mkdir -p dist/images dist/img && cp img/* dist/img && cp node_modules/leaflet/dist/images/* dist/images && cp node_modules/leaflet-draw/dist/images/* dist/images && cp node_modules/jquery-ui-dist/images/* dist/images",
@@ -26,7 +25,8 @@
     "httpsserve:static": "live-server --port=9000 --https=./node_modules/live-server-https --cors --no-browser dist",
     "watch": "run-p watch:* serve:static",
     "httpswatch": "run-p watch:* httpsserve:static",
-    "watch:css": "nodemon -w ./less -e less -x \"npm run build:css\"",
+    "watch:css": "nodemon -w ./scss -e scss -x \"npm run buildcss:custom\"",
+    "watch:vendorcss": "nodemon -w ./scss/vendor/ -e scss -x \"npm run buildcss:vendor\"",
     "watch:fonts": "npm run build:fonts",
     "watch:templates": "npm run build:templates",
     "watch:images": "npm run build:images",
@@ -76,6 +76,7 @@
     "rollup-plugin-handlebars-plus": "^0.2.5",
     "rollup-plugin-istanbul": "^2.0.1",
     "rollup-plugin-uglify": "^6.0.4",
+    "sass": "^1.32.8",
     "sinon": "^9.0.2",
     "uglifycss": "^0.0.29"
   },
@@ -95,6 +96,7 @@
     "nanobar": "0.4.2",
     "numeral": "2.0.6",
     "select2": "4.0.13",
-    "select2-bootstrap-theme": "0.1.0-beta.10"
+    "select2-bootstrap-theme": "0.1.0-beta.10",
+    "uswds": "^2.10.3"
   }
 }
