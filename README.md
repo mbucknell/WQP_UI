@@ -83,6 +83,14 @@ The make devenv target will copy a sample, `server/instance/config.py.sample`,
 as a convenience if one doesn't exist. By default these will point to production services.
 You will need to fill in the url for the geoserver endpoint, WQP_MAP_GEOSERVER_ENDPOINT
 
+For Windows machines it is recommended that Windows Subsystem for Linux (WSL) is used. At the time of writing this WSL version 1 must be used due to a bug in version 2. To install WSL:
+1. Go to https://docs.microsoft.com/en-us/windows/wsl/install-win10 and scroll to the section titled "Manual Installation Steps"
+3. Complete steps 1-4 in that section
+4. In powershell run `wsl --set-default-version 1`
+5. Go to https://docs.microsoft.com/en-us/windows/wsl/install-manual and download a distro of Linux
+7. Open up a powershell prompt inside the folder that contains the downloaded linux distro
+8. run `Add-AppxPackage .\app_name.appx`, substituting 'app_name' with the name of the file
+
 ### Install dependencies
 
 The repository contains a make target to configure a local development environment:

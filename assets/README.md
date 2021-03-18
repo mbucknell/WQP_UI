@@ -5,12 +5,12 @@ produced by this project are dependencies of the [Flask server](../server).
 
 ## Install dependencies
 
-Javascript and LESS assets are built with Node.js v8.11.2. Usage of
+Javascript and LESS assets are built with Node.js. Check the package.json for the specific version. Usage of
 [nvm](https://github.com/creationix/nvm) is a convenient way to use a specific
 version of Node.js:
 
 ```bash
-nvm use v8.11.2
+nvm use v12.18.1
 ```
 
 Node.js dependencies are installed via:
