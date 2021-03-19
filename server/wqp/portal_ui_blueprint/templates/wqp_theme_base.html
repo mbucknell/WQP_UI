@@ -65,19 +65,91 @@
 {% block page_footer %}
     <hr/>
     <div id="footer-row-div">
-        <div id="contact-us-div"><a href="{{ url_for('portal_ui.contact_us-canonical') }}">Contact us</a></div>
-        <div class="logo">
-            <a href="http://usgs.gov"><img alt="USGS Science for a changing world"
-                                           src="{{ 'img/USGS_logo.gif' | asset_url }}"/></a>
-        </div>
-        <div class="logo">
-            <a href="http://epa.gov"><img alt="EPA"
-                                          src="{{ 'img/EPA_logo.gif' | asset_url }}"/></a>
-        </div>
-        <div class="logo" id="USDA-logo-div">
-            <a href="http://www.ars.usda.gov/"><img alt="USDA-ARS"
-                                                    src="{{ 'img/USDA-Logo.png' | asset_url }}"/></a>
-        </div>
+        <footer class="usa-footer">
+            <div class="grid-container usa-footer__return-to-top">
+              <a href="#">Return to top</a>
+            </div>
+            <div class="usa-footer__primary-section">
+              <nav class="usa-footer__nav" aria-label="Footer navigation">
+                <ul class="grid-row grid-gap">
+                  <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                    <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.wqp_description-canonical') }}">What is the WQP?</a>
+                  </li>
+                  <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                    <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.orgs-canonical') }}">Contributing orgs</a>
+                  </li>
+                  <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                    <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.apps_using_portal-canonical') }}">Apps using the WQP</a>
+                  </li>
+                  <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                    <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.other_portal_links-canonical') }}">Other Water Quality Portals</a>
+                  </li>
+                  <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                    <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.uri_base') }}">Explore WQP sites</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          
+            <div class="usa-footer__secondary-section">
+              <div class="grid-container">
+                <div class="grid-row grid-gap">
+                  <div class="usa-footer__logo grid-row mobile-lg:grid-col-6 mobile-lg:grid-gap-2">
+                    <div class="mobile-lg:grid-col-auto">
+                      <!-- <img class="usa-footer__logo-img" src="/assets/img/USGS_logo.gif" alt=""> -->
+                      <a href="http://usgs.gov"><img alt="USGS Science for a changing world"
+                        src="{{ 'img/USGS_logo.gif' | asset_url }}"/></a>
+                    </div>
+                    <div class="mobile-lg:grid-col-auto">
+                      <!-- <img class="usa-footer__logo-img" src="/assets/img/USGS_logo.gif" alt=""> -->
+                      <a href="http://epa.gov"><img alt="EPA"
+                        src="{{ 'img/EPA_logo.gif' | asset_url }}"/></a>
+                    </div>
+                  </div>
+                  <div class="usa-footer__contact-links mobile-lg:grid-col-6">
+                    <div class="usa-footer__social-links grid-row grid-gap-1">
+                      <div class="grid-col-auto"> <!-- TODO see if these would be useful to USGS or EPA -->
+                        <a class="usa-social-link usa-social-link--facebook" href="javascript:void(0);">
+                          <span>Facebook</span>
+                        </a>
+                      </div>
+                      <div class="grid-col-auto">
+                        <a class="usa-social-link usa-social-link--twitter" href="javascript:void(0);">
+                          <span>Twitter</span>
+                        </a>
+                      </div>
+                      <div class="grid-col-auto">
+                        <a class="usa-social-link usa-social-link--youtube" href="javascript:void(0);">
+                          <span>YouTube</span>
+                        </a>
+                      </div>
+                      <div class="grid-col-auto">
+                        <a class="usa-social-link usa-social-link--instagram" href="javascript:void(0);">
+                          <span>Instagram</span>
+                        </a>
+                      </div>
+                      <div class="grid-col-auto">
+                        <a class="usa-social-link usa-social-link--rss" href="javascript:void(0);">
+                          <span>RSS</span>
+                        </a>
+                      </div>
+                    </div>
+                    <h3 class="usa-footer__contact-heading">Agency Contact Center</h3>
+                    <address class="usa-footer__address">
+                      <div class="usa-footer__contact-info grid-row grid-gap">
+                        <div class="grid-col-auto">
+                          <a href="tel:1-800-424-9067">1-800-424-9067</a>
+                        </div>
+                        <div class="grid-col-auto">
+                          <a href="mailto:WQX@epa.gov">WQX@epa.gov</a>
+                        </div>
+                      </div>
+                    </address>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
     </div>
 {% endblock %}
 
