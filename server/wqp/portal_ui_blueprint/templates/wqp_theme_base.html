@@ -61,13 +61,11 @@
 <header class="usa-header usa-header--basic">
 	<div class="usa-nav-container">
 		<div class="usa-navbar">
-			<div class="usa-logo" id="basic-logo">
-				<!-- <em class="usa-logo__image">
-					<a href="/" title="Home" aria-label="Home">
-						<img src="{{ 'img/NWQMC_newlogo.png' | asset_url }}" width="56px" height="76px" alt="National Water Quality Monitoring Council" />
-					</a>
-				</em> -->
-				<em class="usa-logo__text"><a href="/" title="Home" aria-label="Home">NATIONAL WATER QUALITY MONITORING COUNCIL</a></em>
+			<div class="custom-nav-branding">
+				<a href="/" title="Home" aria-label="Home">
+					<img src="{{ 'img/NWQMC.png' | asset_url }}" width="56px" height="76px" alt="National Water Quality Monitoring Council" />
+				</a>
+				<em><a href="/" title="Home" aria-label="Home">NATIONAL WATER QUALITY MONITORING COUNCIL</a></em>
 			</div>
 			<button class="usa-menu-btn">Menu</button>
 		</div>
@@ -148,9 +146,14 @@
             </li>
         </ul>
     </div>
+
+	<div id="pageBody">
 {% endblock %}
 
 {% block page_footer %}
+
+	</div>
+
     <hr/>
     <div id="footer-row-div">
         <footer class="usa-footer">
