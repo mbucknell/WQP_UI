@@ -99,7 +99,7 @@ L.CoverageLayer = L.TileLayer.WMS.extend({
             request : 'GetLegendGraphic',
             format : 'image/png',
             layer : this.wmsParams.layers,
-            sld : this.wmsParams.sld,
+            sld : 'https://www.waterqualitydata.us/Codes/Summary?dataSource=A&geometry=S&timeFrame=A', // replace with this.wmsParams.layers when going to prod 
             VIEWPARAMS : this.wmsParams.VIEWPARAMS
         };
         return Config.WQP_MAP_GEOSERVER_ENDPOINT + 'wms?' + $.param(queryParams);
