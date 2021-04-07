@@ -15,7 +15,7 @@
     	<header class="usa-banner__header">
       		<div class="usa-banner__inner">
         		<div class="grid-col-auto">
-          			<img class="usa-banner__header-flag" src="img/us_flag_small.png" alt="U.S. flag">
+          			<img class="usa-banner__header-flag" src="{{ 'img/us_flag_small.png' | asset_url }}" alt="U.S. flag">
         		</div>
         		<div class="grid-col-fill tablet:grid-col-auto">
           			<p class="usa-banner__header-text">An official website of the United States government</p>
@@ -29,7 +29,7 @@
     	<div class="usa-banner__content usa-accordion__content" id="gov-banner">
       		<div class="grid-row grid-gap-lg">
         		<div class="usa-banner__guidance tablet:grid-col-6">
-          			<img class="usa-banner__icon usa-media-block__img" src="img/icon-dot-gov.svg" role="img" alt="" aria-hidden="true">
+          			<img class="usa-banner__icon usa-media-block__img" src="{{ 'img/icon-dot-gov.svg' | asset_url }}" role="img" alt="" aria-hidden="true">
           			<div class="usa-media-block__body">
             			<p>
               				<strong>Official websites use .gov</strong>
@@ -39,7 +39,7 @@
           			</div>
         		</div>
         		<div class="usa-banner__guidance tablet:grid-col-6">
-          			<img class="usa-banner__icon usa-media-block__img" src="img/icon-https.svg" role="img" alt="" aria-hidden="true">
+          			<img class="usa-banner__icon usa-media-block__img" src="{{ 'img/icon-https.svg' | asset_url }}" role="img" alt="" aria-hidden="true">
           			<div class="usa-media-block__body">
 						<p>
       	        			<strong>Secure .gov websites use HTTPS</strong>
@@ -71,38 +71,65 @@
 		</div>
 
 
+		<!-- Add .usa-current on active usa-nav__link element  -->
 		<nav aria-label="Primary navigation" class="usa-nav">
-     	 	<button class="usa-nav__close"><img src="img/close.svg" role="img" alt="close"></button>
+     	 	<button class="usa-nav__close"><img src="{{ 'img/close.svg' | asset_url }}" role="img" alt="close"></button>
 			<ul class="usa-nav__primary usa-accordion">
+
+				<li class="usa-nav__primary-item">
+    				<a class="usa-nav__link" href="/"><span>Home</span></a>
+    			</li>
+
 				<li class="usa-nav__primary-item">
     				<a class="usa-nav__link" href="/portal/"><span>Download Data</span></a>
     			</li>
+
 				<li class="usa-nav__primary-item">
-    				<button class="usa-accordion__button usa-nav__link  usa-current" aria-expanded="false" aria-controls="basic-nav-section-one"><span>About the WQP</span></button>
+    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-one"><span>Explore WQP Sites</span></button>
     				<ul id="basic-nav-section-one" class="usa-nav__submenu">
 						<li class="usa-nav__submenu-item">
-             	 			<a href="/wqp_description/" class="">What is the WQP?</a>
+              				<a href="/provider/NWIS" class="">NWIS</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-             	 			<a href="/orgs/" class="">Contributing Organizations</a>
+              				<a href="/provider/STEWARDS" class="">STEWARDS</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="/apps_using_portal/" class="">Applications using the WQP</a>
-            			</li>
-						<li class="usa-nav__submenu-item">
-              				<a href="/other_portal_links/" class="">Other Water Quality Portals</a>
-            			</li>
-						<li class="usa-nav__submenu-item">
-              				<a href="/contact_us/" class="">Contact Us</a>
-            			</li>
-						<li class="usa-nav__submenu-item">
-              				<a href="/provider/" class="">Explore WQP Sites</a>
+              				<a href="/provider/STORET" class="">STORET</a>
             			</li>
 					</ul>
 				</li>
+
+
+				<!-- <li class="usa-nav__primary-item">
+    				<button class="usa-accordion__button usa-nav__link  usa-current" aria-expanded="false" aria-controls="basic-nav-section-one"><span>About</span></button>
+    				<ul id="basic-nav-section-one" class="usa-nav__submenu">
+						<li class="usa-nav__submenu-item">
+							<a href="/wqp_description/" class="">What is the WQP?</a>
+					 	</li>
+					  	<li class="usa-nav__submenu-item">
+							<a href="/orgs/" class="">Contributing Organizations</a>
+					  	</li>
+					  	<li class="usa-nav__submenu-item">
+							<a href="/apps_using_portal/" class="">Applications using the WQP</a>
+					  	</li>
+					  	<li class="usa-nav__submenu-item">
+							<a href="/other_portal_links/" class="">Other Water Quality Portals</a>
+					  	</li>
+					  	<li class="usa-nav__submenu-item">
+							<a href="/contact_us/" class="">Contact Us</a>
+					  	</li>
+				  	</ul>
+				</li> -->
+
 				<li class="usa-nav__primary-item">
-    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-two"><span>How to use the WQP</span></button>
+    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-two"><span>Help & About</span></button>
     				<ul id="basic-nav-section-two" class="usa-nav__submenu">
+						<li class="usa-nav__submenu-item">
+							<a href="/wqp_description/" class="">What is the WQP?</a>
+					 	</li>
+						 <li class="usa-nav__submenu-item">
+							<a href="/orgs/" class="">Contributing Organizations</a>
+					  	</li>
 						<li class="usa-nav__submenu-item">
               				<a href="/portal_userguide/" class="">User Guide</a>
             			</li>
@@ -115,11 +142,19 @@
 						<li class="usa-nav__submenu-item">
               				<a href="/upload_data/" class="">Upload Data</a>
             			</li>
+						<li class="usa-nav__submenu-item">
+							<a href="/apps_using_portal/" class="">Applications using the WQP</a>
+					  	</li>
+						<li class="usa-nav__submenu-item">
+							<a href="/other_portal_links/" class="">Other Water Quality Portals</a>
+					  	</li>
+						<li class="usa-nav__submenu-item">
+							<a href="/contact_us/" class="">Contact Us</a>
+					  	</li>
+
+
 					</ul>
 				</li>
-				<li class="usa-nav__primary-item">
-    				<a class="usa-nav__link" href="javascript:void(0)"><span>Contact Us</span></a>
-    			</li>
 			</ul>
 		</nav>
   	</div>
@@ -128,7 +163,7 @@
 {% endblock %}
 
 {% block navbar_navigation %}
-    <div id="wqp-navbar-header" class="navbar-header">
+    <!-- <div id="wqp-navbar-header" class="navbar-header">
         <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#wqp-standard-navbar-collapse">WQP Menu<span class="caret"></span></button>
     </div>
     <div id="wqp-standard-navbar-collapse" class="navbar-collapse collapse">
@@ -157,10 +192,9 @@
                 </ul>
             </li>
         </ul>
-    </div>
+    </div> --> 
+{% endblock %} 
 
-	<div id="pageBody">
-{% endblock %}
 
 {% block page_footer %}
 
@@ -210,33 +244,6 @@
                     </div>
                   </div>
                   <div class="usa-footer__contact-links mobile-lg:grid-col-6">
-                    <div class="usa-footer__social-links grid-row grid-gap-1">
-                      <div class="grid-col-auto"> <!-- TODO see if these would be useful to USGS or EPA -->
-                        <a class="usa-social-link usa-social-link--facebook" href="javascript:void(0);">
-                          <span>Facebook</span>
-                        </a>
-                      </div>
-                      <div class="grid-col-auto">
-                        <a class="usa-social-link usa-social-link--twitter" href="javascript:void(0);">
-                          <span>Twitter</span>
-                        </a>
-                      </div>
-                      <div class="grid-col-auto">
-                        <a class="usa-social-link usa-social-link--youtube" href="javascript:void(0);">
-                          <span>YouTube</span>
-                        </a>
-                      </div>
-                      <div class="grid-col-auto">
-                        <a class="usa-social-link usa-social-link--instagram" href="javascript:void(0);">
-                          <span>Instagram</span>
-                        </a>
-                      </div>
-                      <div class="grid-col-auto">
-                        <a class="usa-social-link usa-social-link--rss" href="javascript:void(0);">
-                          <span>RSS</span>
-                        </a>
-                      </div>
-                    </div>
                     <h3 class="usa-footer__contact-heading">Agency Contact Center</h3>
                     <address class="usa-footer__address">
                       <div class="usa-footer__contact-info grid-row grid-gap">
