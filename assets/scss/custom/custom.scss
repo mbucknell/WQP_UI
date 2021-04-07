@@ -48,9 +48,9 @@ $black: #000;
 
   #coverage-map-area,
   .map-loading-indicator {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    position: relative;
+    width: 600px;
+    height: 400px;
     top: 0px;
   }
 

@@ -16,8 +16,7 @@ PROJECT_HOME = os.path.dirname(__file__)
 # Application defined config variables
 
 # Points to the geoserver endpoint you want to use.
-# WQP_MAP_GEOSERVER_ENDPOINT = os.environ.get('WQP_MAP_GEOSERVER_ENDPOINT')
-WQP_MAP_GEOSERVER_ENDPOINT = 'https://www.waterqualitydata.us/wqp_geoserver/'
+WQP_MAP_GEOSERVER_ENDPOINT = os.environ.get('WQP_MAP_GEOSERVER_ENDPOINT')
 
 SITES_MAP_GEOSERVER_ENDPOINT = os.environ.get('SITES_MAP_GEOSERVER_ENDPOINT')
 
