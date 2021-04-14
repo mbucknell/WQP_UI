@@ -70,3 +70,51 @@ $black: #000;
   width: 20%;
   display: inline-block;
 }
+
+#nldi-map-container {
+  /* display: none; */
+  #nldi-help-div {
+    font-style: italic;
+  }
+  #nldi-map {
+    height: 500px;
+    width: 100%;
+    cursor: pointer;
+
+    .leaflet-popup-pane {
+      .feature-source-info ul {
+        list-style: none;
+        padding-left: 0px;
+      }
+      .navigation-selection-div {
+        label {
+          font-size: 14px;
+          font-weight: bold;
+        }
+        .navigate-button-div {
+          margin-top: 5px;
+          text-align: center;
+          button {
+            color: blue;
+            font-size: 14px;
+            background-color: blue;
+            border-color: lightgrey;
+            padding: 5px 15px;
+            border-radius: 5px;
+            text-align: center;
+          }
+          button:disabled {
+            opacity: 0.65;
+          }
+        }
+      }
+    }
+  }
+}
+
+.leaflet-control-container {
+  select {
+    padding: 5px;
+    font-size: 12px;
+  }
+}
