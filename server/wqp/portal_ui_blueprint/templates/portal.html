@@ -13,7 +13,13 @@
                         ">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <button type="button" class="usa-button">Reset form</button>
-        <div class="grid-container">
+        <!-- <div id="app">
+            <h1>[[ message ]]</h1>
+            <label class="usa-label usa-tooltip" for="countrycode"
+                data-position="top" data-classes="width-full tablet:width-auto"
+                id="country" :title="countryTooltip">Country:</label>
+        </div> -->
+        <div class="grid-container" id="app">
             <div class="grid-row">
                 <div class="tablet:grid-col-12">
                     <div class="usa-accordion usa-accordion--bordered">
@@ -28,9 +34,11 @@
                             <div id="location-parameters">
                                 <div class="panel-body">
                                     <div id="place">
-                                        <div>
+                                        <div> <h1>[[ message ]]</h1>
                                             <div class="form-group">
-                                                <label class="usa-label" for="countrycode">Country:</label>
+                                                <label class="usa-label" for="countrycode"
+                                                    data-position="top" data-classes="width-full tablet:width-auto"
+                                                    id="country" :title="countryTooltip">Country:</label>
                                                 <div>
                                                     <select multiple class="usa-select-custom" id="countrycode"
                                                         name="countrycode" data-placeholder="All"
@@ -625,5 +633,6 @@
 {% endblock %}
 
 {% block body_page_script %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
 {% endblock %}

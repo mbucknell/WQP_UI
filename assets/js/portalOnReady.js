@@ -1,5 +1,5 @@
 import log from 'loglevel';
-
+import { TOOLTIP } from './tooltipDefinitions';
 import ArcGisOnlineHelpView from './views/arcGisOnlineHelpView';
 import DownloadFormView from './views/downloadFormView';
 import ShowAPIView from './views/showAPIView';
@@ -52,5 +52,15 @@ $(document).ready(function () {
             $dialog.find('.modal-body').html('No longer authorized to use the application. Please reload the page to login again');
         }
         $dialog.modal('show');
+    });
+
+    // Initialize Vue.js
+    var app = new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        data: {
+            message: 'vue is working',
+            countryTooltip: TOOLTIP.country,        
+        }
     });
 });
