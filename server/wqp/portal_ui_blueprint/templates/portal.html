@@ -76,6 +76,11 @@
                                                 <button type="button" id="proximityHelp" class="popover-help"
                                                     data-help="pointLocation">?
                                                 </button>
+                                                <div>
+                                                    Example: 20 miles from Latitude 46.12 degrees N, Longitude 89.15 degrees W would be entered as:
+                                                    Distance: 20
+                                                    Latitude: 46.12
+                                                    Longitude: -89.15</div>
                                                 <button type="button" class="show-hide-toggle" title="Show subsection">
                                                     <img src="{{ 'img/expand.png' | asset_url }}" alt="show" />
                                                 </button>
@@ -188,6 +193,14 @@
                                                     <select multiple class="form-control" id="siteid" name="siteid"
                                                         data-placeholder="All"></select>
                                                 </div>
+                                                <div>
+                                                    Examples:
+For NWIS site: USGS-301650084300701
+For STORET site: R10BUNKER-CUA005-5
+For multiple sites:
+IN002-413354086221001;USSCS-311257091521312;USEPA-414007085591501
+For further information about NWIS versus STORET site ids, go to the FAQs page
+                                                </div>
                                                 <button type="button" class="help-link popover-help" id="siteHelp"
                                                     data-help="siteID">?
                                                 </button>
@@ -198,6 +211,10 @@
                                                     <input class="form-control" type="text" name="huc" id="huc"
                                                         data-multiple="true" />
                                                 </div>
+                                                <div>Examples:
+                                                    01010003;01010004
+                                                    010801*
+                                                    01010003;010801*;01010005</div>
                                                 <button type="button" class="help-link popover-help" id="hucHelp"
                                                     data-help="huc">?</button>
                                             </div>

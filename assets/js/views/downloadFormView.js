@@ -8,7 +8,6 @@ import PointLocationInputView from './pointLocationInputView';
 import { StaticSelect2 } from './portalViews';
 import SamplingParameterInputView from './samplingParameterInputView';
 import SiteParameterInputView from './siteParameterInputView';
-import portalHelp from '../portalHelp';
 import { CachedCodes, CodesWithKeys } from '../portalModels';
 import providers from '../providers';
 import queryService from '../queryService';
@@ -138,21 +137,6 @@ export default class DownloadFormView {
             this.$form.find('#nldi-inset-map').hide();
             this.$form.find('#nldi-map').hide();
         }
-
-        // Create help popovers which close when you click anywhere else other than another popover trigger.
-        $('html').click(function () {
-            $('.popover-help').popover('hide');
-        });
-        this.$form.find('.popover-help').each(function () {
-            const options = $.extend({}, portalHelp[$(this).data('help')], {
-                html: true,
-                trigger: 'manual'
-            });
-            $(this).popover(options).click(function (e) {
-                $(this).popover('toggle');
-                e.stopPropagation();
-            });
-        });
 
         // Add Click handler for form show/hide/button
         this.$form.find('.panel-heading .show-hide-toggle').click(function () {

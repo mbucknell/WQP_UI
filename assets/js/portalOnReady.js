@@ -60,7 +60,7 @@ $(document).ready(function () {
         delimiters: ['[[', ']]'],
         data: {
             message: 'vue is working',
-            countryTooltip: TOOLTIP.country,        
+            countryTooltip: TOOLTIP.countryTooltip,        
         }
     });
 });
