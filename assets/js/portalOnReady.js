@@ -19,25 +19,25 @@ $(document).ready(function () {
     // Create sub views
     let downloadProgressDialog = new DownloadProgressDialog($('#download-status-dialog'));
     let downloadFormView = new DownloadFormView({
-        $form : $form,
-        downloadProgressDialog : downloadProgressDialog
+        $form: $form,
+        downloadProgressDialog: downloadProgressDialog
     });
     let siteMapView = new SiteMapView({
-        $container : $('#mapping-div'),
-        downloadProgressDialog : downloadProgressDialog,
-        downloadFormView : downloadFormView
+        $container: $('#mapping-div'),
+        downloadProgressDialog: downloadProgressDialog,
+        downloadFormView: downloadFormView
     });
     let showAPIView = new ShowAPIView({
-        $container : $('#show-queries-div'),
-        getQueryParamArray : $.proxy(downloadFormView.getQueryParamArray, downloadFormView),
+        $container: $('#show-queries-div'),
+        getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView),
         getResultType: $.proxy(downloadFormView.getResultType, downloadFormView)
     });
 
     let arcGisOnlineHelpView = new ArcGisOnlineHelpView({
-        $button : $('#show-arcgis-online-help'),
-        $dialog : $('#arcgis-online-dialog'),
-        $siteMapViewContainer : $('#mapping-div'),
-        getQueryParamArray : $.proxy(downloadFormView.getQueryParamArray, downloadFormView)
+        $button: $('#show-arcgis-online-help'),
+        $dialog: $('#arcgis-online-dialog'),
+        $siteMapViewContainer: $('#mapping-div'),
+        getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView)
     });
 
     //Initialize subviews
@@ -46,7 +46,7 @@ $(document).ready(function () {
     showAPIView.initialize();
     arcGisOnlineHelpView.initialize();
 
-    initDownloadForm.fail(function(jqxhr) {
+    initDownloadForm.fail(function (jqxhr) {
         let $dialog = $('#service-error-dialog');
         if (jqxhr.status === 401 || jqxhr.status === 403) {
             $dialog.find('.modal-body').html('No longer authorized to use the application. Please reload the page to login again');
@@ -60,7 +60,27 @@ $(document).ready(function () {
         delimiters: ['[[', ']]'],
         data: {
             message: 'vue is working',
-            countryTooltip: TOOLTIP.countryTooltip,        
+            countryTooltip: TOOLTIP.countryTooltip,
+            stateTooltip: TOOLTIP.stateTooltip,
+            countyTooltip: TOOLTIP.countyTooltip,
+            pointLocationTooltip: TOOLTIP.pointLocationTooltip,
+            boundingBoxTooltip: TOOLTIP.boundingBoxTooltip,
+            siteTypeTooltip: TOOLTIP.siteTypeTooltip,
+            orgIDTooltip: TOOLTIP.orgIDTooltip,
+            siteIDTooltip: TOOLTIP.siteIDTooltip,
+            hucTooltip: TOOLTIP.hucTooltip,
+            minSamplingTooltip: TOOLTIP.minSamplingTooltip,
+            upDownStreamTooltip: TOOLTIP.upDownStreamTooltip,
+            sampleMediaTooltip: TOOLTIP.sampleMediaTooltip,
+            charGroupTooltip: TOOLTIP.charGroupTooltip,
+            characteristicsTooltip: TOOLTIP.characteristicsTooltip,
+            projectIDTooltip: TOOLTIP.projectIDTooltip,
+            paramCodeTooltip: TOOLTIP.paramCodeTooltip,
+            minimumResultsTooltip: TOOLTIP.minimumResultsTooltip,
+            bioSamplingTooltip: TOOLTIP.bioSamplingTooltip,
+            assemblageTooltip: TOOLTIP.assemblageTooltip,
+            taxNameTooltip: TOOLTIP.taxNameTooltip,
+            showAGOLTooltip: TOOLTIP.showAGOLTooltip,
         }
     });
 });
