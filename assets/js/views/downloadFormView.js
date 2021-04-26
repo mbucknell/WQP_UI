@@ -131,7 +131,7 @@ export default class DownloadFormView {
         pointLocationInputView.initialize();
         boundingBoxInputView.initialize();
         if (Config.NLDI_ENABLED) {
-            nldiView.initialize();
+            /* nldiView.initialize();  */
         } else {
             this.$form.find('#nldi-container').hide();
             this.$form.find('#nldi-inset-map').hide();

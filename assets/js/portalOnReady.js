@@ -7,6 +7,34 @@ import SiteMapView from './views/siteMapView';
 import DownloadProgressDialog from './downloadProgressDialog';
 
 $(document).ready(function () {
+    // Initialize Vue.js
+    var app = new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        data: {
+            countryTooltip: TOOLTIP.countryTooltip,
+            stateTooltip: TOOLTIP.stateTooltip,
+            countyTooltip: TOOLTIP.countyTooltip,
+            pointLocationTooltip: TOOLTIP.pointLocationTooltip,
+            boundingBoxTooltip: TOOLTIP.boundingBoxTooltip,
+            siteTypeTooltip: TOOLTIP.siteTypeTooltip,
+            orgIDTooltip: TOOLTIP.orgIDTooltip,
+            siteIDTooltip: TOOLTIP.siteIDTooltip,
+            hucTooltip: TOOLTIP.hucTooltip,
+            minSamplingTooltip: TOOLTIP.minSamplingTooltip,
+            upDownStreamTooltip: TOOLTIP.upDownStreamTooltip,
+            sampleMediaTooltip: TOOLTIP.sampleMediaTooltip,
+            charGroupTooltip: TOOLTIP.charGroupTooltip,
+            characteristicsTooltip: TOOLTIP.characteristicsTooltip,
+            projectIDTooltip: TOOLTIP.projectIDTooltip,
+            paramCodeTooltip: TOOLTIP.paramCodeTooltip,
+            minimumResultsTooltip: TOOLTIP.minimumResultsTooltip,
+            bioSamplingTooltip: TOOLTIP.bioSamplingTooltip,
+            assemblageTooltip: TOOLTIP.assemblageTooltip,
+            taxNameTooltip: TOOLTIP.taxNameTooltip,
+            showAGOLTooltip: TOOLTIP.showAGOLTooltip,
+        }
+    });
     // Set the loglevel
     if (Config.DEBUG) {
         log.setLevel('debug', false);
@@ -42,7 +70,7 @@ $(document).ready(function () {
 
     //Initialize subviews
     let initDownloadForm = downloadFormView.initialize();
-    siteMapView.initialize();
+    // siteMapView.initialize();
     showAPIView.initialize();
     arcGisOnlineHelpView.initialize();
 
@@ -52,35 +80,5 @@ $(document).ready(function () {
             $dialog.find('.modal-body').html('No longer authorized to use the application. Please reload the page to login again');
         }
         $dialog.modal('show');
-    });
-
-    // Initialize Vue.js
-    var app = new Vue({
-        el: '#app',
-        delimiters: ['[[', ']]'],
-        data: {
-            message: 'vue is working',
-            countryTooltip: TOOLTIP.countryTooltip,
-            stateTooltip: TOOLTIP.stateTooltip,
-            countyTooltip: TOOLTIP.countyTooltip,
-            pointLocationTooltip: TOOLTIP.pointLocationTooltip,
-            boundingBoxTooltip: TOOLTIP.boundingBoxTooltip,
-            siteTypeTooltip: TOOLTIP.siteTypeTooltip,
-            orgIDTooltip: TOOLTIP.orgIDTooltip,
-            siteIDTooltip: TOOLTIP.siteIDTooltip,
-            hucTooltip: TOOLTIP.hucTooltip,
-            minSamplingTooltip: TOOLTIP.minSamplingTooltip,
-            upDownStreamTooltip: TOOLTIP.upDownStreamTooltip,
-            sampleMediaTooltip: TOOLTIP.sampleMediaTooltip,
-            charGroupTooltip: TOOLTIP.charGroupTooltip,
-            characteristicsTooltip: TOOLTIP.characteristicsTooltip,
-            projectIDTooltip: TOOLTIP.projectIDTooltip,
-            paramCodeTooltip: TOOLTIP.paramCodeTooltip,
-            minimumResultsTooltip: TOOLTIP.minimumResultsTooltip,
-            bioSamplingTooltip: TOOLTIP.bioSamplingTooltip,
-            assemblageTooltip: TOOLTIP.assemblageTooltip,
-            taxNameTooltip: TOOLTIP.taxNameTooltip,
-            showAGOLTooltip: TOOLTIP.showAGOLTooltip,
-        }
     });
 });
