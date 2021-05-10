@@ -130,13 +130,13 @@ export default class DownloadFormView {
         this.dataDetailsView.initialize();
         pointLocationInputView.initialize();
         boundingBoxInputView.initialize();
-        if (Config.NLDI_ENABLED) {
-            /* nldiView.initialize();  */
+        /* if (Config.NLDI_ENABLED) {
+            nldiView.initialize(); 
         } else {
             this.$form.find('#nldi-container').hide();
             this.$form.find('#nldi-inset-map').hide();
             this.$form.find('#nldi-map').hide();
-        }
+        } */
 
         // Add Click handler for form show/hide/button
         this.$form.find('.panel-heading .show-hide-toggle').click(function () {
@@ -162,7 +162,6 @@ export default class DownloadFormView {
             const queryParamArray = this.getQueryParamArray();
             const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
             window.location.hash = `#${queryString}`;
-
             $shareText.val(window.location.href);
         });
 
@@ -235,7 +234,7 @@ export default class DownloadFormView {
     /*
      * Return an array of Objects with name, value, and data-multiple attributes representing the current state
      * of the form. Empty
-     * values are removed from the array. For selects that can have multiple values value will be an array, otherwise
+     * values are removed from the array. For selects and checkbox fieldsets that can have multiple values value will be an array, otherwise
      * it will be a string.
      * @return {Array of Objects with name, value, and multiple properties}
      */
@@ -244,20 +243,34 @@ export default class DownloadFormView {
         const $formInputs = this.$form.find(':input').not('#mapping-div :input, #nldi-inset-map :input, #nldi-map :input');
 
         let result = [];
-        $formInputs.each(function() {
-            if ($(this).attr('type') !== 'radio' || $(this).prop('checked')) {
+        let providersArray = [];
+        var length = $formInputs.length;
+        $formInputs.each(function(index, el) {
+            if ($(this).attr('type') !== 'radio' || $(this).prop('checked') || (this.className === 'datasources usa-checkbox__input')) {
                 const value = $(this).val();
                 const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
                 const name = $(this).attr('name');
                 if (valueIsNotEmpty && name) {
+                    if ((valueIsNotEmpty &&  this.className === 'datasources usa-checkbox__input') && (this.checked === true)) {
+                        providersArray.push(value)
+                    } else if (this.className !== 'datasources usa-checkbox__input') {
+                        result.push({
+                            name: name,
+                            value: value,
+                            multiple: $(this).data('multiple') ? true : false
+                        });
+                    }
+                }
+                if (index === (length - 1)) {
                     result.push({
-                        name: name,
-                        value: value,
+                        name: 'providers',
+                        value: providersArray,
                         multiple: $(this).data('multiple') ? true : false
-                    });
+                    })
                 }
             }
         });
+        console.log(result);
         return result;
     }
 
