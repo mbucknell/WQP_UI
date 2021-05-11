@@ -45,7 +45,7 @@ $(document).ready(function () {
     let $form = $('#params');
 
     // Create sub views
-    let downloadProgressDialog = new DownloadProgressDialog($('#download-status-dialog'));
+    let downloadProgressDialog = new DownloadProgressDialog($('#download-status-modal'));
     let downloadFormView = new DownloadFormView({
         $form: $form,
         downloadProgressDialog: downloadProgressDialog
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
     let arcGisOnlineHelpView = new ArcGisOnlineHelpView({
         $button: $('#show-arcgis-online-help'),
-        $dialog: $('#arcgis-online-dialog'),
+        $dialog: $('#arcgis-online-modal'),
         $siteMapViewContainer: $('#mapping-div'),
         getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView)
     });

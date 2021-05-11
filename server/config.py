@@ -67,10 +67,6 @@ SITE_SLDS = [
 
 GA_TRACKING_CODE = os.environ.get('GA_TRACKING_CODE', '')
 
-# Set to false in instance/config.py if you want to turn off the NLDI feature,
-# or set NLDI_DISABLED in the environment.
-NLDI_ENABLED = 'NLDI_DISABLED' not in os.environ
-
 # Set REDIS_CONFIG if it exists
 # Should be of form: db:password@host:port
 REDIS_CONFIG = os.environ.get('REDIS_CONFIG')
