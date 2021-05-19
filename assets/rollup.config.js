@@ -61,5 +61,6 @@ module.exports = [
     getBundleConfig('js/bundles/portal.js', 'dist/scripts/portal.js'),
     getBundleConfig('js/bundles/coverage.js', 'dist/scripts/coverage.js'),
     getBundleConfig('js/bundles/site_map.js', 'dist/scripts/site_map.js'),
-    getBundleConfig('js/bundles/sites_map.js', 'dist/scripts/sites_map.js')
+    getBundleConfig('js/bundles/sites_map.js', 'dist/scripts/sites_map.js'),
+    getBundleConfig('js/bundles/uswds.js', 'dist/scripts/uswds.js')
 ];
