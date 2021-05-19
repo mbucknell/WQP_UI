@@ -73,3 +73,6 @@ target/
 # Docker Compose environment files
 /.env
 /local.env
+
+# IDE - VSCode
+.vscode/*
