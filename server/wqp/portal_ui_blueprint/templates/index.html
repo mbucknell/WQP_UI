@@ -10,56 +10,110 @@
 {% block page_content %}
 
 
-	<div class="usa-alert usa-alert--info usa-alert--no-icon" >
-		<div class="usa-alert__body">
-		<p class="usa-alert__text">
-			<b>Welcome to the new Water Quality Portal</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-		</p>
+	<div id="formIntro">
+
+		<div class="usa-alert usa-alert--info usa-alert--no-icon">
+			<div class="usa-alert__body">
+				<p class="usa-alert__text">
+					<b>Welcome to the new Water Quality Portal</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+				</p>
+			</div>
 		</div>
+
+
+
+		<!-- Two column help and learn more links -->
+		<ul class="usa-card-group">
+			<li class="tablet:grid-col-6 usa-card usa-card--flag">
+				<div class="usa-card__container">
+					<header class="usa-card__header">
+						<h2 class="usa-card__heading">Learn about the WQP</h2>
+					</header>
+					<div class="usa-card__media">
+						<div class="usa-card__img">
+							<img src="{{ 'img/download_button_normal.jpg' | asset_url }}" alt="Background graphic" />
+						</div>
+					</div>
+		
+					<div class="usa-card__body links-only">
+						<a href="/wqp_description/">What is the WQP?</a>
+						<a href="/orgs/">Contributing organizations</a>
+						<a href="/other_portal_links/">Other Portal</a>
+						<a href="/provider/">Explore WQP Sites</a>
+					</div>
+					<!-- <div class="usa-card__footer">
+						<button class="usa-button">More Info</button>
+					</div> -->
+				</div>
+			</li>
+
+			<li class="tablet:grid-col-6 usa-card usa-card--flag">
+				<div class="usa-card__container">
+					<header class="usa-card__header">
+						<h2 class="usa-card__heading">How to use the WQP</h2>
+					</header>
+					<div class="usa-card__media">
+						<div class="usa-card__img">
+							<img src="{{ 'img/resources_button_normal.jpg' | asset_url }}" alt="Background graphic" />
+						</div>
+					</div>
+		
+					<div class="usa-card__body links-only">
+						<a href="/portal_userguide/">User Guide</a>
+						<a href="/webservices_documentation/">Web Services Documentation</a>
+						<a href="/faqs/">FAQs</a>
+						<a href="/upload_data/">Upload Data</a>
+					</div>
+					<!-- <div class="usa-card__footer">
+						<button class="usa-button">Read More</button>
+					</div> -->
+				</div>
+			</li>
+		</ul>
+
+
+		<div id="formInroFooter">
+
+			<div class="footer-flex">
+				<button class="usa-button usa-button--outline">Close Intro</button>
+			</div>
+
+
+			<!-- Don't show again checkbox -->
+			<div class="footer-flex">
+				<div class="usa-checkbox">
+					<input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
+					<label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
+				</div>
+			</div>
+
+		</div>
+
+
 	</div>
 
-	<br/>
 
-	<ul class="usa-card-group">
-		<li class="tablet:grid-col-6 usa-card usa-card--flag">
-			<div class="usa-card__container">
-				<header class="usa-card__header">
-					<h2 class="usa-card__heading">Getting Started</h2>
-				</header>
-				<div class="usa-card__media">
-					<div class="usa-card__img">
-						<img src="https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg" alt="A placeholder image">
-					</div>
-				</div>
+	<!-- Form controls - reset, toggle advanced -->
+
+	<div id="formHeader">
+
+		<h1>Water Quality Portal</h1>
 	
-				<div class="usa-card__body">
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-				</div>
-				<div class="usa-card__footer">
-					<button class="usa-button">Visit Florida Keys</button>
-				</div>
-			</div>
-		</li>
-		<li class="tablet:grid-col-6 usa-card usa-card--flag">
-			<div class="usa-card__container">
-				<header class="usa-card__header">
-					<h2 class="usa-card__heading">Flag media on right</h2>
-				</header>
-				<div class="usa-card__media">
-					<div class="usa-card__img">
-						<img src="https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg" alt="A placeholder image">
-					</div>
-				</div>
+		<div id="formHeaderButtons">
+			<ul class="usa-button-group">
+				<li class="usa-button-group__item">
+					<button class="usa-button usa-button--outline">Reset Form</button>
+				</li>
+				<li class="usa-button-group__item">
+					<button class="usa-button">Show Advanced Form</button>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+
 	
-				<div class="usa-card__body">
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-				</div>
-				<div class="usa-card__footer">
-					<button class="usa-button">Visit Florida Keys</button>
-				</div>
-			</div>
-		</li>
-	</ul>
+	
 
 
 	<div class="index-box">
@@ -100,9 +154,12 @@
             </div>
         </div>
     </div>
+
+
 {% endblock %}
 
 {% block body_page_script %}
+<script type="text/javascript" src="{{ 'scripts/uswds.js' | asset_url }}"></script>
     {% include "partials/hide_non_usgs_epa_logos.html" %}
 
     <script type="text/javascript">
