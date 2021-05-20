@@ -7,7 +7,7 @@ gitRepoUrl: "https://github.com/NWQMC/WQP_UI.git"
 # the Jenkins credential ID to be use when pushing commits
 gitRepoCredentialsId: "Jenkins-GitHub-Read-Write-Token"
 # name of the deploy job to trigger
-deployJobName: "wim_wqp-ui-deploy"
+deployJobName: "wim-wqp-ui-deploy"
 # name of the project
 projectName: "iow-allgemein"
 # location of the Dockerfile
