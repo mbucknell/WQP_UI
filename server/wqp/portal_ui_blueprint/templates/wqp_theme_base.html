@@ -71,31 +71,30 @@
 			<button class="usa-menu-btn">Menu</button>
 		</div>
 
-
 		<!-- Add .usa-current on active usa-nav__link element  -->
 		<nav aria-label="Primary navigation" class="usa-nav">
      	 	<button class="usa-nav__close"><img src="{{ 'img/close.svg' | asset_url }}" role="img" alt="close"></button>
 			<ul class="usa-nav__primary usa-accordion">
 
 				<li class="usa-nav__primary-item">
-    				<a class="usa-nav__link" href="/"><span>Home</span></a>
+    				<a class="usa-nav__link" href="{{ url_for('portal_ui.home-canonical') }}"><span>Home</span></a>
     			</li>
 
 				<li class="usa-nav__primary-item">
-    				<a class="usa-nav__link" href="/portal/"><span>Download Data</span></a>
+    				<a class="usa-nav__link" href="{{ url_for('portal_ui.portal-canonical') }}"><span>Download Data</span></a>
     			</li>
 
 				<li class="usa-nav__primary-item">
     				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-one"><span>Explore WQP Sites</span></button>
     				<ul id="basic-nav-section-one" class="usa-nav__submenu">
 						<li class="usa-nav__submenu-item">
-              				<a href="/provider/NWIS" class="">NWIS</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'NWIS') }}" class="">NWIS</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="/provider/STEWARDS" class="">STEWARDS</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STEWARDS') }}" class="">STEWARDS</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="/provider/STORET" class="">STORET</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STORET') }}" class="">STORET</a>
             			</li>
 					</ul>
 				</li>
@@ -105,34 +104,32 @@
     				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-two"><span>Help & About</span></button>
     				<ul id="basic-nav-section-two" class="usa-nav__submenu">
 						<li class="usa-nav__submenu-item">
-							<a href="/wqp_description/" class="">What is the WQP?</a>
+							<a href="{{ url_for('portal_ui.wqp_description-canonical') }}" class="">What is the WQP?</a>
 					 	</li>
 						 <li class="usa-nav__submenu-item">
-							<a href="/orgs/" class="">Contributing Organizations</a>
+							<a href="{{ url_for('portal_ui.orgs-canonical') }}" class="">Contributing Organizations</a>
 					  	</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="/portal_userguide/" class="">User Guide</a>
+              				<a href="{{ url_for('portal_ui.portal_userguide-canonical') }}" class="">User Guide</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="/webservices_documentation/" class="">Web Services Guide</a>
+              				<a href="{{ url_for('portal_ui.webservices_documentation-canonical') }}" class="">Web Services Guide</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="/faqs/" class="">FAQs</a>
+              				<a href="{{ url_for('portal_ui.faqs-canonical') }}" class="">FAQs</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="/upload_data/" class="">Upload Data</a>
+              				<a href="{{ url_for('portal_ui.upload_data-canonical') }}" class="">Upload Data</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-							<a href="/apps_using_portal/" class="">Applications using the WQP</a>
+							<a href="{{ url_for('portal_ui.apps_using_portal-canonical') }}" class="">Applications using the WQP</a>
 					  	</li>
 						<li class="usa-nav__submenu-item">
-							<a href="/other_portal_links/" class="">Other Water Quality Portals</a>
+							<a href="{{ url_for('portal_ui.other_portal_links-canonical') }}" class="">Other Water Quality Portals</a>
 					  	</li>
 						<li class="usa-nav__submenu-item">
-							<a href="/contact_us/" class="">Contact Us</a>
+							<a href="{{ url_for('portal_ui.contact_us-canonical') }}" class="">Contact Us</a>
 					  	</li>
-
-
 					</ul>
 				</li>
 			</ul>
