@@ -15,7 +15,7 @@ from whitenoise import WhiteNoise
 from .flask_swagger_blueprint import get_swaggerui_blueprint
 
 
-__version__ = '5.24.0dev'
+__version__ = '5.25.0dev'
 
 
 def _create_log_handler(log_dir=None, log_name=__name__):
@@ -129,7 +129,7 @@ from .wqx.views import wqx  # pylint: disable=C0413
 from . import filters  # pylint: disable=C0413
 
 app.register_blueprint(auth_blueprint, url_prefix='')
-app.register_blueprint(portal_ui, url_prefix='')
+app.register_blueprint(portal_ui, url_prefix='/wqp')
 app.register_blueprint(sites_blueprint, url_prefix='/sites')
 app.register_blueprint(wqx, url_prefix='/portal/schemas')
 
