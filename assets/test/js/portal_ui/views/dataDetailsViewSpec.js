@@ -4,7 +4,7 @@ import DataDetailsView from '../../../../js/views/dataDetailsView';
 describe('Tests for DataDetailsView', function() {
     let testView;
     let $testDiv;
-    let $kml, $sites, $samples, $biosamples, $sorted, $hiddenSorted, $narrowsamples, $activity, $activitymetrics, $resultdet;
+    let $sites, $samples, $biosamples, $sorted, $hiddenSorted, $narrowsamples, $activity, $activitymetrics, $resultdet;
     let $projects, $projMonWeight, $organizations, $biologicalMetric;
     let updateResultTypeAction;
 
@@ -25,7 +25,6 @@ describe('Tests for DataDetailsView', function() {
             '<input type="radio" checked name="mimeType" id="csv" value="csv" />' +
             '<input type="radio" checked name="mimeType" id="tsv" value="tsv" />' +
             '<input type="radio" checked name="mimeType" id="xlsx" value="xlsx" />' +
-            '<input type="radio" checked name="mimeType" id="kml" value="kml" />' +
             '<input type="checkbox" id="sorted" />' +
             '<input type="hidden" name="sorted" id="hidden-sorted" value="no" />' +
             '<input type="hidden" name="zip" id="zip" value="yes" />' +
@@ -33,7 +32,6 @@ describe('Tests for DataDetailsView', function() {
             '</form></div>'
         );
         $testDiv = $('#test-div');
-        $kml = $('#kml');
         $sites = $('#sites');
         $projects = $('#projects');
         $projMonWeight = $('#proj-mon-weight');
@@ -59,37 +57,6 @@ describe('Tests for DataDetailsView', function() {
 
     afterEach(function() {
         $testDiv.remove();
-    });
-
-    it('Expects that if the kml button is checked that checkboxes other than the sites checkbox are disabled', function() {
-        testView.initialize();
-        $kml.prop('checked', true).trigger('change');
-
-        expect($sites.is(':disabled')).toBe(false);
-        expect($projects.is(':disabled')).toBe(true);
-        expect($projMonWeight.is(':disabled')).toBe(true);
-        expect($samples.is(':disabled')).toBe(true);
-        expect($biosamples.is(':disabled')).toBe(true);
-        expect($narrowsamples.is(':disabled')).toBe(true);
-        expect($activity.is(':disabled')).toBe(true);
-        expect($activitymetrics.is(':disabled')).toBe(true);
-        expect($resultdet.is(':disabled')).toBe(true);
-        expect($organizations.is(':disabled')).toBe(true);
-        expect($biologicalMetric.is(':disabled')).toBe(true);
-
-        $kml.prop('checked', false).trigger('change');
-
-        expect($sites.is(':disabled')).toBe(false);
-        expect($projects.is(':disabled')).toBe(false);
-        expect($projMonWeight.is(':disabled')).toBe(false);
-        expect($samples.is(':disabled')).toBe(false);
-        expect($biosamples.is(':disabled')).toBe(false);
-        expect($narrowsamples.is(':disabled')).toBe(false);
-        expect($activity.is(':disabled')).toBe(false);
-        expect($activitymetrics.is(':disabled')).toBe(false);
-        expect($resultdet.is(':disabled')).toBe(false);
-        expect($organizations.is(':disabled')).toBe(false);
-        expect($biologicalMetric.is(':disabled')).toBe(false);
     });
 
     it('Expects that if the result-type radio button is changed, updateResultTypeAction is executed', function() {

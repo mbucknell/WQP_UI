@@ -5,6 +5,10 @@ import DownloadFormView from './views/downloadFormView';
 import ShowAPIView from './views/showAPIView';
 import SiteMapView from './views/siteMapView';
 import DownloadProgressDialog from './downloadProgressDialog';
+import { initTooltip } from './uswdsComponents/uswdsTooltip';
+
+// Required to initialize USWDS components after page load
+import { tooltip as uswds_tooltip } from "../node_modules/uswds/src/js/components";
 
 $(document).ready(function () {
     // Initialize Vue.js
@@ -33,8 +37,28 @@ $(document).ready(function () {
             assemblageTooltip: TOOLTIP.assemblageTooltip,
             taxNameTooltip: TOOLTIP.taxNameTooltip,
             showAGOLTooltip: TOOLTIP.showAGOLTooltip,
+        },
+        methods: {
+            createTooltips: function () {
+                // DOM is not updated yet
+                this.$nextTick(function () {
+                  // DOM is now updated
+
+                  // Identifying all tooltips
+                  let elem = $(".tooltip")
+                  for (const el of elem) {
+                    initTooltip(el);
+                }
+                // Need to initialize USWDS tooltip explictly after page load
+                uswds_tooltip.on(window.document)
+                })
+              }
         }
     });
+
+    // create tooltips
+    app.createTooltips();
+
     // Set the loglevel
     if (Config.DEBUG) {
         log.setLevel('debug', false);
