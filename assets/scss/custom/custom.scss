@@ -190,7 +190,14 @@ $black: #000;
 	}
 }
 
+// Accordion custom styles
 // Setting this on the usa-accordion__content usa-prose prevents clipping 
-.tooltip-overflow {
+#a1 {
+  overflow: visible
+}
+#a2 {
+  overflow: visible
+}
+#a3 {
   overflow: visible
 }
