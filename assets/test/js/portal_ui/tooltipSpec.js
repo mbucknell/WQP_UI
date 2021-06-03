@@ -9,7 +9,6 @@ describe('Creates a tooltip', function() {
         let tooltipItem;f
         initTooltip(testDiv);
         tooltipItem = testDiv.className;
-        //expect(tooltipItem.select('.usa-tooltip__body').html()).toContain('Tooltip test');
         expect(tooltipItem).toContain('usa-tooltip');
     });
 });
