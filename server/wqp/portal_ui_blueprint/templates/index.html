@@ -120,7 +120,7 @@
         <div id="download-col" class="index-box-column">
             <div class="index-box-primary" id="download-data-box">
                 <a href="{{ url_for('portal_ui.portal-canonical') }}"><h5>DOWNLOAD<br/>DATA</h5></a>
-                <p> Download water-quality data in Excel, CSV, TSV, and KML formats.<p>
+                <p> Download water-quality data in Excel, CSV, and TSV formats.<p>
             </div>
         </div>
         <div id="info-col" class="index-box-column">
@@ -159,7 +159,6 @@
 {% endblock %}
 
 {% block body_page_script %}
-<script type="text/javascript" src="{{ 'scripts/uswds.js' | asset_url }}"></script>
     {% include "partials/hide_non_usgs_epa_logos.html" %}
 
     <script type="text/javascript">

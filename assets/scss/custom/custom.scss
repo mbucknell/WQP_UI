@@ -189,3 +189,15 @@ $black: #000;
 		justify-content: center;
 	}
 }
+
+// Accordion custom styles
+// Setting this on the usa-accordion__content usa-prose prevents clipping 
+#a1 {
+  overflow: visible
+}
+#a2 {
+  overflow: visible
+}
+#a3 {
+  overflow: visible
+}

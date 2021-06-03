@@ -22,8 +22,6 @@ export default class DataDetailsView {
      * Initializes the widgets and sets up the DOM event handlers.
      */
     initialize() {
-        let $kml = this.$container.find('#kml');
-
         let $site = this.$container.find('#sites');
         let $biosamples = this.$container.find('#biosamples');
         let $narrowResults = this.$container.find('#narrowsamples');
@@ -43,17 +41,9 @@ export default class DataDetailsView {
         const mimeTypeInitValues = getAnchorQueryValues($mimeTypeRadioboxes.attr('name'));
         if (mimeTypeInitValues.length) {
             this.$container.find(`input[value="${mimeTypeInitValues[0]}"]`).prop('checked', true);
-            // Need to disable checkboxes for download other than sites.
-            if (mimeTypeInitValues[0] === 'kml') {
-                setEnabled(this.$container.find('.result-type:not(#sites)'), false);
-            }
         }
 
         $mimeTypeRadioboxes.change(() => {
-            const kmlChecked = $kml.prop('checked');
-
-            // Can only download sites if kml is checked
-            setEnabled(this.$container.find('.result-type:not(#sites)'), !kmlChecked);
 
             this.updateResultTypeAction(this.getResultType());
         });
@@ -65,8 +55,6 @@ export default class DataDetailsView {
 
             // Uncheck previously checked button
             this.$container.find('input.result-type:checked').not(node).prop('checked', false);
-
-            setEnabled($kml, $site.prop('checked'));
 
             // If activity, biological results or narrow results desired add a hidden input to set the
             // dataProfile, otherwise remove it.

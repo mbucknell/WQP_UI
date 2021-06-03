@@ -130,13 +130,6 @@ export default class DownloadFormView {
         this.dataDetailsView.initialize();
         pointLocationInputView.initialize();
         boundingBoxInputView.initialize();
-        /* if (Config.NLDI_ENABLED) {
-            nldiView.initialize(); 
-        } else {
-            this.$form.find('#nldi-container').hide();
-            this.$form.find('#nldi-inset-map').hide();
-            this.$form.find('#nldi-map').hide();
-        } */
 
         // Add Click handler for form show/hide/button
         this.$form.find('.panel-heading .show-hide-toggle').click(function () {
@@ -261,7 +254,7 @@ export default class DownloadFormView {
                         });
                     }
                 }
-                if (index === (length - 1)) {
+                if (index === length) {
                     result.push({
                         name: 'providers',
                         value: providersArray,
@@ -270,7 +263,6 @@ export default class DownloadFormView {
                 }
             }
         });
-        console.log(result);
         return result;
     }
 

@@ -5,6 +5,7 @@ import DownloadFormView from './views/downloadFormView';
 import ShowAPIView from './views/showAPIView';
 import SiteMapView from './views/siteMapView';
 import DownloadProgressDialog from './downloadProgressDialog';
+import { initTooltip } from './uswdsComponents/uswdsTooltip';
 
 $(document).ready(function () {
     // Initialize Vue.js
@@ -33,8 +34,26 @@ $(document).ready(function () {
             assemblageTooltip: TOOLTIP.assemblageTooltip,
             taxNameTooltip: TOOLTIP.taxNameTooltip,
             showAGOLTooltip: TOOLTIP.showAGOLTooltip,
+        },
+        methods: {
+            createTooltips: function () {
+                // DOM is not updated yet
+                this.$nextTick(function () {
+                    // DOM is now updated
+
+                    // Identifying all tooltips
+                    let elem = $(".tooltip")
+                    for (const el of elem) {
+                        initTooltip(elem);
+                    }
+                });
+            }
         }
     });
+
+    // create tooltips
+    app.createTooltips();
+
     // Set the loglevel
     if (Config.DEBUG) {
         log.setLevel('debug', false);
@@ -45,7 +64,7 @@ $(document).ready(function () {
     let $form = $('#params');
 
     // Create sub views
-    let downloadProgressDialog = new DownloadProgressDialog($('#download-status-dialog'));
+    let downloadProgressDialog = new DownloadProgressDialog($('#download-status-modal'));
     let downloadFormView = new DownloadFormView({
         $form: $form,
         downloadProgressDialog: downloadProgressDialog
@@ -63,7 +82,7 @@ $(document).ready(function () {
 
     let arcGisOnlineHelpView = new ArcGisOnlineHelpView({
         $button: $('#show-arcgis-online-help'),
-        $dialog: $('#arcgis-online-dialog'),
+        $dialog: $('#arcgis-online-modal'),
         $siteMapViewContainer: $('#mapping-div'),
         getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView)
     });

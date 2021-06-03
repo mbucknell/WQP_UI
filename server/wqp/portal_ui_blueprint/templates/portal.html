@@ -23,24 +23,22 @@
                 <div class="grid-row grid-gap">
                   <div class="tablet:grid-col">
                     <div class="form-group">
-                      <label class="control-label" for="countrycode" :title="countryTooltip">Select one or multiple
+                      <label for="countrycode" class="tooltip" :title="countryTooltip">Select one or multiple
                         countries:</label>
                       <div>
                         <select multiple class="form-control" id="countrycode" name="countrycode" data-placeholder="All"
                           style="width: 100%"></select>
-                        <!-- dispatching event because select2 only fires jquery events which vue does not use -->
                       </div>
-                      <!-- onchange="this.dispatchEvent(new Event('change', { 'bubbles': false }));" -->
                     </div>
                     <div class="form-group">
-                      <label class="control-label" for="statecode" :title="stateTooltip">State:</label>
+                      <label class="tooltip" for="statecode" :title="stateTooltip">State:</label>
                       <div>
                         <select multiple class="form-control" id="statecode" name="statecode" data-placeholder="All"
                           style="width: 100%"></select>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="control-label" for="countycode" id="countyTooltip">County:</label>
+                      <label class="tooltip" class="control-label" for="countycode" :title="countyTooltip">County:</label>
                       <div>
                         <select multiple class="form-control" id="countycode" name="countycode" data-placeholder="All"
                           style="width: 100%"></select>
@@ -48,9 +46,9 @@
                     </div>
                   </div>
                   <div class="tablet:grid-col">
-                    <div id="point-location" :title="pointLocationTooltip">
+                    <div id="point-location">
                       <div>
-                        <label>Point Location:</label>
+                        <label class="tooltip" :title="pointLocationTooltip">Point Location:</label>
                         <div>
                           Example: 20 miles from Latitude 46.12 degrees N,
                           Longitude 89.15 degrees W would be entered as: Distance:
@@ -85,7 +83,7 @@
                     </div>
                   </div>
                   <div class="tablet:grid-col">
-                    <div id="bounding-box" :title="boundingBoxTooltip">
+                    <div id="bounding-box" class="tooltip" :title="boundingBoxTooltip">
                       <div>Bounding Box:</div>
                       <div>
                         <div class="form-group">
@@ -133,24 +131,24 @@
                 <div id="site-params">
                   <div class="grid-row grid-gap">
                     <div class="tablet:grid-col">
-                      <div class="form-group" :title="siteTypeTooltip">
+                      <div class="tooltip" :title="siteTypeTooltip">
                         <label class="control-label" for="siteType">Site Type:</label>
                         <div>
-                          <select multiple class="form-control" id="siteType" name="siteType" data-placeholder="All"
+                          <select multiple id="siteType" name="siteType" data-placeholder="All"
                             style="width: 100%"></select>
                         </div>
                       </div>
-                      <div class="form-group" id="organization-id-select" :title="orgIDTooltip">
+                      <div id="organization-id-select" :title="orgIDTooltip">
                         <label class="control-label" for="organization">Organization ID:</label>
                         <div>
-                          <select multiple class="form-control" name="organization" id="organization"
+                          <select multiple name="organization" id="organization"
                             data-placeholder="All" style="width: 100%"></select>
                         </div>
                       </div>
-                      <div class="form-group" class="usa-tooltip" data-position="right" :title="siteIDTooltip">
+                      <div class="tooltip" data-position="right" :title="siteIDTooltip">
                         <label class="control-label" for="siteid">Site ID:</label>
                         <div>
-                          <select multiple class="form-control" id="siteid" name="siteid" data-placeholder="All"
+                          <select multiple id="siteid" name="siteid" data-placeholder="All"
                             style="width: 70%"></select>
                         </div>
                         <div>
@@ -161,7 +159,7 @@
                           ids, go to the FAQs page
                         </div>
                       </div>
-                      <div class="form-group" :title="hucTooltip">
+                      <div class="tooltip" :title="hucTooltip">
                         <label class="control-label" for="huc">HUC:</label>
                         <div>
                           <input class="form-control" type="text" name="huc" id="huc" data-multiple="true" />
@@ -171,7 +169,7 @@
                           01010003;010801*;01010005
                         </div>
                       </div>
-                      <div class="form-group" id="min-activities-div" :title="minSamplingTooltip">
+                      <div class="tooltip" id="min-activities-div" :title="minSamplingTooltip">
                         <label class="control-label" for="min-activities">Minimum sampling activities per site:</label>
                         <div>
                           <input class="form-control" type="number" min="1" name="minactivities" id="min-activities" />
@@ -183,21 +181,21 @@
                         <div class="panel-body">
                           <div id="sampling" class="subpanel">
                             <div class="subpanel-body">
-                              <div class="form-group" :title="sampleMediaTooltip">
+                              <div class="tooltip" :title="sampleMediaTooltip">
                                 <label class="control-label" for="sampleMedia">Sample Media:</label>
                                 <div>
                                   <select multiple class="form-control" name="sampleMedia" id="sampleMedia"
                                     data-placeholder="All" style="width: 100%"></select>
                                 </div>
                               </div>
-                              <div class="form-group" :title="charGroupTooltip">
+                              <div class="tooltip" :title="charGroupTooltip">
                                 <label class="control-label" for="characteristicType">Characteristic Group:</label>
                                 <div>
                                   <select multiple class="form-control" name="characteristicType" id="characteristicType"
                                     data-placeholder="All" style="width: 100%"></select>
                                 </div>
                               </div>
-                              <div class="form-group" :title="characteristicsTooltip">
+                              <div class="tooltip" :title="characteristicsTooltip">
                                 <label class="control-label" for="characteristicName">Characteristics:</label>
                                 <div>
                                   <select multiple class="form-control" name="characteristicName" id="characteristicName"
@@ -205,14 +203,14 @@
                                 </div>
                               </div>
   
-                              <div class="form-group" :title="projectIDTooltip">
+                              <div class="tooltip" :title="projectIDTooltip">
                                 <label class="control-label" for="project-code">Project ID:</label>
                                 <div>
                                   <select multiple class="form-control" name="project" id="project-code"
                                     data-placeholder="All" style="width: 100%"></select>
                                 </div>
                               </div>
-                              <div class="form-group" id="pcode-div" :title="paramCodeTooltip">
+                              <div class="tooltip" id="pcode-div" :title="paramCodeTooltip">
                                 <label class="control-label" for="pCode">Parameter Code:
                                   <span style="font-size: x-small">(NWIS ONLY)</span></label>
                                 <div>
@@ -220,7 +218,7 @@
                                     data-multiple="true" />
                                 </div>
                               </div>
-                              <div class="form-group" id="minresults-div" :title="minimumResultsTooltip">
+                              <div class="tooltip" id="minresults-div" :title="minimumResultsTooltip">
                                 <label class="control-label" for="minresults">Minimum results per site:</label>
                                 <div>
                                   <input class="form-control usa-label" type="number" min="1" name="minresults"
@@ -228,7 +226,7 @@
                                 </div>
                               </div>
                               <div id="date-row">
-                                <div id="start-date-select" class="form-group">
+                                <div id="start-date-select">
                                   <label class="control-label" for="startDateLo">Date range - from:</label>
                                   <div>
                                     <div>
@@ -237,7 +235,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div id="end-date-select" class="form-group">
+                                <div id="end-date-select">
                                   <label class="control-label" for="startDateHi">to:</label>
                                   <div>
                                     <div>
@@ -249,28 +247,31 @@
                               </div>
                             </div>
                           </div>
-                          <div id="biological" class="subpanel" :title="bioSamplingTooltip">
+                          <div id="biological" class="subpanel">
+                            <div class="tooltip" :title="bioSamplingTooltip">
                             <div class="subpanel-heading">
                               Biological sampling parameters:
                             </div>
+                          </div>
                             <div class="subpanel-body">
-                              <div class="form-group" :title="assemblageTooltip">
-                                <label class="control-label" for="assemblage">Assemblage:</label>
+                              <div class="tooltip" :title="assemblageTooltip">
+                                <label for="assemblage">Assemblage:</label>
                                 <div>
-                                  <select multiple class="form-control" name="assemblage" id="assemblage"
+                                  <select multiple name="assemblage" id="assemblage"
                                     data-placeholder="All" style="width: 100%"></select>
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label class="control-label" for="subjectTaxonomicName" :title="taxNameTooltip">Taxonomic
+                                <label class="tooltip" for="subjectTaxonomicName" :title="taxNameTooltip">Taxonomic
                                   Name:</label>
                                 <div>
-                                  <select multiple class="form-control" name="subjectTaxonomicName"
+                                  <select multiple name="subjectTaxonomicName" aria-label="Select a taxonomic name"
                                     id="subject-taxonomic-name" data-placeholder="All" style="width: 100%"></select>
                                 </div>
                               </div>
                             </div>
                           </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -283,11 +284,11 @@
         <div class="grid-col">
           <div class="usa-accordion">
             <h4 class="usa-accordion__heading">
-              <button class="usa-accordion__button" aria-expanded="true" aria-controls="a4">
+              <button class="usa-accordion__button" aria-expanded="true" aria-controls="a3">
                 Download the Data
               </button>
             </h4>
-            <div id="a4" class="usa-accordion__content usa-prose">
+            <div id="a3" class="usa-accordion__content usa-prose">
               <div>
                 <div id="download-box" class="grid-row grid-gap">
                   <div id="download-box-input-div" class="grid-row grid-gap">
@@ -436,12 +437,41 @@
                       <input type="hidden" name="zip" id="zip" value="yes" />
                       <input type="hidden" name="sorted" id="hidden-sorted" value="no" />
                       <div id="form-action">
-                        <button id="main-button" class="usa-button" type="submit">
+                        <a href="#download-status-modal" id="main-button" class="usa-button" type="submit" aria-controls="example-modal-1">
                           DOWNLOAD
-                        </button>
+                        </a>
+                        <div class="usa-modal" id="download-status-modal" aria-labelledby="modal-1-heading" aria-describedby="modal-1-description">
+                          <div class="usa-modal__content">
+                            <div class="usa-modal__main">
+                              <h2 class="usa-modal__heading" id="modal-2-heading">
+                                Are you sure you want to continue?
+                              </h2>
+                              <div class="usa-prose">
+                                <p id="modal-2-description">You have unsaved changes that will be lost.</p>
+                              </div>
+                              <div class="usa-modal__footer">
+                                <ul class="usa-button-group">
+                                  <li class="usa-button-group__item">
+                                      <button type="button" class="usa-button" data-close-modal>Continue without saving</button>
+                                    </li>
+                                  <li class="usa-button-group__item">
+                                      <button type="button" class="usa-button usa-button--unstyled padding-105 text-center" data-close-modal>Go back</button>
+                                    </li>
+                                  </ul>
+                              </div>
+                            </div>
+                            <button class="usa-button usa-modal__close" aria-label="Close this window" data-close-modal>
+                              
+                        <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+                          <use xlink:href="/assets/img/sprite.svg#close"></use>
+                        </svg>
+                      
+                              </button>
+                            </div>
+                        </div>
                         <div class="share-container" style="padding-top: 5px;">
                           <button type="button" class="usa-button usa-button--outline">
-                            Copy URL to clipboard
+                            Share Page
                           </button>
                           <!-- <textarea class="usa-textarea" readonly rows="3"></textarea> -->
                         </div>
@@ -451,9 +481,38 @@
                 </div>
               </div>
               <div id="show-queries-div" class="grid-col">
-                <button class="usa-button usa-button--outline" id="show-arcgis-online-help" type="button">
+                <a href="#arcgis-online-modal" class="usa-button usa-button--outline" id="show-arcgis-online-help" type="button" aria-controls="arcgis-online-modal" data-open-modal>
                   Show ArcGIS Online Parameters
-                </button>
+                </a>
+                <div class="usa-modal usa-modal--lg" id="arcgis-online-modal" aria-labelledby="modal-2-heading" aria-describedby="modal-2-description">
+                  <div class="usa-modal__content">
+                    <div class="usa-modal__main">
+                      <h2 class="usa-modal__heading" id="modal-2-heading">
+                        Are you sure you want to continue?
+                      </h2>
+                      <div class="usa-prose">
+                        <p id="modal-2-description">You have unsaved changes that will be lost.</p>
+                      </div>
+                      <div class="usa-modal__footer">
+                        <ul class="usa-button-group">
+                          <li class="usa-button-group__item">
+                              <button type="button" class="usa-button" data-close-modal>Continue without saving</button>
+                            </li>
+                          <li class="usa-button-group__item">
+                              <button type="button" class="usa-button usa-button--unstyled padding-105 text-center" data-close-modal>Go back</button>
+                            </li>
+                          </ul>
+                      </div>
+                    </div>
+                    <button class="usa-button usa-modal__close" aria-label="Close this window" data-close-modal>
+                      
+                <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+                  <use xlink:href="/assets/img/sprite.svg#close"></use>
+                </svg>
+              
+                      </button>
+                    </div>
+                </div>
                 &nbsp;
                 <button class="usa-button usa-button--outline" id="show-queries-button" type="button">
                   Show Web Service Calls
@@ -483,8 +542,8 @@
       </form>
     </div>
   </div>
-  <!-- Commenting out modals until USWDS can be upgraded -->
-  <!-- <div id="download-status-dialog" class="modal fade">
+  <!-- Commented out modals for now -->
+  <!-- <div id="download-status-modal" class="modal fade">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
@@ -498,7 +557,7 @@
       </div>
     </div>
   </div>
-  <div id="arcgis-online-dialog" class="modal fade">
+  <div id="arcgis-online-modal" class="modal fade">
     <div class="modal-dialog model-sm">
       <div class="modal-content">
         <div class="modal-header">
@@ -510,7 +569,7 @@
       </div>
     </div>
   </div>
-  <div id="validate-download-dialog" class="modal fade">
+ <div id="validate-download-dialog" class="modal fade">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
@@ -551,7 +610,6 @@
     </div>
   </div> -->
   {% endblock %} {% block body_page_script %}
-  <script type="text/javascript" src="{{ 'scripts/uswds.js' | asset_url }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
   {% endblock %}
