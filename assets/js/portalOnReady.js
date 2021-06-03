@@ -7,9 +7,6 @@ import SiteMapView from './views/siteMapView';
 import DownloadProgressDialog from './downloadProgressDialog';
 import { initTooltip } from './uswdsComponents/uswdsTooltip';
 
-// Required to initialize USWDS components after page load
-import { tooltip as uswds_tooltip } from "../node_modules/uswds/src/js/components";
-
 $(document).ready(function () {
     // Initialize Vue.js
     var app = new Vue({
@@ -42,17 +39,15 @@ $(document).ready(function () {
             createTooltips: function () {
                 // DOM is not updated yet
                 this.$nextTick(function () {
-                  // DOM is now updated
+                    // DOM is now updated
 
-                  // Identifying all tooltips
-                  let elem = $(".tooltip")
-                  for (const el of elem) {
-                    initTooltip(el);
-                }
-                // Need to initialize USWDS tooltip explictly after page load
-                uswds_tooltip.on(window.document)
-                })
-              }
+                    // Identifying all tooltips
+                    let elem = $(".tooltip")
+                    for (const el of elem) {
+                        initTooltip(elem);
+                    }
+                });
+            }
         }
     });
 
