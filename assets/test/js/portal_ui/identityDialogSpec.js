@@ -132,7 +132,7 @@ describe('Test identifyDialog', function () {
                 'type': 'Lake',
                 'searchType': '\'Lake, Reservoir, Impoundment\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '2',
                 'resultCnt': '2',
                 'bbox': [-89.61713, 43.25431, -89.61713, 43.25431]
@@ -565,7 +565,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '54',
                 'bbox': [-89.82451, 43.21793, -89.82451, 43.21793]
@@ -586,7 +586,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '177',
                 'bbox': [-89.82451, 43.21793, -89.82451, 43.21793]
@@ -607,7 +607,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '0',
                 'resultCnt': '0',
                 'bbox': [-89.82451, 43.21793, -89.82451, 43.21793]
@@ -628,7 +628,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '54',
                 'bbox': [-89.82451, 43.21793, -89.82451, 43.21793]
@@ -649,7 +649,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '177',
                 'bbox': [-89.82451, 43.21793, -89.82451, 43.21793]
@@ -670,7 +670,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '10',
                 'resultCnt': '55',
                 'bbox': [-89.7514599, 43.2031101, -89.7514599, 43.2031101]
@@ -691,7 +691,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '0',
                 'resultCnt': '0',
                 'bbox': [-89.75891, 43.18264, -89.75891, 43.18264]
@@ -712,7 +712,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '3',
                 'resultCnt': '10',
                 'bbox': [-89.824102, 43.190435, -89.824102, 43.190435]
@@ -733,7 +733,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '9',
                 'resultCnt': '47',
                 'bbox': [-89.724729, 43.20578, -89.724729, 43.20578]
@@ -754,7 +754,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '0',
                 'resultCnt': '0',
                 'bbox': [-89.81559, 43.224957, -89.81559, 43.224957]
@@ -775,7 +775,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '0',
                 'bbox': [-89.75807, 43.239006, -89.75807, 43.239006]
@@ -796,7 +796,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '14',
                 'resultCnt': '0',
                 'bbox': [-89.75793, 43.239059, -89.75793, 43.239059]
@@ -817,7 +817,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '15',
                 'resultCnt': '54',
                 'bbox': [-89.82396, 43.190414, -89.82396, 43.190414]
@@ -838,7 +838,7 @@ describe('Test identifyDialog', function () {
                 'type': 'Facility Privately Owned Non-ind',
                 'searchType': '\'Facility\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '4',
                 'resultCnt': '32',
                 'bbox': [-89.71164, 43.28833, -89.71164, 43.28833]
@@ -859,7 +859,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '2',
                 'resultCnt': '13',
                 'bbox': [-89.712204, 43.287823, -89.712204, 43.287823]
@@ -880,7 +880,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '2',
                 'resultCnt': '14',
                 'bbox': [-89.71624, 43.29278, -89.71624, 43.29278]
@@ -901,7 +901,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '4',
                 'resultCnt': '32',
                 'bbox': [-89.71401, 43.287643, -89.71401, 43.287643]
@@ -922,7 +922,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '6',
                 'resultCnt': '32',
                 'bbox': [-89.713455, 43.286743, -89.713455, 43.286743]
@@ -943,7 +943,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '6',
                 'resultCnt': '42',
                 'bbox': [-89.752174, 43.24657, -89.752174, 43.24657]
@@ -964,7 +964,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '3',
                 'resultCnt': '46',
                 'bbox': [-89.748505, 43.245583, -89.748505, 43.245583]
@@ -985,7 +985,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '3',
                 'resultCnt': '38',
                 'bbox': [-89.718445, 43.270496, -89.718445, 43.270496]
@@ -1006,7 +1006,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '6',
                 'resultCnt': '45',
                 'bbox': [-89.71767, 43.27128, -89.71767, 43.27128]
@@ -1027,7 +1027,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '2',
                 'resultCnt': '15',
                 'bbox': [-89.714806, 43.287575, -89.714806, 43.287575]
@@ -1048,7 +1048,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '27',
                 'resultCnt': '158',
                 'bbox': [-89.71757, 43.25817, -89.71757, 43.25817]
@@ -1069,7 +1069,7 @@ describe('Test identifyDialog', function () {
                 'type': 'Wetland Undifferentiated',
                 'searchType': '\'Wetland\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '0',
                 'resultCnt': '0',
                 'bbox': [-89.7944, 43.212387, -89.7944, 43.212387]
@@ -1090,7 +1090,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '0',
                 'resultCnt': '0',
                 'bbox': [-89.72949, 43.207016, -89.72949, 43.207016]
@@ -1111,7 +1111,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '139',
                 'resultCnt': '152',
                 'bbox': [-89.774062, 43.239254, -89.774062, 43.239254]
@@ -1132,7 +1132,7 @@ describe('Test identifyDialog', function () {
                 'type': 'Lake',
                 'searchType': '\'Lake, Reservoir, Impoundment\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '9',
                 'bbox': [-89.8153, 43.2155, -89.8153, 43.2155]
@@ -1153,7 +1153,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '21',
                 'bbox': [-89.7346, 43.2519, -89.7346, 43.2519]
@@ -1174,7 +1174,7 @@ describe('Test identifyDialog', function () {
                 'type': 'Lake',
                 'searchType': '\'Lake, Reservoir, Impoundment\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '5',
                 'bbox': [-89.7322, 43.2499, -89.7322, 43.2499]
@@ -1195,7 +1195,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '5',
                 'bbox': [-89.8247, 43.2096, -89.8247, 43.2096]
@@ -1216,7 +1216,7 @@ describe('Test identifyDialog', function () {
                 'type': 'Lake',
                 'searchType': '\'Lake, Reservoir, Impoundment\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '1',
                 'resultCnt': '4',
                 'bbox': [-89.7148, 43.2077, -89.7148, 43.2077]
@@ -1237,7 +1237,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '11',
                 'resultCnt': '22',
                 'bbox': [-89.75654, 43.206074, -89.75654, 43.206074]
@@ -1258,7 +1258,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '350',
                 'resultCnt': '1127',
                 'bbox': [-89.75892, 43.18258, -89.75892, 43.18258]
@@ -1279,7 +1279,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '320',
                 'resultCnt': '1021',
                 'bbox': [-89.757296, 43.182494, -89.757296, 43.182494]
@@ -1300,7 +1300,7 @@ describe('Test identifyDialog', function () {
                 'type': 'River/Stream',
                 'searchType': '\'Stream\'',
                 'huc8': '07070005',
-                'provider': 'STORET',
+                'provider': 'EPA',
                 'sampleCnt': '3',
                 'resultCnt': '4',
                 'bbox': [-89.720319, 43.269566, -89.720319, 43.269566]

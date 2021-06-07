@@ -21,7 +21,7 @@ def load_sites_into_cache_async(self, provider_id):
     Retrieves all sites for provider_id using streaming and adds each site to the cache. The current
     state of the task is also saved in the cache with key <provider_id>_sites_load_status
     :param self: self, allows the task status to be updated
-    :param provider_id: the identifier of the provider (NWIS, STORET, ETC)
+    :param provider_id: the identifier of the provider (NWIS, EPA, ETC)
     :return: dict - with keys for status (code of request for sites), cached_count, error_count, and total_count
     """
     logger.debug('Starting async load of sites into Redis cache.')

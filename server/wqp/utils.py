@@ -294,7 +294,7 @@ def generate_redis_db_number(provider):
     redis_db_number = 0
     if provider == 'NWIS':
         redis_db_number = 1
-    elif provider == 'STORET':
+    elif provider == 'EPA':
         redis_db_number = 2
     elif provider == 'STEWARDS':
         redis_db_number = 3
