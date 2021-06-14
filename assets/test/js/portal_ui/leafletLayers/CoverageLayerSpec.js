@@ -41,7 +41,7 @@ describe('L.CoverageLayer', function() {
             expect(testLayer.wmsParams.VIEWPARAMS).toContain('timeFrame:all_time');
 
             layerParams.timeSpan = 'past_12_months';
-            layerParams.dataSource = 'epa';
+            layerParams.dataSource = 'storet';
             testLayer = L.coverageLayer(layerParams, {});
             expect(testLayer.wmsParams.VIEWPARAMS).toContain('source1:E;source2:E');
             expect(testLayer.wmsParams.VIEWPARAMS).toContain('timeFrame:past_12_months');
@@ -63,7 +63,7 @@ describe('L.CoverageLayer', function() {
             layerParams = {
                 displayBy : 'counties',
                 timeSpan : 'past_12_months',
-                dataSource : 'epa'
+                dataSource : 'storet'
             };
             testLayer = L.coverageLayer(layerParams, {});
             expect(testLayer.wmsParams.sld).toContain('dataSource=E');
@@ -114,7 +114,7 @@ describe('L.CoverageLayer', function() {
 
         it('Expects updates to layerParams to update the VIEWPARAMS', function() {
             layerParams.timeSpan = 'past_12_months';
-            layerParams.dataSource = 'epa';
+            layerParams.dataSource = 'storet';
             testLayer.updateLayerParams(layerParams);
             expect(testLayer.wmsParams.VIEWPARAMS).toContain('source1:E;source2:E');
             expect(testLayer.wmsParams.VIEWPARAMS).toContain('timeFrame:past_12_months');
@@ -130,7 +130,7 @@ describe('L.CoverageLayer', function() {
             layerParams = {
                 displayBy : 'counties',
                 timeSpan : 'past_12_months',
-                dataSource : 'epa'
+                dataSource : 'storet'
             };
             testLayer.updateLayerParams(layerParams);
             expect(testLayer.wmsParams.sld).toContain('dataSource=E');

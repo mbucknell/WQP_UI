@@ -41,7 +41,7 @@
 			<scale>1</scale>
 		</LabelStyle>
 	</Style>
-	<Style id="normalEPASite">
+	<Style id="normalSTORETSite">
 		<IconStyle>
 			<Icon>
 				<href>../img/magentacir.png</href>
@@ -51,7 +51,7 @@
 			<scale>0</scale>
 		</LabelStyle>
 	</Style>
-	<Style id="highlightEPASite">
+	<Style id="highlightSTORETSite">
 		<IconStyle>
 			<Icon>
 				<href>../img/magentacir.png</href>

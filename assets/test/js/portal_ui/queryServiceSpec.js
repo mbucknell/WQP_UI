@@ -41,7 +41,7 @@ describe('Tests for queryService', function() {
 
         it('Expects that the mimeType, zip, and sorted are removed from the json payload and that a POST request is made', function() {
             var requestBody;
-            queryService.fetchQueryCounts('Station', testQuery, ['NWIS', 'EPA']);
+            queryService.fetchQueryCounts('Station', testQuery, ['NWIS', 'STORET']);
 
             expect(fakeServer.requests.length).toBe(1);
             expect(fakeServer.requests[0].method).toEqual('POST');
@@ -61,11 +61,11 @@ describe('Tests for queryService', function() {
         });
 
         it('Expects a successful response passes a correctly formatted counts record', function() {
-            queryService.fetchQueryCounts('Result', testQuery, ['NWIS', 'EPA']).done(successSpy).fail(errorSpy);
+            queryService.fetchQueryCounts('Result', testQuery, ['NWIS', 'STORET']).done(successSpy).fail(errorSpy);
             fakeServer.respondWith([200, {'Content-Type': 'application/json'},
                 '{"NWIS-Site-Count":"492","Total-Site-Count":"492","NWIS-Result-Count":"6641","Total-Result-Count":"6641",' +
                 '"NWIS-Activity-Count":"664","Total-Activity-Count":"664",' +
-                '"EPA-ActivityMetric-Count": "232", "Total-ActivityMetric-Count" : "232",' +
+                '"STORET-ActivityMetric-Count": "232", "Total-ActivityMetric-Count" : "232",' +
                 '"NWIS-ResultDetectionQuantitationLimit-Count": "45", "Total-ResultDetectionQuantitationLimit-Count": "45"}'
             ]);
             fakeServer.respond();
@@ -83,7 +83,7 @@ describe('Tests for queryService', function() {
                     resultdetections: '45', projects: '0', projectmonitoringlocationweightings: '0',
                     organizations: '0', biologicalHabitatMetrics: '0'
                 },
-                EPA: {
+                STORET: {
                     sites: '0', results: '0', activities: '0', activitymetrics: '232', resultdetections: '0',
                     projects: '0', projectmonitoringlocationweightings: '0',
                     organizations: '0', biologicalHabitatMetrics: '0'
@@ -93,7 +93,7 @@ describe('Tests for queryService', function() {
 
         it('Expects a failed response to reject the promise', function() {
 
-            queryService.fetchQueryCounts('Result', testQuery, ['NWIS', 'EPA']).done(successSpy).fail(errorSpy);
+            queryService.fetchQueryCounts('Result', testQuery, ['NWIS', 'STORET']).done(successSpy).fail(errorSpy);
             fakeServer.respondWith([404, {'Content-Type': 'text/html'}, 'Not found']);
             fakeServer.respond();
 
@@ -103,7 +103,7 @@ describe('Tests for queryService', function() {
 
         it('Expects that a authorization header is added if an access_token cookie is present', function() {
             spyOn(Cookie, 'getByName').and.returnValue('dummy_token');
-            queryService.fetchQueryCounts('Station', testQuery, ['NWIS', 'EPA']);
+            queryService.fetchQueryCounts('Station', testQuery, ['NWIS', 'STORET']);
 
             expect(fakeServer.requests[0].requestHeaders.Authorization).toEqual('Bearer dummy_token');
         });

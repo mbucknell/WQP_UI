@@ -16,9 +16,9 @@ class RedisDbNumberTestCase(TestCase):
         """will NWIS give back a db value of 1?"""
         assert generate_redis_db_number('NWIS') == 1
 
-    def test_will_epa_return_2(self):
-        """will EPA give back a db value of 2?"""
-        assert generate_redis_db_number('EPA') == 2
+    def test_will_storet_return_2(self):
+        """will STORET give back a db value of 2?"""
+        assert generate_redis_db_number('STORET') == 2
 
     def test_will_stewards_return_3(self):
         """will STEWARDS give back a db value of 3?"""

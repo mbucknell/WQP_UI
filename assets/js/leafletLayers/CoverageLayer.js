@@ -13,12 +13,12 @@ var LAYER_NAME = {
 };
 
 var VIEWPARAMS_SOURCE = {
-    'epa': 'source1:E;source2:E',
+    'storet': 'source1:E;source2:E',
     'nwis': 'source1:N;source2:N',
     'all': 'source1:E;source2:N'
 };
 var SLD_DATASOURCE = {
-    'epa': 'E',
+    'storet': 'E',
     'nwis': 'N',
     'all': 'A'
 };
@@ -59,7 +59,7 @@ var getWMSParams = function(layerParams) {
  * @param {Object} layerParams -
  *      @prop {String} displayBy - spatial feature
  *      @prop {String} timeSpan - Allowed values: past_12_months, past_60_months, all_time
- *      @prop {String} dataSource - Allowed values: epa, nwis, all.
+ *      @prop {String} dataSource - Allowed values: storet, nwis, all.
  * @param {Object} options - Can be any L.TileLayer.WMS options
  */
 L.CoverageLayer = L.TileLayer.WMS.extend({
@@ -84,7 +84,7 @@ L.CoverageLayer = L.TileLayer.WMS.extend({
      * @param {Object} layerParams -
      *      @prop {String} displayBy - spatial feature
      *      @prop {String} timeSpan - Allowed values: past_12_months, past_60_months, all_time
-     *      @prop {String} dataSource - Allowed values: epa, nwis, all.
+     *      @prop {String} dataSource - Allowed values: storet, nwis, all.
      */
     updateLayerParams : function(layerParams) {
         this.setParams(getWMSParams(layerParams));
@@ -129,7 +129,7 @@ L.CoverageLayer = L.TileLayer.WMS.extend({
             },
             success : function(resp) {
                 if (this.wmsParams.VIEWPARAMS.search(VIEWPARAMS_SOURCE.nwis) !== -1 ||
-                    this.wmsParams.VIEWPARAMS.search(VIEWPARAMS_SOURCE.epa) !== -1) {
+                    this.wmsParams.VIEWPARAMS.search(VIEWPARAMS_SOURCE.storet) !== -1) {
                     resp.features = map(resp.features, function(feature) {
                         delete feature.properties.EPA_DISCRETE_SAMPLE_COUNT;
                         delete feature.properties.NWIS_DISCRETE_SAMPLE_COUNT;
