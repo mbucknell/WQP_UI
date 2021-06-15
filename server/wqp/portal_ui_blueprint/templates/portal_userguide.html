@@ -7,9 +7,64 @@
 {% block page_header_title %}Water Quality Portal User Guide{% endblock %}
 
 {% block page_content %}
-    <div id="userguide-content" class="user-guide">
-        {{ feed_content|safe }}
-    </div>
+
+<div class="grid-row grid-gap">
+
+	<!-- Side navigation -->
+	<div class="tablet:grid-col-4">
+		<nav aria-label="Secondary navigation" class="sticky-sidebar">
+			<ul class="usa-sidenav">
+
+				<li class="usa-sidenav__item">
+					<a href="#" class="usa-current">Explanation of portal search parameters</a>
+					<!-- Sub nav -->
+					<ul class="usa-sidenav__sublist">
+						<li class="usa-sidenav__item">
+					 	 	<a href="javascript:void(0);">Available site types & definitions</a>
+						</li>
+						<li class="usa-sidenav__item">
+					 	 	<a href="javascript:void(0);">Available sample media definitions</a>
+						</li>
+						<li class="usa-sidenav__item">
+					 	 	<a href="javascript:void(0);">Available file formats</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="usa-sidenav__item">
+					<a href="javascript:void(0);">Explanation of data retrievals</a>
+					<!-- Sub nav -->
+					<ul class="usa-sidenav__sublist">
+						<li class="usa-sidenav__item">
+					 	 	<a href="javascript:void(0);">Site retrieval elements and definitions</a>
+						</li>
+						<li class="usa-sidenav__item">
+					 	 	<a href="javascript:void(0);">Result retrieval elements and definitions</a>
+						</li>
+						<li class="usa-sidenav__item">
+					 	 	<a href="javascript:void(0);">Result retrieval elements and definitions for biological data profile</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="usa-sidenav__item">
+					<a href="#test">Click to Scroll</a>
+				</li>
+
+			</ul>
+		</nav>
+	</div>
+
+	<!-- Page Body Content -->
+	<div class="grid-col">
+		{{ feed_content|safe }}
+
+		<div id="test">
+			<h1>Testing Anchor Links</h1>
+		</div>
+  	</div>	
+</div>
+
 {% endblock %}
 
 {% block body_page_script %}

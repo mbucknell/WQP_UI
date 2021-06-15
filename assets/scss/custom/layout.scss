@@ -4,8 +4,18 @@
 #pageBody{
 	display: block;
 	width: 95%;
+	// max-width: 1080px;
 	max-width: 960px;
 	margin: 0 auto;
 	padding: 35px 0;
 	box-sizing: border-box;
+}
+
+
+
+// TODO
+// Add sticky sidebar nav on guide pages?
+.sticky-sidebar{
+	position: sticky;
+	top: 0;
 }
