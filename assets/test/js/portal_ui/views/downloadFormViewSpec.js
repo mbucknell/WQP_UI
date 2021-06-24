@@ -99,7 +99,7 @@ describe('Tests for DownloadFormView', function() {
         expect(result.length).toBe(3);
         expect(result).toContain({name: 'fake-param', value: 'Fake1', multiple: false});
         expect(result).toContain({name: 'fake-param-with-multi', value: 'Fake2', multiple: true});
-        expect(result).toContain({name: 'providers', value: ["S1"], multiple: false});
+        expect(result).toContain({name: 'providers', value: ['S1'], multiple: false});
     });
 
     describe('Tests for promise returned from initialize', function() {
