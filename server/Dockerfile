@@ -5,7 +5,7 @@ RUN npm run build
 
 
 # Base off the community Python image
-FROM usgswma/python:3.8
+FROM public.ecr.aws/bitnami/python:3.8
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential && \

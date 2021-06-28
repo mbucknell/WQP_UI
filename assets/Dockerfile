@@ -1,4 +1,4 @@
-FROM node:12.18.2-stretch
+FROM public.ecr.aws/bitnami/node:12
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     firefox-esr && \
