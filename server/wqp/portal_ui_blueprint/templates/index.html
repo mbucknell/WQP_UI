@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block meta_tags %}
-    <meta name="google-site-verification" content="U1sI4UZAdEVS_0seZnE7MC97P1Ho6Hecg3wumfV5KoA" />
-    <meta name="msvalidate.01" content="E86159A5D7A52A1AF52A3024B0ECC27F" />
+<meta name="google-site-verification" content="U1sI4UZAdEVS_0seZnE7MC97P1Ho6Hecg3wumfV5KoA" />
+<meta name="msvalidate.01" content="E86159A5D7A52A1AF52A3024B0ECC27F" />
 {% endblock %}
 {% block title %}Water Quality Data Home{% endblock %}
 
@@ -10,139 +10,257 @@
 {% block page_content %}
 
 
-	<div id="formIntro">
+<div id="formIntro">
 
-		<div class="usa-alert usa-alert--info usa-alert--no-icon">
-			<div class="usa-alert__body">
-				<p class="usa-alert__text">
-					<b>Welcome to the new Water Quality Portal</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-				</p>
-			</div>
+	<div class="usa-alert usa-alert--info usa-alert--no-icon">
+		<div class="usa-alert__body">
+			<p class="usa-alert__text">
+				<b>Welcome to the new Water Quality Portal</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+				sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+			</p>
 		</div>
+	</div>
 
 
 
-		<!-- Two column help and learn more links -->
-		<ul class="usa-card-group">
-			<li class="tablet:grid-col-6 usa-card usa-card--flag">
-				<div class="usa-card__container">
-					<header class="usa-card__header">
-						<h2 class="usa-card__heading">Learn about the WQP</h2>
-					</header>
-					<div class="usa-card__media">
-						<div class="usa-card__img">
-							<img src="{{ 'img/download_button_normal.jpg' | asset_url }}" alt="Background graphic" />
-						</div>
+	<!-- Two column help and learn more links -->
+	<ul class="usa-card-group">
+		<li class="tablet:grid-col-6 usa-card usa-card--flag">
+			<div class="usa-card__container">
+				<header class="usa-card__header">
+					<h2 class="usa-card__heading">Learn about the WQP</h2>
+				</header>
+				<div class="usa-card__media">
+					<div class="usa-card__img">
+						<img src="{{ 'img/download_button_normal.jpg' | asset_url }}" alt="Background graphic" />
 					</div>
-		
-					<div class="usa-card__body links-only">
-						<a href="/wqp_description/">What is the WQP?</a>
-						<a href="/orgs/">Contributing organizations</a>
-						<a href="/other_portal_links/">Other Portal</a>
-						<a href="/provider/">Explore WQP Sites</a>
-					</div>
-					<!-- <div class="usa-card__footer">
+				</div>
+
+				<div class="usa-card__body links-only">
+					<a href="/wqp_description/">What is the WQP?</a>
+					<a href="/orgs/">Contributing organizations</a>
+					<a href="/other_portal_links/">Other Portal</a>
+					<a href="/provider/">Explore WQP Sites</a>
+				</div>
+				<!-- <div class="usa-card__footer">
 						<button class="usa-button">More Info</button>
 					</div> -->
-				</div>
-			</li>
+			</div>
+		</li>
 
-			<li class="tablet:grid-col-6 usa-card usa-card--flag">
-				<div class="usa-card__container">
-					<header class="usa-card__header">
-						<h2 class="usa-card__heading">How to use the WQP</h2>
-					</header>
-					<div class="usa-card__media">
-						<div class="usa-card__img">
-							<img src="{{ 'img/resources_button_normal.jpg' | asset_url }}" alt="Background graphic" />
-						</div>
+		<li class="tablet:grid-col-6 usa-card usa-card--flag">
+			<div class="usa-card__container">
+				<header class="usa-card__header">
+					<h2 class="usa-card__heading">How to use the WQP</h2>
+				</header>
+				<div class="usa-card__media">
+					<div class="usa-card__img">
+						<img src="{{ 'img/resources_button_normal.jpg' | asset_url }}" alt="Background graphic" />
 					</div>
-		
-					<div class="usa-card__body links-only">
-						<a href="/portal_userguide/">User Guide</a>
-						<a href="/webservices_documentation/">Web Services Documentation</a>
-						<a href="/faqs/">FAQs</a>
-						<a href="/upload_data/">Upload Data</a>
-					</div>
-					<!-- <div class="usa-card__footer">
+				</div>
+
+				<div class="usa-card__body links-only">
+					<a href="/portal_userguide/">User Guide</a>
+					<a href="/webservices_documentation/">Web Services Documentation</a>
+					<a href="/faqs/">FAQs</a>
+					<a href="/upload_data/">Upload Data</a>
+				</div>
+				<!-- <div class="usa-card__footer">
 						<button class="usa-button">Read More</button>
 					</div> -->
-				</div>
+			</div>
+		</li>
+	</ul>
+
+
+	<div id="formInroFooter">
+
+		<div class="footer-flex">
+			<button class="usa-button usa-button--outline">Close Intro</button>
+		</div>
+
+
+		<!-- Don't show again checkbox -->
+		<div class="footer-flex">
+			<div class="usa-checkbox">
+				<input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
+				<label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+
+<!-- Basic Form -->
+<div id="basicForm">
+	<h3 class="site-preview-heading">Download Water Quality Data</h3>
+	<div class="usa-step-indicator" aria-label="progress">
+		<ol v-if="steps" class="usa-step-indicator__segments" :class="{            
+				'usa-step-indicator--counters': showStepNumbers && size != 'sm',
+				'usa-step-indicator--counters-sm': showStepNumbers && size == 'sm',
+				'usa-step-indicator--center': centerLabels
+			}">
+			<li v-for="(item, index) in steps" :key="index" class="usa-step-indicator__segment"
+				:aria-current="(step == index) ? true : false" :class="{
+						'usa-step-indicator__segment--complete': step <= index,
+						'usa-step-indicator__segment--current': step == index}">
+				<span class="usa-step-indicator__segment-label">
+					<span v-if="item.title && showLabels">[[item.title]]</span>
+					<span v-else-if="showLabels">[[item]]</span>
+					<span v-if="step < index" class="usa-sr-only">completed</span>
+					<span v-if="step < index" class="usa-sr-only">not completed</span>
+				</span>
+			</li>
+		</ol>
+		<div class="usa-step-indicator__header mt-1">
+			<h2 class="usa-step-indicator__heading">
+				<span class="usa-step-indicator__heading-counter">
+					<span class="usa-sr-only">Step</span>
+					<span class="usa-step-indicator__current-step">[[step+1]]</span>
+					<span class="usa-step-indicator__total-steps">of [[steps.length]]</span>
+				</span>
+				<slot name="title" v-bind="{ currentTitle }">
+					<span class="usa-step-indicator__heading-text" @click="onClickTitle()">[[currentTitle]]</span>
+				</slot>
+			</h2>
+		</div>
+	</div>
+	<button class="usa-button" v-on:click="onPrev()">Previous</button>
+	<button class="usa-button" v-on:click="onNext()">Next</button>
+</div>
+
+
+<!-- Form controls - reset, toggle advanced -->
+
+<div id="formHeader">
+
+	<h1>Water Quality Portal</h1>
+
+	<div id="formHeaderButtons">
+		<ul class="usa-button-group">
+			<li class="usa-button-group__item">
+				<button class="usa-button usa-button--outline">Reset Form</button>
+			</li>
+			<li class="usa-button-group__item">
+				<button class="usa-button">Show Advanced Form</button>
 			</li>
 		</ul>
-
-
-		<div id="formInroFooter">
-
-			<div class="footer-flex">
-				<button class="usa-button usa-button--outline">Close Intro</button>
-			</div>
-
-
-			<!-- Don't show again checkbox -->
-			<div class="footer-flex">
-				<div class="usa-checkbox">
-					<input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
-					<label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
-				</div>
-			</div>
-
-		</div>
-
-
 	</div>
 
+</div>
 
-	<!-- Form controls - reset, toggle advanced -->
 
-	<div id="formHeader">
 
-		<h1>Water Quality Portal</h1>
-	
-		<div id="formHeaderButtons">
-			<ul class="usa-button-group">
-				<li class="usa-button-group__item">
-					<button class="usa-button usa-button--outline">Reset Form</button>
-				</li>
-				<li class="usa-button-group__item">
-					<button class="usa-button">Show Advanced Form</button>
-				</li>
-			</ul>
+
+
+<div class="index-box">
+	<div id="download-col" class="index-box-column">
+		<div class="index-box-primary" id="download-data-box">
+			<a href="{{ url_for('portal_ui.portal-canonical') }}">
+				<h5>DOWNLOAD<br />DATA</h5>
+			</a>
 		</div>
-
 	</div>
-
-	
-	
-
-
-	<div class="index-box">
-        <div id="download-col" class="index-box-column">
-            <div class="index-box-primary" id="download-data-box">
-                <a href="{{ url_for('portal_ui.portal-canonical') }}"><h5>DOWNLOAD<br/>DATA</h5></a>
-            </div>
-        </div>
-    </div>
+</div>
 
 
 {% endblock %}
 
 {% block body_page_script %}
-    {% include "partials/hide_non_usgs_epa_logos.html" %}
+{% include "partials/hide_non_usgs_epa_logos.html" %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script type="text/javascript">
 
-    <script type="text/javascript">
-        // The following code makes interior links clickable
-        $(document).ready(function(){
-            $('.index-box-primary').click(function(){
-                window.location=$(this).find('a').attr('href');
-                return false;
-             });
-            $('.index-box-secondary').click(function(){
-                window.location=$(this).find('a').attr('href');
-            });
-            $('.index-box-secondary .interior-list').click(function(){
-                window.location=$(this).find('a').attr('href');
-            });
-        });
-    </script>
+	// The following code makes interior links clickable
+	$(document).ready(function () {
+		$('.index-box-primary').click(function () {
+			window.location = $(this).find('a').attr('href');
+			return false;
+		});
+		$('.index-box-secondary').click(function () {
+			window.location = $(this).find('a').attr('href');
+		});
+		$('.index-box-secondary .interior-list').click(function () {
+			window.location = $(this).find('a').attr('href');
+		});
+
+		// Initialize Vue.js
+		var basicForm = new Vue({
+			el: '#basicForm',
+			delimiters: ['[[', ']]'],
+			name: 'us-step-indicator',
+			components: {},
+			props: {
+				// Show step labels
+				showLabels: {
+					type: Boolean,
+					default: false
+				},
+				// Center counters and labels in each step
+				centerLabels: {
+					type: Boolean,
+					default: false
+				},
+				// Show step counters
+				showStepNumbers: {
+					type: Boolean,
+					default: false
+				},
+				// Show small step counters
+				size: {
+					type: String,
+					default: 'sm'
+				},
+				step: {
+					type: Number,
+					default: 0
+				},
+				variant: {
+					type: String,
+					default: 'info'
+				}
+			},
+			computed: {
+				currentTitle() {
+					if (this.steps && this.steps[this.step]) {
+						if (this.steps[this.step].title) {
+							return this.steps[this.step].title;
+						}
+						else {
+							return this.steps[this.step];
+						}
+					}
+					return '';
+				}
+			},
+			data: {
+				steps: [
+					'Location',
+					'Sites & Sampling',
+					'Filters & Downloads',
+				]
+			},
+			methods: {
+				onClickTitle() {
+					this.$emit('selectTitle', this.currentTitle);
+				},
+				onNext() {
+					if (this.step < this.steps.length - 1) {
+						this.step += 1;
+					} else {
+						this.step = 0;
+					}
+				}, onPrev() {
+					if (this.step > 0) {
+						this.step -= 1;
+					} else {
+						this.step = this.steps.length - 1;
+					}
+				}
+			}
+		});
+	});
+</script>
 {% endblock %}
