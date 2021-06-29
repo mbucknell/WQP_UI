@@ -9,5 +9,6 @@ WORKDIR /assets
 COPY package.json .
 COPY package-lock.json .
 RUN npm install
-
+RUN ls
 COPY . /assets
+RUN ls /assets
