@@ -19,12 +19,10 @@ RUN pip install --no-cache-dir -r requirements.txt -r requirements-dev.txt
 # Add source files and pre-compile them
 COPY . $HOME/application
 
-RUN ls
 RUN python -m compileall -f
 RUN python -m compileall -f .
 
 # Copy static files from the assets image to this one.
-RUN mkdir assets
 COPY --from=assets /assets/dist/ /assets
 
 # Use environment variables for application configuration rather than an
