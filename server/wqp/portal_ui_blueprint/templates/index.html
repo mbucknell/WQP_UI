@@ -127,6 +127,38 @@
 			</h2>
 		</div>
 	</div>
+	<div id="basicLocation" class="basicForm">
+		<h4>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are available in the Advanced Download.</h4>
+
+		<div class="form-group">
+			<label for="countrycode" class="tooltip">Select one or multiple
+			  countries:</label>
+			<div>
+			  <select multiple class="form-control" id="countrycode" name="countrycode" data-placeholder="All"
+				style="width: 50%"></select>
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label class="tooltip" for="statecode">State:</label>
+			<div>
+			  <select multiple class="form-control" id="statecode" name="statecode" data-placeholder="All"
+				style="width: 50%"></select>
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label class="tooltip" class="control-label" for="countycode">County:</label>
+			<div>
+			  <select multiple class="form-control" id="countycode" name="countycode" data-placeholder="All"
+				style="width: 50%"></select>
+			</div>
+		  </div>
+	</div>
+	<div id="basicFilterResults" class="basicForm">
+		<p>Specify data source, date range, and sampling filters to apply to the desired dataset. Additional options are available in the Advanced Download</p>
+	</div>
+	<div id="basicDownload" class="basicForm">
+		<p>Specify a data type and file format to donload. Additional options are available in the Advanced Download.</p>
+	</div>
 	<button class="usa-button" v-on:click="onPrev()">Previous</button>
 	<button class="usa-button" v-on:click="onNext()">Next</button>
 </div>
@@ -186,6 +218,11 @@
 			window.location = $(this).find('a').attr('href');
 		});
 
+		// showing Location Parameters first for basic form
+		$( "#basicLocation" ).show();
+		$( "#basicFilterResults" ).hide();
+		$( "#basicDownload" ).hide();
+
 		// Initialize Vue.js
 		var basicForm = new Vue({
 			el: '#basicForm',
@@ -237,9 +274,9 @@
 			},
 			data: {
 				steps: [
-					'Location',
-					'Sites & Sampling',
-					'Filters & Downloads',
+					'Location Parameters',
+					'Filter Results',
+					'Download',
 				]
 			},
 			methods: {
@@ -252,15 +289,34 @@
 					} else {
 						this.step = 0;
 					}
-				}, onPrev() {
+					this.showStepParameters()
+				}, 
+				onPrev() {
 					if (this.step > 0) {
 						this.step -= 1;
 					} else {
 						this.step = this.steps.length - 1;
 					}
+					this.showStepParameters()
+				},
+				showStepParameters() {
+					if (this.step === 0) {
+						$( "#basicLocation" ).show();
+						$( "#basicFilterResults" ).hide();
+						$( "#basicDownload" ).hide();
+					} else if (this.step === 1) {
+						$( "#basicLocation" ).hide();
+						$( "#basicFilterResults" ).show();
+						$( "#basicDownload" ).hide();
+					} else if (this.step === 2) {
+						$( "#basicLocation" ).hide();
+						$( "#basicFilterResults" ).hide();
+						$( "#basicDownload" ).show();
+					}
 				}
-			}
+			},
 		});
 	});
 </script>
+<script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
 {% endblock %}
