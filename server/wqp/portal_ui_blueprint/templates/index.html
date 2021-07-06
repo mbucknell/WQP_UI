@@ -9,103 +9,46 @@
 
 {% block page_content %}
 
-
-<div id="formIntro">
-
-	<div class="usa-alert usa-alert--info usa-alert--no-icon">
-		<div class="usa-alert__body">
-			<p class="usa-alert__text">
-				<b>Welcome to the new Water Quality Portal</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-				sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-			</p>
-		</div>
-	</div>
-
-
-
-	<!-- Two column help and learn more links -->
-	<ul class="usa-card-group">
-		<li class="tablet:grid-col-6 usa-card usa-card--flag">
-			<div class="usa-card__container">
-				<header class="usa-card__header">
-					<h2 class="usa-card__heading">Learn about the WQP</h2>
-				</header>
-				<div class="usa-card__media">
-					<div class="usa-card__img">
-						<img src="{{ 'img/download_button_normal.jpg' | asset_url }}" alt="Background graphic" />
-					</div>
-				</div>
-
-				<div class="usa-card__body links-only">
-					<a href="/wqp_description/">What is the WQP?</a>
-					<a href="/orgs/">Contributing organizations</a>
-					<a href="/other_portal_links/">Other Portal</a>
-					<a href="/provider/">Explore WQP Sites</a>
-				</div>
-				<!-- <div class="usa-card__footer">
-						<button class="usa-button">More Info</button>
-					</div> -->
-			</div>
-		</li>
-
-		<li class="tablet:grid-col-6 usa-card usa-card--flag">
-			<div class="usa-card__container">
-				<header class="usa-card__header">
-					<h2 class="usa-card__heading">How to use the WQP</h2>
-				</header>
-				<div class="usa-card__media">
-					<div class="usa-card__img">
-						<img src="{{ 'img/resources_button_normal.jpg' | asset_url }}" alt="Background graphic" />
-					</div>
-				</div>
-
-				<div class="usa-card__body links-only">
-					<a href="/portal_userguide/">User Guide</a>
-					<a href="/webservices_documentation/">Web Services Documentation</a>
-					<a href="/faqs/">FAQs</a>
-					<a href="/upload_data/">Upload Data</a>
-				</div>
-				<!-- <div class="usa-card__footer">
-						<button class="usa-button">Read More</button>
-					</div> -->
-			</div>
-		</li>
-	</ul>
-
-
-	<div id="formInroFooter">
-
-		<div class="footer-flex">
-			<button class="usa-button usa-button--outline">Close Intro</button>
-		</div>
-
-
-		<!-- Don't show again checkbox -->
-		<div class="footer-flex">
-			<div class="usa-checkbox">
-				<input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
-				<label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
-			</div>
-		</div>
-
-	</div>
-
-
-</div>
-
 <!-- Basic Form -->
 <div id="basicForm">
+	<div id="formIntro">
+
+		<div class="usa-alert usa-alert--info usa-alert--no-icon" style="margin-bottom: 10px;">
+			<div class="usa-alert__body">
+				<p class="usa-alert__text">
+					<b>Welcome to the new Water Quality Portal</b><br>
+					To download data follow the instructions on each step. Returning and experienced users may wish to use the <a href="#" @click="toggleForms">Advanced Download</a>.
+				</p>
+			</div>
+		</div>
+	
+		<div id="formInroFooter">
+	
+			<div class="footer-flex">
+				<button class="usa-button usa-button--outline" id="closeIntro">Close Intro</button>
+			</div>
+	
+	
+			<!-- Don't show again checkbox -->
+			<div class="footer-flex">
+				<div class="usa-checkbox">
+					<input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
+					<label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
+				</div>
+			</div>
+		</div>
+	</div>
 	<h3 class="site-preview-heading">Download Water Quality Data</h3>
 	<div class="usa-step-indicator" aria-label="progress">
 		<ol v-if="steps" class="usa-step-indicator__segments" :class="{            
-				'usa-step-indicator--counters': showStepNumbers && size != 'sm',
-				'usa-step-indicator--counters-sm': showStepNumbers && size == 'sm',
-				'usa-step-indicator--center': centerLabels
-			}">
+					'usa-step-indicator--counters': showStepNumbers && size != 'sm',
+					'usa-step-indicator--counters-sm': showStepNumbers && size == 'sm',
+					'usa-step-indicator--center': centerLabels
+				}">
 			<li v-for="(item, index) in steps" :key="index" class="usa-step-indicator__segment"
 				:aria-current="(step == index) ? true : false" :class="{
-						'usa-step-indicator__segment--complete': step <= index,
-						'usa-step-indicator__segment--current': step == index}">
+							'usa-step-indicator__segment--complete': step <= index,
+							'usa-step-indicator__segment--current': step == index}">
 				<span class="usa-step-indicator__segment-label">
 					<span v-if="item.title && showLabels">[[item.title]]</span>
 					<span v-else-if="showLabels">[[item]]</span>
@@ -128,85 +71,800 @@
 		</div>
 	</div>
 	<div id="basicLocation" class="basicForm">
-		<h4>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are available in the Advanced Download.</h4>
+		<p>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are
+			available in the <a href="#" @click="toggleForms">Advanced Download</a>.</p>
 
-		<div class="form-group">
-			<label for="countrycode" class="tooltip">Select one or multiple
-			  countries:</label>
+		<div class="formSection">
+			<label for="countrycodeBasic" class="tooltip">
+				<b>Country</b></label>
 			<div>
-			  <select multiple class="form-control" id="countrycode" name="countrycode" data-placeholder="All"
-				style="width: 50%"></select>
+				<select multiple class="form-control" id="countrycodeBasic" name="countrycodeBasic"
+					data-placeholder="All Countries" style="width: 50%"></select>
 			</div>
-		  </div>
-		  <div class="form-group">
-			<label class="tooltip" for="statecode">State:</label>
+		</div>
+		<div class="formSection">
+			<label class="tooltip" for="statecodeBasic"><b>State</b></label>
 			<div>
-			  <select multiple class="form-control" id="statecode" name="statecode" data-placeholder="All"
-				style="width: 50%"></select>
+				<select multiple class="form-control" id="statecodeBasic" name="statecodeBasic" data-placeholder="All States"
+					style="width: 50%"></select>
 			</div>
-		  </div>
-		  <div class="form-group">
-			<label class="tooltip" class="control-label" for="countycode">County:</label>
+		</div>
+		<div class="formSection">
+			<label class="tooltip" class="control-label" for="countycodeBasic"><b>County</b></label>
 			<div>
-			  <select multiple class="form-control" id="countycode" name="countycode" data-placeholder="All"
-				style="width: 50%"></select>
+				<select multiple class="form-control" id="countycodeBasic" name="countycodeBasic" data-placeholder="All Counties"
+					style="width: 50%"></select>
 			</div>
-		  </div>
+		</div>
+		<div id="point-location" style="display: inline-block">
+
+			<table class="pointLocationTable">
+				<thead>
+				  <tr style="height:2px">
+					<th class="pointLocationTable-cell"></th>
+					<th class="pointLocationTable-cell"><b>Miles</b></th>
+					<th class="pointLocationTable-cell"></th>
+					<th class="pointLocationTable-cell"><b>Lat</b></th>
+					<th class="pointLocationTable-cell"><b>Long</b></th>
+					<th class="pointLocationTable-cell"></th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr style="height:2px">
+					<td class="pointLocationTable-cell">Whithin</td>
+					<td class="pointLocationTable-cell"><input class="smallInput" type="text" name="withinBasic" id="withinBasic" /></td>
+					<td class="pointLocationTable-cell">of</td>
+					<td class="pointLocationTable-cell"><input class="smallInput" type="text" name="latBasic" size="7" id="latBasic" v-model="latBasic"></input></td>
+					<td class="pointLocationTable-cell"><input class="smallInput" type="text" name="longBasic" id="longBasic" v-model="lonBasic"></input></td>
+					<td class="pointLocationTable-cell"><button id="useMyLocationBasic" class="usa-button usa-button--outline" type="button">Use my location</button></td>
+				  </tr>
+				</tbody>
+				</table>
+		</div>
+		<div class="formSection">
+			<label class="tooltip" class="control-label" for="siteTypeBasic"><b>Site Type</b></label>
+			<div>
+				<select multiple class="form-control" id="siteTypeBasic" name="siteTypeBasic" data-placeholder="All Types"
+					style="width: 50%"></select>
+			</div>
+		</div>
+		<div class="menu-buttons">
+			<button class="usa-button usa-button--outline">Clear Paramters</button>
+			<button class="usa-button" v-on:click="onPrev()">Previous</button>
+			<button class="usa-button" v-on:click="onNext()">Next</button>
+		</div>
 	</div>
 	<div id="basicFilterResults" class="basicForm">
-		<p>Specify data source, date range, and sampling filters to apply to the desired dataset. Additional options are available in the Advanced Download</p>
+		<p>Specify data source, date range, and sampling filters to apply to the desired dataset. Additional options are
+			available in the <a href="#" @click="toggleForms">Advanced Download</a>.</p>
+			<div class="formSection">
+				<label class="tooltip" class="control-label" for="datasourceBasic"><b>Data Source</b></label>
+				<div>
+					<select multiple class="form-control" id="datasourceBasic" name="datasourceBasic" data-placeholder="All Data Sources"
+						style="width: 50%"></select>
+				</div>
+			</div>
+			<div class="formSection" style="display: inline-block;">
+				<div class="tooltip" class="control-label" for="dateRangeBasic"><b>Data Range</b></div>
+				<div style="margin-top: -15px;">
+					<div class="usa-form-group" style="width:45%; float: left">
+						<label class="usa-label" id="event-date-start-label" for="event-date-start"
+						  ><b>Event start date</b></label
+						>
+						<div class="usa-hint" id="event-date-start-hint">mm/dd/yyyy</div>
+						<div class="usa-date-picker">
+						  <input
+							class="usa-input"
+							id="event-date-start"
+							name="event-date-start"
+							type="text"
+							aria-describedby="event-date-start-label event-date-start-hint"
+						  />
+						</div>
+					  </div>
+					  <div class="usa-form-group" style="width:45%; float: right;">
+						<label class="usa-label" id="event-date-end-label" for="event-date-end"
+						  ><b>Event end date</b></label
+						>
+						<div class="usa-hint" id="event-date-end-hint">mm/dd/yyyy</div>
+						<div class="usa-date-picker">
+						  <input
+							class="usa-input"
+							id="event-date-end"
+							name="event-date-end"
+							type="text"
+							aria-describedby="event-date-end-label event-date-end-hint"
+						  />
+						</div>
+					  </div>
+				</div>
+			</div>
+			<div class="formSection">
+				<label class="tooltip" class="control-label" for="sampleMediaBasic"><b>Sample Media</b></label>
+				<div>
+					<select multiple class="form-control" id="sampleMediaBasic" name="sampleMediaBasic" data-placeholder="All Sample Media"
+						style="width: 50%"></select>
+				</div>
+			</div>
+			<div class="formSection">
+				<label class="tooltip" class="control-label" for="charGroupBasic"><b>Characteristic Group</b></label>
+				<div>
+					<select multiple class="form-control" id="charGroupBasic" name="charGroupBasic" data-placeholder="All Characteristic Groups"
+						style="width: 50%"></select>
+				</div>
+			</div>
+			<div class="menu-buttons">
+				<button class="usa-button usa-button--outline">Clear Filters</button>
+				<button class="usa-button" v-on:click="onPrev()">Previous</button>
+				<button class="usa-button" v-on:click="onNext()">Next</button>
+			</div>
 	</div>
 	<div id="basicDownload" class="basicForm">
-		<p>Specify a data type and file format to donload. Additional options are available in the Advanced Download.</p>
+		<p>Specify a data type and file format to donload. Additional options are available in the <a href="#" @click="toggleForms">Advanced Download</a>.
+		</p>
+		<div class="formSection">
+			<label class="tooltip" class="required-field" for="dataTypeBasic"><b>Data Type</b></label>
+			<div>
+				<select multiple class="form-control" id="dataTypeBasic" name="dataTypeBasic" data-placeholder="Select a type"
+					style="width: 50%"></select>
+			</div>
+		</div>
+		<div class="formSection">
+			<label class="tooltip" class="control-label" for="fileFormatBasic"><b>File Format</b></label>
+			<div>
+				<select multiple class="form-control" id="fileFormatBasic" name="fileFormatBasic" data-placeholder="Select a format"
+					style="width: 50%"></select>
+			</div>
+		</div>
+		<div class="usa-checkbox" style="margin-left: 10px;">
+			<input
+			  class="usa-checkbox__input"
+			  id="sortDataBasic"
+			  type="checkbox"
+			  name="sortDataBasic"
+			  value="true"
+			  checked
+			/>
+			<label class="usa-checkbox__label" for="sortDataBasic"
+			  >Sort Data</label
+			>
+		  </div>
+		<div class="menu-buttons">
+			<button class="usa-button usa-button--outline">Start Over</button>
+			<button class="usa-button" v-on:click="onPrev()">Previous</button>
+			<button class="usa-button" v-on:click="onNext()">Next</button>
+		</div>
 	</div>
-	<button class="usa-button" v-on:click="onPrev()">Previous</button>
-	<button class="usa-button" v-on:click="onNext()">Next</button>
 </div>
+
+<div id="app">
+	<form role="form" id="params" name="params" autocomplete="off" method="post" action="
+                          {%  if config.WATERAUTH_AUTHORIZE_URL %}
+                            {{ url_for('portal_ui.wqp_download_proxy', op='Station')}}
+                          {%  else %}
+                            {{ config.SEARCH_QUERY_ENDPOINT }}Station/search
+                            {% endif %}
+                            ">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+		<div id="place">
+			<div class="grid-col">
+				<div class="usa-accordion">
+					<h4 class="usa-accordion__heading">
+						<button class="usa-accordion__button" aria-expanded="true" aria-controls="a1">
+							Select Location Parameters
+						</button>
+					</h4>
+					<div id="a1" class="usa-accordion__content usa-prose">
+						<div class="grid-row grid-gap">
+							<div class="tablet:grid-col">
+								<div class="form-group">
+									<label for="countrycode" class="tooltip" :title="countryTooltip">Select one or
+										multiple
+										countries:</label>
+									<div>
+										<select multiple class="form-control" id="countrycode" name="countrycode"
+											data-placeholder="All" style="width: 100%"></select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="tooltip" for="statecode" :title="stateTooltip">State:</label>
+									<div>
+										<select multiple class="form-control" id="statecode" name="statecode"
+											data-placeholder="All" style="width: 100%"></select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="tooltip" class="control-label" for="countycode"
+										:title="countyTooltip">County:</label>
+									<div>
+										<select multiple class="form-control" id="countycode" name="countycode"
+											data-placeholder="All" style="width: 100%"></select>
+									</div>
+								</div>
+							</div>
+							<div class="tablet:grid-col">
+								<div id="point-location">
+									<div>
+										<label class="tooltip" :title="pointLocationTooltip">Point Location:</label>
+										<small>
+											Example: 20 miles from Latitude 46.12 degrees N,
+											Longitude 89.15 degrees W would be entered as: Distance:
+											20 Latitude: 46.12 Longitude: -89.15
+										</small>
+									</div>
+									<div class="pointBasic">
+										<div></div>
+										<label class="control-label" for="within">Within</label>
+										<input class="form-control" type="text" name="within" id="within" />
+
+										<div id="miles-label">miles of</div>
+										<label class="control-label" for="lat">Lat:</label>
+										<div>
+											<input class="form-control" type="text" name="lat" size="7" id="lat" />
+										</div>
+										<label class="control-label" for="long">Long:</label>
+										<div>
+											<input class="form-control" type="text" name="long" id="long" />
+										</div>
+										<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+											<use xlink:href="{{ 'img/sprite.svg#my_location' | asset_url }}"></use>
+										</svg>
+										<div id="useMyLocation"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tablet:grid-col">
+							<div id="bounding-box" class="tooltip" :title="boundingBoxTooltip">
+								<div>Bounding Box:</div>
+								<div>
+									<div class="form-group">
+										<label class="control-label" for="north">North:</label>
+										<div>
+											<input class="form-control" type="text" id="north" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label" for="south">South:</label>
+										<div>
+											<input class="form-control" type="text" id="south" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label" for="east">East:</label>
+										<div>
+											<input class="form-control" type="text" id="east" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label" for="west">West:</label>
+										<div>
+											<input class="form-control" type="text" id="west" />
+										</div>
+									</div>
+								</div>
+								<input type="hidden" name="bBox" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+<div id="siteSamplingParams">
+	<div class="grid-col">
+		<div class="usa-accordion">
+			<h4 class="usa-accordion__heading">
+				<button class="usa-accordion__button" aria-expanded="true" aria-controls="a2">
+					Select Site & Sampling Parameters
+				</button>
+			</h4>
+			<div id="a2" class="usa-accordion__content usa-prose">
+				<div id="site-params">
+					<div class="grid-row grid-gap">
+						<div class="tablet:grid-col">
+							<div class="tooltip" :title="siteTypeTooltip">
+								<label class="control-label" for="siteType">Site Type:</label>
+								<div>
+									<select multiple id="siteType" name="siteType" data-placeholder="All"
+										style="width: 100%"></select>
+								</div>
+							</div>
+							<div id="organization-id-select" :title="orgIDTooltip">
+								<label class="control-label" for="organization">Organization ID:</label>
+								<div>
+									<select multiple name="organization" id="organization" data-placeholder="All"
+										style="width: 100%"></select>
+								</div>
+							</div>
+							<div class="tooltip" data-position="right" :title="siteIDTooltip">
+								<label class="control-label" for="siteid">Site ID:</label>
+								<div>
+									<select multiple id="siteid" name="siteid" data-placeholder="All"
+										style="width: 70%"></select>
+								</div>
+								<div>
+									Examples: For NWIS site: USGS-301650084300701 For STORET
+									site: R10BUNKER-CUA005-5 For multiple sites:
+									IN002-413354086221001;USSCS-311257091521312;USEPA-414007085591501
+									For further information about NWIS versus STORET site
+									ids, go to the FAQs page
+								</div>
+							</div>
+							<div class="tooltip" :title="hucTooltip">
+								<label class="control-label" for="huc">HUC:</label>
+								<div>
+									<input class="form-control" type="text" name="huc" id="huc" data-multiple="true" />
+								</div>
+								<div>
+									Examples: 01010003;01010004 010801*
+									01010003;010801*;01010005
+								</div>
+							</div>
+							<div class="tooltip" id="min-activities-div" :title="minSamplingTooltip">
+								<label class="control-label" for="min-activities">Minimum sampling activities
+									per site:</label>
+								<div>
+									<input class="form-control" type="number" min="1" name="minactivities"
+										id="min-activities" />
+								</div>
+							</div>
+						</div>
+						<div class="tablet:grid-col">
+							<div id="sampling-params" class="panel panel-default">
+								<div class="panel-body">
+									<div id="sampling" class="subpanel">
+										<div class="subpanel-body">
+											<div class="tooltip" :title="sampleMediaTooltip">
+												<label class="control-label" for="sampleMedia">Sample
+													Media:</label>
+												<div>
+													<select multiple class="form-control" name="sampleMedia"
+														id="sampleMedia" data-placeholder="All"
+														style="width: 100%"></select>
+												</div>
+											</div>
+											<div class="tooltip" :title="charGroupTooltip">
+												<label class="control-label" for="characteristicType">Characteristic
+													Group:</label>
+												<div>
+													<select multiple class="form-control" name="characteristicType"
+														id="characteristicType" data-placeholder="All"
+														style="width: 100%"></select>
+												</div>
+											</div>
+											<div class="tooltip" :title="characteristicsTooltip">
+												<label class="control-label"
+													for="characteristicName">Characteristics:</label>
+												<div>
+													<select multiple class="form-control" name="characteristicName"
+														id="characteristicName" data-placeholder="All"
+														style="width: 100%"></select>
+												</div>
+											</div>
+
+											<div class="tooltip" :title="projectIDTooltip">
+												<label class="control-label" for="project-code">Project
+													ID:</label>
+												<div>
+													<select multiple class="form-control" name="project"
+														id="project-code" data-placeholder="All"
+														style="width: 100%"></select>
+												</div>
+											</div>
+											<div class="tooltip" id="pcode-div" :title="paramCodeTooltip">
+												<label class="control-label" for="pCode">Parameter Code:
+													<span style="font-size: x-small">(NWIS ONLY)</span></label>
+												<div>
+													<input class="form-control usa-label" type="text" name="pCode"
+														id="pCode" data-multiple="true" />
+												</div>
+											</div>
+											<div class="tooltip" id="minresults-div" :title="minimumResultsTooltip">
+												<label class="control-label" for="minresults">Minimum results
+													per site:</label>
+												<div>
+													<input class="form-control usa-label" type="number" min="1"
+														name="minresults" id="minresults" />
+												</div>
+											</div>
+											<div id="date-row">
+												<div id="start-date-select">
+													<label class="control-label" for="startDateLo">Date range -
+														from:</label>
+													<div>
+														<div>
+															<input class="form-control usa-label" type="text"
+																id="startDateLo" name="startDateLo"
+																placeholder="mm-dd-yyyy" />
+														</div>
+													</div>
+												</div>
+												<div id="end-date-select">
+													<label class="control-label" for="startDateHi">to:</label>
+													<div>
+														<div>
+															<input class="form-control usa-label" type="text"
+																id="startDateHi" name="startDateHi"
+																placeholder="mm-dd-yyyy" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div id="biological" class="subpanel">
+										<div class="tooltip" :title="bioSamplingTooltip">
+											<div class="subpanel-heading">
+												Biological sampling parameters:
+											</div>
+										</div>
+										<div class="subpanel-body">
+											<div class="tooltip" :title="assemblageTooltip">
+												<label for="assemblage">Assemblage:</label>
+												<div>
+													<select multiple name="assemblage" id="assemblage"
+														data-placeholder="All" style="width: 100%"></select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="tooltip" for="subjectTaxonomicName"
+													:title="taxNameTooltip">Taxonomic
+													Name:</label>
+												<div>
+													<select multiple name="subjectTaxonomicName"
+														aria-label="Select a taxonomic name" id="subject-taxonomic-name"
+														data-placeholder="All" style="width: 100%"></select>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="grid-col">
+	<div class="usa-accordion">
+		<h4 class="usa-accordion__heading">
+			<button class="usa-accordion__button" aria-expanded="true" aria-controls="a3">
+				Download the Data
+			</button>
+		</h4>
+		<div id="a3" class="usa-accordion__content usa-prose">
+			<div>
+				<div id="download-box" class="grid-row grid-gap">
+					<div id="download-box-input-div" class="grid-row grid-gap">
+						<div id="data-type-parameters-div" class="tablet:grid-col-3">
+							<div class="panel-body">
+								<div class="form-group">
+									<fieldset class="usa-fieldset">
+										<legend class="usa-legend"
+											title="Click in box and select one or more sources, otherwise data will be retrieved from all available providers">
+											Select one or many:
+										</legend>
+										<div class="usa-checkbox">
+											<input class="datasources usa-checkbox__input" id="nwis" type="checkbox"
+												name="providers" value="NWIS" checked />
+											<label class="usa-checkbox__label" for="nwis">NWIS</label>
+										</div>
+										<div class="usa-checkbox">
+											<input class="datasources usa-checkbox__input" id="stewards" type="checkbox"
+												name="providers" value="STEWARDS" checked />
+											<label class="usa-checkbox__label" for="stewards">STEWARDS</label>
+										</div>
+										<div class="usa-checkbox">
+											<input class="datasources usa-checkbox__input" id="stortet" type="checkbox"
+												name="providers" value="STORET" checked />
+											<label class="usa-checkbox__label" for="stortet">STORET</label>
+										</div>
+									</fieldset>
+								</div>
+							</div>
+						</div>
+						<div id="download-data-kind-box" class="tablet:grid-col-5">
+							<fieldset class="usa-fieldset">
+								<legend class="usa-legend usa-legend">
+									Select data to download:
+								</legend>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="organizationDL" type="radio"
+										value="Organization" />
+									<label class="usa-radio__label" for="organization">Organization Data</label>
+								</div>
+								<div class="usa-radio">
+									<input checked="checked" type="radio" class="result-type usa-radio__input"
+										id="sites" type="radio" value="Station" />
+									<label class="usa-radio__label" for="sites">Site data only</label>
+								</div>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="projects" type="radio"
+										value="Project" />
+									<label class="usa-radio__label" for="projects">Project data</label>
+								</div>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="proj-mon-weight" type="radio"
+										value="ProjectMonitoringLocationWeighting" />
+									<label class="usa-radio__label" for="proj-mon-weight">Project Monitoring
+										Location Weighting
+										data</label>
+								</div>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="samples" type="radio"
+										value="Result" />
+									<label class="usa-radio__label" for="samples">Sample results
+										(physical/chemical
+										metadata)</label>
+								</div>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="biosamples" type="radio"
+										value="Result" />
+									<label class="usa-radio__label" for="biosamples">Sample results (biological
+										metadata)</label>
+								</div>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="narrowsamples" type="radio"
+										value="Result" />
+									<label class="usa-radio__label" for="narrowsamples">Sample results
+										(narrow)</label>
+								</div>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="activity-input" type="radio"
+										value="Activity" />
+									<label class="usa-radio__label" for="activity-input">Sampling
+										Activity</label>
+								</div>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="activitymetric-input" type="radio"
+										value="ActivityMetric" />
+									<label class="usa-radio__label" for="activitymetric-input">Sampling Activity
+										Metrics</label>
+								</div>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="resultdetection" type="radio"
+										value="ResultDetectionQuantitationLimit" />
+									<label class="usa-radio__label" for="resultdetection">Result Detection
+										Quantitation Limit
+										Data</label>
+								</div>
+								<div class="usa-radio">
+									<input class="result-type usa-radio__input" id="biologicalHabitatMetric"
+										type="radio" value="biologicalHabitatMetric" />
+									<label class="usa-radio__label" for="biologicalHabitatMetric">Biological
+										Habitat Metrics</label>
+								</div>
+							</fieldset>
+						</div>
+						<div id="map-and-query-div" class="tablet:grid-col-4">
+							<div id="mapping-div" class="panel-body">
+								<div id="map-ops-button-div" class="form-inline">
+									<div id="show-on-map-button-div" class="form-group">
+										<button type="button" class="usa-button usa-button--outline"
+											id="show-on-map-button">
+											Show sites on map
+										</button>
+									</div>
+									<div id="sld-select-div" class="usa-label">
+										<label>Style sites:&nbsp;</label>
+										<select id="sld-select-input" class="usa-select">
+											{% for sld in config.SITE_SLDS %}
+											<option value="{{ sld.id }}" {% if loop.first %}checked{% endif %}>
+												{{ sld.text }}
+											</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div id="query-map-container">
+									<div id="query-results-map"></div>
+									<div id="map-loading-indicator">
+										<i class="fa fa-spin fa-spinner fa-5x"></i>
+									</div>
+									<div id="map-popover" title="Detailed site information" data-trigger="focus"></div>
+								</div>
+								<div id="query-map-legend-div">
+									<div class="legend-header">Sites Legend</div>
+									<div class="legend-container"></div>
+								</div>
+							</div>
+							<div id="download-tabular-data">
+								<fieldset class="usa-fieldset">
+									<legend class="usa-legend usa-legend">
+										Select one File format:
+									</legend>
+									<div class="usa-radio">
+										<input class="usa-radio__input" id="csv" type="radio" name="mimeType"
+											value="csv" checked="checked" />
+										<label class="usa-radio__label" for="csv">Comma-separated</label>
+									</div>
+									<div class="usa-radio">
+										<input class="usa-radio__input" id="tsv" type="radio" name="mimeType"
+											value="tsv" />
+										<label class="usa-radio__label" for="tsv">Tab-separated</label>
+									</div>
+									<div class="usa-radio">
+										<input class="usa-radio__input" id="xlsx" type="radio" name="mimeType"
+											value="xlsx" />
+										<label class="usa-radio__label" for="xlsx">MS Excel 2007+</label>
+									</div>
+								</fieldset>
+							</div>
+							<div id="download-sorted-data-div">
+								<input type="checkbox" id="sorted" />
+								<label for="sorted">Sort data</label>
+							</div>
+							<input type="hidden" name="zip" id="zip" value="yes" />
+							<input type="hidden" name="sorted" id="hidden-sorted" value="no" />
+							<div id="form-action">
+								<a href="#download-status-modal" id="main-button" class="usa-button" type="submit"
+									aria-controls="example-modal-1">
+									DOWNLOAD
+								</a>
+								<div class="usa-modal" id="download-status-modal" aria-labelledby="modal-1-heading"
+									aria-describedby="modal-1-description">
+									<div class="usa-modal__content">
+										<div class="usa-modal__main">
+											<h2 class="usa-modal__heading" id="modal-2-heading">
+												Are you sure you want to continue?
+											</h2>
+											<div class="usa-prose">
+												<p id="modal-2-description">You have unsaved changes that will
+													be lost.</p>
+											</div>
+											<div class="usa-modal__footer">
+												<ul class="usa-button-group">
+													<li class="usa-button-group__item">
+														<button type="button" class="usa-button"
+															data-close-modal>Continue without saving</button>
+													</li>
+													<li class="usa-button-group__item">
+														<button type="button"
+															class="usa-button usa-button--unstyled padding-105 text-center"
+															data-close-modal>Go back</button>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<button class="usa-button usa-modal__close" aria-label="Close this window"
+											data-close-modal>
+
+											<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+												<use xlink:href="/assets/img/sprite.svg#close"></use>
+											</svg>
+
+										</button>
+									</div>
+								</div>
+								<div class="share-container" style="padding-top: 5px;">
+									<button type="button" class="usa-button usa-button--outline">
+										Share Page
+									</button>
+									<!-- <textarea class="usa-textarea" readonly rows="3"></textarea> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="show-queries-div" class="grid-col">
+				<a href="#arcgis-online-modal" class="usa-button usa-button--outline" id="show-arcgis-online-help"
+					type="button" aria-controls="arcgis-online-modal" data-open-modal>
+					Show ArcGIS Online Parameters
+				</a>
+				<div class="usa-modal usa-modal--lg" id="arcgis-online-modal" aria-labelledby="modal-2-heading"
+					aria-describedby="modal-2-description">
+					<div class="usa-modal__content">
+						<div class="usa-modal__main">
+							<h2 class="usa-modal__heading" id="modal-2-heading">
+								Are you sure you want to continue?
+							</h2>
+							<div class="usa-prose">
+								<p id="modal-2-description">You have unsaved changes that will be lost.</p>
+							</div>
+							<div class="usa-modal__footer">
+								<ul class="usa-button-group">
+									<li class="usa-button-group__item">
+										<button type="button" class="usa-button" data-close-modal>Continue
+											without saving</button>
+									</li>
+									<li class="usa-button-group__item">
+										<button type="button"
+											class="usa-button usa-button--unstyled padding-105 text-center"
+											data-close-modal>Go back</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<button class="usa-button usa-modal__close" aria-label="Close this window" data-close-modal>
+
+							<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+								<use xlink:href="/assets/img/sprite.svg#close"></use>
+							</svg>
+
+						</button>
+					</div>
+				</div>
+				&nbsp;
+				<button class="usa-button usa-button--outline" id="show-queries-button" type="button">
+					Show Web Service Calls
+				</button>
+				&nbsp;
+				<div id="api-queries-div">
+					<div class="show-query-text" id="query-div">
+						<b></b>
+						<br />
+						<textarea class="usa-textarea" readonly="readonly" rows="6"></textarea>
+					</div>
+					<div class="show-query-text" id="curl-query-div">
+						<b>cURL</b>
+						<br />
+						<textarea class="usa-textarea" readonly="readonly" rows="6"></textarea>
+					</div>
+					<div class="show-query-text" id="getfeature-query-div">
+						<b>WFS GetFeature</b>
+						<br />
+						<textarea class="usa-textarea" readonly="readonly" rows="6"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+
+
 
 
 <!-- Form controls - reset, toggle advanced -->
 
 <div id="formHeader">
 
-	<h1>Water Quality Portal</h1>
+	
 
-	<div id="formHeaderButtons">
-		<ul class="usa-button-group">
-			<li class="usa-button-group__item">
-				<button class="usa-button usa-button--outline">Reset Form</button>
-			</li>
-			<li class="usa-button-group__item">
-				<button class="usa-button">Show Advanced Form</button>
-			</li>
-		</ul>
-	</div>
-
-</div>
-
-
-
-
-
-<div class="index-box">
-	<div id="download-col" class="index-box-column">
-		<div class="index-box-primary" id="download-data-box">
-			<a href="{{ url_for('portal_ui.portal-canonical') }}">
-				<h5>DOWNLOAD<br />DATA</h5>
-			</a>
+	<div class="index-box">
+		<div id="download-col" class="index-box-column">
+			<div class="index-box-primary" id="download-data-box">
+				<a href="{{ url_for('portal_ui.portal-canonical') }}">
+					<h5>DOWNLOAD<br />DATA</h5>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
-
 
 {% endblock %}
 
 {% block body_page_script %}
 {% include "partials/hide_non_usgs_epa_logos.html" %}
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script type="text/javascript">
 
 	// The following code makes interior links clickable
 	$(document).ready(function () {
+		// hiding advanced form by default
+		$("#app").hide();
+
+		// initializeing multiselects 
+		$('#countrycodeBasic').select2();
+		$('#countycodeBasic').select2();
+		$('#statecodeBasic').select2();
+		$('#siteTypeBasic').select2();
+		$('#datasourceBasic').select2();
+		$('#sampleMediaBasic').select2();
+		$('#charGroupBasic').select2();
+		$('#dataTypeBasic').select2();
+		$('#fileFormatBasic').select2();
+
+		$('#closeIntro').on('click', function() {
+			$('#formIntro').hide();
+		});
+
 		$('.index-box-primary').click(function () {
 			window.location = $(this).find('a').attr('href');
 			return false;
@@ -219,10 +877,9 @@
 		});
 
 		// showing Location Parameters first for basic form
-		$( "#basicLocation" ).show();
-		$( "#basicFilterResults" ).hide();
-		$( "#basicDownload" ).hide();
-
+		$("#basicLocation").show();
+		$("#basicFilterResults").hide();
+		$("#basicDownload").hide();
 		// Initialize Vue.js
 		var basicForm = new Vue({
 			el: '#basicForm',
@@ -277,7 +934,9 @@
 					'Location Parameters',
 					'Filter Results',
 					'Download',
-				]
+				],
+				latBasic: '',
+				lonBasic: '',
 			},
 			methods: {
 				onClickTitle() {
@@ -290,7 +949,7 @@
 						this.step = 0;
 					}
 					this.showStepParameters()
-				}, 
+				},
 				onPrev() {
 					if (this.step > 0) {
 						this.step -= 1;
@@ -301,22 +960,40 @@
 				},
 				showStepParameters() {
 					if (this.step === 0) {
-						$( "#basicLocation" ).show();
-						$( "#basicFilterResults" ).hide();
-						$( "#basicDownload" ).hide();
+						$("#basicLocation").show();
+						$("#basicFilterResults").hide();
+						$("#basicDownload").hide();
 					} else if (this.step === 1) {
-						$( "#basicLocation" ).hide();
-						$( "#basicFilterResults" ).show();
-						$( "#basicDownload" ).hide();
+						$("#basicLocation").hide();
+						$("#basicFilterResults").show();
+						$("#basicDownload").hide();
 					} else if (this.step === 2) {
-						$( "#basicLocation" ).hide();
-						$( "#basicFilterResults" ).hide();
-						$( "#basicDownload" ).show();
+						$("#basicLocation").hide();
+						$("#basicFilterResults").hide();
+						$("#basicDownload").show();
+					}
+				},
+				getlocation() {
+					if (window.navigator.geolocation && window.navigator.geolocation.getCurrentPosition) {
+						if (navigator.geolocation) {
+							navigator.geolocation.getCurrentPosition();
+						}
+					}
+				},
+				toggleForms() {
+					if ($("#app").css('display') == "none") {
+						$("#basicForm").hide();
+						$("#app").show();
+					} else {
+						$("#app").hide();
+						$("#basicForm").show();	
 					}
 				}
 			},
 		});
 	});
+
 </script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
 {% endblock %}
