@@ -47,6 +47,15 @@ $(document).ready(function () {
                         initTooltip(elem);
                     }
                 });
+            },
+            toggleForms() {
+                if ($("#app").css('display') == "none") {
+                    $("#basicForm").hide();
+                    $("#app").show();
+                } else {
+                    $("#app").hide();
+                    $("#basicForm").show();	
+                }
             }
         }
     });

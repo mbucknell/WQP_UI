@@ -59,14 +59,14 @@
 
 <!-- Main App Header -->
 <div class="usa-overlay"></div>
-<header class="usa-header usa-header--basic">
+<header class="usa-header usa-header--basic" style="background-color: #253f60; padding-bottom: 20px">
 	<div class="usa-nav-container">
 		<div class="usa-navbar">
 			<div class="custom-nav-branding">
 				<a href="/" title="Home" aria-label="Home">
 					<img src="{{ 'img/NWQMC.png' | asset_url }}" width="56px" height="76px" alt="National Water Quality Monitoring Council" />
 				</a>
-				<em><a href="/" title="Home" aria-label="Home">NATIONAL WATER QUALITY MONITORING COUNCIL</a></em>
+				<em><a href="/" title="Home" aria-label="Home" style="color: white">NATIONAL WATER QUALITY MONITORING COUNCIL</a></em>
 			</div>
 			<button class="usa-menu-btn">Menu</button>
 		</div>
@@ -77,31 +77,31 @@
 			<ul class="usa-nav__primary usa-accordion">
 
 				<li class="usa-nav__primary-item">
-    				<a class="usa-nav__link" href="{{ url_for('portal_ui.home-canonical') }}"><span>Home</span></a>
+    				<a class="usa-nav__link" href="{{ url_for('portal_ui.home-canonical') }}" style="color: white;"><span>Home</span></a>
     			</li>
 
 				<li class="usa-nav__primary-item">
-    				<a class="usa-nav__link" href="{{ url_for('portal_ui.portal-canonical') }}"><span>Download Data</span></a>
+    				<a class="usa-nav__link" href="{{ url_for('portal_ui.portal-canonical') }}" style="color: white;"><span>Download Data</span></a>
     			</li>
 
 				<li class="usa-nav__primary-item">
-    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-one"><span>Explore WQP Sites</span></button>
+    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-one" style="color: white;"><span>Explore WQP Sites</span></button>
     				<ul id="basic-nav-section-one" class="usa-nav__submenu">
 						<li class="usa-nav__submenu-item">
-              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'NWIS') }}" class="">NWIS</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'NWIS') }}" style="color: white;">NWIS</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STEWARDS') }}" class="">STEWARDS</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STEWARDS') }}" style="color: white;">STEWARDS</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STORET') }}" class="">STORET</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STORET') }}" style="color: white;">STORET</a>
             			</li>
 					</ul>
 				</li>
 
 
 				<li class="usa-nav__primary-item">
-    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-two"><span>Help & About</span></button>
+    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-two" style="color: white;"><span>Help & About</span></button>
     				<ul id="basic-nav-section-two" class="usa-nav__submenu">
 						<li class="usa-nav__submenu-item">
 							<a href="{{ url_for('portal_ui.wqp_description-canonical') }}" class="">What is the WQP?</a>
