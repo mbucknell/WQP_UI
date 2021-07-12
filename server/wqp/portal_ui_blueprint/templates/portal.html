@@ -28,7 +28,7 @@
                       <label><strong>Country </strong></label><label class="tooltip" class="control-label" for="control-label" :title="countryTooltip"><span style="color: #565c65
                         ;"><i class="fa fa-info-circle"></i></span></label>
                       <div>
-                        <select multiple class="form-control" id="countrycode" name="countrycode" data-placeholder="Optional"
+                        <select multiple class="form-control" id="countrycode" name="countrycode" data-placeholder="All Countries"
                           style="width: 90%"></select>
                       </div>
                     </div>
@@ -36,14 +36,14 @@
                     <div class="form-group">
                       <label><strong>State </strong></label><label class="tooltip" class="control-label" for="control-label" :title="stateTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                         <div>
-                        <select multiple class="form-control" id="statecode" name="statecode" data-placeholder="Optional"
+                        <select multiple class="form-control" id="statecode" name="statecode" data-placeholder="All States"
                           style="width: 90%"></select>
                       </div>
                     <br>
                     <div class="form-group">
                       <label><strong>County </strong></label><label class="tooltip" class="control-label" for="control-label" :title="countyTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                       <div>
-                        <select multiple class="form-control" id="countycode" name="countycode" data-placeholder="Optional"
+                        <select multiple class="form-control" id="countycode" name="countycode" data-placeholder="All Counties"
                           style="width: 90%"></select>
                       </div>
                     </div>
@@ -58,20 +58,20 @@
                         <div class="form-group">
                           <label class="control-label" for="within">Within</label>
                           <div>
-                            <input class="form-control" type="text" name="within" size="16" id="within" placeholder="Optional" />
+                            <input class="form-control" type="text" name="within" size="16" id="within" placeholder="All" />
                           </div>
                         </div>
                         <div id="miles-label">miles of</div>
                         <div class="form-group">
                           <label class="control-label" for="lat">Latitude</label>
                           <div>
-                            <input class="form-control" type="text" name="lat" size="16" id="lat" placeholder="Optional" />
+                            <input class="form-control" type="text" name="lat" size="16" id="lat" placeholder="0" />
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label" for="long">Longitude</label>
                           <div>
-                            <input class="form-control" type="text" name="long" size="16" id="long" placeholder="Optional" />
+                            <input class="form-control" type="text" name="long" size="16" id="long" placeholder="0" />
                           </div>
                         </div>
                         <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
@@ -90,25 +90,25 @@
                         <div class="form-group">
                           <label class="control-label" for="north">North:</label>
                           <div>
-                            <input class="form-control" type="text" size="16" id="north" placeholder="Optional" />
+                            <input class="form-control" type="text" size="16" id="north" placeholder="90" />
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label" for="south">South:</label>
                           <div>
-                            <input class="form-control" type="text" size="16" id="south" placeholder="Optional" />
+                            <input class="form-control" type="text" size="16" id="south" placeholder="-90" />
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label" for="east">East:</label>
                           <div>
-                            <input class="form-control" type="text" size="16" id="east" placeholder="Optional" />
+                            <input class="form-control" type="text" size="16" id="east" placeholder="180" />
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label" for="west">West:</label>
                           <div>
-                            <input class="form-control" type="text" size="16" id="west" placeholder="Optional" />
+                            <input class="form-control" type="text" size="16" id="west" placeholder="-180" />
                           </div>
                         </div>
                       </div>
@@ -122,7 +122,7 @@
                             <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                           </div>
                             <div>
-                              <select multiple id="siteType" name="siteType" data-placeholder="Optional"
+                              <select multiple id="siteType" name="siteType" data-placeholder="All Site Types"
                                 style="width: 90%"></select>
                             </div>
                           </div>
@@ -133,7 +133,7 @@
                           </div>
                             <div>
                               <select multiple id="organization" name="organization"
-                                data-placeholder="Optional" style="width: 90%"></select>
+                                data-placeholder="All Organization IDs" style="width: 90%"></select>
                             </div>
                           </div>
                           <br>
@@ -142,7 +142,7 @@
                             <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                           </div>
                             <div>
-                              <select multiple id="siteid" input class="form-control" name="siteid" data-placeholder="Optional"
+                              <select multiple id="siteid" input class="form-control" name="siteid" data-placeholder="All Site IDs"
                                 style="width: 90%"></select>
                             </div>
                           </div>
@@ -152,7 +152,7 @@
                             <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                           </div>
                             <div>
-                              <input class="form-control" type="text" name="huc" id="huc" data-multiple="true" placeholder="Optional" size="16" />
+                              <input class="form-control" type="text" name="huc" id="huc" data-multiple="true" placeholder="All HUCs" size="16" />
                             </div>
                           </div>
                         </div>
@@ -184,7 +184,7 @@
                                 </div>
                                 <div>
                                   <select multiple class="form-control" name="sampleMedia" id="sampleMedia"
-                                    data-placeholder="Optional" style="width: 90%"></select>
+                                    data-placeholder="All Sample Mediums" style="width: 90%"></select>
                               </div>
                               <br>
                               <label><strong>Characteristic Group </strong></label><div class="tooltip" :title="charGroupTooltip">
@@ -192,7 +192,7 @@
                               </div>
                                 <div>
                                   <select multiple class="form-control" name="characteristicType" id="characteristicType"
-                                    data-placeholder="Optional" style="width: 90%"></select>
+                                    data-placeholder="All Characteristic Groups" style="width: 90%"></select>
                                 </div>
                                 <br>
                               <label><strong>Characteristics </strong></label><div class="tooltip" :title="characteristicsTooltip">
@@ -200,7 +200,7 @@
                               </div>
                                 <div>
                                   <select multiple class="form-control" name="characteristicName" id="characteristicName"
-                                    data-placeholder="Optional" style="width: 90%"></select>
+                                    data-placeholder="All Characteristics" style="width: 90%"></select>
                                 </div>
                               <br>
                               <label><strong>Project ID </strong></label><div class="tooltip" :title="projectIDTooltip">
@@ -208,7 +208,7 @@
                               </div>
                                 <div>
                                   <select multiple class="form-control" name="project" id="project-code"
-                                    data-placeholder="Optional" style="width: 90%"></select>
+                                    data-placeholder="All Project IDs" style="width: 90%"></select>
                                 </div>
                               </div>
                                 <div class="tablet:grid-col-4">
@@ -217,7 +217,7 @@
                                 <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                                   </div>
                                 <div>
-                                  <input class="form-control usa-label" type="text" size="23" placeholder="Optional" name="pCode" id="pCode"
+                                  <input class="form-control usa-label" type="text" size="23" placeholder="All Parameter Codes" name="pCode" id="pCode"
                                     data-multiple="true" />
                                 </div>
                                 <br>
@@ -233,7 +233,7 @@
                               </div>
                                 <div>
                                   <select multiple name="assemblage" id="assemblage"
-                                    data-placeholder="Optional" style="width: 90%"></select>
+                                    data-placeholder="All Assemblages" style="width: 90%"></select>
                                 </div>
                                 <br>
                               <div class="form-group">
@@ -241,7 +241,7 @@
                                   Name </strong></label><label class="tooltip" for="control-label" :title="taxNameTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                                 <div>
                                   <select multiple name="subjectTaxonomicName" aria-label="Select a taxonomic name"
-                                    id="subject-taxonomic-name" data-placeholder="Optional" style="width: 90%"></select>
+                                    id="subject-taxonomic-name" data-placeholder="All Taxonomic Names" style="width: 90%"></select>
                                 </div>
                               </div>
                             </div>
@@ -256,7 +256,7 @@
                               <div>
                                 <div>
                                   <label>from: </label><input class="form-control" type="text" id="startDateLo"
-                                  name="startDateLo" placeholder="Optional" size="18" />
+                                  name="startDateLo" placeholder="All Dates" size="18" />
                                 </div>
                               </div>
                             </div>
@@ -264,7 +264,7 @@
                           <div>
                             <div>
                               <label class="control-label" for="startDateHi">to: </label> <input class="form-control" type="text" id="startDateHi"
-                                name="startDateHi" placeholder="Optional" size="20" />
+                                name="startDateHi" placeholder="All Dates" size="20" />
                             </div>
                           </div>
                         </div>
@@ -275,7 +275,7 @@
                           <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                         </div>
                           <div>
-                            <input class="form-control" type="number" min="1" name="minactivities" id="min-activities" placeholder="Optional" size="25" />
+                            <input class="form-control" type="number" min="1" name="minactivities" id="min-activities" placeholder="1" size="25" />
                           </div>
                       </div>
                       <br>
@@ -284,7 +284,7 @@
                         </div>
                           <div>
                             <input class="form-control" type="number" min="1" name="minresults"
-                              id="minresults" placeholder="Optional" size="25" />
+                              id="minresults" placeholder="1" size="25" />
                           </div>
                       </div>
                     </div>
