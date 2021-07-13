@@ -12,7 +12,7 @@ These are other sources of water quality data that the Water Quality Portal team
 
 [**California Water Quality Monitoring Council’s My Water Quality**](http://www.mywaterquality.ca.gov)
 
-![California Water Quality Monitoring Council’s My Water Quality Logo](/server/wqp/markdownTextFiles/img/other_portal_links_image3.png) ![National Ground-WaterMonitoring Network Logo](/assets/img/other_portal_links_image4.png)
+![California Water Quality Monitoring Council’s My Water Quality Logo](/assets/img/other_portal_links_image3.png) ![National Ground-WaterMonitoring Network Logo](/assets/img/other_portal_links_image4.png)
 
 [**Caribbean Coastal Ocean Observing System (CariCOOS)**](http://www.caricoos.org/drupal/)
 
@@ -56,7 +56,7 @@ These are other sources of water quality data that the Water Quality Portal team
 
 [**Southeast Coastal Ocean  Observing Regional Association (SECOORA)**](http://secoora.org/data)
 
-![Southeast Coastal Ocean  Observing Regional Association (SECOORA) Logo](/server/wqp/markdownTextFiles/img/assets/img/other_portal_links_image15.png)
+![Southeast Coastal Ocean  Observing Regional Association (SECOORA) Logo](/assets/img/other_portal_links_image15.png)
 
 [**U.S. Integrated Ocean Observing System Program Data Access Page**](http://www.ioos.noaa.gov/data/welcome.html)
 
