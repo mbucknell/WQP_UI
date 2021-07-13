@@ -186,19 +186,13 @@ $black: #000;
 
 // Accordion custom styles
 // Setting this on the usa-accordion__content usa-prose prevents clipping 
-#a1 {
+#locationaccordion {
   overflow: visible
 }
-#a2 {
+#filteraccordion {
   overflow: visible
 }
-#a3 {
-  overflow: visible
-}
-#a4 {
-  overflow: visible
-}
-#a5 {
+#downloadaccordion {
   overflow: visible
 }
 
@@ -227,8 +221,9 @@ $black: #000;
   margin: 0px !important;
 }
 
-.usa-textarea {
-  height: 5rem !important;
+.wqp-textarea {
+  height: 5rem;
+  width: 18rem;
 }
 
 .usa-tooltip__body {
