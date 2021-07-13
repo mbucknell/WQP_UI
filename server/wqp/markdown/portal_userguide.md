@@ -207,15 +207,15 @@ Small differences in naming may cause chemically identical characteristics to be
 
 The example below displays part of the South Skunk watershed, with NWIS, EPA, and STEWARDS sites.
 
-![Result of clicking "Show sites on map" button](/server/wqp/markdownTextFiles/img/portal_userguide_image1.png)
+![Result of clicking "Show sites on map" button](/assets/img/portal_userguide_image1.png)
 
 For additional information about the sites, click on individual sites. Use the box tool below the zoom buttons to select multiple sites.
 
-![Additional information about sites](/server/wqp/markdownTextFiles/img/portal_userguide_image2.png)
+![Additional information about sites](/assets/img/portal_userguide_image2.png)
 
 The Water Quality Portal only provides discrete monitoring data. To see USGS long-term flow monitoring sites, click the layer picker on the upper right and toggle on "NWIS Stream Gages". These gage locations are based on the [GAGES-II dataset](http://water.usgs.gov/GIS/metadata/usgswrd/XML/gagesII_Sept2011.xml), which only runs through 2009. Some gages are now discontinued and other gage data may be more accurate.
 
-![NWIS Stream Gages](/server/wqp/markdownTextFiles/img/portal_userguide_image3.png)
+![NWIS Stream Gages](/assets/img/portal_userguide_image3.png)
 
 </details>
 
