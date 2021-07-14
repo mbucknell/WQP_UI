@@ -120,7 +120,7 @@ $black: #000;
 }
 
 // styles portal page
-#app {
+#advancedForm {
   max-width: 1200px;
   display: block;
   margin: 0 auto;
@@ -220,11 +220,17 @@ $black: #000;
   padding: 10px 5px;
   word-break: normal;
 }
+
+.pointLocationTable tr {
+  height: 2px;
+}
+
 .pointLocationTable .pointLocationTable-cell {
   text-align: left;
   vertical-align: top;
 }
 
+// basic form styles
 .smallInput {
   width: 50px
 }
@@ -233,8 +239,25 @@ $black: #000;
   padding: 10px;
 }
 
+.dateRange {
+  display: inline-block;
+}
+
+#startDate {
+  width:45%; 
+  float: right;
+}
+#endDate {
+  width:45%; 
+  float: right;
+}
+
 .basicForm{
   height: 600px;
+}
+
+.basicSortDataCheckbox {
+  margin-left: 10px;
 }
 
 .required-field::after {
@@ -246,6 +269,12 @@ $black: #000;
   position: absolute;
  margin-top: 20px;
 }
+
+// Header styles
+.headerText {
+  color: white;
+}
+
 // Setting this on the usa-accordion__content usa-prose prevents clipping 
 #locationaccordion {
   overflow: visible
@@ -282,6 +311,9 @@ a:visited {
   color: grey;
 }
 
+.welcome-section {
+  margin-bottom: 10px;
+}
 //Select2
 //matching select2 style to usa-input style
 .select2-container--focus { 

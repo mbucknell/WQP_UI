@@ -9,37 +9,8 @@
 {% block page_content %}
 
 
-<div class="grid-row grid-gap">
-
-	<!-- Side navigation -->
-	<div class="tablet:grid-col-4">
-		<nav aria-label="Secondary navigation" class="sticky-sidebar">
-			<ul class="usa-sidenav">
-
-				<li class="usa-sidenav__item">
-					<a href="#">HTTPS Only</a>
-				</li>
-
-				<li class="usa-sidenav__item">
-					<a href="#">Submitting a Web Services Request</a>
-				</li>
-
-				<li class="usa-sidenav__item">
-					<a href="#">Web Service Request Examples</a>
-				</li>
-
-				<li class="usa-sidenav__item">
-					<a href="#">Looking Up Domain Values through Web Services</a>
-				</li>
-
-			</ul>
-		</nav>
-	</div>
-
-	<!-- Page Body Content -->
-	<div class="grid-col">
-        {{ feed_content|safe }}
-  	</div>	
+<div id="webservices-doc-content" class="user-guide">
+	{{ feed_content|safe }}
 </div>
 
 {% endblock %}

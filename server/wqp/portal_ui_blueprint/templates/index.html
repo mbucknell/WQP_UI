@@ -13,7 +13,7 @@
 <div id="basicForm">
 	<div id="formIntro">
 
-		<div class="usa-alert usa-alert--info usa-alert--no-icon" style="margin-bottom: 10px;">
+		<div class="usa-alert usa-alert--info usa-alert--no-icon welcome-section">
 			<div class="usa-alert__body">
 				<p class="usa-alert__text">
 					<b>Welcome to the new Water Quality Portal</b><br>
@@ -26,7 +26,7 @@
 		<div id="formInroFooter">
 
 			<div class="footer-flex">
-				<button class="usa-button usa-button--outline" id="closeIntro" @click="closeIntro">Close Intro</button>
+				<button class="usa-button usa-button--outline" @click="closeIntro">Close Intro</button>
 			</div>
 
 
@@ -102,7 +102,7 @@
 
 			<table class="pointLocationTable">
 				<thead>
-					<tr style="height:2px">
+					<tr>
 						<th class="pointLocationTable-cell"></th>
 						<th class="pointLocationTable-cell"><b>Miles</b></th>
 						<th class="pointLocationTable-cell"></th>
@@ -112,7 +112,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr style="height:2px">
+					<tr>
 						<td class="pointLocationTable-cell">Whithin</td>
 						<td class="pointLocationTable-cell"><input class="smallInput" type="text" name="withinBasic"
 								id="withinBasic" /></td>
@@ -151,10 +151,10 @@
 					data-placeholder="All Data Sources" style="width: 50%"></select>
 			</div>
 		</div>
-		<div class="formSection" style="display: inline-block;">
+		<div class="formSection dateRange">
 			<div class="tooltip" class="control-label" for="dateRangeBasic"><b>Data Range</b></div>
 			<div style="margin-top: -15px;">
-				<div class="usa-form-group" style="width:45%; float: left">
+				<div class="usa-form-group" style="width:45%; float: left" id="startDate">
 					<label class="usa-label" id="event-date-start-label" for="event-date-start"><b>Event start
 							date</b></label>
 					<div class="usa-hint" id="event-date-start-hint">mm/dd/yyyy</div>
@@ -163,7 +163,7 @@
 							aria-describedby="event-date-start-label event-date-start-hint" />
 					</div>
 				</div>
-				<div class="usa-form-group" style="width:45%; float: right;">
+				<div class="usa-form-group" id="endDate">
 					<label class="usa-label" id="event-date-end-label" for="event-date-end"><b>Event end
 							date</b></label>
 					<div class="usa-hint" id="event-date-end-hint">mm/dd/yyyy</div>
@@ -212,7 +212,7 @@
 					data-placeholder="Select a format" style="width: 50%"></select>
 			</div>
 		</div>
-		<div class="usa-checkbox" style="margin-left: 10px;">
+		<div class="usa-checkbox basicSortDataCheckbox" >
 			<input class="usa-checkbox__input" id="sortDataBasic" type="checkbox" name="sortDataBasic" value="true"
 				checked />
 			<label class="usa-checkbox__label" for="sortDataBasic">Sort Data</label>
@@ -225,7 +225,7 @@
 	</div>
 </div>
 
-<div id="app">
+<div id="advancedForm">
 	<form role="form" id="params" name="params" autocomplete="off" method="post" action="
                           {%  if config.WATERAUTH_AUTHORIZE_URL %}
                             {{ url_for('portal_ui.wqp_download_proxy', op='Station')}}
@@ -793,7 +793,7 @@
 	// The following code makes interior links clickable
 	$(document).ready(function () {
 		// hiding advanced form by default
-		$("#app").hide();
+		$("#advancedForm").hide();
 
 		// initializeing multiselects 
 		$('#countrycodeBasic').select2();
@@ -922,11 +922,11 @@
 					}
 				},
 				toggleForms() {
-					if ($("#app").css('display') == "none") {
+					if ($("#advancedForm").css('display') == "none") {
 						$("#basicForm").hide();
-						$("#app").show();
+						$("#advancedForm").show();
 					} else {
-						$("#app").hide();
+						$("#advancedForm").hide();
 						$("#basicForm").show();
 					}
 				},

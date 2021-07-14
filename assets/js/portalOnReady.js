@@ -9,8 +9,8 @@ import { initTooltip } from './uswdsComponents/uswdsTooltip';
 
 $(document).ready(function () {
     // Initialize Vue.js
-    var app = new Vue({
-        el: '#app',
+    var advancedForm = new Vue({
+        el: '#advancedForm',
         delimiters: ['[[', ']]'],
         data: {
             countryTooltip: TOOLTIP.countryTooltip,
@@ -54,11 +54,11 @@ $(document).ready(function () {
                 });
             },
             toggleForms() {
-                if ($("#app").css('display') == "none") {
+                if ($("#advancedForm").css('display') == "none") {
                     $("#basicForm").hide();
-                    $("#app").show();
+                    $("#advancedForm").show();
                 } else {
-                    $("#app").hide();
+                    $("#advancedForm").hide();
                     $("#basicForm").show();	
                 }
             }
@@ -66,7 +66,7 @@ $(document).ready(function () {
     });
 
     // create tooltips
-    app.createTooltips();
+    advancedForm.createTooltips();
 
     // Set the loglevel
     if (Config.DEBUG) {
