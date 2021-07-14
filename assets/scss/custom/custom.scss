@@ -196,29 +196,16 @@ $black: #000;
   overflow: visible
 }
 
-.select2-search__field {
-  font-family: inherit !important;
-  font-size: inherit !important;
-  line-height: 1.15 !important;
-  margin: 0 !important;
-  padding: 1px 2px !important;
-  height: 24px !important;
-}
 
-.select2-selection {
-  font-size: inherit !important;
-  border: 1px solid rgb(59, 59, 59) !important;
-  border-radius: 2.5px !important;
-}
+//WQP
+//custom styles specific to WQP
+.usa-tooltip__body {
+  background-color: #253f60 !important;
+} 
 
-.select2-selection--multiple {
-  height: 26px !important;
-  min-height: 26px !important;
-}
-
-.select2-selection__choice {
-  height: 20px !important;
-  margin: 0px !important;
+.usa-label {
+  display: inline !important;
+  font-weight: bold !important;
 }
 
 .wqp-textarea {
@@ -226,15 +213,53 @@ $black: #000;
   width: 18rem;
 }
 
-.usa-tooltip__body {
-  background-color: #253f60 !important;
-}
-
 a:link {
   color: grey;
 }
 
-/* visited link */
 a:visited {
   color: grey;
+}
+
+//Select2
+//matching select2 style to usa-input style
+.select2-container--focus { 
+  outline: .25rem solid #2491ff !important;
+  outline-offset: 0 !important;
+}
+
+.select2-search__field {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  min-height: 32px;
+  height: auto !important;
+  padding: .5rem !important;
+  width: 100% !important;
+}
+
+.select2-selection__choice {
+  white-space: normal !important;
+  margin-right: 5px !important;
+}
+
+.select2-selection {
+  font-size: inherit !important;
+  border-color: #565c65 !important;
+  border-style: solid !important;
+  border-radius: 0 !important;
+}
+
+.select2-selection--multiple {
+  box-shadow: none !important;
+}
+
+
+//USWDS
+//matching a few elements of USWDS to select2
+::placeholder { 
+  color: #a0a1a0;
+}
+
+.usa-input {
+  margin-top: 0rem !important;
 }
