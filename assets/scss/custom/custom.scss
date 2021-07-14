@@ -127,11 +127,14 @@ $black: #000;
   position: relative;
 }
 
+<<<<<<< HEAD
 #show-queries-div {
   padding-top: 10px;
   margin: auto;
   width: 50%;
 }
+=======
+>>>>>>> 40a76adc4ae5d5c0d6c1097f29b3e62efc1e2f0f
 
 // Home Page form intro
 #formIntro {
@@ -188,6 +191,7 @@ $black: #000;
 }
 
 // Accordion custom styles
+<<<<<<< HEAD
 // Setting this on the usa-accordion__content usa-prose prevents clipping
 #a1 {
   overflow: visible;
@@ -249,4 +253,58 @@ $black: #000;
 .menu-buttons {
   position: absolute;
  margin-top: 20px;
+=======
+// Setting this on the usa-accordion__content usa-prose prevents clipping 
+#locationaccordion {
+  overflow: visible
+}
+#filteraccordion {
+  overflow: visible
+}
+#downloadaccordion {
+  overflow: visible
+>>>>>>> 40a76adc4ae5d5c0d6c1097f29b3e62efc1e2f0f
+}
+
+.select2-search__field {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: 1.15 !important;
+  margin: 0 !important;
+  padding: 1px 2px !important;
+  height: 24px !important;
+}
+
+.select2-selection {
+  font-size: inherit !important;
+  border: 1px solid rgb(59, 59, 59) !important;
+  border-radius: 2.5px !important;
+}
+
+.select2-selection--multiple {
+  height: 26px !important;
+  min-height: 26px !important;
+}
+
+.select2-selection__choice {
+  height: 20px !important;
+  margin: 0px !important;
+}
+
+.wqp-textarea {
+  height: 5rem;
+  width: 18rem;
+}
+
+.usa-tooltip__body {
+  background-color: #253f60 !important;
+}
+
+a:link {
+  color: grey;
+}
+
+/* visited link */
+a:visited {
+  color: grey;
 }
