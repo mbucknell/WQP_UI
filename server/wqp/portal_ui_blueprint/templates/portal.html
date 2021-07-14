@@ -170,64 +170,6 @@
                   Filter Results
                 </button>
               </h4>
-<<<<<<< HEAD
-              <div id="a2" class="usa-accordion__content usa-prose">
-                <div id="site-params">
-                  <div class="grid-row grid-gap">
-                    <div class="tablet:grid-col">
-                      <div class="tooltip" :title="siteTypeTooltip">
-                        <label class="control-label" for="siteType">Site Type:</label>
-                        <div>
-                          <select multiple id="siteType" name="siteType" data-placeholder="All"
-                            style="width: 100%"></select>
-                        </div>
-                      </div>
-                      <div id="organization-id-select" :title="orgIDTooltip">
-                        <label class="control-label" for="organization">Organization ID:</label>
-                        <div>
-                          <select multiple name="organization" id="organization"
-                            data-placeholder="All" style="width: 100%"></select>
-                        </div>
-                      </div>
-                      <div class="tooltip" data-position="right" :title="siteIDTooltip">
-                        <label class="control-label" for="siteid">Site ID:</label>
-                        <div>
-                          <select multiple id="siteid" name="siteid" data-placeholder="All"
-                            style="width: 70%"></select>
-                        </div>
-                        <div>
-                          Examples: For NWIS site: USGS-301650084300701 For EPA
-                          site: R10BUNKER-CUA005-5 For multiple sites:
-                          IN002-413354086221001;USSCS-311257091521312;USEPA-414007085591501
-                          For further information about NWIS versus EPA site
-                          ids, go to the FAQs page
-                        </div>
-                      </div>
-                      <div class="tooltip" :title="hucTooltip">
-                        <label class="control-label" for="huc">HUC:</label>
-                        <div>
-                          <input class="form-control" type="text" name="huc" id="huc" data-multiple="true" />
-                        </div>
-                        <div>
-                          Examples: 01010003;01010004 010801*
-                          01010003;010801*;01010005
-                        </div>
-                      </div>
-                      <div class="tooltip" id="min-activities-div" :title="minSamplingTooltip">
-                        <label class="control-label" for="min-activities">Minimum sampling activities per site:</label>
-                        <div>
-                          <input class="form-control" type="number" min="1" name="minactivities" id="min-activities" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="tablet:grid-col">
-                      <div id="sampling-params" class="panel panel-default">
-                        <div class="panel-body">
-                          <div id="sampling" class="subpanel">
-                            <div class="subpanel-body">
-                              <div class="tooltip" :title="sampleMediaTooltip">
-                                <label class="control-label" for="sampleMedia">Sample Media:</label>
-=======
               <div id="filteraccordion" class="usa-accordion__content usa-prose">
                 <div>Use the site and sampling parameters to describe the type of location where desired data was collected and information about the desired data.</div>    
                 <br>  
@@ -240,7 +182,6 @@
                                 <label><strong>Sample Media </strong></label><div class="tooltip" :title="sampleMediaTooltip">
                                 <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                                 </div>
->>>>>>> 40a76adc4ae5d5c0d6c1097f29b3e62efc1e2f0f
                                 <div>
                                   <select multiple class="form-control" name="sampleMedia" id="sampleMedia"
                                     data-placeholder="All Sample Mediums" style="width: 90%" aria-label="Input box for sample media parameter"></select>
@@ -352,45 +293,6 @@
             </div>
           </div>
         </div>
-<<<<<<< HEAD
-        <div class="grid-col">
-          <div class="usa-accordion">
-            <h4 class="usa-accordion__heading">
-              <button class="usa-accordion__button" aria-expanded="true" aria-controls="a3">
-                Download the Data
-              </button>
-            </h4>
-            <div id="a3" class="usa-accordion__content usa-prose">
-              <div>
-                <div id="download-box" class="grid-row grid-gap">
-                  <div id="download-box-input-div" class="grid-row grid-gap">
-                    <div id="data-type-parameters-div" class="tablet:grid-col-3">
-                      <div class="panel-body">
-                        <div class="form-group">
-                          <fieldset class="usa-fieldset">
-                            <legend class="usa-legend"
-                              title="Click in box and select one or more sources, otherwise data will be retrieved from all available providers">
-                              Select one or many:
-                            </legend>
-                            <div class="usa-checkbox">
-                              <input class="datasources usa-checkbox__input" id="nwis" type="checkbox" name="providers"
-                                value="NWIS" checked />
-                              <label class="usa-checkbox__label" for="nwis">NWIS</label>
-                            </div>
-                            <div class="usa-checkbox">
-                              <input class="datasources usa-checkbox__input" id="stewards" type="checkbox"
-                                name="providers" value="STEWARDS" checked />
-                              <label class="usa-checkbox__label" for="stewards">STEWARDS</label>
-                            </div>
-                            <div class="usa-checkbox">
-                              <input class="datasources usa-checkbox__input" id="storet" type="checkbox" name="providers"
-                                value="STORET" checked />
-                              <label class="usa-checkbox__label" for="storet">EPA</label>
-                            </div>
-                          </fieldset>
-                        </div>
-                      </div>
-=======
       </div>
     </div>
   </div>
@@ -412,7 +314,6 @@
                   <div class="form-group">
                     <label><strong>Data Source </strong></label><div class="tooltip" :title="databasesTooltip">
                       <label for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
->>>>>>> 40a76adc4ae5d5c0d6c1097f29b3e62efc1e2f0f
                     </div>
                     <fieldset class="usa-fieldset">
                       <div class="usa-checkbox">
@@ -680,34 +581,6 @@
     <button type="button" class="close" data-dismiss="modal">x</button>
     <h4></h4>
   </div>
-<<<<<<< HEAD
-  <div id="service-error-dialog" class="modal fade">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            &times;
-          </button>
-          <h4>Error</h4>
-        </div>
-        <div class="modal-body">
-          Unable to connect to the Water Quality Portal. To report the issue,
-          please
-          <a href="/contact_us/?comments=Unable to initialize the download form.">contact us</a>.
-        </div>
-        <div class="modal-footer">
-          <button id="validate-close-button" type="button" class="btn btn-default" data-dismiss="modal">
-            Ok
-          </button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-  {% endblock %} {% block body_page_script %}
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-  <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script> -->
-  {% endblock %}
-=======
   <div class="modal-body"></div>
   <div class="modal-footer"></div>
 </div>
@@ -756,7 +629,6 @@
 {% endblock %} 
 
 {% block body_page_script %}
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script> -->
 {% endblock %}
->>>>>>> 40a76adc4ae5d5c0d6c1097f29b3e62efc1e2f0f

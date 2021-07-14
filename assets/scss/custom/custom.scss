@@ -127,14 +127,6 @@ $black: #000;
   position: relative;
 }
 
-<<<<<<< HEAD
-#show-queries-div {
-  padding-top: 10px;
-  margin: auto;
-  width: 50%;
-}
-=======
->>>>>>> 40a76adc4ae5d5c0d6c1097f29b3e62efc1e2f0f
 
 // Home Page form intro
 #formIntro {
@@ -175,7 +167,8 @@ $black: #000;
       }
     }
   }
-}
+} 
+
 
 // Form header and controls
 #formHeader {
@@ -191,7 +184,6 @@ $black: #000;
 }
 
 // Accordion custom styles
-<<<<<<< HEAD
 // Setting this on the usa-accordion__content usa-prose prevents clipping
 #a1 {
   overflow: visible;
@@ -253,7 +245,7 @@ $black: #000;
 .menu-buttons {
   position: absolute;
  margin-top: 20px;
-=======
+}
 // Setting this on the usa-accordion__content usa-prose prevents clipping 
 #locationaccordion {
   overflow: visible
@@ -263,7 +255,6 @@ $black: #000;
 }
 #downloadaccordion {
   overflow: visible
->>>>>>> 40a76adc4ae5d5c0d6c1097f29b3e62efc1e2f0f
 }
 
 .select2-search__field {
