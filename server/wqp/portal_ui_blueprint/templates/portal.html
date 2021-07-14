@@ -25,26 +25,26 @@
                 <div class="grid-row grid-gap">
                   <div class="tablet:grid-col-3">
                     <div class="form-group">
-                      <label><strong>Country </strong></label><label class="tooltip" class="control-label" for="control-label" :title="countryTooltip"><span style="color: #565c65
+                      <label class="usa-label">Country </label><label class="tooltip" class="control-label" for="control-label" :title="countryTooltip"><span style="color: #565c65
                         ;"><i class="fa fa-info-circle"></i></span></label>
                       <div>
-                        <select multiple class="form-control" id="countrycode" name="countrycode" data-placeholder="All Countries"
-                          style="width: 90%" aria-label="Input box for country parameter"></select>
+                        <select multiple class="form-control" input class="usa-input" type="text" id="countrycode" name="countrycode" data-placeholder="All Countries"
+                          style="width: 100%" aria-label="Input box for country parameter"></select>
                       </div>
                     </div>
                     <br>
                     <div class="form-group">
-                      <label><strong>State </strong></label><label class="tooltip" class="control-label" for="control-label" :title="stateTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
+                      <label class="usa-label">State </label><label class="tooltip" class="control-label" for="control-label" :title="stateTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                         <div>
-                        <select multiple class="form-control" id="statecode" name="statecode" data-placeholder="All States"
-                          style="width: 90%" aria-label="Input box for state parameter"></select>
+                        <select multiple class="form-control usa-input" id="statecode" name="statecode" data-placeholder="All States"
+                          style="width: 100%" aria-label="Input box for state parameter"></select>
                       </div>
                     <br>
                     <div class="form-group">
-                      <label><strong>County </strong></label><label class="tooltip" class="control-label" for="control-label" :title="countyTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
+                      <label class="usa-label">County </label><label class="tooltip" class="control-label" for="control-label" :title="countyTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                       <div>
                         <select multiple class="form-control" id="countycode" name="countycode" data-placeholder="All Counties"
-                          style="width: 90%" aria-label="Input box for county parameter"></select>
+                          style="width: 100%" aria-label="Input box for county parameter"></select>
                       </div>
                     </div>
                   </div>
@@ -52,26 +52,26 @@
                   <div class="tablet:grid-col-3">
                     <div id="point-location">
                       <div>
-                        <label><strong>Point Location </strong></label><label class="tooltip" :title="pointLocationTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
+                        <label class="usa-label">Point Location </label><label class="tooltip" :title="pointLocationTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                       </div>
                       <div>
                         <div class="form-group">
                           <label class="control-label" for="within">Within</label>
                           <div>
-                            <input class="form-control" type="text" name="within" size="16" id="within" placeholder="All" aria-label="First of three input boxes for point location parameter. Input box for number of miles from point." />
+                            <input class="usa-input" type="text" name="within" size="16" id="within" placeholder="All" aria-label="First of three input boxes for point location parameter. Input box for number of miles from point." />
                           </div>
                         </div>
                         <div id="miles-label">miles of</div>
                         <div class="form-group">
                           <label class="control-label" for="lat">Latitude</label>
                           <div>
-                            <input class="form-control" type="text" name="lat" size="16" id="lat" placeholder="0" aria-label="Second of three input boxes for point location parameter. Input box for latitude." />
+                            <input class="usa-input" type="text" name="lat" size="16" id="lat" placeholder="0" aria-label="Second of three input boxes for point location parameter. Input box for latitude." />
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label" for="long">Longitude</label>
                           <div>
-                            <input class="form-control" type="text" name="long" size="16" id="long" placeholder="0" aria-label="Third of three input boxes for point location parameter. Input box for longitude." />
+                            <input class="usa-input" type="text" name="long" size="16" id="long" placeholder="0" aria-label="Third of three input boxes for point location parameter. Input box for longitude." />
                           </div>
                         </div>
                         <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
@@ -84,31 +84,31 @@
                   <div class="tablet:grid-col-3">
                     <div id="bounding-box">
                     <div>
-                    <label><strong>Bounding Box </strong></label><label class="tooltip" :title="boundingBoxTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
+                    <label class="usa-label">Bounding Box </label><label class="tooltip" :title="boundingBoxTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                     </div>
                       <div>
                         <div class="form-group">
                           <label class="control-label" for="north">North:</label>
                           <div>
-                            <input class="form-control" type="text" size="16" id="north" placeholder="90" aria-label="First of four input boxes for bounding box parameter. Input box for north latitude." />
+                            <input class="usa-input" type="text" size="16" id="north" placeholder="90" aria-label="First of four input boxes for bounding box parameter. Input box for north latitude." />
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label" for="south">South:</label>
                           <div>
-                            <input class="form-control" type="text" size="16" id="south" placeholder="-90" aria-label="Second of four input boxes for bounding box parameter. Input box for south latitude." />
+                            <input class="usa-input" type="text" size="16" id="south" placeholder="-90" aria-label="Second of four input boxes for bounding box parameter. Input box for south latitude." />
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label" for="east">East:</label>
                           <div>
-                            <input class="form-control" type="text" size="16" id="east" placeholder="180" aria-label="Third of four input boxes for bounding box parameter. Input box for east longitude." />
+                            <input class="usa-input" type="text" size="16" id="east" placeholder="180" aria-label="Third of four input boxes for bounding box parameter. Input box for east longitude." />
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label" for="west">West:</label>
                           <div>
-                            <input class="form-control" type="text" size="16" id="west" placeholder="-180" aria-label="Fourth of four input boxes for bounding box parameter. Input box for west longitude." />
+                            <input class="usa-input" type="text" size="16" id="west" placeholder="-180" aria-label="Fourth of four input boxes for bounding box parameter. Input box for west longitude." />
                           </div>
                         </div>
                       </div>
@@ -118,41 +118,41 @@
                     <div class="tablet:grid-col-3">
                       <div id="site-params">
                         <div class="form-group">
-                          <label><strong>Site Type </strong></label><div class="tooltip" :title="siteTypeTooltip">
+                          <label class="usa-label">Site Type </label><div class="tooltip" :title="siteTypeTooltip">
                             <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                           </div>
                             <div>
                               <select multiple id="siteType" name="siteType" data-placeholder="All Site Types"
-                                style="width: 90%" aria-label="Input box for site type parameter"></select>
+                                style="width: 100%" aria-label="Input box for site type parameter"></select>
                             </div>
                           </div>
                           <br>
                         <div class="form-group">
-                          <label><strong>Organization ID </strong></label><div class="tooltip" :title="orgIDTooltip">
+                          <label class="usa-label">Organization ID </label><div class="tooltip" :title="orgIDTooltip">
                             <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                           </div>
                             <div>
                               <select multiple id="organization" name="organization"
-                                data-placeholder="All Organization IDs" style="width: 90%" aria-label="Input box for organization ID parameter"></select>
+                                data-placeholder="All Organization IDs" style="width: 100%" aria-label="Input box for organization ID parameter"></select>
                             </div>
                           </div>
                           <br>
                         <div class="form-group">
-                          <label><strong>Site ID </strong></label><div class="tooltip" :title="siteIDTooltip">
+                          <label class="usa-label">Site ID </label><div class="tooltip" :title="siteIDTooltip">
                             <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                           </div>
                             <div>
                               <select multiple id="siteid" input class="form-control" name="siteid" data-placeholder="All Site IDs"
-                                style="width: 90%" aria-label="Input box for site ID parameter"></select>
+                                style="width: 100%" aria-label="Input box for site ID parameter"></select>
                             </div>
                           </div>
                           <br>
                         <div class="form-group">
-                          <label><strong>HUC </strong></label><div class="tooltip" :title="hucTooltip">
+                          <label class="usa-label">HUC </label><div class="tooltip" :title="hucTooltip">
                             <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                           </div>
                             <div>
-                              <input class="form-control" type="text" name="huc" id="huc" data-multiple="true" placeholder="All HUCs" size="16" aria-label="Input box for HUC parameter" />
+                              <input class="usa-input" type="text" name="huc" id="huc" data-multiple="true" placeholder="All HUCs" size="16" aria-label="Input box for HUC parameter" />
                             </div>
                           </div>
                         </div>
@@ -179,69 +179,69 @@
                         <div class="subpanel-body">
                           <div class="grid-row grid-gap">
                             <div class="tablet:grid-col-4">
-                                <label><strong>Sample Media </strong></label><div class="tooltip" :title="sampleMediaTooltip">
+                                <label class="usa-label">Sample Media </label><div class="tooltip" :title="sampleMediaTooltip">
                                 <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                                 </div>
                                 <div>
                                   <select multiple class="form-control" name="sampleMedia" id="sampleMedia"
-                                    data-placeholder="All Sample Mediums" style="width: 90%" aria-label="Input box for sample media parameter"></select>
+                                    data-placeholder="All Sample Mediums" style="width: 100%" aria-label="Input box for sample media parameter"></select>
                               </div>
                               <br>
-                              <label><strong>Characteristic Group </strong></label><div class="tooltip" :title="charGroupTooltip">
+                              <label class="usa-label">Characteristic Group </label><div class="tooltip" :title="charGroupTooltip">
                                 <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                               </div>
                                 <div>
                                   <select multiple class="form-control" name="characteristicType" id="characteristicType"
-                                    data-placeholder="All Characteristic Groups" style="width: 90%" aria-label="Input box for characteristic groups parameter"></select>
+                                    data-placeholder="All Characteristic Groups" style="width: 100%" aria-label="Input box for characteristic groups parameter"></select>
                                 </div>
                                 <br>
-                              <label><strong>Characteristics </strong></label><div class="tooltip" :title="characteristicsTooltip">
+                              <label class="usa-label">Characteristics </label><div class="tooltip" :title="characteristicsTooltip">
                                 <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                               </div>
                                 <div>
                                   <select multiple class="form-control" name="characteristicName" id="characteristicName"
-                                    data-placeholder="All Characteristics" style="width: 90%" aria-label="Input box for characteristics parameter"></select>
+                                    data-placeholder="All Characteristics" style="width: 100%" aria-label="Input box for characteristics parameter"></select>
                                 </div>
                               <br>
-                              <label><strong>Project ID </strong></label><div class="tooltip" :title="projectIDTooltip">
+                              <label class="usa-label">Project ID </label><div class="tooltip" :title="projectIDTooltip">
                                 <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                               </div>
                                 <div>
                                   <select multiple class="form-control" name="project" id="project-code"
-                                    data-placeholder="All Project IDs" style="width: 90%" aria-label="Input box for project ID parameter"></select>
+                                    data-placeholder="All Project IDs" style="width: 100%" aria-label="Input box for project ID parameter"></select>
                                 </div>
                               </div>
                                 <div class="tablet:grid-col-4">
-                              <label><strong>Parameter Code</strong>
+                              <label class="usa-label">Parameter Code
                                   <span style="font-size: x-small">(NWIS ONLY) </span></label><div class="tooltip" id="pcode-div" :title="paramCodeTooltip">
                                 <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                                   </div>
                                 <div>
-                                  <input class="form-control usa-label" type="text" size="23" placeholder="All Parameter Codes" name="pCode" id="pCode"
+                                  <input class="usa-input" type="text" size="23" placeholder="All Parameter Codes" name="pCode" id="pCode"
                                     data-multiple="true" aria-label="Input box for parameter code parameter" />
                                 </div>
                                 <br>
                           <div id="biological" class="subpanel">
                             <div class="subpanel-heading">
-                            <label><strong>Biological Sampling Parameters </strong><div class="tooltip" :title="bioSamplingTooltip" for="control-label">
+                            <label class="usa-label">Biological Sampling Parameters <div class="tooltip" :title="bioSamplingTooltip" for="control-label">
                               <label for="control-label"></label><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span>
                             </div>
                           </div>
                             <div class="subpanel-body">
-                              <label><strong>Assemblage </strong></label><div class="tooltip" :title="assemblageTooltip">
+                              <label class="usa-label">Assemblage </label><div class="tooltip" :title="assemblageTooltip">
                                 <label for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                               </div>
                                 <div>
                                   <select multiple name="assemblage" id="assemblage"
-                                    data-placeholder="All Assemblages" style="width: 90%" aria-label="First of two input boxes for biological sampling parameters. Input box for assemblage parameter."></select>
+                                    data-placeholder="All Assemblages" style="width: 100%" aria-label="First of two input boxes for biological sampling parameters. Input box for assemblage parameter."></select>
                                 </div>
                                 <br>
                               <div class="form-group">
-                                <label><strong>Taxonomic
-                                  Name </strong></label><label class="tooltip" for="control-label" :title="taxNameTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
+                                <label class="usa-label">Taxonomic
+                                  Name </label><label class="tooltip" for="control-label" :title="taxNameTooltip"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                                 <div>
                                   <select multiple name="subjectTaxonomicName" aria-label="Select a taxonomic name"
-                                    id="subject-taxonomic-name" data-placeholder="All Taxonomic Names" style="width: 90%" aria-label="Second of two input boxes for biological sampling parameters. Input box for taxonomic name parameter."></select>
+                                    id="subject-taxonomic-name" data-placeholder="All Taxonomic Names" style="width: 100%" aria-label="Second of two input boxes for biological sampling parameters. Input box for taxonomic name parameter."></select>
                                 </div>
                               </div>
                             </div>
@@ -250,12 +250,12 @@
                     <div class="tablet:grid-col-4">
                       <div id="date-row">
                         <div id="start-date-select">
-                          <label><strong>Date range </strong>(mm/dd/yyyy) </label><div class="tooltip" :title="dateRangeTooltip">
+                          <label class="usa-label">Date range (mm/dd/yyyy) </label><div class="tooltip" :title="dateRangeTooltip">
                             <label for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                           </div>
                               <div>
                                 <div>
-                                  <label>from: </label><input class="form-control" type="text" id="startDateLo"
+                                  <label>from: </label><input class="usa-input" type="text" id="startDateLo"
                                   name="startDateLo" placeholder="All Dates" size="18" aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
                                 </div>
                               </div>
@@ -263,7 +263,7 @@
                         <div id="end-date-select">
                           <div>
                             <div>
-                              <label class="control-label" for="startDateHi">to: </label> <input class="form-control" type="text" id="startDateHi"
+                              <label class="control-label" for="startDateHi">to: </label> <input class="usa-input" type="text" id="startDateHi"
                                 name="startDateHi" placeholder="All Dates" size="20" aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
                             </div>
                           </div>
@@ -271,19 +271,19 @@
                       </div>
                       <br>
                       <div id="min-activities-parameters-div">
-                        <label><strong>Minimum sampling activities per site </strong></label><div class="tooltip" id="min-activities-div" :title="minSamplingTooltip">
+                        <label class="usa-label">Minimum sampling activities per site </label><div class="tooltip" id="min-activities-div" :title="minSamplingTooltip">
                           <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                         </div>
                           <div>
-                            <input class="form-control" type="number" min="1" name="minactivities" id="min-activities" placeholder="1" size="25" aria-label="Input box for minimum sampling activities per site parameter" />
+                            <input class="usa-input" type="number" min="1" name="minactivities" id="min-activities" placeholder="1" size="25" aria-label="Input box for minimum sampling activities per site parameter" />
                           </div>
                       </div>
                       <br>
-                        <label><strong>Minimum results per site </strong></label><div class="tooltip" id="minresults-div" :title="minimumResultsTooltip">
+                        <label class="usa-label">Minimum results per site </label><div class="tooltip" id="minresults-div" :title="minimumResultsTooltip">
                           <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                         </div>
                           <div>
-                            <input class="form-control" type="number" min="1" name="minresults"
+                            <input class="usa-input" type="number" min="1" name="minresults"
                               id="minresults" placeholder="1" size="25" aria-label="Input box for minimum results per site parameter" />
                           </div>
                       </div>
@@ -312,7 +312,7 @@
               <div id="data-type-parameters-div" class="tablet:grid-col-3">
                 <div class="panel-body">
                   <div class="form-group">
-                    <label><strong>Data Source </strong></label><div class="tooltip" :title="databasesTooltip">
+                    <label class="usa-label">Data Source </label><div class="tooltip" :title="databasesTooltip">
                       <label for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                     </div>
                     <fieldset class="usa-fieldset">
@@ -335,7 +335,7 @@
                   </div>
                   <br>
                   <div id="download-tabular-data">
-                    <label><strong>File Format </strong></label><div class="tooltip" :title="fileFormatTooltip">
+                    <label class="usa-label">File Format </label><div class="tooltip" :title="fileFormatTooltip">
                       <label for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                     </div>
                     <fieldset class="usa-fieldset">
@@ -366,7 +366,7 @@
                 </div>
               </div>
               <div id="download-data-kind-box" class="tablet:grid-col-5">
-                <label><strong>Data to Download </strong></label><div class="tooltip" id="download-data-div" :title="dataDownloadTooltip">
+                <label class="usa-label">Data to Download </label><div class="tooltip" id="download-data-div" :title="dataDownloadTooltip">
                   <label class="control-label" for="control-label"><span style="color: #565c65;"><i class="fa fa-info-circle"></i></span></label>
                 </div>
                 <fieldset class="usa-fieldset">
