@@ -196,6 +196,33 @@ $black: #000;
   overflow: visible
 }
 
+
+//WQP
+//custom styles specific to WQP
+.usa-tooltip__body {
+  background-color: #253f60 !important;
+} 
+
+.usa-label {
+  display: inline !important;
+  font-weight: bold !important;
+}
+
+.wqp-textarea {
+  height: 5rem;
+  width: 18rem;
+}
+
+a:link {
+  color: grey;
+}
+
+a:visited {
+  color: grey;
+}
+
+//Select2
+//matching select2 style to usa-input style
 .select2-container--focus { 
   outline: .25rem solid #2491ff !important;
   outline-offset: 0 !important;
@@ -204,11 +231,15 @@ $black: #000;
 .select2-search__field {
   font-family: inherit !important;
   font-size: inherit !important;
-  height: 2.5rem !important;
-  max-width: 30rem !important;
+  min-height: 32px;
+  height: auto !important;
   padding: .5rem !important;
   width: 100% !important;
-  color: #1b1b1b !important;
+}
+
+.select2-selection__choice {
+  white-space: normal !important;
+  margin-right: 5px !important;
 }
 
 .select2-selection {
@@ -219,35 +250,14 @@ $black: #000;
 }
 
 .select2-selection--multiple {
-  height: 2.5rem !important;
   box-shadow: none !important;
 }
 
+
+//USWDS
+//matching a few elements of USWDS to select2
 ::placeholder { 
   color: #a0a1a0;
-}
-
-.wqp-textarea {
-  height: 5rem;
-  width: 18rem;
-}
-
-.usa-tooltip__body {
-  background-color: #253f60 !important;
-}
-
-a:link {
-  color: grey;
-}
-
-/* visited link */
-a:visited {
-  color: grey;
-}
-
-.usa-label {
-  display: inline !important;
-  font-weight: bold !important;
 }
 
 .usa-input {
