@@ -201,15 +201,61 @@
 		<div class="formSection">
 			<label class="tooltip" class="required-field" for="dataTypeBasic"><b>Data Type</b></label>
 			<div>
-				<select multiple class="form-control" id="dataTypeBasic" name="dataTypeBasic"
-					data-placeholder="Select a type" style="width: 50%"></select>
+				<fieldset class="usa-fieldset">
+          <div class="usa-radio">
+            <input class="result-type usa-radio__input" id="basic-organization" type="radio"
+              value="Organization" name="basicRadio" />
+            <label class="usa-radio__label" for="basic-organization">Organization Data</label>
+          </div>
+          <div class="usa-radio">
+            <input checked="checked" type="radio" class="result-type usa-radio__input" id="basic-sites"
+              type="radio" value="Station" name="basicRadio" />
+            <label class="usa-radio__label" for="basic-sites">Site data only</label>
+          </div>
+          <div class="usa-radio">
+            <input class="result-type usa-radio__input" id="basic-projects" type="radio" value="Project" name="basicRadio" />
+            <label class="usa-radio__label" for="basic-projects">Project data</label>
+          </div>
+          <div class="usa-radio">
+            <input class="result-type usa-radio__input" id="basic-samples" type="radio" value="Result" name="basicRadio" />
+            <label class="usa-radio__label" for="basic-samples">Sample results (physical/chemical
+              metadata)</label>
+          </div>
+          <div class="usa-radio">
+            <input class="result-type usa-radio__input" id="basic-biosamples" type="radio" value="Result" name="basicRadio" />
+            <label class="usa-radio__label" for="basic-biosamples">Sample results (biological metadata)</label>
+          </div>
+          <div class="usa-radio">
+            <input class="result-type usa-radio__input" id="basic-narrowsamples" type="radio" value="Result" name="basicRadio" />
+            <label class="usa-radio__label" for="basic-narrowsamples">Sample results (narrow)</label>
+          </div>
+          <div class="usa-radio">
+            <input class="result-type usa-radio__input" id="basic-activity-input" type="radio" value="Activity" name="basicRadio" />
+            <label class="usa-radio__label" for="basic-activity-input">Sampling Activity</label>
+          </div>
+        </fieldset>
 			</div>
 		</div>
 		<div class="formSection">
 			<label class="tooltip" class="control-label" for="fileFormatBasic"><b>File Format</b></label>
 			<div>
-				<select multiple class="form-control" id="fileFormatBasic" name="fileFormatBasic"
-					data-placeholder="Select a format" style="width: 50%"></select>
+				<fieldset class="usa-fieldset">
+          <div class="usa-checkbox">
+            <input class="datasources usa-checkbox__input" id="nwis-basic" type="checkbox" name="providers"
+              value="NWIS" checked />
+            <label class="usa-checkbox__label" for="nwis-basic">NWIS</label>
+          </div>
+          <div class="usa-checkbox">
+            <input class="datasources usa-checkbox__input" id="stewards-basic" type="checkbox"
+              name="providers" value="STEWARDS" checked />
+            <label class="usa-checkbox__label" for="stewards-basic">STEWARDS</label>
+          </div>
+          <div class="usa-checkbox">
+            <input class="datasources usa-checkbox__input" id="storet-basic" type="checkbox" name="providers"
+              value="STORET" checked />
+            <label class="usa-checkbox__label" for="storet-basic">EPA</label>
+          </div>
+        </fieldset>
 			</div>
 		</div>
 		<div class="usa-checkbox basicSortDataCheckbox" >
