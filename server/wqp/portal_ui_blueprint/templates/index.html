@@ -10,9 +10,13 @@
 {% block page_content %}
 
 <!-- Basic Form -->
+<div class="tabs">
+  <div class="tab">
+    <input type="radio" id="tab-1" name="tab-group-1" checked>
+    <label for="tab-1" class="tab-label">Basic</label>
+    <div class="content">
 <div id="basicForm">
 	<div id="formIntro">
-
 		<div class="usa-alert usa-alert--info usa-alert--no-icon welcome-section">
 			<div class="usa-alert__body">
 				<p class="usa-alert__text">
@@ -71,6 +75,7 @@
 			</h2>
 		</div>
 	</div>
+  
 	<div id="basicLocation" class="basicForm">
 		<p>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are
 			available in the <span style="color:#005ea2; cursor: pointer" @click="toggleForms">Advanced Download</span>.
@@ -224,7 +229,13 @@
 		</div>
 	</div>
 </div>
+</div>
+</div>
 
+<div class="tab">
+  <input type="radio" id="tab-2" name="tab-group-1">
+    <label for="tab-2" class="tab-label">Advanced</label>
+    <div class="content">
 <div id="advancedForm">
 	<form role="form" id="params" name="params" autocomplete="off" method="post" action="
                           {%  if config.WATERAUTH_AUTHORIZE_URL %}
@@ -782,6 +793,9 @@
   </div>
 </form>
 </div>
+</div>
+</div>
+</div>
 
 
 {% endblock %}
@@ -792,8 +806,6 @@
 
 	// The following code makes interior links clickable
 	$(document).ready(function () {
-		// hiding advanced form by default
-		$("#advancedForm").hide();
 
 		// initializeing multiselects 
 		$('#countrycodeBasic').select2();
@@ -821,6 +833,7 @@
 		$("#basicLocation").show();
 		$("#basicFilterResults").hide();
 		$("#basicDownload").hide();
+
 		// Initialize Vue.js
 		var basicForm = new Vue({
 			el: '#basicForm',
@@ -940,4 +953,5 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
+
 {% endblock %}
