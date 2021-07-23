@@ -9,17 +9,29 @@
 
 {% block page_content %}
 
+<div id="siteAnnouncement">
+  <div class="usa-alert usa-alert--info usa-alert--no-icon">
+    <div class="usa-alert__body">
+      <p class="usa-alert__text">
+        <b>Announcement Title:</b> This is an announcement preview about the site. Click to learn more about this announcement...
+          <a class="usa-link" href="javascript:void(0);">Read More</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
 <!-- Basic Form -->
 <div id="basicForm">
 	<div id="formIntro">
-
-		<div class="usa-alert usa-alert--info usa-alert--no-icon welcome-section">
+		<div class="usa-alert usa-alert--warning usa-alert--no-icon welcome-section">
 			<div class="usa-alert__body">
-				<p class="usa-alert__text">
-					<b>Welcome to the new Water Quality Portal</b><br>
-					To download data follow the instructions on each step. Returning and experienced users may wish to
-					use the <span style="color:#005ea2; cursor: pointer" @click="toggleForms">Advanced Download</span>.
-				</p>
+				<h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
+        <p class="usa-alert__text">
+					The Water Quality Portal (WQP) is a cooperative service sponsored by the United States Geological Survey (USGS), the Environmental Protection Agency (EPA), and the National Water Quality Monitoring Council (NWQMC). It serves data collected by over 400 state, federal, tribal, and local agencies. <a href="/wqp/portal_userguide">Learn More</a>
+          <br>
+          To download data complete the query below. Returning and experienced users may wish to
+					use the <span style="color:#005ea2; text-decoration:underline; cursor: pointer" @click="toggleForms">Advanced Download</span>.
+        </p>
 			</div>
 		</div>
 
