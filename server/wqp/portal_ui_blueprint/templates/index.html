@@ -14,7 +14,8 @@
   <div class="tab">
     <input type="radio" id="tab-1" name="tab-group-1" checked>
     <label for="tab-1" class="tab-label">Basic</label>
-    <div class="content">
+    <div class="tab-panel">
+      <div class="tab-content">
 <div id="basicForm">
 	<div id="formIntro">
 		<div class="usa-alert usa-alert--info usa-alert--no-icon welcome-section">
@@ -277,11 +278,13 @@
 </div>
 </div>
 </div>
+</div>
 
 <div class="tab">
   <input type="radio" id="tab-2" name="tab-group-1">
     <label for="tab-2" class="tab-label">Advanced</label>
-    <div class="content">
+    <div class="tab-panel">
+      <div class="tab-content">
 <div id="advancedForm">
 	<form role="form" id="params" name="params" autocomplete="off" method="post" action="
                           {%  if config.WATERAUTH_AUTHORIZE_URL %}
@@ -838,6 +841,7 @@
     </div>
   </div>
 </form>
+</div>
 </div>
 </div>
 </div>
