@@ -18,13 +18,15 @@
       <div class="tab-content">
 <div id="basicForm">
 	<div id="formIntro">
-		<div class="usa-alert usa-alert--info usa-alert--no-icon welcome-section">
-			<div class="usa-alert__body">
-				<p class="usa-alert__text">
-					<b>Welcome to the new Water Quality Portal</b><br>
-					To download data follow the instructions on each step. Returning and experienced users may wish to
-					use the <span style="color:#005ea2; cursor: pointer" @click="toggleForms">Advanced Download</span>.
-				</p>
+		<div>
+			<div class="usa-alert__body new-wqp-body">
+				<h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
+        <p class="usa-alert__text">
+					The Water Quality Portal (WQP) is a cooperative service sponsored by the United States Geological Survey (USGS), the Environmental Protection Agency (EPA), and the National Water Quality Monitoring Council (NWQMC). It serves data collected by over 400 state, federal, tribal, and local agencies. <a href="/wqp/portal_userguide">Learn More</a></p>
+					<br>
+					<p class="usa-alert__text">To download data complete the query below. Returning and experienced users may wish to
+					use the <span style="color:#005ea2; text-decoration:underline; cursor: pointer" @click="toggleForms">Advanced Download</span>.
+        </p>
 			</div>
 		</div>
 
@@ -741,10 +743,15 @@
                   </div>
                 </div> -->
                 <div id="form-action">
-                  <div class="share-container" style="padding-top: 5px;">
-                    <button type="button" class="usa-button usa-button--outline" style="float: right; margin-bottom: 10px;" aria-label="Button to copy current URL">
-                      Copy Current URL
-                    </button>
+                  <div class="share-container" style="padding-top: 10px;">
+					<div id="query-box-text">
+						<div id="query-box-bold">
+                    		Query URL
+						</div>
+						<div id="query-box-muted">
+							Copy and share the URL of this query.
+						</div>
+					</div>
                     <textarea class="wqp-textarea" class="usa-textarea" readonly rows="3" style="margin-bottom: 10px;" aria-label="Current URL based on input search parameters"></textarea>
                   </div>
                 </div>
@@ -801,7 +808,7 @@
                     </div>
                   </div>
                 </div>
-                <a href="#download-status-modal" id="main-button" class="usa-button" type="submit" aria-controls="example-modal-1" style="float: right; margin-top: 20px;">
+                <a href="#download-status-modal" id="main-button" class="usa-button" type="submit" aria-controls="example-modal-1">
                   DOWNLOAD
                 </a>
                 <div class="usa-modal" id="download-status-modal" aria-labelledby="modal-1-heading" aria-describedby="modal-1-description">
