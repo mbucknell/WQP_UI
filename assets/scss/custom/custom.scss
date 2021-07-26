@@ -169,6 +169,10 @@ $black: #000;
   }
 } 
 
+#siteAnnouncement {
+  margin-bottom: 20px;
+}
+
 
 // Form header and controls
 #formHeader {
@@ -311,9 +315,6 @@ a:visited {
   color: grey;
 }
 
-.welcome-section {
-  margin-bottom: 10px;
-}
 //Select2
 //matching select2 style to usa-input style
 .select2-container--focus { 
@@ -360,4 +361,12 @@ a:visited {
 #main-button {
   float: left; 
   color:white;
+}
+
+#query-box-bold {
+  font-weight: bold;
+}
+
+#query-box-muted {
+  color: #757575;
 }
