@@ -431,13 +431,13 @@ a:visited {
   display: inline;
 }
 
-.tabs .tab #tab-1 + .tab-label {
+.tabs .tab #basic-tab + .tab-label {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-right: 1.5px solid #005ea2;
 }
 
-.tabs .tab #tab-2 + .tab-label {
+.tabs .tab #advanced-tab + .tab-label {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 1.5px solid #005ea2;
