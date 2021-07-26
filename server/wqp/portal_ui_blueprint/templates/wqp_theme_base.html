@@ -59,14 +59,14 @@
 
 <!-- Main App Header -->
 <div class="usa-overlay"></div>
-<header class="usa-header usa-header--basic">
+<header class="usa-header usa-header--basic" style="background-color: #253f60; padding-bottom: 20px">
 	<div class="usa-nav-container">
 		<div class="usa-navbar">
 			<div class="custom-nav-branding">
 				<a href="/" title="Home" aria-label="Home">
 					<img src="{{ 'img/NWQMC.png' | asset_url }}" width="56px" height="76px" alt="National Water Quality Monitoring Council" />
 				</a>
-				<em><a href="/" title="Home" aria-label="Home">NATIONAL WATER QUALITY MONITORING COUNCIL</a></em>
+				<em><a href="/wqp" title="Home" aria-label="Home"><span class="headerText">NATIONAL WATER QUALITY MONITORING COUNCIL</span></a></em>
 			</div>
 			<button class="usa-menu-btn">Menu</button>
 		</div>
@@ -77,31 +77,31 @@
 			<ul class="usa-nav__primary usa-accordion">
 
 				<li class="usa-nav__primary-item">
-    				<a class="usa-nav__link" href="{{ url_for('portal_ui.home-canonical') }}"><span>Home</span></a>
+    				<a class="usa-nav__link" href="{{ url_for('portal_ui.home-canonical') }}"><span class="headerText">Home</span></a>
     			</li>
 
 				<li class="usa-nav__primary-item">
-    				<a class="usa-nav__link" href="{{ url_for('portal_ui.portal-canonical') }}"><span>Download Data</span></a>
+    				<a class="usa-nav__link" href="{{ url_for('portal_ui.portal-canonical') }}"><span class="headerText">Download Data</span></a>
     			</li>
 
 				<li class="usa-nav__primary-item">
-    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-one"><span>Explore WQP Sites</span></button>
+    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-one"><span class="headerText">Explore WQP Sites</span></button>
     				<ul id="basic-nav-section-one" class="usa-nav__submenu">
 						<li class="usa-nav__submenu-item">
-              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'NWIS') }}" class="">NWIS</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'NWIS') }}" class="headerText">NWIS</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STEWARDS') }}" class="">STEWARDS</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STEWARDS') }}" class="headerText">STEWARDS</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STORET') }}" class="">EPA</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STORET') }}" class="headerText">EPA</a>
             			</li>
 					</ul>
 				</li>
 
 
 				<li class="usa-nav__primary-item">
-    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-two"><span>Help & About</span></button>
+    				<button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-two" style="color: white;"><span>Help & About</span></button>
     				<ul id="basic-nav-section-two" class="usa-nav__submenu">
 						<li class="usa-nav__submenu-item">
 							<a href="{{ url_for('portal_ui.wqp_description-canonical') }}" class="">What is the WQP?</a>
@@ -136,6 +136,16 @@
 		</nav>
   	</div>
 </header>
+<div id="siteAnnouncement">
+	<div class="usa-alert usa-alert--info usa-alert--no-icon">
+	  <div class="usa-alert__body announcement-body">
+		<p class="usa-alert__text">
+		  <b>Announcement Title:</b> This is an announcement preview about the site. Click to learn more about this announcement...
+			<a class="usa-link" href="javascript:void(0);">Read More</a>.
+		</p>
+	  </div>
+	</div>
+  </div>
 
 {% endblock %}
 
@@ -210,6 +220,9 @@
             </div>
           </footer>
     </div>
-{% endblock %}
 
-{% block body_page_script %}{% endblock %}
+	{% endblock %}
+
+	{% block body_page_script %}
+
+					{% endblock %}

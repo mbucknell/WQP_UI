@@ -120,7 +120,7 @@ $black: #000;
 }
 
 // styles portal page
-#app {
+#advancedForm {
   max-width: 1200px;
   display: block;
   margin: 0 auto;
@@ -129,62 +129,156 @@ $black: #000;
 
 
 // Home Page form intro
-#formIntro{
-	margin: 0 0 65px 0;
-	background-color: rgba(0,0,30,0.03);
-	box-sizing: border-box;
-	padding: 20px 20px 0 20px;
-	border-radius: 4px;
-	
-	// Card column group
-	.usa-card-group{
-		margin: 25px 0 0 0;
+#formIntro {
+  margin: 0 0 65px 0;
+  background-color: rgba(0, 0, 30, 0.03);
+  box-sizing: border-box;
+  padding: 20px 20px 0 20px;
+  border-radius: 4px;
 
-		.usa-card__body.links-only{
+  // Card column group
+  .usa-card-group {
+    margin: 25px 0 0 0;
 
-			a{
-				font-size: 15px;
-				line-height: 16px;
-				margin: 9px 0;
-				display: block;
-			}
-		}
-	}
+    .usa-card__body.links-only {
+      a {
+        font-size: 15px;
+        line-height: 16px;
+        margin: 9px 0;
+        display: block;
+      }
+    }
+  }
 
-	// Footer - dismiss and don't show again
-	#formInroFooter{
-		display: flex;
-		width: 100%;
-		padding-bottom: 20px;
+  // Footer - dismiss and don't show again
+  #formInroFooter {
+    display: flex;
+    width: 100%;
+    padding-bottom: 20px;
 
-		.footer-flex{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			margin-right: 15px;
+    .footer-flex {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-right: 15px;
 
-			.usa-checkbox label{
-				margin: 0;
-			}
-		}
-	}
+      .usa-checkbox label {
+        margin: 0;
+      }
+    }
+  }
+} 
+
+#siteAnnouncement {
+  margin-bottom: 20px;
 }
 
 
 // Form header and controls
-#formHeader{
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
+#formHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 
-	#formHeaderButtons{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
+  #formHeaderButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 // Accordion custom styles
+// Setting this on the usa-accordion__content usa-prose prevents clipping
+#a1 {
+  overflow: visible;
+}
+#a2 {
+  overflow: visible;
+}
+#a3 {
+  overflow: visible;
+}
+
+// pointLocation Table basic
+.pointLocationTable {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.pointLocationTable td {
+  border-style: solid;
+  border-width: 0px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+}
+.pointLocationTable th {
+  border-style: solid;
+  border-width: 0px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+}
+
+.pointLocationTable tr {
+  height: 2px;
+}
+
+.pointLocationTable .pointLocationTable-cell {
+  text-align: left;
+  vertical-align: top;
+}
+
+// basic form styles
+.smallInput {
+  width: 50px
+}
+
+.formSection {
+  padding: 10px;
+}
+
+.dateRange {
+  display: inline-block;
+}
+
+#startDate {
+  width:45%; 
+  float: right;
+}
+#endDate {
+  width:45%; 
+  float: right;
+}
+
+.basicForm{
+  height: 600px;
+}
+
+.basicSortDataCheckbox {
+  margin-left: 10px;
+}
+
+.required-field::after {
+  content: "*";
+  color: red;
+}
+
+.menu-buttons {
+  position: absolute;
+ margin-top: 20px;
+}
+
+// Header styles
+.headerText {
+  color: white;
+}
+
 // Setting this on the usa-accordion__content usa-prose prevents clipping 
 #locationaccordion {
   overflow: visible
