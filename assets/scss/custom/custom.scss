@@ -394,22 +394,16 @@ a:visited {
 
 .tabs .tab-label {
   background: white; 
-  border: 3px solid #005ea2;
-  border-radius: .25rem; 
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border: 3px solid #757575;
   display: inline-block;
   font-size: 16px;
   font-size: 1rem;
-  left: 1px;
-  margin-left: -1px;
-  margin-right: 5px;
   padding: 10px; 
   position: relative;
   vertical-align: bottom;
   font-weight: bold;
   color: #757575;
-  border-bottom: 1px solid #005ea2;
+  border-radius: .25rem;
 }
 
 .tabs .tab-content {
@@ -419,9 +413,7 @@ a:visited {
   display: block;
   background: white;
   padding: 20px;
-  border: 3px solid #005ea2;
-  border-radius: .25rem;
-  border-top-left-radius: 0;
+  border: none;
   float: left;
   font-size: 16px;
   font-size: 1rem;
@@ -430,14 +422,23 @@ a:visited {
 }
 
 .tabs .tab [type="radio"]:checked + .tab-label {
-  background: #005ea2;
-  border: 3px solid #005ea2;
-  border-bottom-width: 0;
-  padding-bottom: 11px;
   z-index: 1;
-  color: white;
+  color: #005ea2;
+  border: 3px solid #005ea2;
 }
 
 .tabs .tab [type="radio"]:checked ~ .tab-panel {
   display: inline;
+}
+
+.tabs .tab #tab-1 + .tab-label {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 1.5px solid #005ea2;
+}
+
+.tabs .tab #tab-2 + .tab-label {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 1.5px solid #005ea2;
 }
