@@ -11,7 +11,20 @@
 	box-sizing: border-box;
 }
 
+.announcement-body {
+	display: block;
+	width: 95%;
+	// max-width: 1080px;
+	max-width: 960px;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
 
+#formInroFooter {
+	padding-top: 15px;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+}
 
 // TODO
 // Add sticky sidebar nav on guide pages?
