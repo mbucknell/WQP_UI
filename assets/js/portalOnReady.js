@@ -6,12 +6,83 @@ import ShowAPIView from './views/showAPIView';
 import SiteMapView from './views/siteMapView';
 import DownloadProgressDialog from './downloadProgressDialog';
 import { initTooltip } from './uswdsComponents/uswdsTooltip';
+import Vue from 'vue/dist/vue'
 
 $(document).ready(function () {
-    // Initialize Vue.js
-    var advancedForm = new Vue({
-        el: '#advancedForm',
+
+    // initializeing multiselects 
+    $('#countrycodeBasic').select2();
+    $('#countycodeBasic').select2();
+    $('#statecodeBasic').select2();
+    $('#siteTypeBasic').select2();
+    $('#datasourceBasic').select2();
+    $('#sampleMediaBasic').select2();
+    $('#charGroupBasic').select2();
+    $('#dataTypeBasic').select2();
+    $('#fileFormatBasic').select2();
+
+    $('.index-box-primary').click(function () {
+      window.location = $(this).find('a').attr('href');
+      return false;
+    });
+    $('.index-box-secondary').click(function () {
+      window.location = $(this).find('a').attr('href');
+    });
+    $('.index-box-secondary .interior-list').click(function () {
+      window.location = $(this).find('a').attr('href');
+    });
+
+    // showing Location Parameters first for basic form
+    $("#basicLocation").show();
+    $("#basicFilterResults").hide();
+    $("#basicDownload").hide();
+    
+    var forms = new Vue({
+        el: '#forms',
         delimiters: ['[[', ']]'],
+        props: {
+            // Show step labels
+            showLabels: {
+              type: Boolean,
+              default: false
+            },
+            // Center counters and labels in each step
+            centerLabels: {
+              type: Boolean,
+              default: false
+            },
+            // Show step counters
+            showStepNumbers: {
+              type: Boolean,
+              default: false
+            },
+            // Show small step counters
+            size: {
+              type: String,
+              default: 'sm'
+            },
+            step: {
+              type: Number,
+              default: 0
+            },
+            variant: {
+              type: String,
+              default: 'info'
+            }
+          },
+          computed: {
+            currentTitle() {
+              if (this.steps && this.steps[this.step]) {
+                if (this.steps[this.step].title) {
+                  return this.steps[this.step].title;
+                }
+                else {
+                  return this.steps[this.step];
+                }
+              }
+              return '';
+            }
+          },
         data: {
             countryTooltip: TOOLTIP.countryTooltip,
             stateTooltip: TOOLTIP.stateTooltip,
@@ -39,6 +110,13 @@ $(document).ready(function () {
             databasesTooltip: TOOLTIP.databasesTooltip,
             dataDownloadTooltip: TOOLTIP.dataDownloadTooltip,
             fileFormatTooltip: TOOLTIP.fileFormatTooltip,
+            steps: [
+                'Location Parameters',
+                'Filter Results',
+                'Download',
+              ],
+              latBasic: '',
+              lonBasic: '',
         },
         methods: {
             createTooltips: function () {
@@ -61,12 +139,65 @@ $(document).ready(function () {
                     $("#advancedForm").hide();
                     $("#basicForm").show();	
                 }
-            }
+            },
+            onClickTitle() {
+                this.$emit('selectTitle', this.currentTitle);
+              },
+              onNext() {
+                if (this.step < this.steps.length - 1) {
+                  this.step += 1;
+                } else {
+                  this.step = 0;
+                }
+                this.showStepParameters()
+              },
+              onPrev() {
+                if (this.step > 0) {
+                  this.step -= 1;
+                } else {
+                  this.step = this.steps.length - 1;
+                }
+                this.showStepParameters()
+              },
+              showStepParameters() {
+                if (this.step === 0) {
+                  $("#basicLocation").show();
+                  $("#basicFilterResults").hide();
+                  $("#basicDownload").hide();
+                } else if (this.step === 1) {
+                  $("#basicLocation").hide();
+                  $("#basicFilterResults").show();
+                  $("#basicDownload").hide();
+                } else if (this.step === 2) {
+                  $("#basicLocation").hide();
+                  $("#basicFilterResults").hide();
+                  $("#basicDownload").show();
+                }
+              },
+              getlocation() {
+                if (window.navigator.geolocation && window.navigator.geolocation.getCurrentPosition) {
+                  if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition();
+                  }
+                }
+              },
+              toggleForms() {
+                if ($("#advancedForm").css('display') == "none") {
+                  $("#basicForm").hide();
+                  $("#advancedForm").show();
+                } else {
+                  $("#advancedForm").hide();
+                  $("#basicForm").show();
+                }
+              },
+              closeIntro() {
+                $('#formIntro').hide();
+              }
         }
     });
 
     // create tooltips
-    advancedForm.createTooltips();
+    forms.createTooltips();
 
     // Set the loglevel
     if (Config.DEBUG) {
