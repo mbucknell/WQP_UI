@@ -9,6 +9,41 @@
 
 {% block page_content %}
 
+<div id="formIntro">
+  <div>
+    <div class="usa-alert__body new-wqp-body">
+      <h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
+      <p class="usa-alert__text">
+        The Water Quality Portal (WQP) is a cooperative service sponsored by the United States Geological
+        Survey (USGS), the Environmental Protection Agency (EPA), and the National Water Quality Monitoring
+        Council (NWQMC). It serves data collected by over 400 state, federal, tribal, and local agencies. <a
+          href="/wqp/portal_userguide">Learn More</a></p>
+      <br>
+      <p class="usa-alert__text">To download data complete the query below. Returning and experienced users
+        may wish to
+        use the <span style="color:#005ea2; text-decoration:underline; cursor: pointer"
+          @click="toggleForms">Advanced Download</span>.
+      </p>
+    </div>
+  </div>
+
+  <div id="formInroFooter">
+
+    <div class="footer-flex">
+      <button class="usa-button usa-button--outline" @click="closeIntro">Close Intro</button>
+    </div>
+
+
+    <!-- Don't show again checkbox -->
+    <div class="footer-flex">
+      <div class="usa-checkbox">
+        <input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
+        <label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Basic Form -->
 <div class="tabs">
   <div class="tab">
@@ -17,40 +52,7 @@
     <div class="tab-panel">
       <div class="tab-content">
         <div id="basicForm">
-          <div id="formIntro">
-            <div>
-              <div class="usa-alert__body new-wqp-body">
-                <h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
-                <p class="usa-alert__text">
-                  The Water Quality Portal (WQP) is a cooperative service sponsored by the United States Geological
-                  Survey (USGS), the Environmental Protection Agency (EPA), and the National Water Quality Monitoring
-                  Council (NWQMC). It serves data collected by over 400 state, federal, tribal, and local agencies. <a
-                    href="/wqp/portal_userguide">Learn More</a></p>
-                <br>
-                <p class="usa-alert__text">To download data complete the query below. Returning and experienced users
-                  may wish to
-                  use the <span style="color:#005ea2; text-decoration:underline; cursor: pointer"
-                    @click="toggleForms">Advanced Download</span>.
-                </p>
-              </div>
-            </div>
-
-            <div id="formInroFooter">
-
-              <div class="footer-flex">
-                <button class="usa-button usa-button--outline" @click="closeIntro">Close Intro</button>
-              </div>
-
-
-              <!-- Don't show again checkbox -->
-              <div class="footer-flex">
-                <div class="usa-checkbox">
-                  <input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
-                  <label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
-                </div>
-              </div>
-            </div>
-          </div>
+          
           <h3 class="site-preview-heading">Download Water Quality Data</h3>
           <div class="usa-step-indicator" aria-label="progress">
             <ol v-if="steps" class="usa-step-indicator__segments" :class="{            
@@ -91,29 +93,37 @@
             </p>
 
             <div class="formSection">
-              <label for="countrycodeBasic" class="tooltip">
-                <b>Country</b></label>
+              <label><strong>Country </strong></label><label class="tooltip" class="control-label"
+                            for="control-label" :title="countryTooltip"><span style="color: #565c65
+                        ;"><i class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="countrycodeBasic" name="countrycodeBasic"
                   data-placeholder="All Countries" style="width: 50%"></select>
               </div>
             </div>
             <div class="formSection">
-              <label class="tooltip" for="statecodeBasic"><b>State</b></label>
+              <label><strong>State </strong></label><label class="tooltip" class="control-label"
+                            for="control-label" :title="stateTooltip"><span style="color: #565c65;"><i
+                                class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="statecodeBasic" name="statecodeBasic"
                   data-placeholder="All States" style="width: 50%"></select>
               </div>
             </div>
             <div class="formSection">
-              <label class="tooltip" class="control-label" for="countycodeBasic"><b>County</b></label>
+              <label><strong>County </strong></label><label class="tooltip" class="control-label"
+                              for="control-label" :title="countyTooltip"><span style="color: #565c65;"><i
+                                  class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="countycodeBasic" name="countycodeBasic"
                   data-placeholder="All Counties" style="width: 50%"></select>
               </div>
             </div>
+            <div class="formSection">
+              <label><strong>Point Location </strong></label><label class="tooltip"
+                              :title="pointLocationTooltip"><span style="color: #565c65;"><i
+                                  class="fa fa-info-circle"></i></span></label></div>
             <div id="point-location" style="display: inline-block">
-
               <table class="pointLocationTable">
                 <thead>
                   <tr>
@@ -142,7 +152,9 @@
               </table>
             </div>
             <div class="formSection">
-              <label class="tooltip" class="control-label" for="siteTypeBasic"><b>Site Type</b></label>
+              <label><strong>Site Type </strong></label>
+                            <label class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                    class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="siteTypeBasic" name="siteTypeBasic"
                   data-placeholder="All Site Types" style="width: 50%"></select>
@@ -161,18 +173,35 @@
                 Download</span>.
             </p>
             <div class="formSection">
-              <label class="tooltip" class="control-label" for="datasourceBasic"><b>Data Source</b></label>
-              <div>
-                <select multiple class="form-control" id="datasourceBasic" name="datasourceBasic"
-                  data-placeholder="All Data Sources" style="width: 50%"></select>
-              </div>
+              <label><strong>Data Source </strong></label>
+                              <label class="tooltip" :title="databasesTooltip" for="control-label"><span style="color: #565c65;"><i
+                                      class="fa fa-info-circle"></i></span></label>
+                <fieldset class="usa-fieldset">
+                  <div class="usa-checkbox">
+                    <input class="datasources usa-checkbox__input" id="nwis-basic" type="checkbox" name="providers"
+                      value="NWIS" checked />
+                    <label class="usa-checkbox__label" for="nwis-basic">NWIS</label>
+                  </div>
+                  <div class="usa-checkbox">
+                    <input class="datasources usa-checkbox__input" id="stewards-basic" type="checkbox" name="providers"
+                      value="STEWARDS" checked />
+                    <label class="usa-checkbox__label" for="stewards-basic">STEWARDS</label>
+                  </div>
+                  <div class="usa-checkbox">
+                    <input class="datasources usa-checkbox__input" id="storet-basic" type="checkbox" name="providers"
+                      value="STORET" checked />
+                    <label class="usa-checkbox__label" for="storet-basic">EPA</label>
+                  </div>
+                </fieldset>
             </div>
             <div class="formSection dateRange">
-              <div class="tooltip" class="control-label" for="dateRangeBasic"><b>Data Range</b></div>
+              <label><strong>Date range </strong>(mm/dd/yyyy) </label>
+                                    <label class="tooltip" :title="dateRangeTooltip" for="control-label"><span style="color: #565c65;"><i
+                                            class="fa fa-info-circle"></i></span></label>
               <div style="margin-top: -15px;">
                 <div class="usa-form-group" style="width:45%; float: left" id="startDate">
-                  <label class="usa-label" id="event-date-start-label" for="event-date-start"><b>Event start
-                      date</b></label>
+                  <label class="usa-label" id="event-date-start-label" for="event-date-start">Event start
+                      date</label>
                   <div class="usa-hint" id="event-date-start-hint">mm/dd/yyyy</div>
                   <div class="usa-date-picker">
                     <input class="usa-input" id="event-date-start" name="event-date-start" type="text"
@@ -180,8 +209,8 @@
                   </div>
                 </div>
                 <div class="usa-form-group" id="endDate">
-                  <label class="usa-label" id="event-date-end-label" for="event-date-end"><b>Event end
-                      date</b></label>
+                  <label class="usa-label" id="event-date-end-label" for="event-date-end">Event end
+                      date</label>
                   <div class="usa-hint" id="event-date-end-hint">mm/dd/yyyy</div>
                   <div class="usa-date-picker">
                     <input class="usa-input" id="event-date-end" name="event-date-end" type="text"
@@ -191,14 +220,18 @@
               </div>
             </div>
             <div class="formSection">
-              <label class="tooltip" class="control-label" for="sampleMediaBasic"><b>Sample Media</b></label>
+              <label><strong>Sample Media </strong></label>
+                                <label class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                        class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="sampleMediaBasic" name="sampleMediaBasic"
                   data-placeholder="All Sample Media" style="width: 50%"></select>
               </div>
             </div>
             <div class="formSection">
-              <label class="tooltip" class="control-label" for="charGroupBasic"><b>Characteristic Group</b></label>
+              <label><strong>Characteristic Group </strong></label>
+                                <label class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                        class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="charGroupBasic" name="charGroupBasic"
                   data-placeholder="All Characteristic Groups" style="width: 50%"></select>
@@ -215,7 +248,9 @@
                 style="color:#005ea2; cursor: pointer" @click="toggleForms">Advanced Download</span>.
             </p>
             <div class="formSection">
-              <label class="tooltip" class="required-field" for="dataTypeBasic"><b>Data Type</b></label>
+              <label><strong>Data Profiles </strong></label>
+                          <label class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                  class="fa fa-info-circle"></i></span></label>
               <div>
                 <fieldset class="usa-fieldset">
                   <div class="usa-radio">
@@ -258,32 +293,31 @@
               </div>
             </div>
             <div class="formSection">
-              <label class="tooltip" class="control-label" for="fileFormatBasic"><b>File Format</b></label>
-              <div>
+              <label><strong>File Format </strong></label>
+                              <label class="tooltip" :title="fileFormatTooltip" for="control-label"><span style="color: #565c65;"><i
+                                      class="fa fa-info-circle"></i></span></label>
                 <fieldset class="usa-fieldset">
-                  <div class="usa-checkbox">
-                    <input class="datasources usa-checkbox__input" id="nwis-basic" type="checkbox" name="providers"
-                      value="NWIS" checked />
-                    <label class="usa-checkbox__label" for="nwis-basic">NWIS</label>
+                  <div class="usa-radio">
+                    <input class="usa-radio__input" id="csv" type="radio" name="mimeType" value="csv"
+                      checked="checked" />
+                    <label class="usa-radio__label" for="csv">Comma-separated</label>
                   </div>
-                  <div class="usa-checkbox">
-                    <input class="datasources usa-checkbox__input" id="stewards-basic" type="checkbox" name="providers"
-                      value="STEWARDS" checked />
-                    <label class="usa-checkbox__label" for="stewards-basic">STEWARDS</label>
+                  <div class="usa-radio">
+                    <input class="usa-radio__input" id="tsv" type="radio" name="mimeType" value="tsv" />
+                    <label class="usa-radio__label" for="tsv">Tab-separated</label>
                   </div>
-                  <div class="usa-checkbox">
-                    <input class="datasources usa-checkbox__input" id="storet-basic" type="checkbox" name="providers"
-                      value="STORET" checked />
-                    <label class="usa-checkbox__label" for="storet-basic">EPA</label>
+                  <div class="usa-radio">
+                    <input class="usa-radio__input" id="xlsx" type="radio" name="mimeType" value="xlsx" />
+                    <label class="usa-radio__label" for="xlsx">MS Excel 2007+</label>
                   </div>
                 </fieldset>
-              </div>
             </div>
             <div class="usa-checkbox basicSortDataCheckbox">
-              <input class="usa-checkbox__input" id="sortDataBasic" type="checkbox" name="sortDataBasic" value="true"
-                checked />
-              <label class="usa-checkbox__label" for="sortDataBasic">Sort Data</label>
-            </div>
+              <input type="checkbox" id="sortDataBasic" aria-label="Checkbox for sort data parameter" />
+              <label><strong>Sort data </strong></label>
+              <label class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+                      class="fa fa-info-circle"></i></span></label>
+              </div>
             <div class="menu-buttons">
               <button class="usa-button usa-button--outline">Start Over</button>
               <button class="usa-button" v-on:click="onPrev()">Previous</button>
@@ -1117,5 +1151,7 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
+<script type="text/javascript" src="../../../../assets/js/tooltipDefinitions.js"></script>
+<script type="text/javascript" src="../../../../assets/js/uswdsComponents/uswdsTooltip.js"></script>
 
 {% endblock %}
