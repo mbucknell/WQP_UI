@@ -9,43 +9,43 @@
 
 {% block page_content %}
 
-<div id="formIntro">
-  <div>
-    <div class="usa-alert__body new-wqp-body">
-      <h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
-      <p class="usa-alert__text">
-        The Water Quality Portal (WQP) is a cooperative service sponsored by the United States Geological
-        Survey (USGS), the Environmental Protection Agency (EPA), and the National Water Quality Monitoring
-        Council (NWQMC). It serves data collected by over 400 state, federal, tribal, and local agencies. <a
-          href="/wqp/portal_userguide">Learn More</a></p>
-      <br>
-      <p class="usa-alert__text">To download data complete the query below. Returning and experienced users
-        may wish to
-        use the <span style="color:#005ea2; text-decoration:underline; cursor: pointer"
-          @click="toggleForms">Advanced Download</span>.
-      </p>
+<!-- Basic Form -->
+<div id="forms">
+  <div id="formIntro">
+    <div>
+      <div class="usa-alert__body new-wqp-body">
+        <h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
+        <p class="usa-alert__text">
+          The Water Quality Portal (WQP) is a cooperative service sponsored by the United States Geological
+          Survey (USGS), the Environmental Protection Agency (EPA), and the National Water Quality Monitoring
+          Council (NWQMC). It serves data collected by over 400 state, federal, tribal, and local agencies. <a
+            href="/wqp/portal_userguide">Learn More</a></p>
+        <br>
+        <p class="usa-alert__text">To download data complete the query below. Returning and experienced users
+          may wish to
+          use the <span style="color:#005ea2; text-decoration:underline; cursor: pointer"
+            @click="toggleForms">Advanced Download</span>.
+        </p>
+      </div>
     </div>
-  </div>
-
-  <div id="formInroFooter">
-
-    <div class="footer-flex">
-      <button class="usa-button usa-button--outline" @click="closeIntro">Close Intro</button>
-    </div>
-
-
-    <!-- Don't show again checkbox -->
-    <div class="footer-flex">
-      <div class="usa-checkbox">
-        <input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
-        <label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
+  
+    <div id="formInroFooter">
+  
+      <div class="footer-flex">
+        <button class="usa-button usa-button--outline" @click="closeIntro">Close Intro</button>
+      </div>
+  
+  
+      <!-- Don't show again checkbox -->
+      <div class="footer-flex">
+        <div class="usa-checkbox">
+          <input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
+          <label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Basic Form -->
-<div class="tabs" id="forms">
+<div class="tabs">
   <div class="tab">
     <input type="radio" id="basic-tab" name="toggle-tabs" checked>
     <label for="basic-tab" class="tab-label">Basic</label>
@@ -161,7 +161,7 @@
               </div>
             </div>
             <div class="menu-buttons">
-              <button class="usa-button usa-button--outline">Clear Paramters</button>
+              <button class="usa-button usa-button--outline">Clear Parameters</button>
               <button class="usa-button" v-on:click="onPrev()">Previous</button>
               <button class="usa-button" v-on:click="onNext()">Next</button>
             </div>
@@ -994,6 +994,7 @@
     </div>
   </div>
 </div>
+</div>
 
 
 {% endblock %}
@@ -1002,7 +1003,5 @@
 {% include "partials/hide_non_usgs_epa_logos.html" %}
 
 <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
-<script type="text/javascript" src="../../../../assets/js/tooltipDefinitions.js"></script>
-<script type="text/javascript" src="../../../../assets/js/uswdsComponents/uswdsTooltip.js"></script>
 
 {% endblock %}
