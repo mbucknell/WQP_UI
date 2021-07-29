@@ -37,7 +37,7 @@ $(document).ready(function () {
     $("#basicFilterResults").hide();
     $("#basicDownload").hide();
     
-    var forms = new Vue({
+    const forms = new Vue({
         el: '#forms',
         delimiters: ['[[', ']]'],
         props: {
