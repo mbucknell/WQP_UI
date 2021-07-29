@@ -98,7 +98,7 @@
                         ;"><i class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="countrycodeBasic" name="countrycodeBasic"
-                  data-placeholder="All Countries" style="width: 50%"></select>
+                  data-placeholder="All Countries" style="width: 50%" aria-label="Input box for country parameter"></select>
               </div>
             </div>
             <div class="formSection">
@@ -107,7 +107,7 @@
                                 class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="statecodeBasic" name="statecodeBasic"
-                  data-placeholder="All States" style="width: 50%"></select>
+                  data-placeholder="All States" style="width: 50%" aria-label="Input box for state parameter"></select>
               </div>
             </div>
             <div class="formSection">
@@ -116,7 +116,7 @@
                                   class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="countycodeBasic" name="countycodeBasic"
-                  data-placeholder="All Counties" style="width: 50%"></select>
+                  data-placeholder="All Counties" style="width: 50%" aria-label="Input box for county parameter"></select>
               </div>
             </div>
             <div class="formSection">
@@ -139,12 +139,12 @@
                   <tr>
                     <td class="pointLocationTable-cell">Within</td>
                     <td class="pointLocationTable-cell"><input class="smallInput" type="text" name="withinBasic"
-                        id="withinBasic" /></td>
+                        id="withinBasic" aria-label="First of three input boxes for point location parameter. Input box for number of miles from point." /></td>
                     <td class="pointLocationTable-cell">of</td>
                     <td class="pointLocationTable-cell"><input class="smallInput" type="text" name="latBasic"
-                        placeholder="0" size="7" id="latBasic" v-model="latBasic"></input></td>
+                        placeholder="0" size="7" id="latBasic" v-model="latBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></td>
                     <td class="pointLocationTable-cell"><input class="smallInput" type="text" name="longBasic"
-                        placeholder="0" id="longBasic" v-model="lonBasic"></input></td>
+                        placeholder="0" id="longBasic" v-model="lonBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></td>
                     <td class="pointLocationTable-cell"><button id="useMyLocationBasic"
                         class="usa-button usa-button--outline" type="button">Use my location</button></td>
                   </tr>
@@ -225,7 +225,7 @@
                                         class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="sampleMediaBasic" name="sampleMediaBasic"
-                  data-placeholder="All Sample Media" style="width: 50%"></select>
+                  data-placeholder="All Sample Media" style="width: 50%" aria-label="Input box for sample media parameter"></select>
               </div>
             </div>
             <div class="formSection">
@@ -234,7 +234,7 @@
                                         class="fa fa-info-circle"></i></span></label>
               <div>
                 <select multiple class="form-control" id="charGroupBasic" name="charGroupBasic"
-                  data-placeholder="All Characteristic Groups" style="width: 50%"></select>
+                  data-placeholder="All Characteristic Groups" style="width: 50%" aria-label="Input box for characteristic groups parameter"></select>
               </div>
             </div>
             <div class="menu-buttons">
