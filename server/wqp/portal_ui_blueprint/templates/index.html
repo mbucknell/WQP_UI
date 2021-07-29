@@ -23,7 +23,7 @@
         <br>
         <p class="usa-alert__text">To download data complete the query below. Returning and experienced users
           may wish to
-          use the <span class="advancedLink" @click="toggleForms">Advanced Download</span>.
+          use the <span class="advancedLink" v-on:click="toggleForm = false">Advanced Download</span>.
         </p>
       </div>
     </div>
@@ -31,7 +31,7 @@
     <div id="formInroFooter">
   
       <div class="footer-flex">
-        <button class="usa-button usa-button--outline" @click="closeIntro">Close Intro</button>
+        <button class="usa-button usa-button--outline" v-on:click="closeIntro">Close Intro</button>
       </div>
   
   
@@ -46,7 +46,7 @@
   </div>
 <div class="tabs" aria-label="Two tabs to allow user to toggle between basic and advanced forms.">
   <div class="tab" aria-label="Tab for basic form. First of two tabs to allow user to toggle between basic and advanced forms.">
-    <input type="radio" id="basic-tab" name="toggle-tabs" checked>
+    <input type="radio" id="basic-tab" name="toggle-tabs" v-model="toggleForm" value="true">
     <label for="basic-tab" class="tab-label">Basic</label>
     <div class="tab-panel">
       <div class="tab-content">
@@ -85,16 +85,16 @@
             </div>
           </div>
 
-          <div id="basicLocation" class="basicForm">
+          <div id="basicLocation" class="basicForm" v-show="stepOne">
             <p>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are
-              available in the <span class="advancedLink" @click="toggleForms">Advanced Download</span>.
+              available in the <span class="advancedLink" v-on:click="toggleForm = false">Advanced Download</span>.
             </p>
 
             <div class="formSection">
               <label><strong>Country </strong></label><label class="tooltip" class="control-label"
                             for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
               <div>
-                <select multiple class="basic-form-control form-control" id="countrycodeBasic" name="countrycodeBasic"
+                <select multiple class="form-control" style="width: 50%" id="countrycodeBasic" name="countrycodeBasic"
                   data-placeholder="All Countries" aria-label="Input box for country parameter"></select>
               </div>
             </div>
@@ -102,7 +102,7 @@
               <label><strong>State </strong></label><label class="tooltip" class="control-label"
                             for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
               <div>
-                <select multiple class="basic-form-control form-control" id="statecodeBasic" name="statecodeBasic"
+                <select multiple class="form-control" style="width: 50%" id="statecodeBasic" name="statecodeBasic"
                   data-placeholder="All States" aria-label="Input box for state parameter"></select>
               </div>
             </div>
@@ -110,7 +110,7 @@
               <label><strong>County </strong></label><label class="tooltip" class="control-label"
                               for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
               <div>
-                <select multiple class="basic-form-control form-control" id="countycodeBasic" name="countycodeBasic"
+                <select multiple class="form-control" style="width: 50%" id="countycodeBasic" name="countycodeBasic"
                   data-placeholder="All Counties" aria-label="Input box for county parameter"></select>
               </div>
             </div>
@@ -149,7 +149,7 @@
               <label><strong>Site Type </strong></label>
                             <label class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
               <div>
-                <select multiple class="basic-form-control form-control" id="siteTypeBasic" name="siteTypeBasic"
+                <select multiple class="form-control" style="width: 50%" id="siteTypeBasic" name="siteTypeBasic"
                   data-placeholder="All Site Types" aria-label="Input box for site type parameter"></select>
               </div>
             </div>
@@ -159,10 +159,10 @@
               <button class="usa-button" v-on:click="onNext()">Next</button>
             </div>
           </div>
-          <div id="basicFilterResults" class="basicForm">
+          <div id="basicFilterResults" class="basicForm" v-show="stepTwo">
             <p>Specify data source, date range, and sampling filters to apply to the desired dataset. Additional options
               are
-              available in the <span class="advancedLink" @click="toggleForms">Advanced Download</span>.
+              available in the <span class="advancedLink" v-on:click="toggleForm = false">Advanced Download</span>.
             </p>
             <div class="formSection">
               <label><strong>Data Source </strong></label>
@@ -213,7 +213,7 @@
               <label><strong>Sample Media </strong></label>
                                 <label class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
               <div>
-                <select multiple class="basic-form-control form-control" id="sampleMediaBasic" name="sampleMediaBasic"
+                <select multiple class="form-control" id="sampleMediaBasic" name="sampleMediaBasic"
                   data-placeholder="All Sample Media" aria-label="Input box for sample media parameter"></select>
               </div>
             </div>
@@ -221,7 +221,7 @@
               <label><strong>Characteristic Group </strong></label>
                                 <label class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
               <div>
-                <select multiple class="basic-form-control form-control" id="charGroupBasic" name="charGroupBasic"
+                <select multiple class="form-control" id="charGroupBasic" name="charGroupBasic"
                   data-placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter"></select>
               </div>
             </div>
@@ -231,8 +231,8 @@
               <button class="usa-button" v-on:click="onNext()">Next</button>
             </div>
           </div>
-          <div id="basicDownload" class="basicForm">
-            <p>Specify a data type and file format to donload. Additional options are available in the <span class="advancedLink" @click="toggleForms">Advanced Download</span>.
+          <div id="basicDownload" class="basicForm" v-show="stepThree">
+            <p>Specify a data type and file format to donload. Additional options are available in the <span class="advancedLink" v-on:click="toggleForm = false">Advanced Download</span>.
             </p>
             <div class="formSection">
               <label><strong>Data Profiles </strong></label>
@@ -314,7 +314,7 @@
   </div>
 
   <div class="tab" aria-label="Tab for advanced form. Two of two tabs to allow user to toggle between basic and advanced forms.">
-    <input type="radio" id="advanced-tab" name="toggle-tabs">
+    <input type="radio" id="advanced-tab" name="toggle-tabs" v-model="toggleForm" value="false">
     <label for="advanced-tab" class="tab-label">Advanced</label>
     <div class="tab-panel">
       <div class="tab-content">

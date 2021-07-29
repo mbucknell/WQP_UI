@@ -115,8 +115,12 @@ $(document).ready(function () {
                 'Filter Results',
                 'Download',
               ],
-              latBasic: '',
-              lonBasic: '',
+            latBasic: '',
+            lonBasic: '',
+            toggleForm: true,
+            stepOne: true,
+            stepTwo: false,
+            stepThree: false,
         },
         methods: {
             createTooltips: function () {
@@ -130,15 +134,6 @@ $(document).ready(function () {
                         initTooltip(elem);
                     }
                 });
-            },
-            toggleForms() {
-                if ($("#advancedForm").css('display') == "none") {
-                    $("#basicForm").hide();
-                    $("#advancedForm").show();
-                } else {
-                    $("#advancedForm").hide();
-                    $("#basicForm").show();	
-                }
             },
             onClickTitle() {
                 this.$emit('selectTitle', this.currentTitle);
@@ -161,17 +156,17 @@ $(document).ready(function () {
               },
               showStepParameters() {
                 if (this.step === 0) {
-                  $("#basicLocation").show();
-                  $("#basicFilterResults").hide();
-                  $("#basicDownload").hide();
+                  this.stepOne = true;
+                  this.stepTwo = false;
+                  this.stepThree = false;
                 } else if (this.step === 1) {
-                  $("#basicLocation").hide();
-                  $("#basicFilterResults").show();
-                  $("#basicDownload").hide();
+                  this.stepOne = false;
+                  this.stepTwo = true;
+                  this.stepThree = false;
                 } else if (this.step === 2) {
-                  $("#basicLocation").hide();
-                  $("#basicFilterResults").hide();
-                  $("#basicDownload").show();
+                  this.stepOne = false;
+                  this.stepTwo = false;
+                  this.stepThree = true;
                 }
               },
               getlocation() {
@@ -179,15 +174,6 @@ $(document).ready(function () {
                   if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition();
                   }
-                }
-              },
-              toggleForms() {
-                if ($("#advancedForm").css('display') == "none") {
-                  $("#basicForm").hide();
-                  $("#advancedForm").show();
-                } else {
-                  $("#advancedForm").hide();
-                  $("#basicForm").show();
                 }
               },
               closeIntro() {
