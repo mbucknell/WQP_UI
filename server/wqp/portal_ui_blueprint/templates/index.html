@@ -23,8 +23,7 @@
         <br>
         <p class="usa-alert__text">To download data complete the query below. Returning and experienced users
           may wish to
-          use the <span style="color:#005ea2; text-decoration:underline; cursor: pointer"
-            @click="toggleForms">Advanced Download</span>.
+          use the <span class="advancedLink" @click="toggleForms">Advanced Download</span>.
         </p>
       </div>
     </div>
@@ -88,42 +87,40 @@
 
           <div id="basicLocation" class="basicForm">
             <p>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are
-              available in the <span style="color:#005ea2; cursor: pointer" @click="toggleForms">Advanced
-                Download</span>.
+              available in the <span class="advancedLink" @click="toggleForms">Advanced Download</span>.
             </p>
 
             <div class="formSection">
               <label><strong>Country </strong></label><label class="tooltip" class="control-label"
-                            for="control-label" :title="countryTooltip"><span style="color: #565c65
-                        ;"><i class="fa fa-info-circle"></i></span></label>
+                            for="control-label" :title="countryTooltip"><span class="tooltipIcon"><i class="fa fa-info-circle"></i></span></label>
               <div>
-                <select multiple class="form-control" id="countrycodeBasic" name="countrycodeBasic"
-                  data-placeholder="All Countries" style="width: 50%" aria-label="Input box for country parameter"></select>
+                <select multiple class="basic-form-control form-control" id="countrycodeBasic" name="countrycodeBasic"
+                  data-placeholder="All Countries" aria-label="Input box for country parameter"></select>
               </div>
             </div>
             <div class="formSection">
               <label><strong>State </strong></label><label class="tooltip" class="control-label"
-                            for="control-label" :title="stateTooltip"><span style="color: #565c65;"><i
+                            for="control-label" :title="stateTooltip"><span class="tooltipIcon"><i
                                 class="fa fa-info-circle"></i></span></label>
               <div>
-                <select multiple class="form-control" id="statecodeBasic" name="statecodeBasic"
-                  data-placeholder="All States" style="width: 50%" aria-label="Input box for state parameter"></select>
+                <select multiple class="basic-form-control form-control" id="statecodeBasic" name="statecodeBasic"
+                  data-placeholder="All States" aria-label="Input box for state parameter"></select>
               </div>
             </div>
             <div class="formSection">
               <label><strong>County </strong></label><label class="tooltip" class="control-label"
-                              for="control-label" :title="countyTooltip"><span style="color: #565c65;"><i
+                              for="control-label" :title="countyTooltip"><span class="tooltipIcon"><i
                                   class="fa fa-info-circle"></i></span></label>
               <div>
-                <select multiple class="form-control" id="countycodeBasic" name="countycodeBasic"
-                  data-placeholder="All Counties" style="width: 50%" aria-label="Input box for county parameter"></select>
+                <select multiple class="basic-form-control form-control" id="countycodeBasic" name="countycodeBasic"
+                  data-placeholder="All Counties" aria-label="Input box for county parameter"></select>
               </div>
             </div>
             <div class="formSection">
               <label><strong>Point Location </strong></label><label class="tooltip"
-                              :title="pointLocationTooltip"><span style="color: #565c65;"><i
+                              :title="pointLocationTooltip"><span class="tooltipIcon"><i
                                   class="fa fa-info-circle"></i></span></label></div>
-            <div id="point-location" style="display: inline-block">
+            <div id="point-location">
               <table class="pointLocationTable">
                 <thead>
                   <tr>
@@ -153,11 +150,11 @@
             </div>
             <div class="formSection">
               <label><strong>Site Type </strong></label>
-                            <label class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+                            <label class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><i
                                     class="fa fa-info-circle"></i></span></label>
               <div>
-                <select multiple class="form-control" id="siteTypeBasic" name="siteTypeBasic"
-                  data-placeholder="All Site Types" style="width: 50%"></select>
+                <select multiple class="basic-form-control form-control" id="siteTypeBasic" name="siteTypeBasic"
+                  data-placeholder="All Site Types"></select>
               </div>
             </div>
             <div class="menu-buttons">
@@ -169,12 +166,11 @@
           <div id="basicFilterResults" class="basicForm">
             <p>Specify data source, date range, and sampling filters to apply to the desired dataset. Additional options
               are
-              available in the <span style="color:#005ea2; cursor: pointer" @click="toggleForms">Advanced
-                Download</span>.
+              available in the <span class="advancedLink" @click="toggleForms">Advanced Download</span>.
             </p>
             <div class="formSection">
               <label><strong>Data Source </strong></label>
-                              <label class="tooltip" :title="databasesTooltip" for="control-label"><span style="color: #565c65;"><i
+                              <label class="tooltip" :title="databasesTooltip" for="control-label"><span class="tooltipIcon"><i
                                       class="fa fa-info-circle"></i></span></label>
                 <fieldset class="usa-fieldset">
                   <div class="usa-checkbox">
@@ -196,10 +192,10 @@
             </div>
             <div class="formSection dateRange">
               <label><strong>Date range </strong>(mm/dd/yyyy) </label>
-                                    <label class="tooltip" :title="dateRangeTooltip" for="control-label"><span style="color: #565c65;"><i
+                                    <label class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><i
                                             class="fa fa-info-circle"></i></span></label>
-              <div style="margin-top: -15px;">
-                <div class="usa-form-group" style="width:45%; float: left" id="startDate">
+              <div id="basic-dates">
+                <div class="usa-form-group" id="startDate">
                   <label class="usa-label" id="event-date-start-label" for="event-date-start">Event start
                       date</label>
                   <div class="usa-hint" id="event-date-start-hint">mm/dd/yyyy</div>
@@ -221,20 +217,20 @@
             </div>
             <div class="formSection">
               <label><strong>Sample Media </strong></label>
-                                <label class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                <label class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><i
                                         class="fa fa-info-circle"></i></span></label>
               <div>
-                <select multiple class="form-control" id="sampleMediaBasic" name="sampleMediaBasic"
-                  data-placeholder="All Sample Media" style="width: 50%" aria-label="Input box for sample media parameter"></select>
+                <select multiple class="basic-form-control form-control" id="sampleMediaBasic" name="sampleMediaBasic"
+                  data-placeholder="All Sample Media" aria-label="Input box for sample media parameter"></select>
               </div>
             </div>
             <div class="formSection">
               <label><strong>Characteristic Group </strong></label>
-                                <label class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                <label class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><i
                                         class="fa fa-info-circle"></i></span></label>
               <div>
-                <select multiple class="form-control" id="charGroupBasic" name="charGroupBasic"
-                  data-placeholder="All Characteristic Groups" style="width: 50%" aria-label="Input box for characteristic groups parameter"></select>
+                <select multiple class="basic-form-control form-control" id="charGroupBasic" name="charGroupBasic"
+                  data-placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter"></select>
               </div>
             </div>
             <div class="menu-buttons">
@@ -244,12 +240,11 @@
             </div>
           </div>
           <div id="basicDownload" class="basicForm">
-            <p>Specify a data type and file format to donload. Additional options are available in the <span
-                style="color:#005ea2; cursor: pointer" @click="toggleForms">Advanced Download</span>.
+            <p>Specify a data type and file format to donload. Additional options are available in the <span class="advancedLink" @click="toggleForms">Advanced Download</span>.
             </p>
             <div class="formSection">
               <label><strong>Data Profiles </strong></label>
-                          <label class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+                          <label class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><i
                                   class="fa fa-info-circle"></i></span></label>
               <div>
                 <fieldset class="usa-fieldset">
@@ -294,7 +289,7 @@
             </div>
             <div class="formSection">
               <label><strong>File Format </strong></label>
-                              <label class="tooltip" :title="fileFormatTooltip" for="control-label"><span style="color: #565c65;"><i
+                              <label class="tooltip" :title="fileFormatTooltip" for="control-label"><span class="tooltipIcon"><i
                                       class="fa fa-info-circle"></i></span></label>
                 <fieldset class="usa-fieldset">
                   <div class="usa-radio">
@@ -315,7 +310,7 @@
             <div class="usa-checkbox basicSortDataCheckbox">
               <input type="checkbox" id="sortDataBasic" aria-label="Checkbox for sort data parameter" />
               <label><strong>Sort data </strong></label>
-              <label class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span style="color: #565c65;"><i
+              <label class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><i
                       class="fa fa-info-circle"></i></span></label>
               </div>
             <div class="menu-buttons">
@@ -359,8 +354,7 @@
                       <div class="tablet:grid-col-3">
                         <div class="form-group">
                           <label><strong>Country </strong></label><label class="tooltip" class="control-label"
-                            for="control-label" :title="countryTooltip"><span style="color: #565c65
-                        ;"><i class="fa fa-info-circle"></i></span></label>
+                            for="control-label" :title="countryTooltip"><span class="tooltipIcon"><i class="fa fa-info-circle"></i></span></label>
                           <div>
                             <select multiple class="form-control" id="countrycode" name="countrycode"
                               data-placeholder="All Countries" style="width: 90%"
@@ -370,7 +364,7 @@
                         <br>
                         <div class="form-group">
                           <label><strong>State </strong></label><label class="tooltip" class="control-label"
-                            for="control-label" :title="stateTooltip"><span style="color: #565c65;"><i
+                            for="control-label" :title="stateTooltip"><span class="tooltipIcon"><i
                                 class="fa fa-info-circle"></i></span></label>
                           <div>
                             <select multiple class="form-control" id="statecode" name="statecode"
@@ -380,7 +374,7 @@
                           <br>
                           <div class="form-group">
                             <label><strong>County </strong></label><label class="tooltip" class="control-label"
-                              for="control-label" :title="countyTooltip"><span style="color: #565c65;"><i
+                              for="control-label" :title="countyTooltip"><span class="tooltipIcon"><i
                                   class="fa fa-info-circle"></i></span></label>
                             <div>
                               <select multiple class="form-control" id="countycode" name="countycode"
@@ -394,7 +388,7 @@
                         <div id="point-location">
                           <div>
                             <label><strong>Point Location </strong></label><label class="tooltip"
-                              :title="pointLocationTooltip"><span style="color: #565c65;"><i
+                              :title="pointLocationTooltip"><span class="tooltipIcon"><i
                                   class="fa fa-info-circle"></i></span></label>
                           </div>
                           <div>
@@ -431,7 +425,7 @@
                         <div id="bounding-box">
                           <div>
                             <label><strong>Bounding Box </strong></label><label class="tooltip"
-                              :title="boundingBoxTooltip"><span style="color: #565c65;"><i
+                              :title="boundingBoxTooltip"><span class="tooltipIcon"><i
                                   class="fa fa-info-circle"></i></span></label>
                           </div>
                           <div>
@@ -472,7 +466,7 @@
                           <div class="form-group">
                             <label><strong>Site Type </strong></label>
                             <div class="tooltip" :title="siteTypeTooltip">
-                              <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                              <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                     class="fa fa-info-circle"></i></span></label>
                             </div>
                             <div>
@@ -484,7 +478,7 @@
                           <div class="form-group">
                             <label><strong>Organization ID </strong></label>
                             <div class="tooltip" :title="orgIDTooltip">
-                              <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                              <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                     class="fa fa-info-circle"></i></span></label>
                             </div>
                             <div>
@@ -497,7 +491,7 @@
                           <div class="form-group">
                             <label><strong>Site ID </strong></label>
                             <div class="tooltip" :title="siteIDTooltip">
-                              <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                              <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                     class="fa fa-info-circle"></i></span></label>
                             </div>
                             <div>
@@ -510,7 +504,7 @@
                           <div class="form-group">
                             <label><strong>HUC </strong></label>
                             <div class="tooltip" :title="hucTooltip">
-                              <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                              <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                     class="fa fa-info-circle"></i></span></label>
                             </div>
                             <div>
@@ -545,7 +539,7 @@
                               <div class="tablet:grid-col-4">
                                 <label><strong>Sample Media </strong></label>
                                 <div class="tooltip" :title="sampleMediaTooltip">
-                                  <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                         class="fa fa-info-circle"></i></span></label>
                                 </div>
                                 <div>
@@ -556,7 +550,7 @@
                                 <br>
                                 <label><strong>Characteristic Group </strong></label>
                                 <div class="tooltip" :title="charGroupTooltip">
-                                  <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                         class="fa fa-info-circle"></i></span></label>
                                 </div>
                                 <div>
@@ -568,7 +562,7 @@
                                 <br>
                                 <label><strong>Characteristics </strong></label>
                                 <div class="tooltip" :title="characteristicsTooltip">
-                                  <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                         class="fa fa-info-circle"></i></span></label>
                                 </div>
                                 <div>
@@ -579,7 +573,7 @@
                                 <br>
                                 <label><strong>Project ID </strong></label>
                                 <div class="tooltip" :title="projectIDTooltip">
-                                  <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                         class="fa fa-info-circle"></i></span></label>
                                 </div>
                                 <div>
@@ -590,9 +584,9 @@
                               </div>
                               <div class="tablet:grid-col-4">
                                 <label><strong>Parameter Code</strong>
-                                  <span style="font-size: x-small">(NWIS ONLY) </span></label>
+                                  <span class="smallText">(NWIS ONLY) </span></label>
                                 <div class="tooltip" id="pcode-div" :title="paramCodeTooltip">
-                                  <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                         class="fa fa-info-circle"></i></span></label>
                                 </div>
                                 <div>
@@ -605,14 +599,14 @@
                                   <div class="subpanel-heading">
                                     <label><strong>Biological Sampling Parameters </strong>
                                       <div class="tooltip" :title="bioSamplingTooltip" for="control-label">
-                                        <label for="control-label"></label><span style="color: #565c65;"><i
+                                        <label for="control-label"></label><span class="tooltipIcon"><i
                                             class="fa fa-info-circle"></i></span>
                                       </div>
                                   </div>
                                   <div class="subpanel-body">
                                     <label><strong>Assemblage </strong></label>
                                     <div class="tooltip" :title="assemblageTooltip">
-                                      <label for="control-label"><span style="color: #565c65;"><i
+                                      <label for="control-label"><span class="tooltipIcon"><i
                                             class="fa fa-info-circle"></i></span></label>
                                     </div>
                                     <div>
@@ -624,7 +618,7 @@
                                     <div class="form-group">
                                       <label><strong>Taxonomic
                                           Name </strong></label><label class="tooltip" for="control-label"
-                                        :title="taxNameTooltip"><span style="color: #565c65;"><i
+                                        :title="taxNameTooltip"><span class="tooltipIcon"><i
                                             class="fa fa-info-circle"></i></span></label>
                                       <div>
                                         <select multiple name="subjectTaxonomicName"
@@ -641,7 +635,7 @@
                                   <div id="start-date-select">
                                     <label><strong>Date range </strong>(mm/dd/yyyy) </label>
                                     <div class="tooltip" :title="dateRangeTooltip">
-                                      <label for="control-label"><span style="color: #565c65;"><i
+                                      <label for="control-label"><span class="tooltipIcon"><i
                                             class="fa fa-info-circle"></i></span></label>
                                     </div>
                                     <div>
@@ -667,7 +661,7 @@
                                 <div id="min-activities-parameters-div">
                                   <label><strong>Minimum sampling activities per site </strong></label>
                                   <div class="tooltip" id="min-activities-div" :title="minSamplingTooltip">
-                                    <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                    <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                           class="fa fa-info-circle"></i></span></label>
                                   </div>
                                   <div>
@@ -679,7 +673,7 @@
                                 <br>
                                 <label><strong>Minimum results per site </strong></label>
                                 <div class="tooltip" id="minresults-div" :title="minimumResultsTooltip">
-                                  <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                         class="fa fa-info-circle"></i></span></label>
                                 </div>
                                 <div>
@@ -715,7 +709,7 @@
                             <div class="form-group">
                               <label><strong>Data Source </strong></label>
                               <div class="tooltip" :title="databasesTooltip">
-                                <label for="control-label"><span style="color: #565c65;"><i
+                                <label for="control-label"><span class="tooltipIcon"><i
                                       class="fa fa-info-circle"></i></span></label>
                               </div>
                               <fieldset class="usa-fieldset">
@@ -740,7 +734,7 @@
                             <div id="download-tabular-data">
                               <label><strong>File Format </strong></label>
                               <div class="tooltip" :title="fileFormatTooltip">
-                                <label for="control-label"><span style="color: #565c65;"><i
+                                <label for="control-label"><span class="tooltipIcon"><i
                                       class="fa fa-info-circle"></i></span></label>
                               </div>
                               <fieldset class="usa-fieldset">
@@ -764,7 +758,7 @@
                               <input type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter" />
                               <label><strong>Sort data </strong></label>
                               <div class="tooltip" :title="sortDataTooltip">
-                                <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                                <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                       class="fa fa-info-circle"></i></span></label>
                               </div>
                             </div>
@@ -775,7 +769,7 @@
                         <div id="download-data-kind-box" class="tablet:grid-col-9">
                           <label><strong>Data Profiles </strong></label>
                           <div class="tooltip" id="download-data-div" :title="dataDownloadTooltip">
-                            <label class="control-label" for="control-label"><span style="color: #565c65;"><i
+                            <label class="control-label" for="control-label"><span class="tooltipIcon"><i
                                   class="fa fa-info-circle"></i></span></label>
                           </div>
                           <fieldset class="usa-fieldset">
@@ -872,7 +866,7 @@
                   </div>
                 </div> -->
                           <div id="form-action">
-                            <div class="share-container" style="padding-top: 10px;">
+                            <div class="share-container">
                               <div id="query-box-text">
                                 <div id="query-box-bold">
                                   Query URL
@@ -881,8 +875,7 @@
                                   Copy and share the URL of this query.
                                 </div>
                               </div>
-                              <textarea class="wqp-textarea" class="usa-textarea" readonly rows="3"
-                                style="margin-bottom: 10px;"
+                              <textarea class="wqp-textarea" class="usa-textarea" id="current-url-textarea" readonly rows="3"
                                 aria-label="Current URL based on input search parameters"></textarea>
                             </div>
                           </div>

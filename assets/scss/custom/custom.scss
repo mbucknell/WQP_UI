@@ -329,6 +329,45 @@ a:visited {
   padding-top: 20px;
 }
 
+.advancedLink {
+  color:#005ea2; 
+  text-decoration:underline; 
+  cursor: pointer;
+}
+
+.tooltipIcon {
+  color: #757575;
+}
+
+.basic-form-control {
+  width: 50%;
+}
+
+.smallText {
+  font-size: x-small;
+}
+
+.share-container {
+  padding-top: 10px;
+}
+
+#point-location {
+  display: inline-block;
+}
+
+#basic-dates {
+  margin-top: -15px;
+}
+
+#startDate {
+  width:45%; 
+  float: left;
+}
+
+#current-url-textarea {
+  margin-bottom: 10px;
+}
+
 //Select2
 //matching select2 style to usa-input style
 .select2-container--focus {
