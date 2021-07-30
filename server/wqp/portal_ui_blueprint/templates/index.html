@@ -91,32 +91,33 @@
             </p>
 
             <div class="formSection">
-              <label><strong>Country </strong></label><label class="tooltip" class="control-label"
-                            for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">Country </div><div class="tooltip" class="control-label"
+                            for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
                 <select multiple class="form-control" style="width: 50%" id="countrycodeBasic" name="countrycodeBasic"
                   data-placeholder="All Countries" aria-label="Input box for country parameter"></select>
               </div>
             </div>
             <div class="formSection">
-              <label><strong>State </strong></label><label class="tooltip" class="control-label"
-                            for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">State </div><div class="tooltip" class="control-label"
+                            for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
                 <select multiple class="form-control" style="width: 50%" id="statecodeBasic" name="statecodeBasic"
                   data-placeholder="All States" aria-label="Input box for state parameter"></select>
               </div>
             </div>
             <div class="formSection">
-              <label><strong>County </strong></label><label class="tooltip" class="control-label"
-                              for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">County </div><div class="tooltip" class="control-label"
+                              for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
                 <select multiple class="form-control" style="width: 50%" id="countycodeBasic" name="countycodeBasic"
                   data-placeholder="All Counties" aria-label="Input box for county parameter"></select>
               </div>
             </div>
             <div class="formSection">
-              <label><strong>Point Location </strong></label><label class="tooltip"
-                              :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label></div>
+              <div class="usa-label">Point Location </div><div class="tooltip"
+                              :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+            </div>
             <div id="point-location">
               <table class="pointLocationTable">
                 <thead>
@@ -146,8 +147,8 @@
               </table>
             </div>
             <div class="formSection">
-              <label><strong>Site Type </strong></label>
-                            <label class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">Site Type </div>
+                            <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
                 <select multiple class="form-control" style="width: 50%" id="siteTypeBasic" name="siteTypeBasic"
                   data-placeholder="All Site Types" aria-label="Input box for site type parameter"></select>
@@ -165,8 +166,8 @@
               available in the <span class="advancedLink" v-on:click="toggleForm = false">Advanced Download</span>.
             </p>
             <div class="formSection">
-              <label><strong>Data Source </strong></label>
-                              <label class="tooltip" :title="databasesTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">Data Source </div>
+                              <div class="tooltip" :title="databasesTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <fieldset class="usa-fieldset">
                   <div class="usa-checkbox">
                     <input class="datasources usa-checkbox__input" id="nwis-basic" type="checkbox" name="providers"
@@ -186,12 +187,12 @@
                 </fieldset>
             </div>
             <div class="formSection dateRange">
-              <label><strong>Date range </strong>(mm/dd/yyyy) </label>
-                                    <label class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">Date range (mm/dd/yyyy) </div>
+                                    <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div id="basic-dates">
                 <div class="usa-form-group" id="startDate">
-                  <label class="usa-label" id="event-date-start-label" for="event-date-start">Event start
-                      date</label>
+                  <div class="usa-label" id="event-date-start-label" for="event-date-start">Event start
+                      date</div>
                   <div class="usa-hint" id="event-date-start-hint">mm/dd/yyyy</div>
                   <div class="usa-date-picker">
                     <input class="usa-input" id="event-date-start" name="event-date-start" type="text"
@@ -199,8 +200,8 @@
                   </div>
                 </div>
                 <div class="usa-form-group" id="endDate">
-                  <label class="usa-label" id="event-date-end-label" for="event-date-end">Event end
-                      date</label>
+                  <div class="usa-label" id="event-date-end-label" for="event-date-end">Event end
+                      date</div>
                   <div class="usa-hint" id="event-date-end-hint">mm/dd/yyyy</div>
                   <div class="usa-date-picker">
                     <input class="usa-input" id="event-date-end" name="event-date-end" type="text"
@@ -210,16 +211,16 @@
               </div>
             </div>
             <div class="formSection">
-              <label><strong>Sample Media </strong></label>
-                                <label class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">Sample Media </div>
+                                <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
                 <select multiple class="form-control" style="width: 50%" id="sampleMediaBasic" name="sampleMediaBasic"
                   data-placeholder="All Sample Media" aria-label="Input box for sample media parameter"></select>
               </div>
             </div>
             <div class="formSection">
-              <label><strong>Characteristic Group </strong></label>
-                                <label class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">Characteristic Group </divd>
+                                <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
                 <select multiple class="form-control" style="width: 50%" id="charGroupBasic" name="charGroupBasic"
                   data-placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter"></select>
@@ -231,12 +232,13 @@
               <button class="usa-button" v-on:click="onNext()">Next</button>
             </div>
           </div>
+        </div>
           <div id="basicDownload" class="basicForm" v-show="stepThree">
             <p>Specify a data type and file format to donload. Additional options are available in the <span class="advancedLink" v-on:click="toggleForm = false">Advanced Download</span>.
             </p>
             <div class="formSection">
-              <label><strong>Data Profiles </strong></label>
-                          <label class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">Data Profiles </div>
+                          <div class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
                 <fieldset class="usa-fieldset">
                   <div class="usa-radio">
@@ -279,8 +281,8 @@
               </div>
             </div>
             <div class="formSection">
-              <label><strong>File Format </strong></label>
-                              <label class="tooltip" :title="fileFormatTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">File Format </div>
+                              <div class="tooltip" :title="fileFormatTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <fieldset class="usa-fieldset">
                   <div class="usa-radio">
                     <input class="usa-radio__input" id="csv" type="radio" name="mimeType" value="csv"
@@ -299,8 +301,8 @@
             </div>
             <div class="usa-checkbox basicSortDataCheckbox">
               <input type="checkbox" id="sortDataBasic" aria-label="Checkbox for sort data parameter" />
-              <label><strong>Sort data </strong></label>
-              <label class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+              <div class="usa-label">Sort data </strong></div>
+              <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               </div>
             <div class="menu-buttons">
               <button class="usa-button usa-button--outline">Start Over</button>
@@ -342,8 +344,8 @@
                     <div class="grid-row grid-gap">
                       <div class="tablet:grid-col-3">
                         <div class="form-group">
-                          <label><strong>Country </strong></label><label class="tooltip" class="control-label"
-                            for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                          <div class="usa-label">Country </div><div class="tooltip" class="control-label"
+                            for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                           <div>
                             <select multiple class="form-control" id="countrycode" name="countrycode"
                               data-placeholder="All Countries" style="width: 90%"
@@ -352,8 +354,8 @@
                         </div>
                         <br>
                         <div class="form-group">
-                          <label><strong>State </strong></label><label class="tooltip" class="control-label"
-                            for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                          <div class="usa-label">State </div><div class="tooltip" class="control-label"
+                            for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                           <div>
                             <select multiple class="form-control" id="statecode" name="statecode"
                               data-placeholder="All States" style="width: 90%"
@@ -361,8 +363,8 @@
                           </div>
                           <br>
                           <div class="form-group">
-                            <label><strong>County </strong></label><label class="tooltip" class="control-label"
-                              for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                            <div class="usa-label">County </div><div class="tooltip" class="control-label"
+                              for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                             <div>
                               <select multiple class="form-control" id="countycode" name="countycode"
                                 data-placeholder="All Counties" style="width: 90%"
@@ -374,8 +376,8 @@
                       <div class="tablet:grid-col-3">
                         <div id="point-location">
                           <div>
-                            <label><strong>Point Location </strong></label><label class="tooltip"
-                              :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                            <div class="usa-label">Point Location </div><div class="tooltip"
+                              :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                           </div>
                           <div>
                             <div class="form-group">
@@ -410,8 +412,8 @@
                       <div class="tablet:grid-col-3">
                         <div id="bounding-box">
                           <div>
-                            <label><strong>Bounding Box </strong></label><label class="tooltip"
-                              :title="boundingBoxTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                            <div class="usa-label">Bounding Box </div><div class="tooltip"
+                              :title="boundingBoxTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                           </div>
                           <div>
                             <div class="form-group">
@@ -449,10 +451,8 @@
                       <div class="tablet:grid-col-3">
                         <div id="site-params">
                           <div class="form-group">
-                            <label><strong>Site Type </strong></label>
-                            <div class="tooltip" :title="siteTypeTooltip">
-                              <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
-                            </div>
+                            <div class="usa-label">Site Type </div>
+                            <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                             <div>
                               <select multiple id="siteType" name="siteType" data-placeholder="All Site Types"
                                 style="width: 90%" aria-label="Input box for site type parameter"></select>
@@ -460,9 +460,8 @@
                           </div>
                           <br>
                           <div class="form-group">
-                            <label><strong>Organization ID </strong></label>
-                            <div class="tooltip" :title="orgIDTooltip">
-                              <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                            <div class="usa-label">Organization ID </div>
+                            <div class="tooltip" :title="orgIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                             </div>
                             <div>
                               <select multiple id="organization" name="organization"
@@ -472,9 +471,8 @@
                           </div>
                           <br>
                           <div class="form-group">
-                            <label><strong>Site ID </strong></label>
-                            <div class="tooltip" :title="siteIDTooltip">
-                              <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                            <div class="usa-label">Site ID </div>
+                            <div class="tooltip" :title="siteIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                             </div>
                             <div>
                               <select multiple id="siteid" input class="form-control" name="siteid"
@@ -484,9 +482,8 @@
                           </div>
                           <br>
                           <div class="form-group">
-                            <label><strong>HUC </strong></label>
-                            <div class="tooltip" :title="hucTooltip">
-                              <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                            <div class="usa-label">HUC </div>
+                            <div class="tooltip" :title="hucTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                             </div>
                             <div>
                               <input class="form-control" type="text" name="huc" id="huc" data-multiple="true"
@@ -518,9 +515,8 @@
                           <div class="subpanel-body">
                             <div class="grid-row grid-gap">
                               <div class="tablet:grid-col-4">
-                                <label><strong>Sample Media </strong></label>
-                                <div class="tooltip" :title="sampleMediaTooltip">
-                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                                <div class="usa-label">Sample Media </div>
+                                <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
                                   <select multiple class="form-control" name="sampleMedia" id="sampleMedia"
@@ -528,9 +524,8 @@
                                     aria-label="Input box for sample media parameter"></select>
                                 </div>
                                 <br>
-                                <label><strong>Characteristic Group </strong></label>
-                                <div class="tooltip" :title="charGroupTooltip">
-                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                                <div class="usa-label">Characteristic Group </div>
+                                <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
                                   <select multiple class="form-control" name="characteristicType"
@@ -539,9 +534,8 @@
                                     aria-label="Input box for characteristic groups parameter"></select>
                                 </div>
                                 <br>
-                                <label><strong>Characteristics </strong></label>
-                                <div class="tooltip" :title="characteristicsTooltip">
-                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                                <div class="usa-label">Characteristics </div>
+                                <div class="tooltip" :title="characteristicsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
                                   <select multiple class="form-control" name="characteristicName"
@@ -549,9 +543,8 @@
                                     aria-label="Input box for characteristics parameter"></select>
                                 </div>
                                 <br>
-                                <label><strong>Project ID </strong></label>
-                                <div class="tooltip" :title="projectIDTooltip">
-                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                                <div class="usa-label">Project ID </div>
+                                <div class="tooltip" :title="projectIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
                                   <select multiple class="form-control" name="project" id="project-code"
@@ -560,28 +553,25 @@
                                 </div>
                               </div>
                               <div class="tablet:grid-col-4">
-                                <label><strong>Parameter Code</strong>
-                                  <span class="smallText">(NWIS ONLY) </span></label>
-                                <div class="tooltip" id="pcode-div" :title="paramCodeTooltip">
-                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                                <div class="usa-label">Parameter Code
+                                  <span class="smallText">(NWIS ONLY) </span></div>
+                                <div class="tooltip" id="pcode-div" :title="paramCodeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
-                                  <input class="form-control usa-label" type="text" size="23"
+                                  <input class="form-control" type="text" size="23"
                                     placeholder="All Parameter Codes" name="pCode" id="pCode" data-multiple="true"
                                     aria-label="Input box for parameter code parameter" />
                                 </div>
                                 <br>
                                 <div id="biological" class="subpanel">
                                   <div class="subpanel-heading">
-                                    <label><strong>Biological Sampling Parameters </strong>
-                                      <div class="tooltip" :title="bioSamplingTooltip" for="control-label">
-                                        <label for="control-label"></label><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                    <div class="usa-label">Biological Parameters 
+                                      <div class="tooltip" :title="bioSamplingTooltip" for="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                       </div>
                                   </div>
                                   <div class="subpanel-body">
-                                    <label><strong>Assemblage </strong></label>
-                                    <div class="tooltip" :title="assemblageTooltip">
-                                      <label for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                                    <div class="usa-label">Assemblage </div>
+                                    <div class="tooltip" :title="assemblageTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                     </div>
                                     <div>
                                       <select multiple name="assemblage" id="assemblage"
@@ -590,9 +580,9 @@
                                     </div>
                                     <br>
                                     <div class="form-group">
-                                      <label><strong>Taxonomic
-                                          Name </strong></label><label class="tooltip" for="control-label"
-                                        :title="taxNameTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></i></span></label>
+                                      <div class="usa-label">Taxonomic
+                                          Name </div><div class="tooltip" for="control-label"
+                                        :title="taxNameTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                                       <div>
                                         <select multiple name="subjectTaxonomicName"
                                           aria-label="Select a taxonomic name" id="subject-taxonomic-name"
@@ -603,12 +593,12 @@
                                   </div>
                                 </div>
                               </div>
+                            </div>
                               <div class="tablet:grid-col-4">
                                 <div id="date-row">
                                   <div id="start-date-select">
-                                    <label><strong>Date range </strong>(mm/dd/yyyy) </label>
-                                    <div class="tooltip" :title="dateRangeTooltip">
-                                      <label for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                                    <div class="usa-label">Date range (mm/dd/yyyy) </div>
+                                    <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                     </div>
                                     <div>
                                       <div>
@@ -631,9 +621,8 @@
                                 </div>
                                 <br>
                                 <div id="min-activities-parameters-div">
-                                  <label><strong>Minimum sampling activities per site </strong></label>
-                                  <div class="tooltip" id="min-activities-div" :title="minSamplingTooltip">
-                                    <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                                  <div class="usa-label">Minimum sampling activities per site </div>
+                                  <div class="tooltip" id="min-activities-div" :title="minSamplingTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                   </div>
                                   <div>
                                     <input class="form-control" type="number" min="1" name="minactivities"
@@ -642,9 +631,8 @@
                                   </div>
                                 </div>
                                 <br>
-                                <label><strong>Minimum results per site </strong></label>
-                                <div class="tooltip" id="minresults-div" :title="minimumResultsTooltip">
-                                  <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                                <div class="usa-label">Minimum results per site </div>
+                                <div class="tooltip" id="minresults-div" :title="minimumResultsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
                                   <input class="form-control" type="number" min="1" name="minresults" id="minresults"
@@ -677,9 +665,8 @@
                         <div id="data-type-parameters-div" class="tablet:grid-col-3">
                           <div class="panel-body">
                             <div class="form-group">
-                              <label><strong>Data Source </strong></label>
-                              <div class="tooltip" :title="databasesTooltip">
-                                <label for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                              <div class="usa-label">Data Source </div>
+                              <div class="tooltip" :title="databasesTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                               </div>
                               <fieldset class="usa-fieldset">
                                 <div class="usa-checkbox">
@@ -701,9 +688,8 @@
                             </div>
                             <br>
                             <div id="download-tabular-data">
-                              <label><strong>File Format </strong></label>
-                              <div class="tooltip" :title="fileFormatTooltip">
-                                <label for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                              <div class="usa-label">File Format </div>
+                              <div class="tooltip" :title="fileFormatTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                               </div>
                               <fieldset class="usa-fieldset">
                                 <div class="usa-radio">
@@ -724,9 +710,8 @@
                             <br>
                             <div id="download-sorted-data-div">
                               <input type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter" />
-                              <label><strong>Sort data </strong></label>
-                              <div class="tooltip" :title="sortDataTooltip">
-                                <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                              <div class="usa-label">Sort data </div>
+                              <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                               </div>
                             </div>
                             <input type="hidden" name="zip" id="zip" value="yes" />
@@ -734,9 +719,8 @@
                           </div>
                         </div>
                         <div id="download-data-kind-box" class="tablet:grid-col-9">
-                          <label><strong>Data Profiles </strong></label>
-                          <div class="tooltip" id="download-data-div" :title="dataDownloadTooltip">
-                            <label class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></label>
+                          <div class="usa-label">Data Profiles </div>
+                          <div class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                           </div>
                           <fieldset class="usa-fieldset">
                             <div class="usa-radio">
