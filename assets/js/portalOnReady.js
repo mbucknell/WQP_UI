@@ -6,7 +6,6 @@ import ShowAPIView from './views/showAPIView';
 import SiteMapView from './views/siteMapView';
 import DownloadProgressDialog from './downloadProgressDialog';
 import { initTooltip } from './uswdsComponents/uswdsTooltip';
-import Vue from 'vue/dist/vue'
 
 $(document).ready(function () {
 

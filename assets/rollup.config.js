@@ -9,9 +9,7 @@ var handlebars = require('rollup-plugin-handlebars-plus');
 const json = require('@rollup/plugin-json');
 const resolve = require('@rollup/plugin-node-resolve');
 const replace = require('@rollup/plugin-replace');
-const alias = require('@rollup/plugin-alias');
 const { uglify } = require('rollup-plugin-uglify');
-
 
 const ENV = process.env.NODE_ENV || 'development';
 
@@ -47,9 +45,6 @@ const getBundleConfig = function (src, dest) {
                     drop_console: true
                 }
             }),
-            alias({
-                'vue': require.resolve('vue/dist/vue.esm.js')
-              })
         ],
         output: {
             name: 'wqp_bundle',
@@ -66,5 +61,4 @@ module.exports = [
     getBundleConfig('js/bundles/coverage.js', 'dist/scripts/coverage.js'),
     getBundleConfig('js/bundles/site_map.js', 'dist/scripts/site_map.js'),
     getBundleConfig('js/bundles/sites_map.js', 'dist/scripts/sites_map.js'),
-    getBundleConfig('js/bundles/vue.js', 'dist/scripts/vue.js'),
 ];
