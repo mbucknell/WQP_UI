@@ -122,18 +122,18 @@ $(document).ready(function () {
             stepTwo: false,
             stepThree: false,
         },
-        mounted: function(){
+        mounted: function() {
 
-          // Create tooltips
-          this.$nextTick(function () {
-            // DOM is now updated
+            // Create tooltips
+            this.$nextTick(function() {
+              // DOM is now updated
 
-            // Identifying all tooltips
-            let elem = $(".tooltip")
-            for (const el of elem) {
-                initTooltip(elem);
-            }
-        });
+              // Identifying all tooltips
+              let elem = $(".tooltip")
+              for (const el of elem) {
+                  initTooltip(elem);
+              }
+          });
         },
         methods: {
             onClickTitle() {
