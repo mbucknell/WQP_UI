@@ -122,19 +122,20 @@ $(document).ready(function () {
             stepTwo: false,
             stepThree: false,
         },
-        methods: {
-            createTooltips: function () {
-                // DOM is not updated yet
-                this.$nextTick(function () {
-                    // DOM is now updated
+        mounted: function(){
 
-                    // Identifying all tooltips
-                    let elem = $(".tooltip")
-                    for (const el of elem) {
-                        initTooltip(elem);
-                    }
-                });
-            },
+          // Create tooltips
+          this.$nextTick(function () {
+            // DOM is now updated
+
+            // Identifying all tooltips
+            let elem = $(".tooltip")
+            for (const el of elem) {
+                initTooltip(elem);
+            }
+        });
+        },
+        methods: {
             onClickTitle() {
                 this.$emit('selectTitle', this.currentTitle);
               },
@@ -181,9 +182,6 @@ $(document).ready(function () {
               }
         }
     });
-
-    // create tooltips
-    forms.createTooltips();
 
     // Set the loglevel
     if (Config.DEBUG) {
