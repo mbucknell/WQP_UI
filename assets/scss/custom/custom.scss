@@ -120,88 +120,148 @@ $black: #000;
 }
 
 // styles portal page
-#app {
+#advancedForm {
   max-width: 1200px;
   display: block;
   margin: 0 auto;
   position: relative;
 }
 
-
 // Home Page form intro
-#formIntro{
-	margin: 0 0 65px 0;
-	background-color: rgba(0,0,30,0.03);
-	box-sizing: border-box;
-	padding: 20px 20px 0 20px;
-	border-radius: 4px;
-	
-	// Card column group
-	.usa-card-group{
-		margin: 25px 0 0 0;
+#formIntro {
+  margin-bottom: 20px;
+  background-color: #e6e6e6; //uswds gray 10
+  box-sizing: border-box;
+  padding: 20px 20px 0 20px;
+  border-radius: 4px;
 
-		.usa-card__body.links-only{
+  // Card column group
+  .usa-card-group {
+    margin: 25px 0 0 0;
 
-			a{
-				font-size: 15px;
-				line-height: 16px;
-				margin: 9px 0;
-				display: block;
-			}
-		}
-	}
+    .usa-card__body.links-only {
+      a {
+        font-size: 15px;
+        line-height: 16px;
+        margin: 9px 0;
+        display: block;
+      }
+    }
+  }
 
-	// Footer - dismiss and don't show again
-	#formInroFooter{
-		display: flex;
-		width: 100%;
-		padding-bottom: 20px;
+  // Footer - dismiss and don't show again
+  #formIntroFooter {
+    display: flex;
+    width: 100%;
+    padding-bottom: 20px;
 
-		.footer-flex{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			margin-right: 15px;
+    .footer-flex {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-right: 15px;
 
-			.usa-checkbox label{
-				margin: 0;
-			}
-		}
-	}
+      .usa-checkbox label {
+        margin: 0;
+      }
+    }
+  }
 }
 
+#siteAnnouncement {
+  margin-bottom: 20px;
+}
 
 // Form header and controls
-#formHeader{
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
+#formHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 
-	#formHeaderButtons{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
+  #formHeaderButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 // Accordion custom styles
-// Setting this on the usa-accordion__content usa-prose prevents clipping 
-#locationaccordion {
-  overflow: visible
+// Setting this on the usa-accordion__content usa-prose prevents clipping
+#a1 {
+  overflow: visible;
 }
-#filteraccordion {
-  overflow: visible
+#a2 {
+  overflow: visible;
 }
-#downloadaccordion {
-  overflow: visible
+#a3 {
+  overflow: visible;
 }
 
+// basic form styles
+.smallInput {
+  width: 60px;
+  min-height: 32px;
+  border: 1px solid #565c65;
+  border-radius: 0;
+  padding: 0.5rem;
+}
+
+.formSection {
+  padding: 10px;
+}
+
+.dateRange {
+  display: inline-block;
+}
+
+#startDate {
+  width: 45%;
+  float: right;
+}
+#endDate {
+  width: 45%;
+  float: right;
+}
+
+.basicForm {
+  height: 600px;
+}
+
+.basicSortDataCheckbox {
+  margin-left: 10px;
+}
+
+.required-field::after {
+  content: "*";
+  color: red;
+}
+
+.menu-buttons {
+  float: left;
+  margin-top: 20px;
+}
+
+// Header styles
+.headerText {
+  color: white;
+}
+
+// Setting this on the usa-accordion__content usa-prose prevents clipping
+#locationaccordion {
+  overflow: visible;
+}
+#filteraccordion {
+  overflow: visible;
+}
+#downloadaccordion {
+  overflow: visible;
+}
 
 //WQP
 //custom styles specific to WQP
 .usa-tooltip__body {
   background-color: #253f60 !important;
-} 
+}
 
 .usa-label {
   display: inline !important;
@@ -209,8 +269,18 @@ $black: #000;
 }
 
 .wqp-textarea {
+  display: block;
   height: 5rem;
-  width: 18rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+#query-box-bold {
+  font-weight: bold;
+}
+
+#query-box-muted {
+  color: #757575;
 }
 
 a:link {
@@ -221,10 +291,59 @@ a:visited {
   color: grey;
 }
 
+#main-button {
+  float: left;
+  color: white;
+}
+
+#place {
+  padding-top: 20px;
+}
+
+.advancedLink {
+  color:#005ea2; 
+  text-decoration:underline; 
+  cursor: pointer;
+}
+
+.smallText {
+  font-size: x-small;
+}
+
+.share-container {
+  padding-top: 10px;
+}
+
+#basic-dates {
+  margin-top: -15px;
+}
+
+#startDate {
+  width:45%; 
+  float: left;
+}
+
+#current-url-textarea {
+  margin-bottom: 10px;
+}
+
+#point-location-basic {
+  padding-left: 0px;
+}
+
+#point-location-basic-input {
+  padding-top: 10px;
+}
+
+#point-location-basic-within {
+  text-align: right; 
+  padding-right: 10px;
+}
+
 //Select2
 //matching select2 style to usa-input style
-.select2-container--focus { 
-  outline: .25rem solid #2491ff !important;
+.select2-container--focus {
+  outline: 0.25rem solid #2491ff !important;
   outline-offset: 0 !important;
 }
 
@@ -233,7 +352,7 @@ a:visited {
   font-size: inherit !important;
   min-height: 32px;
   height: auto !important;
-  padding: .5rem !important;
+  padding: 0.5rem !important;
   width: 100% !important;
 }
 
@@ -253,13 +372,96 @@ a:visited {
   box-shadow: none !important;
 }
 
-
 //USWDS
 //matching a few elements of USWDS to select2
-::placeholder { 
+::placeholder {
   color: #a0a1a0;
 }
 
 .usa-input {
   margin-top: 0rem !important;
+}
+
+//for toggling between basic and advanced forms
+.tabs {
+  font-size: 0;
+  padding: 20px;
+}
+
+.tabs:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.tabs .tab {
+  display: inline;
+}
+
+.tabs .tab > [type="radio"] {
+  clip: rect(0 0 0 0);
+  height: 1px;
+  opacity: 0;
+  position: fixed;
+  width: 1px;
+  z-index: -1;
+}
+
+.tabs .tab-panel {
+  display: inline;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  height: 0;
+  width: 0;
+}
+
+.tabs .tab-label {
+  background: white;
+  border: 3px solid #757575;
+  display: inline-block;
+  font-size: 16px;
+  font-size: 1rem;
+  padding: 10px;
+  position: relative;
+  vertical-align: bottom;
+  font-weight: bold;
+  color: #757575;
+  border-radius: 0.25rem;
+}
+
+.tabs .tab-content {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  background: white;
+  border: none;
+  float: left;
+  font-size: 16px;
+  font-size: 1rem;
+  margin-top: -1px;
+  width: 100%;
+}
+
+.tabs .tab [type="radio"]:checked + .tab-label {
+  z-index: 1;
+  color: #005ea2;
+  border: 3px solid #005ea2;
+}
+
+.tabs .tab [type="radio"]:checked ~ .tab-panel {
+  display: inline;
+}
+
+.tabs .tab #basic-tab + .tab-label {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 1.5px solid #005ea2;
+}
+
+.tabs .tab #advanced-tab + .tab-label {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 1.5px solid #005ea2;
 }

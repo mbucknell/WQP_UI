@@ -10,7 +10,8 @@ const json = require('@rollup/plugin-json');
 const resolve = require('@rollup/plugin-node-resolve');
 const replace = require('@rollup/plugin-replace');
 const { uglify } = require('rollup-plugin-uglify');
-
+const alias = require('@rollup/plugin-alias');
+const vuePlugin = require('rollup-plugin-vue');
 
 const ENV = process.env.NODE_ENV || 'development';
 
@@ -18,6 +19,14 @@ const getBundleConfig = function (src, dest) {
     return {
         input: src,
         plugins: [
+            vuePlugin(),
+            alias({
+                entries: [{
+                    find: 'vue',
+                    replacement: require.resolve('vue/dist/vue.esm.js')
+                }, 
+            ]
+            }),
             resolve.nodeResolve({
                 mainFields: ['module']
             }),
@@ -45,7 +54,7 @@ const getBundleConfig = function (src, dest) {
                     dead_code: true,
                     drop_console: true
                 }
-            })
+            }),
         ],
         output: {
             name: 'wqp_bundle',
@@ -62,6 +71,4 @@ module.exports = [
     getBundleConfig('js/bundles/coverage.js', 'dist/scripts/coverage.js'),
     getBundleConfig('js/bundles/site_map.js', 'dist/scripts/site_map.js'),
     getBundleConfig('js/bundles/sites_map.js', 'dist/scripts/sites_map.js'),
-    getBundleConfig('js/bundles/uswds.js', 'dist/scripts/uswds.js'),
-    getBundleConfig('js/bundles/uswds-init.min.js', 'dist/scripts/uswds-init.min.js'),
 ];
