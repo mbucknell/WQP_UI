@@ -118,7 +118,26 @@
               <label class="usa-label" for="point-location">Point Location </label><div class="tooltip"
                               :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
             </div>
-            <div id="point-location">
+            <div class="grid-container" id="point-location-basic">
+              <div class="grid-row">
+                <div class="tablet:grid-col-1"></div>
+                <div class="tablet:grid-col-1">Miles of</div>
+                <div class="tablet:grid-col-1">Lat</div>
+                <div class="tablet:grid-col-1">Long</div>
+              </div>
+              <div class="grid-row" id="point-location-basic-input">
+                <div class="tablet:grid-col-1" id="point-location-basic-within">Within</div>
+                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="withinBasic"
+                  id="withinBasic" aria-label="First of three input boxes for point location parameter. Input box for number of miles from point."></input></div>
+                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="latBasic"
+                  placeholder="0" size="7" id="latBasic" v-model="latBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
+                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="longBasic"
+                  placeholder="0" id="longBasic" v-model="lonBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
+                <div class="tablet:grid-col-4"><button id="useMyLocationBasic"
+                  class="usa-button usa-button--outline" type="button">Use my location</button></div>
+              </div>
+            </div>
+            <!--<div id="point-location">
               <table class="pointLocationTable">
                 <thead>
                   <tr>
@@ -145,7 +164,7 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div>-->
             <div class="formSection">
               <label class="usa-label" for="siteTypeBasic">Site Type </label>
                             <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>

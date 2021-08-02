@@ -197,42 +197,9 @@ $black: #000;
   overflow: visible;
 }
 
-// pointLocation Table basic
-.pointLocationTable {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-.pointLocationTable td {
-  border-style: solid;
-  border-width: 0px;
-  font-size: 14px;
-  overflow: hidden;
-  padding: 10px 5px;
-  word-break: normal;
-}
-.pointLocationTable th {
-  border-style: solid;
-  border-width: 0px;
-  font-size: 14px;
-  font-weight: normal;
-  overflow: hidden;
-  padding: 10px 5px;
-  word-break: normal;
-}
-
-.pointLocationTable tr {
-  height: 2px;
-}
-
-.pointLocationTable .pointLocationTable-cell {
-  text-align: left;
-  vertical-align: top;
-}
-
 // basic form styles
 .smallInput {
-  width: 50px;
+  width: 60px;
 }
 
 .formSection {
@@ -343,10 +310,6 @@ a:visited {
   padding-top: 10px;
 }
 
-#point-location {
-  display: inline-block;
-}
-
 #basic-dates {
   margin-top: -15px;
 }
@@ -358,6 +321,19 @@ a:visited {
 
 #current-url-textarea {
   margin-bottom: 10px;
+}
+
+#point-location-basic {
+  padding-left: 0px;
+}
+
+#point-location-basic-input {
+  padding-top: 10px;
+}
+
+#point-location-basic-within {
+  text-align: right; 
+  padding-right: 10px;
 }
 
 //Select2
