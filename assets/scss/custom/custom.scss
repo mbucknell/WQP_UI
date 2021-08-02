@@ -200,6 +200,10 @@ $black: #000;
 // basic form styles
 .smallInput {
   width: 60px;
+  min-height: 32px;
+  border: 1px solid #565c65;
+  border-radius: 0;
+  padding: 0.5rem;
 }
 
 .formSection {
