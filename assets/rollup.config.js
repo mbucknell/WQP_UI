@@ -10,6 +10,8 @@ const json = require('@rollup/plugin-json');
 const resolve = require('@rollup/plugin-node-resolve');
 const replace = require('@rollup/plugin-replace');
 const { uglify } = require('rollup-plugin-uglify');
+const alias = require('@rollup/plugin-alias');
+const vuePlugin = require('rollup-plugin-vue');
 
 const ENV = process.env.NODE_ENV || 'development';
 
@@ -17,6 +19,14 @@ const getBundleConfig = function (src, dest) {
     return {
         input: src,
         plugins: [
+            vuePlugin(),
+            alias({
+                entries: [{
+                    find: 'vue',
+                    replacement: require.resolve('vue/dist/vue.esm.js')
+                }, 
+            ]
+            }),
             resolve.nodeResolve({
                 mainFields: ['module']
             }),
