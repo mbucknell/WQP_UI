@@ -23,7 +23,9 @@
 
         <!-- TEMPORARY: ALL VENDOR JS IN ONE FILE -->
 
-        {% block head_page_script %}{% endblock %}
+        {% block head_page_script %}
+        <script src="{{ 'scripts/uswds-init.min.js' | asset_url }}"></script>
+        {% endblock %}
 
         <!-- If you need to remove google analytics from a page create a blank google_analytics_script block -->
         <script type="text/javascript">
