@@ -7,9 +7,22 @@
 {% block page_header_title %}Other Water Quality Portals{% endblock %}
 
 {% block page_content %}
-    <div id="content" class="main-body user-guide">
-        {{ feed_content|safe }}
-    </div>
+
+<div id="userguide-content" class="page-sidebar">
+
+	<nav aria-label="Secondary navigation," class="sidebar">
+		<ul class="usa-sidenav">
+			<li class="usa-sidenav__item">
+				<a href="javascript:void(0);" class="usa-current">Anchor Link</a>
+			</li>
+		</ul>
+	</nav>
+	
+	<div class="page-sidebar-content">
+		{{ md_content|safe }}
+	</div>
+</div>
+
 {% endblock %}
 
 {% block body_page_script %}

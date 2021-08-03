@@ -8,8 +8,10 @@ import time
 from bs4 import BeautifulSoup
 import feedparser
 from flask import request, make_response, abort
+import markdown
 
 from . import app, session
+
 
 
 def create_request_resp_log_msg(response):
@@ -42,6 +44,19 @@ def create_redis_log_msg(redis_host, redis_port, db_number):
     msg = 'Connecting to Redis database {0} on {1}:{2}.'.format(db_number, redis_host, redis_port)
     return msg
 
+def get_markdown(md_path):
+	"""
+    Load text from static markdown files
+    :param md_path: the path of associated markdown file
+    :return: the markdown converted to HTML
+    """
+	with open(md_path, 'r') as f:
+		text = f.read()
+		html = markdown.markdown(text)
+		return html
+
+
+
 
 def pull_feed(feed_url):
     """
@@ -49,6 +64,7 @@ def pull_feed(feed_url):
     :param feed_url: the url of the feed, created in confluence feed builder
     :return: the html of the page itself, stripped of header and footer
     """
+	
     app.logger.debug('Parsing content from %s.', feed_url)
     feed = feedparser.parse(feed_url)
 
