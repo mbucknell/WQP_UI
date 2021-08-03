@@ -1,14 +1,41 @@
 // custom/layout.scss
 // custom layout CSS properties
 
-#pageBody{
+
+// Center page, max width
+.page-center{
 	display: block;
 	width: 95%;
-	// max-width: 1080px;
 	max-width: 960px;
 	margin: 0 auto;
 	padding: 20px 0;
 	box-sizing: border-box;
+}
+
+// Sidebar, center rest of page
+.page-sidebar{
+	display: flex;
+
+	.sidebar{
+		width: 350px;
+		min-width: 350px;
+		box-sizing: border-box;
+		padding: 20px 0 20px 20px;
+		position: sticky;
+		top: 0;
+	}
+
+	.page-sidebar-content{
+		flex-grow: 3;
+		display: block;
+		width: 95%;
+		max-width: 960px;
+		margin: 0 auto;
+		position: relative;
+		padding: 20px 0;
+		box-sizing: border-box;
+	}
+
 }
 
 .announcement-body {
