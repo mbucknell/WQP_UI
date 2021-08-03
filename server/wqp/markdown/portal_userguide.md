@@ -1,5 +1,3 @@
-# **WQP User Guide**
-
 [**Explanation of portal search parameters**](/server/wqp/markdownTextFiles/portal_userguide.md#explanation-of-portal-search-parameters)
 * [Table 1. Available site types and definitions](/server/wqp/markdownTextFiles/portal_userguide.md#table-1-available-site-types-and-definitions)
 * [Table 2. Available sample media definitions](/server/wqp/markdownTextFiles/portal_userguide.md#table-2-available-sample-media-and-definitions)

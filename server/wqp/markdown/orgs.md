@@ -1,5 +1,3 @@
-## **Water Quality Portal Contributing Organizations**
-
 #### **ARS**
 
 The Agricultural Research Service (ARS) is the U.S. Department of Agriculture's chief in-house scientific research agency. ARS finds solutions to agricultural problems that affect Americans every day, from field to table. ARS conducts research to develop and transfer solutions to agricultural problems of high national priority and provide information access and dissemination to, among other topics, enhance the natural resource base and the environment.

@@ -9,6 +9,8 @@ from bs4 import BeautifulSoup
 import feedparser
 from flask import request, make_response, abort
 import markdown
+from markdown.extensions.toc import TocExtension
+from markdown.extensions.tables import TableExtension
 
 from . import app, session
 
@@ -50,10 +52,25 @@ def get_markdown(md_path):
     :param md_path: the path of associated markdown file
     :return: the markdown converted to HTML
     """
+
+	
+	md = markdown.Markdown(extensions=[TocExtension(baselevel=1),TableExtension()], output_format="html5")
 	with open(md_path, 'r') as f:
 		text = f.read()
-		html = markdown.markdown(text)
-		return html
+		html = md.convert(text)
+
+		# Create sidebar from md.toc
+        # Remove final div in the feed
+		soup = BeautifulSoup(md.toc, 'html.parser')
+
+		feed_div = soup.find('div', class_='toc')
+		children_divs = feed_div.find('ul')
+		links = str(children_divs).replace('<li>', '<li class=\'usa-sidenav__item\'>')
+		final = links.replace('<ul>', '<ul class=\'usa-sidenav\'>', 1)
+		sub = final.replace('<ul>', '<ul class=\'usa-sidenav__sublist\'>')
+
+		content={'body': html, 'toc': sub}
+		return content
 
 
 

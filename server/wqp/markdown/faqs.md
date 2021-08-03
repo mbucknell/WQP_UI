@@ -1,5 +1,3 @@
-## **WQP FAQs**
-
 ***Are the data from the Water Quality Portal (WQP) available through web services?***
 
 Yes. The WQP provides an easy way to access data stored in three large water quality databases. Data can be accessed through input parameters on ***[this form](https://www.waterqualitydata.us/portal/)*** or ***standalone web services*** (*computer-to-computer protocol that allows for the direct sharing of information. Internet portals use web services to access databases without an authorized database connection*). Input parameters on the [form](https://www.waterqualitydata.us/portal/) include *location*, *site*, *sampling*, and *date* parameters. The WQP can return ***site information*** (locations where samples were collected), or it can return ***sample results*** (analytical data of collected samples). The same inputs parameters can be used to make data retrievals using web services. For more information and examples on accessing the web services, see the [Web Services Guide](http://www.waterqualitydata.us/webservices_documentation.jsp).

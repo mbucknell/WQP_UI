@@ -1,5 +1,3 @@
-## **What is the Water Quality Portal (WQP)**
-
 The Water Quality Portal (**WQP**) is a cooperative service sponsored by the United States Geological Survey (**USGS**), the Environmental Protection Agency (**EPA**), and the National Water Quality Monitoring Council (**NWQMC**). The WQP integrates publicly available water quality data from the USGS National Water Information System (**NWIS**) the EPA Water Quality Exchange (**WQX**) Data Warehouse, and the USDA ARS Sustaining The Earth’s Watersheds - Agricultural Research Database System (**STEWARDS**).
 
 The EPA water quality data originate from the [Water Quality Data](https://www.epa.gov/waterdata/water-quality-data), the EPA's repository of water quality monitoring data collected by water resource management groups across the country. Organizations, including states, tribes, watershed groups, other federal agencies, volunteer groups, and universities, submit data to the WQX in order to make their data publicly accessible.

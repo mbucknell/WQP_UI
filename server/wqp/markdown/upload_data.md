@@ -1,5 +1,3 @@
-## **WQP Upload Data**
-
 ![Help desk image](/assets/img/upload_data_image1.png) Your organization can participate in the Water Quality Portal (WQP).
 
 The EPA has a spreadsheet template to help data owners organize their data and generate a file compatible with the WQP.

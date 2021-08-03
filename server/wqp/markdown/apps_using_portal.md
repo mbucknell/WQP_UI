@@ -1,5 +1,3 @@
-## **Applications using the Water Quality Portal**
-
 ### **Applications**
 This is a partial list of other applications that use data from Water Quality Portal web services. If you know of an application that uses Water Quality Portal data or services, please [let us know](http://www.waterqualitydata.us/contact_us.jsp).
 
