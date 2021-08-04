@@ -1,8 +1,5 @@
-// Change the background color to test and make sure the compiling is working
-
-body,
-html {
-}
+$theme-font-path: './fonts';
+$theme-image-path: './img';
 
 // Variables
 $black: #000;
@@ -11,6 +8,10 @@ $black: #000;
 @import "layout.scss";
 
 @import "../../node_modules/uswds/dist/scss/uswds";
+
+body,
+html {
+}
 
 .custom-nav-branding {
   display: flex;
