@@ -266,6 +266,22 @@ html {
   background-color: #253f60 !important;
 }
 
+.usa-tooltip__body--bottom:after {
+  border-bottom-color: #253f60 !important;
+}
+
+.usa-tooltip__body--top:after {
+  border-top-color: #253f60 !important;
+}
+
+.usa-tooltip__body--left:after {
+  border-left-color: #253f60 !important;
+}
+
+.usa-tooltip__body--right:after {
+  border-right-color: #253f60 !important;
+}
+
 .usa-label {
   display: inline !important;
   font-weight: bold !important;
