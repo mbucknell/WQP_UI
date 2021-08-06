@@ -58,7 +58,7 @@ export default class PointLocationInputView {
         if (window.navigator.geolocation && window.navigator.geolocation.getCurrentPosition) {
             let $useMyLocationDiv = this.$container.find('#useMyLocation');
 
-            $useMyLocationDiv.html('<button class="usa-button usa-button--outline" type="button">Use my location</button>');
+            $useMyLocationDiv.html('<button class="usa-button usa-button--outline" type="button">Use My Location</button>');
             $useMyLocationDiv.find('button').click(() => {
                 this.updateMyLocation($lat, $lon);
             });
