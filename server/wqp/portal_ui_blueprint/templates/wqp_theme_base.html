@@ -8,6 +8,11 @@
 
 {% block page_header %}
 
+<script type="text/javascript">
+	function closeAnnouncement() {
+		$("#siteAnnouncement").hide();
+	}
+</script>
 
 <!-- USWDS Government Website Banner -->
 <a class="usa-skipnav" href="#main-content">Skip to main content</a>
@@ -59,7 +64,7 @@
 
 <!-- Main App Header -->
 <div class="usa-overlay"></div>
-<header class="usa-header usa-header--basic" style="background-color: #253f60; padding-bottom: 20px">
+<header class="usa-header usa-header--basic" id="main-header">
 	<div class="usa-nav-container">
 		<div class="usa-navbar">
 			<div class="custom-nav-branding">
@@ -144,6 +149,15 @@
 			<a class="usa-link" href="javascript:void(0);">Read More</a>.
 		</p>
 	  </div>
+	  <button
+	  	
+        class="usa-button usa-modal__close"
+		id="close-announcement"
+        aria-label="Close this announcement"
+      >
+			<img src="{{ 'img/close.svg' | asset_url }}" alt="info" onclick="closeAnnouncement();" style="height: 10px; width: auto;"/>
+        </svg>
+      </button>
 	</div>
   </div>
 

@@ -45,6 +45,7 @@
     </div>
   </div>
 <div class="tabs" aria-label="Two tabs to allow user to toggle between basic and advanced forms.">
+  <span><label for="tabs">Download Water Quality Data</label></span></label>
   <div class="tab" aria-label="Tab for basic form. First of two tabs to allow user to toggle between basic and advanced forms.">
     <input type="radio" id="basic-tab" name="toggle-tabs" v-model="toggleForm" value="true">
     <label for="basic-tab" class="tab-label">Basic</label>
@@ -147,7 +148,6 @@
             </div>
             <div class="menu-buttons">
               <button class="usa-button usa-button--outline">Clear Parameters</button>
-              <button class="usa-button" v-on:click="onPrev()">Previous</button>
               <button class="usa-button" v-on:click="onNext()">Next</button>
             </div>
           </div>
