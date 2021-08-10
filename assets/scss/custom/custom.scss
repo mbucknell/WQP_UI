@@ -75,7 +75,7 @@ html {
 }
 
 #nldi-map-container {
-  /* display: none; */
+  display: none;
   #nldi-help-div {
     font-style: italic;
   }
@@ -97,20 +97,31 @@ html {
         .navigate-button-div {
           margin-top: 5px;
           text-align: center;
-          button {
-            color: blue;
-            font-size: 14px;
-            background-color: blue;
-            border-color: lightgrey;
-            padding: 5px 15px;
-            border-radius: 5px;
-            text-align: center;
-          }
-          button:disabled {
-            opacity: 0.65;
-          }
         }
       }
+    }
+
+    .leaflet-nldi-feature-source-control-div {
+      background-color: #fff;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-radius: 5px;
+      padding: 5px;
+
+      .usa-radio label{
+        margin: 12px;
+      }
+
+      #nldi-selector-title {
+        font-weight: bold;
+        font-size: 14px;
+        margin-left: 12px;
+      }
+    }
+
+    // Reset easy button
+    .easy-button-button {
+      width: 40px;
+      height: 30px;
     }
   }
 }
@@ -285,6 +296,11 @@ html {
 .usa-label {
   display: inline !important;
   font-weight: bold !important;
+}
+
+// Overwrite float left to fix search result placement
+[type="search"], .usa-search__input{
+  float: none;
 }
 
 .wqp-textarea {

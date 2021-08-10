@@ -44,6 +44,9 @@ export default class NldiView {
                this.clearHandler();
            }
         });
+
+        // Add click event to show/hide nldi map
+        document.getElementById("showNldiMap").onclick = this.showMap.bind(this);
     }
 
     getRetrieveMessage() {
@@ -58,13 +61,6 @@ export default class NldiView {
         }
         if (this.nldiFlowlineLayers) {
             this.map.removeLayer(this.nldiFlowlineLayers);
-        }
-        if (this.insetNldiSiteCluster) {
-            this.insetNldiSiteCluster.clearLayers();
-            this.insetMap.removeLayer(this.insetNldiSiteCluster);
-        }
-        if (this.insetNldiFlowlineLayers) {
-            this.insetMap.removeLayer(this.insetNldiFlowlineLayers);
         }
 
         this.updateNldiInput('');
@@ -154,12 +150,9 @@ export default class NldiView {
                     this.nldiSiteCluster = L.markerClusterGroup({
                         maxClusterRadius : 40
                     });
-                    this.insetNldiSiteCluster = L.markerClusterGroup();
 
                     this.nldiSiteCluster.addLayer(nldiSiteLayers);
-                    this.insetNldiSiteCluster.addLayer(insetNldiSiteLayers);
                     this.map.addLayer(this.nldiSiteCluster);
-                    this.insetMap.addLayer(this.insetNldiSiteCluster);
 
                     this.updateNldiInput(nldiModel.getUrl('wqp'));
                 })
@@ -224,30 +217,28 @@ export default class NldiView {
      */
     showMap() {
         if (this.$mapDiv.is(':hidden')) {
-            this.$insetMapDiv.hide();
             this.$mapDiv.parent().show();
             this.map.invalidateSize();
-            this.map.setView(this.insetMap.getCenter(), this.insetMap.getZoom());
+            document.getElementById("showNldiMap").innerText = "Hide Upstream Downstream Mapper"
+        }
+        else{
+            this.hideMap();
         }
         this.map.closePopup();
     }
 
     /*
-     * Show the inset map and hide the full size map
+     * Hide the map
      */
-    showInsetMap() {
-        if (this.$insetMapDiv.is(':hidden')) {
-            this.$insetMapDiv.show();
+    hideMap() {
             this.$mapDiv.parent().hide();
-            this.insetMap.invalidateSize();
-            this.insetMap.setView(this.map.getCenter(), this.map.getZoom());
-        }
+            document.getElementById("showNldiMap").innerText = "Show Upstream Downstream Mapper"
     }
 
     featureSourceChangeHandler(ev) {
         this.cleanUpMaps();
         this.map.closePopup();
-        nldiModel.setFeatureSource($(ev.currentTarget).val());
+        nldiModel.setFeatureSource(ev.currentTarget.children[0].value);
     }
 
     clearHandler() {
@@ -257,18 +248,11 @@ export default class NldiView {
     }
 
     /*
-     * Initialize the inset and full size maps.
+     * Initialize the map.
      */
     initialize() {
 
         const initValues = getAnchorQueryValues(this.$input.attr('name'));
-
-        const insetBaseLayers = {
-            'World Gray' : L.esri.basemapLayer('Gray')
-        };
-        const insetHydroLayer = L.esri.tiledMapLayer({
-            url : Config.HYDRO_LAYER_ENDPOINT
-        });
 
         const baseLayers = {
             'World Gray' : L.esri.basemapLayer('Gray'),
@@ -296,35 +280,13 @@ export default class NldiView {
         });
 
         const searchControl = L.control.searchControl(Config.GEO_SEARCH_API_ENDPOINT);
-
-        const expandControl = L.easyButton('fa-lg fa-expand', this.showMap.bind(this), 'Expand NLDI Map', {
-            position : 'topright'
-        });
-        const collapseControl = L.easyButton('fa-lg fa-compress', this.showInsetMap.bind(this), 'Collapse NLDI Map', {
+        const clearControl = L.easyButton('<img src="{{ "img/undo.svg" | asset_url }}" alt="reset"/>', this.clearHandler.bind(this), 'Clear the sites', {
             position: 'topright'
-        });
-        const insetClearControl = L.easyButton('fa-lg fa-undo', this.clearHandler.bind(this), 'Clear the sites', {
-            position: 'topleft'
-        });
-        const clearControl = L.easyButton('fa-lg fa-undo', this.clearHandler.bind(this), 'Clear the sites', {
-            position: 'topleft'
         });
 
         const MapWithSingleClickHandler = L.Map.extend({
             includes : L.singleClickEventMixin()
         });
-
-        this.insetMap = L.map(this.insetMapDivId, {
-            center: [37.0, -100.0],
-            zoom : 3,
-            layers : [insetBaseLayers['World Gray']],
-            scrollWheelZoom : false,
-            zoomControl : false
-        });
-        this.insetMap.addLayer(insetHydroLayer);
-        this.insetMap.addControl(expandControl);
-        this.insetMap.addControl(insetClearControl);
-        this.insetMap.addControl(L.control.zoom());
 
         this.map = new MapWithSingleClickHandler(this.mapDivId, {
             center: [37.0, -100.0],
@@ -335,11 +297,10 @@ export default class NldiView {
 
         this.map.addControl(searchControl);
         this.map.addControl(featureSourceSelectControl);
-        this.map.addControl(collapseControl);
         this.map.addControl(L.control.layers(baseLayers, {
             'Hydro Reference' : hydroLayer,
             'NHDLPlus Flowline Network' : nhdlPlusFlowlineLayer
-        }));
+        }, {position: 'topleft'}));
         this.map.addControl(clearControl);
         this.map.addControl(L.control.zoom());
 
