@@ -65,7 +65,7 @@
         {% if site['WellHoleDepthMeasure/MeasureValue'] and site['WellHoleDepthMeasure/MeasureUnitCode'] %}The well hole depth is {{ site['WellHoleDepthMeasure/MeasureValue'] }} {{ site['WellHoleDepthMeasure/MeasureUnitCode'] }}.{% endif %}
     </p>
 
-    To download the metadata about this site along with water quality data, go to the <a href="{{ url_for("portal_ui.portal-canonical") }}">Portal Page</a> and enter "{{ site['MonitoringLocationIdentifier'] }}" into the "Site ID" box under Site Parameters
+    To download the metadata about this site along with water quality data, go to the <a href="{{ url_for("portal_ui.home-canonical") }}">Portal Page</a> and enter "{{ site['MonitoringLocationIdentifier'] }}" into the "Site ID" box under Site Parameters
 
     <h2>Upstream and downstream stations</h2>
     <p> This map shows all Water Quality Portal stations that are 10 miles upstream (dashed dark blue) and 10 miles downstream (solid light blue) of this monitoring location (indicated by the large blue circle).

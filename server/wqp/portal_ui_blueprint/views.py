@@ -50,13 +50,13 @@ def contact_us():
     return render_template('contact_us.html')
 
 
-@portal_ui.route('/portal.jsp')
-@portal_ui.route('/portal/', endpoint='portal-canonical')
+@portal_ui.route('/index.jsp')
+@portal_ui.route('/index/', endpoint='index-canonical')
 @authentication_required_when_configured
 def portal():
     if request.path == '/portal.jsp':
-        return redirect(url_for('portal_ui.portal-canonical')), 301
-    return render_template('portal.html')
+        return redirect(url_for('portal_ui.index-canonical')), 301
+    return render_template('index.html')
 
 
 @portal_ui.route('/portal_userguide.jsp')
