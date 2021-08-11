@@ -1,5 +1,3 @@
-# **WQP Web Services Guide**
-
 * [Submitting a Web Services Request](/server/wqp/markdownTextFiles/webservices_documentation.md#submitting-a-web-services-request)
 * [Web Service Request Examples](/server/wqp/markdownTextFiles/webservices_documentation.md#web-service-request-examples)
 * [Looking Up Domain Values through Web Services](/server/wqp/markdownTextFiles/webservices_documentation.md#looking-up-domain-values-through-web-services)

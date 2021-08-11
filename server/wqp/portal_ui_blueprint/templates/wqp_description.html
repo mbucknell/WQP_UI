@@ -8,16 +8,9 @@
 
 {% block page_content %}
 
-<div id="userguide-content" class="page-sidebar">
-
-	<nav aria-label="Secondary navigation," class="sidebar">
-		{{ md_content.toc|safe }}
-	</nav>
-	
-	<div class="page-sidebar-content">
-		<h1>What is the Water Quality Portal (WQP)</h1>
-		{{ md_content.body|safe }}
-	</div>
+<div id="userguide-content" class="page-center">
+	<h1>What is the Water Quality Portal (WQP)</h1>
+	{{ md_content.body|safe }}
 </div>
 
 {% endblock %}

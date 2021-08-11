@@ -14,7 +14,7 @@ import redis
 from ..auth.views import authentication_required_when_configured
 
 from .. import app, session, csrf
-from ..utils import pull_feed, get_markdown, geoserver_proxy_request, retrieve_providers, retrieve_organizations, \
+from ..utils import get_markdown, geoserver_proxy_request, retrieve_providers, retrieve_organizations, \
     get_site_key, retrieve_organization, retrieve_sites_geojson, retrieve_site, retrieve_county, \
     generate_redis_db_number, create_request_resp_log_msg, create_redis_log_msg, invalid_usgs_view
 from ..tasks import load_sites_into_cache_async
