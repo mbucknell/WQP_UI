@@ -137,6 +137,7 @@ html {
 
 // Home Page form intro
 #formIntro {
+  margin-top: 20px;
   margin-bottom: 20px;
   background-color: #e6e6e6; //uswds gray 10
   box-sizing: border-box;
@@ -176,8 +177,9 @@ html {
   }
 }
 
-#siteAnnouncement {
-  margin-bottom: 20px;
+#close-announcement img {
+  height: 10px; 
+  width: auto;
 }
 
 // Form header and controls

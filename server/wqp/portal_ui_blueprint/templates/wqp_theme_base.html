@@ -8,11 +8,7 @@
 
 {% block page_header %}
 
-<script type="text/javascript">
-	function closeAnnouncement() {
-		$("#siteAnnouncement").hide();
-	}
-</script>
+
 
 <!-- USWDS Government Website Banner -->
 <a class="usa-skipnav" href="#main-content">Skip to main content</a>
@@ -155,7 +151,7 @@
 		id="close-announcement"
         aria-label="Close this announcement"
       >
-			<img src="{{ 'img/close.svg' | asset_url }}" alt="info" onclick="closeAnnouncement();" style="height: 10px; width: auto;"/>
+			<img src="{{ 'img/close.svg' | asset_url }}" alt="info" onclick="closeAnnouncement();" id="announcementImg"/>
         </svg>
       </button>
 	</div>
