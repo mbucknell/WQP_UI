@@ -84,9 +84,8 @@ export default class DownloadFormView {
             organizationModel : new CachedCodes({codes : 'organization'})
         });
         const nldiView = new NldiView({
-            insetMapDivId : 'nldi-inset-map',
             mapDivId : 'nldi-map',
-            $input : this.$form.find('#nldi-url')
+            input: document.getElementById('nldi-url')
         });
         const samplingParametersInputView = new SamplingParameterInputView({
             $container : this.$form.find('#sampling'),
@@ -134,7 +133,6 @@ export default class DownloadFormView {
             nldiView.initialize(); 
         } else {
             this.$form.find('#nldi-container').hide();
-            this.$form.find('#nldi-inset-map').hide();
             this.$form.find('#nldi-map').hide();
         }
 
@@ -240,7 +238,7 @@ export default class DownloadFormView {
      */
     getQueryParamArray() {
         // Need to eliminate form parameters within the mapping-div
-        const $formInputs = this.$form.find(':input').not('#mapping-div :input, #nldi-inset-map :input, #nldi-map :input');
+        const $formInputs = this.$form.find(':input').not('#mapping-div :input, #nldi-map :input');
 
         let result = [];
         let providersArray = [];

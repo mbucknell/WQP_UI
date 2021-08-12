@@ -6,22 +6,19 @@ import * as nldiModel from '../nldiModel';
 import { getAnchorQueryValues } from '../utils';
 
 /*
- * Creates the NHLD maps, an inset map and a larger map. Only one of the maps is shown.
- * The map shown is changed by clicking the expand/collapse control in the upper right of each map.
- * Each map also contains the Navigation selector.
+ * Creates the NHLD map.
+ * The map is shown/hidden by clicking the Hide/Show Upstream Downstream Mapper button.
+ * The also contains the Navigation selector.
  * @param {Object} options
- *      @prop {String} this.insetMapDivId
  *      @prop {String} mapDivId
- *      @prop {Jquery element} $input
+ *      @prop {HTML element} input
  */
 export default class NldiView {
-    constructor({insetMapDivId, mapDivId, $input}) {
-        this.insetMapDivId = insetMapDivId;
+    constructor({mapDivId, input}) {
         this.mapDivId = mapDivId;
-        this.$input = $input;
+        this.input = input
 
-        this.$mapDiv = $('#' + mapDivId);
-        this.$insetMapDiv = $('#' + insetMapDivId);
+        this.mapDiv = document.getElementById(mapDivId)
 
         /* Functions return a geoJson layer with predefined options for flowLine and site layers respectively */
         this.flowlineLayer = partial(L.geoJson);
@@ -39,11 +36,11 @@ export default class NldiView {
         });
 
         // Add change handler for the hidden input so the NLDI can be cleared on a reset
-        this.$input.change(() => {
-           if (!this.$input.val()) {
-               this.clearHandler();
-           }
-        });
+        this.input.addEventListener('change', () => {
+            if (!this.input.value) {
+                this.clearHandler();
+            }
+         });
 
         // Add click event to show/hide nldi map
         document.getElementById("showNldiMap").onclick = this.showMap.bind(this);
@@ -68,8 +65,10 @@ export default class NldiView {
 
     updateNldiInput(url) {
         // Only trigger a change if non-null url or if the $input.val is being changed from an url to null
-        if (url || this.$input.val()) {
-            this.$input.val(url).trigger('change');
+        if (url || this.input.value) {
+            this.input.value = url
+            let e = new Event('change')
+            this.input.dispatchEvent(e);
         }
     }
 
@@ -124,7 +123,7 @@ export default class NldiView {
             });
         };
         if (nldiSiteUrl) {
-            this.$mapDiv.css('cursor', 'progress');
+            this.mapDiv.style.cursor = 'progress';
             $.when(fetchNldiSites(), fetchNldiFlowlines())
                 .done((sitesResponse, flowlinesResponse) => {
                     let flowlineBounds;
@@ -133,19 +132,15 @@ export default class NldiView {
 
                     // These layers go into the siteCluster layer
                     const nldiSiteLayers = this.siteLayer(sitesGeojson);
-                    const insetNldiSiteLayers = this.siteLayer(sitesGeojson);
 
                     log.debug('NLDI service has retrieved ' + sitesGeojson.features.length + ' sites.');
                     this.map.closePopup();
 
                     this.nldiFlowlineLayers = this.flowlineLayer(flowlinesGeojson);
-                    this.insetNldiFlowlineLayers = this.flowlineLayer(flowlinesGeojson);
                     this.map.addLayer(this.nldiFlowlineLayers);
-                    this.insetMap.addLayer(this.insetNldiFlowlineLayers);
 
                     flowlineBounds = this.nldiFlowlineLayers.getBounds();
                     this.map.fitBounds(flowlineBounds);
-                    this.insetMap.fitBounds(flowlineBounds);
 
                     this.nldiSiteCluster = L.markerClusterGroup({
                         maxClusterRadius : 40
@@ -161,7 +156,7 @@ export default class NldiView {
                     this.updateNldiInput('');
                 })
                 .always(() => {
-                    this.$mapDiv.css('cursor', '');
+                    this.mapDiv.style.cursor = '';
                 });
         }
     }
@@ -177,7 +172,7 @@ export default class NldiView {
         const featureIdProperty = nldiModel.getData().featureSource.getFeatureInfoSource.featureIdProperty;
 
         log.debug('Clicked at location: ' + ev.latlng.toString());
-        this.$mapDiv.css('cursor', 'progress');
+        this.mapDiv.style.cursor = 'progress';
 
         nldiModel.setData('featureId', '');
         nldiModel.setData('navigation', undefined);
@@ -208,18 +203,18 @@ export default class NldiView {
                 this.map.openPopup('<p>Unable to retrieve points, service call failed</p>', ev.latlng);
             })
             .always(() => {
-                this.$mapDiv.css('cursor', '');
+                this.mapDiv.style.cursor = '';
             });
     }
 
     /*
-     * Show the full size map and  hide the inset map
+     * Show the full size map
      */
     showMap() {
-        if (this.$mapDiv.is(':hidden')) {
-            this.$mapDiv.parent().show();
+        if (this.mapDiv.parentElement.style.display =='none' || this.mapDiv.parentElement.style.display == ""){
+            this.mapDiv.parentElement.style.display = 'block';
             this.map.invalidateSize();
-            document.getElementById("showNldiMap").innerText = "Hide Upstream Downstream Mapper"
+            document.getElementById("showNldiMap").innerText = "Hide upstream downstream mapper"
         }
         else{
             this.hideMap();
@@ -231,8 +226,8 @@ export default class NldiView {
      * Hide the map
      */
     hideMap() {
-            this.$mapDiv.parent().hide();
-            document.getElementById("showNldiMap").innerText = "Show Upstream Downstream Mapper"
+            this.mapDiv.parentElement.style.display ='none'
+            document.getElementById("showNldiMap").innerText = "Show upstream downstream mapper"
     }
 
     featureSourceChangeHandler(ev) {
@@ -251,8 +246,7 @@ export default class NldiView {
      * Initialize the map.
      */
     initialize() {
-
-        const initValues = getAnchorQueryValues(this.$input.attr('name'));
+        const initValues = getAnchorQueryValues(this.input.getAttribute('name'));
 
         const baseLayers = {
             'World Gray' : L.esri.basemapLayer('Gray'),
@@ -280,7 +274,7 @@ export default class NldiView {
         });
 
         const searchControl = L.control.searchControl(Config.GEO_SEARCH_API_ENDPOINT);
-        const clearControl = L.easyButton('<img src="{{ "img/undo.svg" | asset_url }}" alt="reset"/>', this.clearHandler.bind(this), 'Clear the sites', {
+        const clearControl = L.easyButton('<img src="img/undo.svg" alt="reset"/><div id="resetText">Reset</div>', this.clearHandler.bind(this), 'Clear the sites', {
             position: 'topright'
         });
 
