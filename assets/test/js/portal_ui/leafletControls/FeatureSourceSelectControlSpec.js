@@ -41,59 +41,65 @@ describe('leafletControl/FeatureSourceSelectControl', function() {
         });
 
         it('Expects that the map contains a select control containing the feature source options', function() {
-            var select = document.getElementsByClassName('leaflet-nldi-feature-source-control-div');
-            var options;
+            var select = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children;
 
-            expect(select.length).toBe(1);
-            options = select[0].getElementsByTagName('option');
-            expect(options.length).toBe(3);
-            expect(options[0].value).toEqual('');
-            expect(options[1].value).toEqual('source1');
-            expect(options[2].value).toEqual('source2');
+            expect(select.length).toBe(3);
+            expect(select[0].id).toBe('nldi-selector-title');
+            expect(select[1].className).toBe('usa-radio');
+            expect(select[2].className).toBe('usa-radio');
+
+            var radio1 = select[1].children[0].value;
+            var radio2 = select[2].children[0].value;
+            expect(radio1).toEqual('source1');
+            expect(radio2).toEqual('source2');
         });
 
         it('Expects that the getValue method returns the current value selected', function() {
-            var select = document.getElementsByClassName('leaflet-nldi-feature-source-picker')[0];
-
+            var select = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children;
             expect(testControl.getValue()).toEqual('');
 
-            select.value = 'source1';
-            expect(testControl.getValue()).toEqual('source1');
+            select[2].children[0].checked = true;
+            expect(testControl.getValue()).toEqual('source2');
         });
 
         it('Expects that a change event calls the changeHandler', function() {
-            var select = document.getElementsByClassName('leaflet-nldi-feature-source-picker')[0];
+            var selectContainer = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children[2];
+            var select = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children;
             var event = document.createEvent('HTMLEvents');
-            select.value='source1';
+            select[2].children[0].checked=true;
             event.initEvent('change', true, false);
-            select.dispatchEvent(event);
+            selectContainer.dispatchEvent(event);
 
             expect(changeHandlerSpy).toHaveBeenCalled();
         });
 
         it('Expects that the change handler adds the selected layer to the map', function() {
-            var select = document.getElementsByClassName('leaflet-nldi-feature-source-picker')[0];
+            var selectContainer = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children[1];
+            var select = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children;
             var event = document.createEvent('HTMLEvents');
 
-            select.value='source1';
+            select[1].children[0].checked=true;
             event.initEvent('change', true, false);
-            select.dispatchEvent(event);
+            selectContainer.dispatchEvent(event);
 
             expect(map.hasLayer(layer1)).toBe(true);
             expect(map.hasLayer(layer2)).toBe(false);
         });
 
         it('Expects that the second call to the change handler removes the first layer and adds the second to the map', function() {
-            var select = document.getElementsByClassName('leaflet-nldi-feature-source-picker')[0];
+            var selectContainer1 = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children[1];
+            var selectContainer2 = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children[2];
+            var select = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children;
             var event = document.createEvent('HTMLEvents');
 
-            select.value='source1';
+            select[1].children[0].checked=true;
             event.initEvent('change', true, false);
-            select.dispatchEvent(event);
+            selectContainer1.dispatchEvent(event);
 
-            select.value='source2';
+            select[1].children[0].checked=false;
+            select[2].children[0].checked=true;
             event.initEvent('change', true, false);
-            select.dispatchEvent(event);
+            selectContainer2.dispatchEvent(event);
 
             expect(map.hasLayer(layer1)).toBe(false);
             expect(map.hasLayer(layer2)).toBe(true);
@@ -108,12 +114,13 @@ describe('leafletControl/FeatureSourceSelectControl', function() {
         });
 
         it('Expects that removing the control removes the displayed feature source layer', function() {
-            var select = document.getElementsByClassName('leaflet-nldi-feature-source-picker')[0];
+            var selectContainer = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children[1];
+            var select = document.getElementsByClassName('leaflet-nldi-feature-source-control-div')[0].children;
             var event = document.createEvent('HTMLEvents');
 
-            select.value='source1';
+            select[1].children[0].checked=true;
             event.initEvent('change', true, false);
-            select.dispatchEvent(event);
+            selectContainer.dispatchEvent(event);
             map.removeControl(testControl);
 
             expect(map.hasLayer(layer1)).toBe(false);

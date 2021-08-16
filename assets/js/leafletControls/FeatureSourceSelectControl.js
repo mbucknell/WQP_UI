@@ -83,8 +83,8 @@ L.control.FeatureSourceSelectControl = L.Control.extend({
      */
     getValue : function() {
         var result = '';
-        if (this._selectEl) {
-            result = this._selectEl.value;
+        if (this._selectEl.children[0].checked) {
+            result = this._selectEl.children[0].value;
         }
         return result;
     },

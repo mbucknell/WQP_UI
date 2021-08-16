@@ -28,7 +28,8 @@ const getBundleConfig = function (src, dest) {
             ]
             }),
             resolve.nodeResolve({
-                mainFields: ['module']
+                mainFields: ['module'],
+                browser: true
             }),
             json(),
             commonjs(),

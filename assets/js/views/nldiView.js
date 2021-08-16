@@ -4,6 +4,7 @@ import partial from 'lodash/partial';
 import NldiNavPopupView from './nldiNavPopupView';
 import * as nldiModel from '../nldiModel';
 import { getAnchorQueryValues } from '../utils';
+import axios from 'axios';
 
 /*
  * Creates the NHLD map.
@@ -16,7 +17,7 @@ import { getAnchorQueryValues } from '../utils';
 export default class NldiView {
     constructor({mapDivId, input}) {
         this.mapDivId = mapDivId;
-        this.input = input
+        this.input = input;
 
         this.mapDiv = document.getElementById(mapDivId)
 
@@ -64,7 +65,7 @@ export default class NldiView {
     }
 
     updateNldiInput(url) {
-        // Only trigger a change if non-null url or if the $input.val is being changed from an url to null
+        // Only trigger a change if non-null url or if the input.val is being changed from an url to null
         if (url || this.input.value) {
             this.input.value = url
             let e = new Event('change')
@@ -81,10 +82,10 @@ export default class NldiView {
     fetchFeatureId(point) {
         const mapBounds = this.map.getBounds();
         const nldiFeatureSource = nldiModel.getData().featureSource.getFeatureInfoSource;
-        return $.ajax({
-            url : nldiFeatureSource.endpoint,
-            method : 'GET',
-            data : {
+        return axios({
+            method: 'get',
+            url: nldiFeatureSource.endpoint,
+            params : {
                 version: '1.3.0',
                 request: 'GetFeatureInfo',
                 service: 'wms',
@@ -109,55 +110,53 @@ export default class NldiView {
     updateNldiSites() {
         const nldiSiteUrl = nldiModel.getUrl('wqp');
         const nldiFlowlinesUrl = nldiModel.getUrl();
+        let self = this;
+        let responsesArray = [];
+        const nldiSiteRequest = axios.get(nldiSiteUrl);
+        const nldiFlowlinesRequest = axios.get(nldiFlowlinesUrl);
 
-        const fetchNldiSites = function() {
-            return $.ajax({
-                url : nldiSiteUrl,
-                method : 'GET'
-            });
-        };
-        const fetchNldiFlowlines = function() {
-            return $.ajax({
-                url : nldiFlowlinesUrl,
-                method : 'GET'
-            });
-        };
         if (nldiSiteUrl) {
             this.mapDiv.style.cursor = 'progress';
-            $.when(fetchNldiSites(), fetchNldiFlowlines())
-                .done((sitesResponse, flowlinesResponse) => {
+            axios.all([nldiSiteRequest, nldiFlowlinesRequest])
+                .then(axios.spread((...responses) => {
+                    responsesArray.push(responses[0]);
+                    responsesArray.push(responses[1]);
+                }))
+                .then(function(){
                     let flowlineBounds;
-                    const sitesGeojson = sitesResponse[0];
-                    const flowlinesGeojson = flowlinesResponse[0];
+                    const sitesGeojson = responsesArray[0].data;
+                    const flowlinesGeojson = responsesArray[1].data;
 
                     // These layers go into the siteCluster layer
-                    const nldiSiteLayers = this.siteLayer(sitesGeojson);
+                    const nldiSiteLayers = self.siteLayer(sitesGeojson);
 
                     log.debug('NLDI service has retrieved ' + sitesGeojson.features.length + ' sites.');
-                    this.map.closePopup();
+                    self.map.closePopup();
 
-                    this.nldiFlowlineLayers = this.flowlineLayer(flowlinesGeojson);
-                    this.map.addLayer(this.nldiFlowlineLayers);
+                    self.nldiFlowlineLayers = self.flowlineLayer(flowlinesGeojson);
+                    self.map.addLayer(self.nldiFlowlineLayers);
 
-                    flowlineBounds = this.nldiFlowlineLayers.getBounds();
-                    this.map.fitBounds(flowlineBounds);
+                    flowlineBounds = self.nldiFlowlineLayers.getBounds();
+                    self.map.fitBounds(flowlineBounds);
 
-                    this.nldiSiteCluster = L.markerClusterGroup({
+                    self.nldiSiteCluster = L.markerClusterGroup({
                         maxClusterRadius : 40
                     });
 
-                    this.nldiSiteCluster.addLayer(nldiSiteLayers);
-                    this.map.addLayer(this.nldiSiteCluster);
+                    self.nldiSiteCluster.addLayer(nldiSiteLayers);
+                    self.map.addLayer(self.nldiSiteCluster);
 
-                    this.updateNldiInput(nldiModel.getUrl('wqp'));
+                    self.updateNldiInput(nldiModel.getUrl('wqp'));
                 })
-                .fail(() => {
-                    this.map.openPopup('Unable to retrieve NLDI information', this.map.getCenter());
-                    this.updateNldiInput('');
+                .catch(function (error) {
+                    // handle error
+                    self.map.openPopup('Unable to retrieve NLDI information', self.map.getCenter());
+                    self.updateNldiInput('');
                 })
-                .always(() => {
-                    this.mapDiv.style.cursor = '';
-                });
+                .then(function () {
+                    // always executed
+                    self.mapDiv.style.cursor = '';
+                })
         }
     }
 
@@ -181,28 +180,29 @@ export default class NldiView {
         this.map.closePopup();
 
         this.fetchFeatureId(ev.containerPoint.round())
-            .done((result) => {
+            .then((result) => {
+                let features = result.data.features;
                 const navHandler = () => {
                     this.map.openPopup(this.getRetrieveMessage(), ev.latlng);
                     this.updateNldiSites();
                 };
 
-                if (result.features.length === 0) {
+                if (features.length === 0) {
                     this.map.openPopup('<p>No query point has been selected. Please click on a point to query from.</p>', ev.latlng);
 
-                } else if (result.features.length > 1) {
+                } else if (features.length > 1) {
                     this.map.openPopup('<p>More than one query point has been selected. Please zoom in and try again.</p>', ev.latlng);
                 } else {
                     nldiModel.setData('featureId',
-                        result.features[0].properties[featureIdProperty]);
+                        features[0].properties[featureIdProperty]);
 
-                    new NldiNavPopupView(this.map, result.features[0], ev.latlng, navHandler);
+                    new NldiNavPopupView(this.map, features[0], ev.latlng, navHandler);
                 }
             })
-            .fail(() => {
+            .catch((error) => {
                 this.map.openPopup('<p>Unable to retrieve points, service call failed</p>', ev.latlng);
             })
-            .always(() => {
+            .then(() => {
                 this.mapDiv.style.cursor = '';
             });
     }
@@ -292,8 +292,8 @@ export default class NldiView {
         this.map.addControl(searchControl);
         this.map.addControl(featureSourceSelectControl);
         this.map.addControl(L.control.layers(baseLayers, {
-            'Hydro Reference' : hydroLayer,
-            'NHDLPlus Flowline Network' : nhdlPlusFlowlineLayer
+            'NHDLPlus Flowline Network' : nhdlPlusFlowlineLayer,
+            'Hydro Reference' : hydroLayer
         }, {position: 'topleft'}));
         this.map.addControl(clearControl);
         this.map.addControl(L.control.zoom());

@@ -7,6 +7,7 @@ import PlaceInputView from '../../../../js/views/placeInputView';
 import PointLocationInputView from '../../../../js/views/pointLocationInputView';
 import SamplingParameterInputView from '../../../../js/views/samplingParameterInputView';
 import SiteParameterInputView from '../../../../js/views/siteParameterInputView';
+import NldiView from '../../../../js/views/nldiView';
 import providers from '../../../../js/providers';
 import queryService from '../../../../js/queryService';
 
@@ -51,6 +52,7 @@ describe('Tests for DownloadFormView', function() {
         spyOn(DataDetailsView.prototype, 'initialize');
         spyOn(DataDetailsView.prototype, 'getMimeType').and.returnValue('csv');
         spyOn(DataDetailsView.prototype, 'getResultType').and.returnValue('Result');
+        spyOn(NldiView.prototype, 'initialize');
 
         fetchProvidersDeferred = $.Deferred();
         spyOn(providers, 'fetch').and.returnValue(fetchProvidersDeferred);
@@ -76,6 +78,7 @@ describe('Tests for DownloadFormView', function() {
 
     afterEach(function() {
         $('#test-div').remove();
+        $('#nldi-url').remove();
     });
 
     it('Expects that the sub views are initialized when the view is initialized', function() {
@@ -87,6 +90,7 @@ describe('Tests for DownloadFormView', function() {
         expect(SamplingParameterInputView.prototype.initialize).toHaveBeenCalled();
         expect(BiologicalSamplingInputView.prototype.initialize).toHaveBeenCalled();
         expect(DataDetailsView.prototype.initialize).toHaveBeenCalled();
+        expect(NldiView.prototype.initialize).toHaveBeenCalled();
     });
 
     it('Expects that the providers are fetched', function() {
