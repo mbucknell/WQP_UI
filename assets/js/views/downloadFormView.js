@@ -85,7 +85,7 @@ export default class DownloadFormView {
         });
         const nldiView = new NldiView({
             mapDivId : 'nldi-map',
-            input: document.getElementById('nldi-url')
+            input: 'nldi-url'
         });
         const samplingParametersInputView = new SamplingParameterInputView({
             $container : this.$form.find('#sampling'),

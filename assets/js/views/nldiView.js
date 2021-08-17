@@ -12,14 +12,17 @@ import axios from 'axios';
  * The also contains the Navigation selector.
  * @param {Object} options
  *      @prop {String} mapDivId
- *      @prop {HTML element} input
+ *      @prop {String} input
  */
 export default class NldiView {
     constructor({mapDivId, input}) {
         this.mapDivId = mapDivId;
-        this.input = input;
+        this.input = null;
+        if (document.getElementById(input) !== null){
+            this.input = document.getElementById(input);
+        }
 
-        this.mapDiv = document.getElementById(mapDivId)
+        this.mapDiv = document.getElementById(mapDivId);
 
         /* Functions return a geoJson layer with predefined options for flowLine and site layers respectively */
         this.flowlineLayer = partial(L.geoJson);
@@ -37,14 +40,18 @@ export default class NldiView {
         });
 
         // Add change handler for the hidden input so the NLDI can be cleared on a reset
-        this.input.addEventListener('change', () => {
-            if (!this.input.value) {
-                this.clearHandler();
-            }
-         });
+        if (this.input !== null){
+            this.input.addEventListener('change', () => {
+                if (!this.input.value) {
+                    this.clearHandler();
+                }
+            });
+        }
 
         // Add click event to show/hide nldi map
-        document.getElementById("showNldiMap").onclick = this.showMap.bind(this);
+        if (document.getElementById("showNldiMap") !== null){
+            document.getElementById("showNldiMap").onclick = this.showMap.bind(this);
+        }
     }
 
     getRetrieveMessage() {
@@ -273,8 +280,10 @@ export default class NldiView {
             initialFeatureSourceValue : nldiModel.getData().featureSource.id
         });
 
+        const undoImg = Config.STATIC_ENDPOINT;
+
         const searchControl = L.control.searchControl(Config.GEO_SEARCH_API_ENDPOINT);
-        const clearControl = L.easyButton('<img src="img/undo.svg" alt="reset"/><div id="resetText">Reset</div>', this.clearHandler.bind(this), 'Clear the sites', {
+        const clearControl = L.easyButton('<img src="' + undoImg + '/img/undo.svg" alt="reset"/><div id="resetText">Reset</div>', this.clearHandler.bind(this), 'Clear the sites', {
             position: 'topright'
         });
 
