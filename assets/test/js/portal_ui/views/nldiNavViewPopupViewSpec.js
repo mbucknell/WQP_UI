@@ -24,21 +24,25 @@ describe('nldiNavViewPopupView', function() {
     });
 
     it('Expects that when updating the navigation type, the nldiModel is updated and the Navigate button is enabled', function() {
-        var $select = $('.navigation-selection-div select');
-        var $button = $('.navigation-selection-div button');
+        var select = document.querySelector('.navigation-selection-div select');
+        var button = document.querySelector('.navigation-selection-div button');
 
-        expect($select.val()).toEqual('');
-        expect($button.prop('disabled')).toBe(true);
+        expect(select.value).toEqual('');
+        expect(button.disabled).toBe(true);
 
-        $select.val('UM').trigger('change');
+        let e = new Event('change');
+        select.selectedOptions[0].value = 'UM';
+        select.dispatchEvent(e);
 
         expect(nldiModel.getData().navigation.id).toEqual('UM');
-        expect($button.prop('disabled')).toBe(false);
+        expect(button.disabled).toBe(false);
     });
 
     it('Expects that when updating the distance, the nldModel is updated', function() {
-        var $distance = $('.navigation-selection-div input[type="text"]');
-        $distance.val('100').trigger('change');
+        var distance = document.querySelector('.navigation-selection-div input[type="text"]');
+        let e = new Event('change');
+        distance.value = '100';
+        distance.dispatchEvent(e);
 
         expect(nldiModel.getData().distance).toEqual('100');
     });
@@ -46,7 +50,8 @@ describe('nldiNavViewPopupView', function() {
     it('Expects that clicking the button causes the navHandler to be executed', function() {
         expect(navHandlerSpy).not.toHaveBeenCalled();
 
-        $('.navigation-selection-div button').trigger('click');
+        let e = new Event('click');
+        document.querySelector('.navigation-selection-div button').dispatchEvent(e);
         expect(navHandlerSpy).toHaveBeenCalled();
     });
 });

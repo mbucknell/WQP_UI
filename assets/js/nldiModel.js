@@ -35,7 +35,7 @@ const nwisSitesFeatureSource = {
     }
 };
 
-export const FEATURE_SOURCES = [huc12FeatureSource, nwisSitesFeatureSource];
+export const FEATURE_SOURCES = [nwisSitesFeatureSource, huc12FeatureSource];
 export const NAVIGATION_MODES = [
     {id : 'UM', text : 'Upstream main'},
     {id : 'DM', text : 'Downstream main'},

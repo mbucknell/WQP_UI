@@ -3,6 +3,7 @@ import BiologicalSamplingInputView from '../../../../js/views/biologicalSampling
 import BoundingBoxInputView from '../../../../js/views/boundingBoxInputView';
 import DataDetailsView from '../../../../js/views/dataDetailsView';
 import DownloadFormView from '../../../../js/views/downloadFormView';
+import NldiView from '../../../../js/views/nldiView';
 import PlaceInputView from '../../../../js/views/placeInputView';
 import PointLocationInputView from '../../../../js/views/pointLocationInputView';
 import SamplingParameterInputView from '../../../../js/views/samplingParameterInputView';
@@ -51,6 +52,7 @@ describe('Tests for DownloadFormView', function() {
         spyOn(DataDetailsView.prototype, 'initialize');
         spyOn(DataDetailsView.prototype, 'getMimeType').and.returnValue('csv');
         spyOn(DataDetailsView.prototype, 'getResultType').and.returnValue('Result');
+        spyOn(NldiView.prototype, 'initialize');
 
         fetchProvidersDeferred = $.Deferred();
         spyOn(providers, 'fetch').and.returnValue(fetchProvidersDeferred);
@@ -87,6 +89,7 @@ describe('Tests for DownloadFormView', function() {
         expect(SamplingParameterInputView.prototype.initialize).toHaveBeenCalled();
         expect(BiologicalSamplingInputView.prototype.initialize).toHaveBeenCalled();
         expect(DataDetailsView.prototype.initialize).toHaveBeenCalled();
+        expect(NldiView.prototype.initialize).toHaveBeenCalled();
     });
 
     it('Expects that the providers are fetched', function() {

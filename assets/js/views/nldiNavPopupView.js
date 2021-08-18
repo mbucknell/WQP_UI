@@ -21,24 +21,23 @@ export default class NldiNavPopupView {
             navigationModes: nldiModel.NAVIGATION_MODES,
             feature : feature
         };
-        var $navButton;
+        var navButton;
 
         onMap.openPopup(popupTemplate(context), atLatLng);
-        $navButton = $('.navigation-selection-div button');
-        $('.navigation-selection-div select').change(function (ev) {
-            var $select = $(ev.target);
-            var selectedValue = $select.val();
+        navButton = document.querySelector('.navigation-selection-div button');
+        document.querySelector('.navigation-selection-div select').addEventListener('change', function (ev) {
+            var selectedValue = ev.target.selectedOptions[0].value;
             var navValue = {
                 id: selectedValue,
-                text: $(ev.target.selectedOptions[0]).html()
+                text: ev.target.selectedOptions[0].innerText
             };
 
             nldiModel.setData('navigation', navValue);
-            $navButton.prop('disabled', !navValue.id);
+            navButton.disabled = !navValue.id;
         });
-        $('.navigation-selection-div input[type="text"]').change(function (ev) {
-            nldiModel.setData('distance', $(ev.target).val());
+        document.querySelector('.navigation-selection-div input[type="text"]').addEventListener('change', function (ev) {
+            nldiModel.setData('distance', ev.target.value);
         });
-        $navButton.click(navHandler);
+        navButton.onclick = navHandler;
     }
 }
