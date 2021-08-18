@@ -51,6 +51,9 @@ export default class DownloadProgressDialog {
     }
 
     show(thisOpKind, dialogMessage) {
+        if(document.getElementById('download-status-modal').hidden){
+            document.getElementById('download-status-modal').hidden = false;
+        }
         var message = dialogMessage ? dialogMessage : 'Validating query ... Please wait.';
         this.opKind = thisOpKind;
 
@@ -95,7 +98,15 @@ export default class DownloadProgressDialog {
             document.getElementById('downloadButtons').innerHTML = this.buttonHtml('closeDownloadModal', 'Cancel');
             document.getElementById('downloadButtons').innerHTML += this.buttonHtml('continueButton', 'Continue');
             document.getElementById('continueButton').onclick = function() {
+                if(!document.getElementById('download-status-modal').hidden){
+                    document.getElementById('download-status-modal').hidden = true;
+                }
                 continueFnc(totalCount);
+            };
+            document.getElementById('closeDownloadModal').onclick = function() {
+                if(!document.getElementById('download-status-modal').hidden){
+                    document.getElementById('download-status-modal').hidden = true;
+                }
             };
         }
     }
@@ -103,5 +114,10 @@ export default class DownloadProgressDialog {
     cancelProgress(message) {
         document.getElementById('download-modal-description').innerHTML = message;
         document.getElementById('downloadButtons').innerHTML = this.buttonHtml('progressOkBtn', 'Ok');
+        document.getElementById('progressOkBtn').onclick = function() {
+            if(!document.getElementById('download-status-modal').hidden){
+                document.getElementById('download-status-modal').hidden = true;
+            }
+        };
     }
 }

@@ -7,42 +7,35 @@ describe('Tests for DownloadProgressDialog', function () {
     var continueSpy;
 
     beforeEach(function () {
-        // $('body').append('<div id=progress-dialog class="modal">' +
-        //     '<div class="modal-content">' +
-        //     '<div class="modal-dialog">' +
-        //     '<div class="modal-header"><h4></h4></div>' +
-        //     '<div class="modal-body"></div>' +
-        //     '<div class="modal-footer"></div>' +
-        //     '</div></div></div>');
-
-        $('body').append('<div class="usa-modal" id="progress-dialog">'+
+        let modalDiv = document.createElement('div');
+        modalDiv.id = 'download-status-modal';
+        document.body.appendChild(modalDiv);
+        document.getElementById('download-status-modal').innerHTML = 
             '<div class="usa-modal__content">'+
                 '<h2 class="usa-modal__heading" id="download-modal-heading"></h2>'+
                 '<p id="download-modal-description"></p>'+         
                 '<ul class="usa-button-group" id="downloadButtons"></ul>'+
-            '</div>'+
-        '</div>')
+            '</div>'
 
-
-        thisDialog = new DownloadProgressDialog($('#progress-dialog'));
+        thisDialog = new DownloadProgressDialog(document.getElementById('download-status-modal'));
         continueSpy = jasmine.createSpy('continueSpy');
     });
     afterEach(function () {
-        $('#progress-dialog').remove();
+        document.getElementById('download-status-modal').remove();
     });
 
     it('Expects the dialog to be visible with appropriate content and header when show is called', function () {
         thisDialog.show('map');
-        expect($('#progress-dialog').is(':visible')).toBe(true);
-        expect($('#download-modal-heading').html()).toContain('Map Sites');
+        expect(document.getElementById('download-status-modal').hidden).toBe(false);
+        expect(document.getElementById('download-modal-heading').innerHTML).toContain('Map Sites');
         expect(document.getElementById('download-modal-description').innerHTML).toContain('Please wait');
         expect(document.getElementById('downloadButtons').innerHTML).toEqual('');
 
         thisDialog.show('download');
-        expect($('#progress-dialog').is(':visible')).toBe(true);
-        expect($('#download-modal-heading').html()).toContain('Download');
+        expect(document.getElementById('download-status-modal').hidden).toBe(false);
+        expect(document.getElementById('download-modal-heading').innerHTML).toContain('Download');
         expect(document.getElementById('download-modal-description').innerHTML).toContain('Please wait');
-        expect($('#downloadButtons').html()).toEqual('');
+        expect(document.getElementById('downloadButtons').innerHTML).toEqual('');
     });
 
     describe('Tests for updateProgress when dialog is for map', function () {
@@ -84,7 +77,7 @@ describe('Tests for DownloadProgressDialog', function () {
 
             let e = new Event('click');
             document.getElementById('progressOkBtn').dispatchEvent(e);
-            expect($('#progress-dialog').is(':visible')).toBe(false);
+            expect(document.getElementById('download-status-modal').hidden).toBe(true);
             expect(continueSpy).not.toHaveBeenCalled();
         });
 
@@ -98,7 +91,7 @@ describe('Tests for DownloadProgressDialog', function () {
 
             let e = new Event('click');
             document.getElementById('closeDownloadModal').dispatchEvent(e);
-            expect($('#progress-dialog').is(':visible')).toBe(false);
+            expect(document.getElementById('download-status-modal').hidden).toBe(true);
             expect(continueSpy).not.toHaveBeenCalled();
 
             thisDialog.show('map');
@@ -106,7 +99,7 @@ describe('Tests for DownloadProgressDialog', function () {
 
             document.getElementById('continueButton').dispatchEvent(e);
             expect(continueSpy).toHaveBeenCalledWith('249,999');
-            expect($('#progress-dialog').is(':visible')).toBe(false);
+            expect(document.getElementById('download-status-modal').hidden).toBe(true);
         });
     });
 
@@ -153,7 +146,7 @@ describe('Tests for DownloadProgressDialog', function () {
 
             let e = new Event('click');
             document.getElementById('continueButton').dispatchEvent(e);
-            expect($('#progress-dialog').is(':visible')).toBe(false);
+            expect(document.getElementById('download-status-modal').hidden).toBe(true);
             expect(continueSpy).toHaveBeenCalledWith('250,001');
 
             thisDialog.show('download', continueSpy);
@@ -165,7 +158,7 @@ describe('Tests for DownloadProgressDialog', function () {
 
             document.getElementById('continueButton').dispatchEvent(e);
 
-            expect($('#progress-dialog').is(':visible')).toBe(false);
+            expect(document.getElementById('download-status-modal').hidden).toBe(true);
             expect(continueSpy).toHaveBeenCalledWith('1,123,456');
         });
 
@@ -184,7 +177,7 @@ describe('Tests for DownloadProgressDialog', function () {
 
             let e = new Event('click');
             document.getElementById('continueButton').dispatchEvent(e);
-            expect($('#progress-dialog').is(':visible')).toBe(false);
+            expect(document.getElementById('download-status-modal').hidden).toBe(true);
             expect(continueSpy).toHaveBeenCalledWith('1,048,574');
         });
 
@@ -204,7 +197,7 @@ describe('Tests for DownloadProgressDialog', function () {
 
             let e = new Event('click');
             document.getElementById('progressOkBtn').dispatchEvent(e);
-            expect($('#progress-dialog').is(':visible')).toBe(false);
+            expect(document.getElementById('download-status-modal').hidden).toBe(true);
             expect(continueSpy).not.toHaveBeenCalled();
         });
     });
@@ -219,6 +212,6 @@ describe('Tests for DownloadProgressDialog', function () {
 
         let e = new Event('click');
         document.getElementById('progressOkBtn').dispatchEvent(e);
-        expect($('#progress-dialog').is(':visible')).toBe(false);
+        expect(document.getElementById('download-status-modal').hidden).toBe(true);
     });
 });
