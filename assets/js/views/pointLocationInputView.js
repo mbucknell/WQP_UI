@@ -18,10 +18,10 @@ export default class PointLocationInputView {
     }
 
     // GeoLocation easter egg.
-    updateMyLocation($lat, $lon) {
+    updateMyLocation($lat, $lon, basic) {
         var updateInputs = function(position) {
-            $lat.val(position.coords.latitude).trigger('change');
-            $lon.val(position.coords.longitude).trigger('change');
+                $lat.val(position.coords.latitude).trigger('change');
+                $lon.val(position.coords.longitude).trigger('change');
         };
 
         var displayError = function(err) {
@@ -49,6 +49,9 @@ export default class PointLocationInputView {
         let $within = this.$container.find('#within');
         let $lat = this.$container.find('#lat');
         let $lon = this.$container.find('#long');
+        let $latBasic = $('#latBasic');
+        let $lonBasic = $('#longBasic');
+        let basic = true;
 
         initializeInput($within);
         initializeInput($lat);
@@ -57,10 +60,16 @@ export default class PointLocationInputView {
         // only give user the option if their browser supports geolocation
         if (window.navigator.geolocation && window.navigator.geolocation.getCurrentPosition) {
             let $useMyLocationDiv = this.$container.find('#useMyLocation');
+            let $useMyLocationDivBasic = $('#useMyLocationBasic');
 
             $useMyLocationDiv.html('<button class="usa-button usa-button--outline" type="button">Use my location</button>');
+            $useMyLocationDivBasic.html('<button class="usa-button usa-button--outline" type="button">Use my location</button>');
+            
             $useMyLocationDiv.find('button').click(() => {
-                this.updateMyLocation($lat, $lon);
+                this.updateMyLocation($lat, $lon, basic);
+            });
+            $useMyLocationDivBasic.find('button').click(() => {
+                this.updateMyLocation($latBasic, $lonBasic, basic);
             });
         }
     }
