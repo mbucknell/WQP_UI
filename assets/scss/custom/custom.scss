@@ -13,13 +13,18 @@ body,
 html {
 }
 
+#main-header {
+  background-color: #253f60;
+  padding-bottom: 5px;
+}
+
 .custom-nav-branding {
   display: flex;
-  padding-top: 15px;
+  padding-top: 10px;
   box-sizing: border-box;
 
   img {
-    width: 160px;
+    width: 140px;
     height: auto;
   }
 
@@ -132,6 +137,7 @@ html {
 
 // Home Page form intro
 #formIntro {
+  margin-top: 20px;
   margin-bottom: 20px;
   background-color: #e6e6e6; //uswds gray 10
   box-sizing: border-box;
@@ -171,8 +177,9 @@ html {
   }
 }
 
-#siteAnnouncement {
-  margin-bottom: 20px;
+#close-announcement img {
+  height: 10px; 
+  width: auto;
 }
 
 // Form header and controls
@@ -232,6 +239,7 @@ html {
 
 .basicSortDataCheckbox {
   margin-left: 10px;
+  margin-top: 10px;
 }
 
 .required-field::after {
@@ -241,7 +249,7 @@ html {
 
 .menu-buttons {
   float: left;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 // Header styles
@@ -252,9 +260,11 @@ html {
 // Setting this on the usa-accordion__content usa-prose prevents clipping
 #locationaccordion {
   overflow: visible;
+  margin-bottom: 5px;
 }
 #filteraccordion {
   overflow: visible;
+  margin-bottom: 5px;
 }
 #downloadaccordion {
   overflow: visible;
@@ -262,6 +272,19 @@ html {
 
 //WQP
 //custom styles specific to WQP
+#close-announcement {
+  background-color: transparent;
+  margin-right: 10px;
+}
+
+.announcement-body {
+  padding-bottom: 10px;
+}
+
+.usa-alert--no-icon {
+  padding-top: 10px;
+}
+
 .usa-tooltip__body {
   background-color: #253f60 !important;
 }
@@ -348,6 +371,7 @@ a:visited {
 
 #point-location-basic {
   padding-left: 0px;
+  padding-bottom: 10px;
 }
 
 #point-location-basic-input {
@@ -402,9 +426,14 @@ a:visited {
 }
 
 //for toggling between basic and advanced forms
+.site-preview-heading {
+  display: inline-block;
+}
+
 .tabs {
   font-size: 0;
   padding: 20px;
+  padding-top: 0px;
 }
 
 .tabs:after {
@@ -447,6 +476,7 @@ a:visited {
   font-weight: bold;
   color: #757575;
   border-radius: 0.25rem;
+  cursor: pointer;
 }
 
 .tabs .tab-content {
