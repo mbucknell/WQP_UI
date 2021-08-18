@@ -11,13 +11,7 @@ import Vue from 'vue';
 $(document).ready(function () {
 
     // initializeing multiselects 
-    $('#countrycodeBasic').select2();
-    $('#countycodeBasic').select2();
-    $('#statecodeBasic').select2();
-    $('#siteTypeBasic').select2();
     $('#datasourceBasic').select2();
-    $('#sampleMediaBasic').select2();
-    $('#charGroupBasic').select2();
     $('#dataTypeBasic').select2();
     $('#fileFormatBasic').select2();
 
@@ -182,6 +176,11 @@ $(document).ready(function () {
               }
         }
     });
+
+    const announcement = document.getElementById("siteAnnouncement")
+    const announcementcloseButton = document.getElementById("close-announcement")
+
+    announcementcloseButton.onclick = function() { announcement.remove() };
 
     // Set the loglevel
     if (Config.DEBUG) {

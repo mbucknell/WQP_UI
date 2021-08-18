@@ -34,26 +34,33 @@ L.control.FeatureSourceSelectControl = L.Control.extend({
         this._initialFeatureSourceOption = find(options.featureSourceOptions, isInitialValueInFeatureSourceOption);
         this._featureSourceLayer = undefined;
         this._selectEl = undefined;
+        this.selectedArray = [];
     },
 
     onAdd : function() {
         var container = L.DomUtil.create('div', 'leaflet-nldi-feature-source-control-div');
+        container.innerHTML = '<p id="nldi-selector-title">Feature Source</p>';
         var self = this;
 
-        var addOption = function(optionsString, option) {
-            var selected = self._initialFeatureSourceOption && self._initialFeatureSourceOption.id === option.id ? 'selected' : '';
-            return optionsString + '<option value="' + option.id + '" ' + selected + '>' + option.text + '</option>';
+        var addOption = function(option) {
+            var selected = self._initialFeatureSourceOption && self._initialFeatureSourceOption.id === option.id ? 'checked' : '';
+            return '<input class="usa-radio__input" id="' + option.id + '" name= "nldi-selector" type="radio" value="' + option.id + '" ' + selected + '></input><label class="usa-radio__label" for="' + option.id + '">' + option.text +'</label>';
         };
 
-        this._selectEl = L.DomUtil.create('select', 'leaflet-nldi-feature-source-picker', container);
-        this._selectEl.title = 'Pick a NLDI feature source';
-        this._selectEl.innerHTML = this.options.featureSourceOptions.reduce(addOption, '<option value="">Select feature source</option>');
-        if (this._initialFeatureSourceOption) {
-            this._featureSourceLayer = this._initialFeatureSourceOption.mapLayer;
-            this._map.addLayer(this._featureSourceLayer);
-        }
-        L.DomEvent.addListener(this._selectEl, 'change', this._changeFeatureSourceLayer, this);
-        L.DomEvent.disableClickPropagation(this._selectEl);
+        this.options.featureSourceOptions.forEach((option) => {
+            this._selectEl = L.DomUtil.create('div', 'usa-radio', container);
+            this._selectEl.innerHTML = addOption(option);
+
+            if (this._initialFeatureSourceOption) {
+                this._featureSourceLayer = this._initialFeatureSourceOption.mapLayer;
+                this._map.addLayer(this._featureSourceLayer);
+            }
+
+            L.DomEvent.addListener(this._selectEl, 'change', this._changeFeatureSourceLayer, this);
+            L.DomEvent.disableClickPropagation(this._selectEl);
+        })
+
+        container.title = 'Pick a NLDI feature source';
 
         return container;
     },
@@ -74,8 +81,8 @@ L.control.FeatureSourceSelectControl = L.Control.extend({
      */
     getValue : function() {
         var result = '';
-        if (this._selectEl) {
-            result = this._selectEl.value;
+        if (this._selectEl.children[0].checked) {
+            result = this._selectEl.children[0].value;
         }
         return result;
     },
@@ -92,8 +99,7 @@ L.control.FeatureSourceSelectControl = L.Control.extend({
             return layer;
         };
 
-        var newFeatureSourceLayer = getLayer(ev.currentTarget.value, this.options.featureSourceOptions);
-
+        var newFeatureSourceLayer = getLayer(ev.currentTarget.children[0].value, this.options.featureSourceOptions);
         if (this._featureSourceLayer) {
             this._map.removeLayer(this._featureSourceLayer);
         }
