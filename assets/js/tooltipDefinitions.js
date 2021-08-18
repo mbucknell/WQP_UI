@@ -18,12 +18,11 @@ export class TOOLTIP {
     static get projectIDTooltip() { return '<center>Uniquely identifies a <strong><em>data collection <br>project</em></strong>. Multiple selections allowed.</center>';}
     static get paramCodeTooltip() { return '<center>Identifies a characteristic using <strong><em>NWIS codes</em></strong>. <br>Specifying a parameter code will limit the <br>query to <strong><em>NWIS only</em></strong>. Multiple selections allowed.</center>';}
     static get minimumResultsTooltip() { return '<center>Returns only sites where at least a minimum number <br>of <strong><em>results</em></strong> have been reported. The default is <strong>1</strong>.</center>';}
-    static get bioSamplingTooltip() { return '<center>Filter by parameters specific to <strong><em>biological <br>organisms</em></strong>: assemblage and taxonomic name.</center>';}
     static get assemblageTooltip() { return '<center>An association of <strong><em>interacting populations</em></strong> <br>of organisms in a given water body.</center>';}
     static get taxNameTooltip() { return '<center><strong><em>Genus name, species name</em></strong> <br>in binomial nomenclature.</center>';}
     static get showAGOLTooltip() { return '<center>The Water Quality Portal (WQP) Web Services conform to the format defined in the below referenced XML schema.</center>';}
     static get sortDataTooltip() { return '<center><strong><em>Sorts data</em></strong> by <em>organization</em>, <em>monitoringLocationID</em>, <br>and <em>activityID</em>. Sorting <strong>increases</strong> response <br>time. Do not check if you are manually sorting.</center>';}
-    static get dateRangeTooltip() { return '<center><strong><em>Start</strong></em> and <strong><em>end dates</strong></em> to be <br>used individually or together.</center>'}
+    static get dateRangeTooltip() { return '<center>Provide an event <strong><em>start date</strong></em> and/or event <strong><em>end date</strong></em> to filter by.</center>'}
     static get databasesTooltip() { return '<center>Select one or multiple <strong><em>databases</strong></em> from which the data <br>will be retrieved. <strong>All</strong> databases are searched by default.</center>'}
     static get dataDownloadTooltip() { return '<center><strong><em>Water monitoring data</strong></em> is delivered in a format and nomenclature <br>defined by the WQX Outbound Schema. <em>Metadata</em> on these <br>formats is displayed in Tables 4-12 of the User Guide.</center>';}
     static get fileFormatTooltip() { return '<center>Choose a <strong><em>file format</strong></em> to <br>download the result set.</center>';}
