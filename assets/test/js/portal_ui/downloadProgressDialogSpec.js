@@ -12,7 +12,7 @@ describe('Tests for DownloadProgressDialog', function () {
         document.body.appendChild(modalDiv);
         document.getElementById('download-status-modal').innerHTML = 
             '<div class="usa-modal__content">'+
-                '<h2 class="usa-modal__heading" id="download-modal-heading"></h2>'+
+                '<p class="usa-modal__heading" id="download-modal-heading"></p>'+
                 '<p id="download-modal-description"></p>'+         
                 '<ul class="usa-button-group" id="downloadButtons"></ul>'+
             '</div>'
