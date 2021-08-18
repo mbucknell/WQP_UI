@@ -44,22 +44,19 @@ export default class DownloadProgressDialog {
     }
 
 
-    buttonHtml(id, label) {
-        return '<button id="' + id + '" type="button" class="btn btn-default">' + label + '</button>';
+    buttonHtml(id, text) {
+        return '<li class="usa-button-group__item">' +
+        '<button type="button" class="usa-button" id="' + id + '" data-close-modal>' + text + '</button>' +
+        '</li>';
     }
 
     show(thisOpKind, dialogMessage) {
         var message = dialogMessage ? dialogMessage : 'Validating query ... Please wait.';
         this.opKind = thisOpKind;
 
-        this.el.find('.modal-footer').html('');
-        this.el.find('.modal-body').html(message);
-        this.el.find('.modal-header h4').html(DIALOG[this.opKind].title);
-        this.el.modal('show');
-    }
-
-    hide() {
-        this.el.modal('hide');
+        document.getElementById('downloadButtons').innerHTML = '';
+        document.getElementById('download-modal-description').innerHTML = message;
+        document.getElementById('download-modal-heading').innerHTML = (DIALOG[this.opKind].title);
     }
 
     updateProgress(counts, resultType, fileFormat, continueFnc) {
@@ -94,24 +91,17 @@ export default class DownloadProgressDialog {
         } else if (DIALOG[this.opKind].cancelDownload(totalCount, fileFormat)) {
             this.cancelProgress(getCountMessage() + DIALOG[this.opKind].cancelMessage);
         } else {
-            this.el.find('.modal-body').html(getCountMessage() + '<p>Click Continue to ' + DIALOG[this.opKind].continueMessage);
-            this.el.find('.modal-footer').html(this.buttonHtml('progress-cancel-btn', 'Cancel') +
-                this.buttonHtml('progress-continue-btn', 'Continue'));
-            $('#progress-cancel-btn').click(() => {
-                this.el.modal('hide');
-            });
-            $('#progress-continue-btn').click(() => {
-                this.el.modal('hide');
+            document.getElementById('download-modal-description').innerHTML = getCountMessage() + '<p>Click Continue to ' + DIALOG[this.opKind].continueMessage;
+            document.getElementById('downloadButtons').innerHTML = this.buttonHtml('closeDownloadModal', 'Cancel');
+            document.getElementById('downloadButtons').innerHTML += this.buttonHtml('continueButton', 'Continue');
+            document.getElementById('continueButton').onclick = function() {
                 continueFnc(totalCount);
-            });
+            };
         }
     }
 
     cancelProgress(message) {
-        this.el.find('.modal-body').html(message);
-        this.el.find('.modal-footer').html(this.buttonHtml('progress-ok-btn', 'Ok'));
-        $('#progress-ok-btn').click(() => {
-            this.el.modal('hide');
-        });
+        document.getElementById('download-modal-description').innerHTML = message;
+        document.getElementById('downloadButtons').innerHTML = this.buttonHtml('progressOkBtn', 'Ok');
     }
 }
