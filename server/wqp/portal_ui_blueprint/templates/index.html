@@ -32,7 +32,7 @@
     <div id="formIntroFooter">
   
       <div class="footer-flex">
-        <button class="usa-button usa-button--outline" v-on:click="closeIntro">Close Intro</button>
+        <button class="usa-button usa-button--outline" id="closeIntroButton" v-on:click="closeIntro">Close intro</button>
       </div>
   
   
@@ -147,8 +147,7 @@
               </div>
             </div>
             <div class="menu-buttons">
-              <button class="usa-button usa-button--outline">Clear Parameters</button>
-              <button class="usa-button" v-on:click="onPrev()">Previous</button>
+              <button class="usa-button usa-button--outline">Clear parameters</button>
               <button class="usa-button" v-on:click="onNext()">Next</button>
             </div>
           </div>
@@ -179,11 +178,11 @@
                 </fieldset>
             </div>
             <div class="formSection dateRange">
-              <label class="usa-label" for="basic-dates">Date range (mm/dd/yyyy) </label>
+              <label class="usa-label" for="basic-dates">Date Range </label>
                                     <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div id="basic-dates">
                 <div class="usa-form-group" id="startDate">
-                  <div class="usa-label" id="event-date-start-label" for="event-date-start">Event start
+                  <div class="usa-label" id="event-date-start-label" for="event-date-start">Event Start
                       date</div>
                   <div class="usa-hint" id="event-date-start-hint">mm/dd/yyyy</div>
                   <div class="usa-date-picker">
@@ -192,7 +191,7 @@
                   </div>
                 </div>
                 <div class="usa-form-group" id="endDate">
-                  <div class="usa-label" id="event-date-end-label" for="event-date-end">Event end
+                  <div class="usa-label" id="event-date-end-label" for="event-date-end">Event End
                       date</div>
                   <div class="usa-hint" id="event-date-end-hint">mm/dd/yyyy</div>
                   <div class="usa-date-picker">
@@ -218,8 +217,8 @@
                   data-placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter"></select>
               </div>
             </div>
-            <div class="menu-buttons">
-              <button class="usa-button usa-button--outline">Clear Filters</button>
+            <div-buttons">
+              <button class="usa-button usa-button--outline">Clear filters</button>
               <button class="usa-button" v-on:click="onPrev()">Previous</button>
               <button class="usa-button" v-on:click="onNext()">Next</button>
             </div>
@@ -240,28 +239,28 @@
                   <div class="usa-radio">
                     <input checked="checked" type="radio" class="result-type usa-radio__input" id="basic-sites"
                       type="radio" value="Station" name="basicRadio" />
-                    <label class="usa-radio__label" for="basic-sites">Site data only</label>
+                    <label class="usa-radio__label" for="basic-sites">Site Data Only</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-projects" type="radio" value="Project"
                       name="basicRadio" />
-                    <label class="usa-radio__label" for="basic-projects">Project data</label>
+                    <label class="usa-radio__label" for="basic-projects">Project Data</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-samples" type="radio" value="Result"
                       name="basicRadio" />
-                    <label class="usa-radio__label" for="basic-samples">Sample results (physical/chemical
+                    <label class="usa-radio__label" for="basic-samples">Sample Results (physical/chemical
                       metadata)</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-biosamples" type="radio" value="Result"
                       name="basicRadio" />
-                    <label class="usa-radio__label" for="basic-biosamples">Sample results (biological metadata)</label>
+                    <label class="usa-radio__label" for="basic-biosamples">Sample Results (biological metadata)</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-narrowsamples" type="radio" value="Result"
                       name="basicRadio" />
-                    <label class="usa-radio__label" for="basic-narrowsamples">Sample results (narrow)</label>
+                    <label class="usa-radio__label" for="basic-narrowsamples">Sample Results (narrow)</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-activity-input" type="radio" value="Activity"
@@ -278,11 +277,11 @@
                   <div class="usa-radio">
                     <input class="usa-radio__input" id="csv" type="radio" name="mimeType" value="csv"
                       checked="checked" />
-                    <label class="usa-radio__label" for="csv">Comma-separated</label>
+                    <label class="usa-radio__label" for="csv">Comma-Separated</label>
                   </div>
                   <div class="usa-radio">
                     <input class="usa-radio__input" id="tsv" type="radio" name="mimeType" value="tsv" />
-                    <label class="usa-radio__label" for="tsv">Tab-separated</label>
+                    <label class="usa-radio__label" for="tsv">Tab-Separated</label>
                   </div>
                   <div class="usa-radio">
                     <input class="usa-radio__input" id="xlsx" type="radio" name="mimeType" value="xlsx" />
@@ -292,11 +291,11 @@
             </div>
             <div class="usa-checkbox basicSortDataCheckbox">
               <input type="checkbox" id="sortDataBasic" aria-label="Checkbox for sort data parameter" />
-              <label class="usa-label" for="sortDataBasic">Sort data </label>
+              <label class="usa-label" for="sortDataBasic">Sort Data </label>
               <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               </div>
             <div class="menu-buttons">
-              <button class="usa-button usa-button--outline">Start Over</button>
+              <button class="usa-button usa-button--outline">Start over</button>
               <button class="usa-button" v-on:click="onPrev()">Previous</button>
               <button class="usa-button">Download</button>
             </div>
@@ -329,7 +328,7 @@
                     </button>
                   </h4>
                   <div id="locationaccordion" class="usa-accordion__content usa-prose">
-                    <div>Use the location parameters to describe the spatial extent of the desired dataset.
+                    <div>Specify location parameters to describe the spatial extent of the desired dataset.
                     </div>
                     <br>
                     <div class="grid-row grid-gap">
@@ -393,9 +392,6 @@
                                   aria-label="Third of three input boxes for point location parameter. Input box for longitude." />
                               </div>
                             </div>
-                            <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
-                              <use xlink:href="{{ 'img/sprite.svg#my_location' | asset_url }}"></use>
-                            </svg>
                             <div id="useMyLocation"></div>
                           </div>
                         </div>
@@ -484,6 +480,22 @@
                         </div>
                       </div>
                     </div>
+                    <div id="nldi-container">
+                      <button type="button" id="showNldiMap" class="usa-button usa-button--outline">Show upstream downstream mapper
+                      </button>
+                      <div id="nldiMapInfo">
+                        <p>Upstream/Downstream information can be used to help you determine where to collect water quality data based on the flow of water. 
+                        Select a feature source, and optionally search for a location. Then, click a feature to select upstream/downstream navigation and 
+                        enter a desired distance.
+                        </p>
+                      </div>
+                    </div>
+                    <div id="nldi-param-container">
+                        <input id="nldi-url" type="hidden" name="nldiurl" />
+                    </div>
+                    <div id="nldi-map-container">
+                      <div id="nldi-map"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -497,8 +509,7 @@
                     </button>
                   </h4>
                   <div id="filteraccordion" class="usa-accordion__content usa-prose">
-                    <div>Use the site and sampling parameters to describe the type of location where desired data was
-                      collected and information about the desired data.</div>
+                    <div>Specify data source, date range, and sampling filters to apply to the desired dataset.</div>
                     <br>
                     <div id="sampling-params" class="panel panel-default">
                       <div class="panel-body">
@@ -556,9 +567,7 @@
                                 <br>
                                 <div id="biological" class="subpanel">
                                   <div class="subpanel-heading">
-                                    <label class="usa-label" for="biological">Biological Parameters</label> 
-                                      <div class="tooltip" :title="bioSamplingTooltip" for="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                      </div>
+                                    <label class="usa-label" for="biological">Biological Parameters</label>
                                   </div>
                                   <div class="subpanel-body">
                                     <label class="usa-label" for="assemblage">Assemblage </label>
@@ -587,7 +596,7 @@
                               <div class="tablet:grid-col-4">
                                 <div id="date-row">
                                   <div id="start-date-select">
-                                    <label class="usa-label" for="date-row">Date range (mm/dd/yyyy) </label>
+                                    <label class="usa-label" for="date-row">Date Range </label>
                                     <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                     </div>
                                     <div>
@@ -611,7 +620,7 @@
                                 </div>
                                 <br>
                                 <div id="min-activities-parameters-div">
-                                  <label class="usa-label" forid="min-activities-div">Minimum sampling activities per site </label>
+                                  <label class="usa-label" forid="min-activities-div">Minimum Sampling Activities Per Site </label>
                                   <div class="tooltip" id="min-activities-div" :title="minSamplingTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                   </div>
                                   <div>
@@ -621,7 +630,7 @@
                                   </div>
                                 </div>
                                 <br>
-                                <label class="usa-label" forid="minresults-div">Minimum results per site </label>
+                                <label class="usa-label" forid="minresults-div">Minimum Results Per Site </label>
                                 <div class="tooltip" id="minresults-div" :title="minimumResultsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
@@ -647,7 +656,7 @@
                   </button>
                 </h4>
                 <div id="downloadaccordion" class="usa-accordion__content usa-prose">
-                  <div>Use the download parameters to specify download preferences.</div>
+                  <div>Specify a data type and file format to download.</div>
                   <br>
                   <div>
                     <div id="download-box" class="grid-row grid-gap">
@@ -685,11 +694,11 @@
                                 <div class="usa-radio">
                                   <input class="usa-radio__input" id="csv" type="radio" name="mimeType" value="csv"
                                     checked="checked" />
-                                  <label class="usa-radio__label" for="csv">Comma-separated</label>
+                                  <label class="usa-radio__label" for="csv">Comma-Separated</label>
                                 </div>
                                 <div class="usa-radio">
                                   <input class="usa-radio__input" id="tsv" type="radio" name="mimeType" value="tsv" />
-                                  <label class="usa-radio__label" for="tsv">Tab-separated</label>
+                                  <label class="usa-radio__label" for="tsv">Tab-Separated</label>
                                 </div>
                                 <div class="usa-radio">
                                   <input class="usa-radio__input" id="xlsx" type="radio" name="mimeType" value="xlsx" />
@@ -700,7 +709,7 @@
                             <br>
                             <div id="download-sorted-data-div">
                               <input type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter" />
-                              <label class="usa-label" for="download-sorted-data-div">Sort data </label>
+                              <label class="usa-label" for="download-sorted-data-div">Sort Data </label>
                               <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                               </div>
                             </div>
@@ -721,33 +730,33 @@
                             <div class="usa-radio">
                               <input checked="checked" type="radio" class="result-type usa-radio__input" id="sites"
                                 type="radio" value="Station" />
-                              <label class="usa-radio__label" for="sites">Site data only</label>
+                              <label class="usa-radio__label" for="sites">Site Data Only</label>
                             </div>
                             <div class="usa-radio">
                               <input class="result-type usa-radio__input" id="projects" type="radio" value="Project" />
-                              <label class="usa-radio__label" for="projects">Project data</label>
+                              <label class="usa-radio__label" for="projects">Project Data</label>
                             </div>
                             <div class="usa-radio">
                               <input class="result-type usa-radio__input" id="proj-mon-weight" type="radio"
                                 value="ProjectMonitoringLocationWeighting" />
                               <label class="usa-radio__label" for="proj-mon-weight">Project Monitoring Location
                                 Weighting
-                                data</label>
+                                Data</label>
                             </div>
                             <div class="usa-radio">
                               <input class="result-type usa-radio__input" id="samples" type="radio" value="Result" />
-                              <label class="usa-radio__label" for="samples">Sample results (physical/chemical
+                              <label class="usa-radio__label" for="samples">Sample Results (physical/chemical
                                 metadata)</label>
                             </div>
                             <div class="usa-radio">
                               <input class="result-type usa-radio__input" id="biosamples" type="radio" value="Result" />
-                              <label class="usa-radio__label" for="biosamples">Sample results (biological
+                              <label class="usa-radio__label" for="biosamples">Sample Results (biological
                                 metadata)</label>
                             </div>
                             <div class="usa-radio">
                               <input class="result-type usa-radio__input" id="narrowsamples" type="radio"
                                 value="Result" />
-                              <label class="usa-radio__label" for="narrowsamples">Sample results (narrow)</label>
+                              <label class="usa-radio__label" for="narrowsamples">Sample Results (narrow)</label>
                             </div>
                             <div class="usa-radio">
                               <input class="result-type usa-radio__input" id="activity-input" type="radio"
@@ -878,7 +887,7 @@
                           </div>
                           <a href="#download-status-modal" id="main-button" class="usa-button" type="submit"
                             aria-controls="example-modal-1">
-                            DOWNLOAD
+                            Download
                           </a>
                           <div class="usa-modal" id="download-status-modal" aria-labelledby="modal-1-heading"
                             aria-describedby="modal-1-description">

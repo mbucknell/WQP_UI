@@ -177,6 +177,11 @@ $(document).ready(function () {
         }
     });
 
+    const announcement = document.getElementById("siteAnnouncement")
+    const announcementcloseButton = document.getElementById("close-announcement")
+
+    announcementcloseButton.onclick = function() { announcement.remove() };
+
     // Set the loglevel
     if (Config.DEBUG) {
         log.setLevel('debug', false);
