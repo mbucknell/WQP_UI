@@ -47,10 +47,9 @@ L.control.FeatureSourceSelectControl = L.Control.extend({
             return '<input class="usa-radio__input" id="' + option.id + '" name= "nldi-selector" type="radio" value="' + option.id + '" ' + selected + '></input><label class="usa-radio__label" for="' + option.id + '">' + option.text +'</label>';
         };
 
-        let i = 0;
-        this.options.featureSourceOptions.forEach(() => {
+        this.options.featureSourceOptions.forEach((option) => {
             this._selectEl = L.DomUtil.create('div', 'usa-radio', container);
-            this._selectEl.innerHTML = addOption(this.options.featureSourceOptions[i]);
+            this._selectEl.innerHTML = addOption(option);
 
             if (this._initialFeatureSourceOption) {
                 this._featureSourceLayer = this._initialFeatureSourceOption.mapLayer;
@@ -59,7 +58,6 @@ L.control.FeatureSourceSelectControl = L.Control.extend({
 
             L.DomEvent.addListener(this._selectEl, 'change', this._changeFeatureSourceLayer, this);
             L.DomEvent.disableClickPropagation(this._selectEl);
-            i++;
         })
 
         container.title = 'Pick a NLDI feature source';

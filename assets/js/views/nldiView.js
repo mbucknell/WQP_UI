@@ -9,7 +9,7 @@ import axios from 'axios';
 /*
  * Creates the NHLD map.
  * The map is shown/hidden by clicking the Hide/Show Upstream Downstream Mapper button.
- * The also contains the Navigation selector.
+ * The map also contains the Navigation selector.
  * @param {Object} options
  *      @prop {String} mapDivId
  *      @prop {String} input
@@ -283,7 +283,7 @@ export default class NldiView {
         const undoImg = Config.STATIC_ENDPOINT;
 
         const searchControl = L.control.searchControl(Config.GEO_SEARCH_API_ENDPOINT);
-        const clearControl = L.easyButton('<img src="' + undoImg + '/img/undo.svg" alt="reset"/><div id="resetText">Reset</div>', this.clearHandler.bind(this), 'Clear the sites', {
+        const clearControl = L.easyButton('<img src="' + undoImg + '/img/usa-icons/undo.svg" alt="reset"/><div id="resetText">Reset</div>', this.clearHandler.bind(this), 'Clear the sites', {
             position: 'topright'
         });
 
