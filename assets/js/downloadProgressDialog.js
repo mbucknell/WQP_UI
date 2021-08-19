@@ -45,9 +45,7 @@ export default class DownloadProgressDialog {
 
 
     buttonHtml(id, text) {
-        return '<li class="usa-button-group__item">' +
-        '<button type="button" class="usa-button" id="' + id + '" data-close-modal>' + text + '</button>' +
-        '</li>';
+        return `<li class="usa-button-group__item"><button type="button" class="usa-button" id="${id}" data-close-modal>${text}</button></li>`;
     }
 
     show(thisOpKind, dialogMessage) {
@@ -94,9 +92,8 @@ export default class DownloadProgressDialog {
         } else if (DIALOG[this.opKind].cancelDownload(totalCount, fileFormat)) {
             this.cancelProgress(getCountMessage() + DIALOG[this.opKind].cancelMessage);
         } else {
-            document.getElementById('download-modal-description').innerHTML = getCountMessage() + '<p>Click Continue to ' + DIALOG[this.opKind].continueMessage;
-            document.getElementById('downloadButtons').innerHTML = this.buttonHtml('closeDownloadModal', 'Cancel');
-            document.getElementById('downloadButtons').innerHTML += this.buttonHtml('continueButton', 'Continue');
+            document.getElementById('download-modal-description').innerHTML = `${getCountMessage()}<p>Click Continue to ${DIALOG[this.opKind].continueMessage}`;
+            document.getElementById('downloadButtons').innerHTML = `${this.buttonHtml('closeDownloadModal', 'Cancel')}${this.buttonHtml('continueButton', 'Continue')}`;
             document.getElementById('continueButton').onclick = function() {
                 if(!document.getElementById('download-status-modal').hidden){
                     document.getElementById('download-status-modal').hidden = true;
