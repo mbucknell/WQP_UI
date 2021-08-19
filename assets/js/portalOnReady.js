@@ -190,11 +190,16 @@ $(document).ready(function () {
     }
 
     let $form = $('#params');
+    let $basicform = $('#paramsBasic');
 
     // Create sub views
     let downloadProgressDialog = new DownloadProgressDialog($('#download-status-modal'));
     let downloadFormView = new DownloadFormView({
         $form: $form,
+        downloadProgressDialog: downloadProgressDialog
+    });
+    let downloadBasicFormView = new DownloadFormView({
+        $basicform: $basicform,
         downloadProgressDialog: downloadProgressDialog
     });
     let siteMapView = new SiteMapView({
@@ -217,11 +222,20 @@ $(document).ready(function () {
 
     //Initialize subviews
     let initDownloadForm = downloadFormView.initialize();
+    let initDownloadFormBasic = downloadBasicFormView.initialize();
     // siteMapView.initialize();
     showAPIView.initialize();
     arcGisOnlineHelpView.initialize();
 
+    // TODO wqp-1723
     initDownloadForm.fail(function (jqxhr) {
+        let $dialog = $('#service-error-dialog');
+        if (jqxhr.status === 401 || jqxhr.status === 403) {
+            $dialog.find('.modal-body').html('No longer authorized to use the application. Please reload the page to login again');
+        }
+        $dialog.modal('show');
+    });
+    initDownloadFormBasic.fail(function (jqxhr) {
         let $dialog = $('#service-error-dialog');
         if (jqxhr.status === 401 || jqxhr.status === 403) {
             $dialog.find('.modal-body').html('No longer authorized to use the application. Please reload the page to login again');
