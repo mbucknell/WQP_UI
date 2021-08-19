@@ -101,7 +101,7 @@
               <label class="usa-label" for="countrycodeBasic">Country </label><div class="tooltip" class="control-label"
                             for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
-                <select multiple class="form-control" style="width: 50%" id="countrycodeBasic" name="countrycodeBasic"
+                <select multiple class="form-control" style="width: 50%" id="countrycodeBasic" name="countrycode"
                   data-placeholder="All Countries" aria-label="Input box for country parameter"></select>
               </div>
             </div>
@@ -109,7 +109,7 @@
               <label class="usa-label" for="statecodeBasic">State </label><div class="tooltip" class="control-label"
                             for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
-                <select multiple class="form-control" style="width: 50%" id="statecodeBasic" name="statecodeBasic"
+                <select multiple class="form-control" style="width: 50%" id="statecodeBasic" name="statecode"
                   data-placeholder="All States" aria-label="Input box for state parameter"></select>
               </div>
             </div>
@@ -117,7 +117,7 @@
               <label class="usa-label" for="countycodeBasic">County </label><div class="tooltip" class="control-label"
                               for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
-                <select multiple class="form-control" style="width: 50%" id="countycodeBasic" name="countycodeBasic"
+                <select multiple class="form-control" style="width: 50%" id="countycodeBasic" name="countycode"
                   data-placeholder="All Counties" aria-label="Input box for county parameter"></select>
               </div>
             </div>
@@ -134,11 +134,11 @@
               </div>
               <div class="grid-row" id="point-location-basic-input">
                 <div class="tablet:grid-col-1" id="point-location-basic-within">Within</div>
-                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="withinBasic"
+                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="within"
                   id="withinBasic" aria-label="First of three input boxes for point location parameter. Input box for number of miles from point."></input></div>
-                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="latBasic"
+                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="lat"
                   placeholder="0" size="7" id="latBasic" v-model="latBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
-                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="longBasic"
+                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="long"
                   placeholder="0" id="longBasic" v-model="lonBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
                 <div class="tablet:grid-col-4"><div id="useMyLocationBasic"></div><!-- <button id="useMyLocationBasic"
                   class="usa-button usa-button--outline" type="button">Use my location</button> --></div>
@@ -148,12 +148,12 @@
               <label class="usa-label" for="siteTypeBasic">Site Type </label>
                             <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
-                <select multiple class="form-control" style="width: 50%" id="siteTypeBasic" name="siteTypeBasic"
+                <select multiple class="form-control" style="width: 50%" id="siteTypeBasic" name="siteType"
                   data-placeholder="All Site Types" aria-label="Input box for site type parameter"></select>
               </div>
             </div>
             <div class="menu-buttons">
-              <button class="usa-button usa-button--outline" type="button">Clear parameters</button>
+              <button class="usa-button usa-button--outline reset-params" type="button">Clear parameters</button>
               <button class="usa-button" v-on:click="onNext()" type="button">Next</button>
             </div>
           </div>
@@ -165,7 +165,7 @@
             <div class="formSection">
               <label class="usa-label" for="dataSourceBasic">Data Source </label>
                               <div class="tooltip" :title="databasesTooltip" id="dataSourceBasic" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-                <fieldset class="usa-fieldset">
+                <fieldset class="usa-fieldset datasources-basic">
                   <div class="usa-checkbox">
                     <input class="datasources usa-checkbox__input" id="nwis-basic" type="checkbox" name="providers"
                       value="NWIS" checked />
@@ -212,7 +212,7 @@
                   <div>
                     <div>
                       <label>from: </label><input class="form-control usa-input" type="text" id="startDateLoBasic"
-                        name="startDateLoBasic" placeholder="All Dates" size="18"
+                        name="startDateLo" placeholder="All Dates" size="18"
                         aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
                     </div>
                   </div>
@@ -221,7 +221,7 @@
                   <div>
                     <div>
                       <label class="control-label" for="startDateHiBasic">to: </label> <input
-                        class="form-control usa-input" type="text" id="startDateHiBasic" name="startDateHiBasic"
+                        class="form-control usa-input" type="text" id="startDateHiBasic" name="startDateHi"
                         placeholder="All Dates" size="20"
                         aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
                     </div>
@@ -233,7 +233,7 @@
               <label class="usa-label" for="sampleMediaBasic">Sample Media </label>
                                 <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
-                <select multiple class="form-control" style="width: 50%" id="sampleMediaBasic" name="sampleMediaBasic"
+                <select multiple class="form-control" style="width: 50%" id="sampleMediaBasic" name="sampleMedia"
                   data-placeholder="All Sample Media" aria-label="Input box for sample media parameter"></select>
               </div>
             </div>
@@ -241,12 +241,12 @@
               <label class="usa-label" for="charGroupBasic">Characteristic Group </label>
                                 <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
-                <select multiple class="form-control" style="width: 50%" id="charGroupBasic" name="charGroupBasic"
+                <select multiple class="form-control" style="width: 50%" id="charGroupBasic" name="charGroup"
                   data-placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter"></select>
               </div>
             </div>
             <div>
-              <button class="usa-button usa-button--outline" type="button">Clear filters</button>
+              <button class="usa-button usa-button--outline reset-filters" type="button">Clear filters</button>
               <button class="usa-button" v-on:click="onPrev()" type="button">Previous</button>
               <button class="usa-button" v-on:click="onNext()" type="button">Next</button>
             </div>
@@ -254,45 +254,45 @@
           <div id="basicDownload" class="basicForm" v-show="stepThree">
             <p>Specify a data type and file format to download. Additional options are available in the <span class="advancedLink" v-on:click="toggleForm = false">Advanced Download</span>.
             </p>
-            <div class="formSection">
+            <div class="formSection download-box-input-div">
               <label class="usa-label" for="download-data-div">Data Profiles </label>
                           <div class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
                 <fieldset class="usa-fieldset">
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-organization" type="radio"
-                      value="Organization" name="basicRadio" />
+                      value="Organization"/>
                     <label class="usa-radio__label" for="basic-organization">Organization Data</label>
                   </div>
                   <div class="usa-radio">
                     <input checked="checked" type="radio" class="result-type usa-radio__input" id="basic-sites"
-                      type="radio" value="Station" name="basicRadio" />
+                      type="radio" value="Station"/>
                     <label class="usa-radio__label" for="basic-sites">Site Data Only</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-projects" type="radio" value="Project"
-                      name="basicRadio" />
+                    />
                     <label class="usa-radio__label" for="basic-projects">Project Data</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-samples" type="radio" value="Result"
-                      name="basicRadio" />
+                    />
                     <label class="usa-radio__label" for="basic-samples">Sample Results (physical/chemical
                       metadata)</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-biosamples" type="radio" value="Result"
-                      name="basicRadio" />
+                    />
                     <label class="usa-radio__label" for="basic-biosamples">Sample Results (biological metadata)</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-narrowsamples" type="radio" value="Result"
-                      name="basicRadio" />
+                    />
                     <label class="usa-radio__label" for="basic-narrowsamples">Sample Results (narrow)</label>
                   </div>
                   <div class="usa-radio">
                     <input class="result-type usa-radio__input" id="basic-activity-input" type="radio" value="Activity"
-                      name="basicRadio" />
+                    />
                     <label class="usa-radio__label" for="basic-activity-input">Sampling Activity</label>
                   </div>
                 </fieldset>
@@ -323,14 +323,14 @@
               <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               </div>
             <div class="menu-buttons">
-              <button class="usa-button usa-button--outline" type="button">Start over</button>
+              <button class="usa-button usa-button--outline" v-on:click="onStartOver()" id="startOver" type="button">Start over</button>
               <button class="usa-button" v-on:click="onPrev()"  type="button">Previous</button>
-              <a class="usa-button" href="#download-status-modal-basic" type="submit" aria-controls="download-status-modal-basic" data-open-modal>Download</a>
+              <a class="usa-button main-button" href="#download-status-modal-basic" type="submit" aria-controls="download-status-modal-basic" data-open-modal>Download</a>
               <div class="usa-modal" id="download-status-modal-basic" aria-labelledby="download-status-modal-basic-heading"
               aria-describedby="download-modal-basic-description">
               <div class="usa-modal__content">
                 <div class="usa-modal__main">
-                  <h2 class="usa-modal__heading" id="download-status-modal-basic-heading">
+                  <h2 class="usa-modal__heading" id="download-status-modal-basic-heading">Download Status
                   </h2>
                   <div class="usa-prose">
                     <p id="download-modal-basic-description"></p>
@@ -343,7 +343,7 @@
                 <button class="usa-button usa-modal__close" aria-label="Close this window"
                   data-close-modal>
 
-                    <img src="{{ 'img/usa-icons/close.svg' | asset_url }}"></img>
+                    <img src="{{ 'img/usa-icons/close.svg' | asset_url }}" alt="close"></img>
 
                 </button>
               </div>
@@ -714,7 +714,7 @@
                   <br>
                   <div>
                     <div id="download-box" class="grid-row grid-gap">
-                      <div id="download-box-input-div" class="grid-row grid-gap">
+                      <div id="download-box-input-div" class="grid-row grid-gap download-box-input-div">
                         <div id="data-type-parameters-div" class="tablet:grid-col-3">
                           <div class="panel-body">
                             <div class="form-group">
@@ -939,7 +939,7 @@
                               </div>
                             </div>
                           </div>
-                          <a href="#download-status-modal" id="main-button" class="usa-button" type="submit"
+                          <a href="#download-status-modal" id="main-button" class="usa-button main-button" type="submit"
                             aria-controls="download-status-modal" data-open-modal>
                             Download
                           </a>

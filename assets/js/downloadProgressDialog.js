@@ -39,10 +39,27 @@ const RESULT_TYPE_TO_TOTAL_COUNT_PROPERTY_MAP = {
 
 
 export default class DownloadProgressDialog {
-    constructor(el) {
+    constructor(el, formType) {
         this.el = el;
+        this.formType = formType;
     }
 
+    getFormElements(){
+        let elements;
+        if (this.formType == "advanced"){
+            elements = {'StatusModal': document.getElementById('download-status-modal'), 
+                'DownloadButtons': downloadButtons = document.getElementById('downloadButtons'),
+                'Description': document.getElementById('download-modal-description'),
+                'Heading': document.getElementById('download-modal-heading')};
+        }
+        else{
+            elements = {'StatusModal': document.getElementById('download-status-modal-basic'),
+            'DownloadButtons': document.getElementById('downloadButtonsBasic'),
+            'Description': document.getElementById('download-modal-basic-description'),
+            'Heading': document.getElementById('download-status-modal-basic-heading')};
+        }
+        return elements;
+    }
 
     buttonHtml(id, text) {
         return '<li class="usa-button-group__item">' +
@@ -51,18 +68,20 @@ export default class DownloadProgressDialog {
     }
 
     show(thisOpKind, dialogMessage) {
-        if(document.getElementById('download-status-modal').hidden){
-            document.getElementById('download-status-modal').hidden = false;
+        let elements = this.getFormElements();
+        if(elements['StatusModal'].hidden){
+            elements['StatusModal'].hidden = false;
         }
         var message = dialogMessage ? dialogMessage : 'Validating query ... Please wait.';
         this.opKind = thisOpKind;
 
-        document.getElementById('downloadButtons').innerHTML = '';
-        document.getElementById('download-modal-description').innerHTML = message;
-        document.getElementById('download-modal-heading').innerHTML = (DIALOG[this.opKind].title);
+        elements['DownloadButtons'].innerHTML = '';
+        elements['Description'].innerHTML = message;
+        elements['Heading'].innerHTML = (DIALOG[this.opKind].title);
     }
 
     updateProgress(counts, resultType, fileFormat, continueFnc) {
+        let elements = this.getFormElements();
         var totalCount = counts.total[RESULT_TYPE_TO_TOTAL_COUNT_PROPERTY_MAP[resultType]];
 
         var getCountMessage = function () {
@@ -94,29 +113,30 @@ export default class DownloadProgressDialog {
         } else if (DIALOG[this.opKind].cancelDownload(totalCount, fileFormat)) {
             this.cancelProgress(getCountMessage() + DIALOG[this.opKind].cancelMessage);
         } else {
-            document.getElementById('download-modal-description').innerHTML = getCountMessage() + '<p>Click Continue to ' + DIALOG[this.opKind].continueMessage;
-            document.getElementById('downloadButtons').innerHTML = this.buttonHtml('closeDownloadModal', 'Cancel');
-            document.getElementById('downloadButtons').innerHTML += this.buttonHtml('continueButton', 'Continue');
+            elements['Description'].innerHTML = getCountMessage() + '<p>Click Continue to ' + DIALOG[this.opKind].continueMessage;
+            elements['DownloadButtons'].innerHTML = this.buttonHtml('closeDownloadModal', 'Cancel');
+            elements['DownloadButtons'].innerHTML += this.buttonHtml('continueButton', 'Continue');
             document.getElementById('continueButton').onclick = function() {
-                if(!document.getElementById('download-status-modal').hidden){
-                    document.getElementById('download-status-modal').hidden = true;
+                if(!elements['StatusModal'].hidden){
+                    elements['StatusModal'].hidden = true;
                 }
                 continueFnc(totalCount);
             };
             document.getElementById('closeDownloadModal').onclick = function() {
-                if(!document.getElementById('download-status-modal').hidden){
-                    document.getElementById('download-status-modal').hidden = true;
+                if(!elements['StatusModal'].hidden){
+                    elements['StatusModal'].hidden = true;
                 }
             };
         }
     }
 
     cancelProgress(message) {
-        document.getElementById('download-modal-description').innerHTML = message;
-        document.getElementById('downloadButtons').innerHTML = this.buttonHtml('progressOkBtn', 'Ok');
+        let elements = this.getFormElements();
+        elements['Description'].innerHTML = message;
+        elements['DownloadButtons'].innerHTML = this.buttonHtml('progressOkBtn', 'Ok');
         document.getElementById('progressOkBtn').onclick = function() {
-            if(!document.getElementById('download-status-modal').hidden){
-                document.getElementById('download-status-modal').hidden = true;
+            if(!elements['StatusModal'].hidden){
+                elements['StatusModal'].hidden = true;
             }
         };
     }

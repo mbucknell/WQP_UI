@@ -83,10 +83,6 @@ export default class DownloadFormView {
             siteTypeModel : new CachedCodes({codes : 'sitetype'}),
             organizationModel : new CachedCodes({codes : 'organization'})
         });
-        const nldiView = new NldiView({
-            mapDivId : 'nldi-map',
-            input: 'nldi-url'
-        });
         const samplingParametersInputView = new SamplingParameterInputView({
             $container : this.$form.find('#sampling'),
             sampleMediaModel : new CachedCodes({codes: 'samplemedia'}),
@@ -97,7 +93,7 @@ export default class DownloadFormView {
             assemblageModel : new CachedCodes({codes: 'assemblage'})
         });
         this.dataDetailsView = new DataDetailsView({
-            $container : this.$form.find('#download-box-input-div'),
+            $container : this.$form.find('.download-box-input-div'),
             updateResultTypeAction : (resultType) => {
                 this.$form.attr('action', queryService.getFormUrl(resultType));
             }
@@ -129,9 +125,15 @@ export default class DownloadFormView {
         this.dataDetailsView.initialize();
         pointLocationInputView.initialize();
         boundingBoxInputView.initialize();
-        if (Config.NLDI_ENABLED) {
+
+        // Only create map for advanced form
+        if (Config.NLDI_ENABLED && this.$form.attr('id') == "params") {
+            const nldiView = new NldiView({
+                mapDivId : 'nldi-map',
+                input: 'nldi-url'
+            });
             nldiView.initialize(); 
-        } else {
+        } else if (this.$form.attr('id') == "params"){
             this.$form.find('#nldi-container').hide();
             this.$form.find('#nldi-map').hide();
         }
@@ -164,8 +166,37 @@ export default class DownloadFormView {
         });
 
         let $dataProviders = this.$form.find('#providers-select');
-        // Add click handler for reset button
-        this.$form.find('.reset-button').click(() => {
+        // Add click handler for clear parameters button
+        this.$form.find('.reset-params').click(() => {
+            $('#withinBasic').val('').trigger('change');
+            $('#latBasic').val('').trigger('change');
+            $('#longBasic').val('').trigger('change');
+            $('#countrycodeBasic').val(null).trigger('change');
+            $('#statecodeBasic').val(null).trigger('change');
+            $('#countycodeBasic').val(null).trigger('change');
+            $('#siteTypeBasic').val(null).trigger('change');
+            placeInputView.resetContainer();
+            pointLocationInputView.resetContainer();
+            siteParameterInputView.resetContainer();
+        });
+
+        // Add click handler for clear filters button
+        this.$form.find('.reset-filters').click(() => {
+            $('#startDateLoBasic').val('').trigger('change');
+            $('#startDateHiBasic').val('').trigger('change');
+            let $checkboxes = $('.datasources-basic').find(':input');
+            $checkboxes.each(function(checkbox){
+                $(this).attr('checked', true);
+            });
+            $('#siteCodeBasic').val(null).trigger('change');
+            $('#sampleMediaBasic').val(null).trigger('change');
+            $('#charGroupBasic').val(null).trigger('change');
+            samplingParametersInputView.resetContainer();
+            biologicalSamplingInputView.resetContainer();
+            this.dataDetailsView.resetContainer();
+        });
+
+        this.$form.find('#startOver').click(() => {
             placeInputView.resetContainer();
             pointLocationInputView.resetContainer();
             boundingBoxInputView.resetContainer();
@@ -173,12 +204,10 @@ export default class DownloadFormView {
             biologicalSamplingInputView.resetContainer();
             siteParameterInputView.resetContainer();
             this.dataDetailsView.resetContainer();
-            $dataProviders.val('');
-            $dataProviders.trigger('change');
         });
 
         // Set up the Download button
-        this.$form.find('#main-button').click((event) => {
+        this.$form.find('.main-button').click((event) => {
             const fileFormat = this.dataDetailsView.getMimeType();
             const resultType = this.dataDetailsView.getResultType();
             const queryParamArray = this.getQueryParamArray();
@@ -198,6 +227,7 @@ export default class DownloadFormView {
             event.preventDefault();
 
             if (!downloadFormController.validateDownloadForm(this.$form)) {
+                console.log("invalid")
                 return;
             }
 

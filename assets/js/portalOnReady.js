@@ -149,6 +149,21 @@ $(document).ready(function () {
                 }
                 this.showStepParameters()
               },
+              onStartOver(){
+                $('#paramsBasic')[0].reset();
+                $('#countrycodeBasic').val(null).trigger('change');
+                $('#statecodeBasic').val(null).trigger('change');
+                $('#countycodeBasic').val(null).trigger('change');
+                $('#siteTypeBasic').val(null).trigger('change');
+                $('#datasourceBasic').val(null).trigger('change');
+                $('#dataTypeBasic').val(null).trigger('change');
+                $('#fileFormatBasic').val(null).trigger('change');
+                $('#siteCodeBasic').val(null).trigger('change');
+                $('#sampleMediaBasic').val(null).trigger('change');
+                $('#charGroupBasic').val(null).trigger('change');
+                this.step = 0;
+                this.showStepParameters()
+              },
               showStepParameters() {
                 if (this.step === 0) {
                   this.stepOne = true;
@@ -193,14 +208,15 @@ $(document).ready(function () {
     let $basicform = $('#paramsBasic');
 
     // Create sub views
-    let downloadProgressDialog = new DownloadProgressDialog($('#download-status-modal'));
+    let downloadProgressDialog = new DownloadProgressDialog($('#download-status-modal'), 'advanced');
+    let downloadProgressDialogBasic = new DownloadProgressDialog($('#download-status-modal-basic'), 'basic');
     let downloadFormView = new DownloadFormView({
         $form: $form,
         downloadProgressDialog: downloadProgressDialog
     });
     let downloadBasicFormView = new DownloadFormView({
-        $basicform: $basicform,
-        downloadProgressDialog: downloadProgressDialog
+        $form: $basicform,
+        downloadProgressDialog: downloadProgressDialogBasic
     });
     let siteMapView = new SiteMapView({
         $container: $('#mapping-div'),
