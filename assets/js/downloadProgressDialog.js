@@ -48,7 +48,7 @@ export default class DownloadProgressDialog {
         let elements;
         if (this.formType == "advanced"){
             elements = {'StatusModal': document.getElementById('download-status-modal'), 
-                'DownloadButtons': downloadButtons = document.getElementById('downloadButtons'),
+                'DownloadButtons': document.getElementById('downloadButtons'),
                 'Description': document.getElementById('download-modal-description'),
                 'Heading': document.getElementById('download-modal-heading')};
         }

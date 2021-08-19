@@ -109,8 +109,6 @@ $(document).ready(function () {
                 'Filter Results',
                 'Download',
               ],
-            latBasic: '',
-            lonBasic: '',
             toggleForm: true,
             stepOne: true,
             stepTwo: false,
@@ -177,13 +175,6 @@ $(document).ready(function () {
                   this.stepOne = false;
                   this.stepTwo = false;
                   this.stepThree = true;
-                }
-              },
-              getlocation() {
-                if (window.navigator.geolocation && window.navigator.geolocation.getCurrentPosition) {
-                  if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition();
-                  }
                 }
               },
               closeIntro() {
