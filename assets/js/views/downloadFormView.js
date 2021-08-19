@@ -186,7 +186,7 @@ export default class DownloadFormView {
             $('#startDateHiBasic').val('').trigger('change');
             let $checkboxes = $('.datasources-basic').find(':input');
             $checkboxes.each(function(checkbox){
-                $(this).attr('checked', true);
+                $checkboxes[checkbox].checked = true;
             });
             $('#siteCodeBasic').val(null).trigger('change');
             $('#sampleMediaBasic').val(null).trigger('change');
