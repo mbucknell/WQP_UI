@@ -179,10 +179,133 @@ $(document).ready(function () {
               },
               closeIntro() {
                 $('#formIntro').hide();
-              }
+              },
+              syncForms() {
+                // country
+                var basicCountry = $('#countrycodeBasic').val();
+                $('#countrycode').val(basicCountry).trigger('change');
+
+                // state
+                var basicState = $('#statecodeBasic').val();
+                $('#statecode').val(basicState).trigger('change');
+
+                // county
+                var basicCounty = $('#countycodeBasic').val();
+                $('#countycode').val(basicCounty).trigger('change');
+
+                // site type
+                var basicSiteType = $('#siteTypeBasic').val();
+                $('#siteType').val(basicSiteType).trigger('change');
+                
+                // within
+                var basicWithin = $('#withinBasic').val();
+                $('#within').val(basicWithin).trigger('change');
+
+                // lat/long
+                var latitudeBasic = $('#latBasic').val();
+                $('#lat').val(latitudeBasic).trigger('change');
+                var longBasic = $('#longBasic').val();
+                $('#long').val(longBasic).trigger('change');
+
+                // dates
+                var startBasic = $('#startDateLoBasic').val();
+                $('#startDateLo').val(startBasic).trigger('change');
+                var endBasic = $('#EndDateLoBasic').val();
+                $('#startDateHi').val(endBasic).trigger('change');
+                
+                // sample media
+                var sampleBasic = $('#sampleMediaBasic').val();
+                $('#sampleMedia').val(sampleBasic).trigger('change');
+
+                // characteristic group
+                var charBasic = $('#charGroupBasic').val();
+                $('#characteristicType').val(charBasic).trigger('change');
+
+                // datasources
+                var nwisBasic = $('#nwis-basic')[0].checked;
+                $('#nwis')[0].checked = nwisBasic;
+
+                // data profiles
+                let selectedRadio;
+                // seeing radio is checked in the basic form
+                let radiobuttonsBasic = $('#dataProfilesBasic').find(':input');
+                for (const button in radiobuttonsBasic) {
+                  if (radiobuttonsBasic[button].checked === true) {
+                    selectedRadio = radiobuttonsBasic[button].id;
+                    break;
+                  }
+                }
+
+                // Setting checked radio in advanced form to false so there are not two selected
+                let radiobuttonsAdvanced = $('#dataprofiles').find(':input');
+                for (const button in radiobuttonsAdvanced) {
+                  if (radiobuttonsAdvanced[button].checked === true) {
+                    radiobuttonsAdvanced[button].checked = false;
+                    break;
+                  }
+                }
+
+                switch (selectedRadio) {
+                  case "basic-organization":
+                    $('#organization')[0].checked = true;
+                    break;
+                  case "basic-sites":
+                    $('#sites')[0].checked = true;
+                    break;
+                  case "basic-projects":
+                    $('#projects')[0].checked = true;
+                    break;
+                  case "basic-samples":
+                    $('#samples')[0].checked = true;
+                    break;
+                  case "basic-biosamples":
+                    $('#biosamples')[0].checked = true;
+                    break;
+                  case "basic-narrowsamples":
+                    $('#narrowsamples')[0].checked = true;
+                    break;
+                  case "basic-activity-input":
+                    $('#activity-input')[0].checked = true;
+                    break;
+                  }
+
+                // File Formats
+                /* let selectedFormatRadio;
+                // seeing radio is checked in the basic form
+                const formatbuttonsBasic = $('#fileFormatBasic').find(':input');
+                for (const button in formatbuttonsBasic) {
+                  if (formatbuttonsBasic[button].checked === true) {
+                    selectedRadio = formatbuttonsBasic[button].id;
+                    break;
+                  }
+                }
+
+                // Setting checked radio in advanced form to false so there are not two selected
+                const formatbuttonsAdvanced = $('#fileFormat').find(':input');
+                for (const button in formatbuttonsAdvanced) {
+                  if (formatbuttonsAdvanced[button].checked === true) {
+                    formatbuttonsAdvanced[button].checked = false;
+                    break;
+                  }
+                }
+
+                switch (selectedFormatRadio) {
+                  case "csvBasic":
+                    $('#csv')[0].checked = true;
+                    break;
+                  case "tsvBasic":
+                    $('#tsv')[0].checked = true;
+                    break;
+                  case "xlsxBasic":
+                    $('#xlsx')[0].checked = true;
+                    break;
+                  } */
+                }
         }
     });
 
+
+    // Handler for closing site announcement
     const announcement = document.getElementById("siteAnnouncement")
     const announcementcloseButton = document.getElementById("close-announcement")
 
