@@ -83,12 +83,12 @@ describe('Test PlaceInputView', function () {
     });
 
     it('Expects the county select2\'s to be immediately initialized when no initiliazation while the country and state select2 initializes after a successful fetch', function() {
-        expect(CascadedCodeSelect.prototype.initialize.calls.count()).toBe(1);
+        expect(CascadedCodeSelect.prototype.initialize.calls.count()).toBe(2);
         expect(CodeSelect.prototype.initialize).not.toHaveBeenCalled();
         fetchCountrySpy.resolve();
-        expect(CodeSelect.prototype.initialize).toHaveBeenCalled();
+        expect(CodeSelect.prototype.initialize.calls.count()).toBe(2);
         fetchStateSpy.resolve();
-        expect(CascadedCodeSelect.prototype.initialize.calls.count()).toBe(2);
+        expect(CascadedCodeSelect.prototype.initialize.calls.count()).toBe(4);
     });
 
     it('Expects that the returned promise is not resolved until both the countries and the US states have been successfully retrieved', function() {
