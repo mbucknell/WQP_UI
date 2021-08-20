@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated help text
 - Added NLDI upstream/downstream map
 - Added download modal to advanced form
+- Fixed advanced form radio button bugs
+- Update NLDI url for downloads
+- Query strings update when NLDI map returns sites
 
 ## [5.24.0](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.23.0...WQP_UI-5.24.0) - 2021-05-10
 ### Changed

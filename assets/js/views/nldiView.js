@@ -154,6 +154,8 @@ export default class NldiView {
                     self.map.addLayer(self.nldiSiteCluster);
 
                     self.updateNldiInput(nldiModel.getUrl('wqp'));
+                    // Update the api query urls
+                    $('#params').trigger('change');
                 })
                 .catch(function (error) {
                     // handle error
@@ -247,6 +249,8 @@ export default class NldiView {
         nldiModel.reset();
         this.cleanUpMaps();
         this.map.closePopup();
+        // Update the api query urls
+        $('#params').trigger('change');
     }
 
     /*
