@@ -51,7 +51,6 @@ export default class PointLocationInputView {
         let $lon = this.$container.find('#long');
         let $latBasic = $('#latBasic');
         let $lonBasic = $('#longBasic');
-        let basic = true;
 
         initializeInput($within);
         initializeInput($lat);

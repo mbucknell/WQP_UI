@@ -55,12 +55,21 @@ export default class DownloadFormView {
             keyParameter : 'statecode',
             parseKey : getStateFromCounty
         });
-        return new PlaceInputView({
-            $container : $('#place'),
-            countryModel : countryModel,
-            stateModel : stateModel,
-            countyModel : countyModel
-        });
+        if(this.$form.attr('id') == 'paramsBasic'){
+            return new PlaceInputView({
+                $container : $('#placeBasic'),
+                countryModel : countryModel,
+                stateModel : stateModel,
+                countyModel : countyModel
+            });
+        }else{
+            return new PlaceInputView({
+                $container : $('#place'),
+                countryModel : countryModel,
+                stateModel : stateModel,
+                countyModel : countyModel
+            });
+        }
     }
 
     /*
@@ -192,8 +201,6 @@ export default class DownloadFormView {
             $('#sampleMediaBasic').val(null).trigger('change');
             $('#charGroupBasic').val(null).trigger('change');
             samplingParametersInputView.resetContainer();
-            biologicalSamplingInputView.resetContainer();
-            this.dataDetailsView.resetContainer();
         });
 
         this.$form.find('#startOver').click(() => {
@@ -201,7 +208,6 @@ export default class DownloadFormView {
             pointLocationInputView.resetContainer();
             boundingBoxInputView.resetContainer();
             samplingParametersInputView.resetContainer();
-            biologicalSamplingInputView.resetContainer();
             siteParameterInputView.resetContainer();
             this.dataDetailsView.resetContainer();
         });

@@ -31,9 +31,6 @@ export default {
             return result === '0' ? '0' : result;
         };
 
-        console.log(countQueryJson);
-        console.log(Config.QUERY_URLS[resultType] + '/count?mimeType=json');
-
         $.ajax({
             url: Config.QUERY_URLS[resultType] + '/count?mimeType=json',
             method: 'POST',

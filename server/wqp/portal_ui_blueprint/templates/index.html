@@ -96,34 +96,35 @@
             <p>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are
               available in the <span class="advancedLink" v-on:click="toggleForm = false">Advanced Download</span>.
             </p>
-
-            <div class="formSection">
-              <label class="usa-label" for="countrycodeBasic">Country </label><div class="tooltip" class="control-label"
-                            for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-              <div>
-                <select multiple class="form-control" style="width: 50%" id="countrycodeBasic" name="countrycode"
-                  data-placeholder="All Countries" aria-label="Input box for country parameter"></select>
+            <div id="placeBasic">
+              <div class="formSection">
+                <label class="usa-label" for="countrycodeBasic">Country </label><div class="tooltip" class="control-label"
+                              for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                <div>
+                  <select multiple class="form-control" style="width: 50%" id="countrycodeBasic" name="countrycode"
+                    data-placeholder="All Countries" aria-label="Input box for country parameter"></select>
+                </div>
               </div>
-            </div>
-            <div class="formSection">
-              <label class="usa-label" for="statecodeBasic">State </label><div class="tooltip" class="control-label"
-                            for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-              <div>
-                <select multiple class="form-control" style="width: 50%" id="statecodeBasic" name="statecode"
-                  data-placeholder="All States" aria-label="Input box for state parameter"></select>
+              <div class="formSection">
+                <label class="usa-label" for="statecodeBasic">State </label><div class="tooltip" class="control-label"
+                              for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                <div>
+                  <select multiple class="form-control" style="width: 50%" id="statecodeBasic" name="statecode"
+                    data-placeholder="All States" aria-label="Input box for state parameter"></select>
+                </div>
               </div>
-            </div>
-            <div class="formSection">
-              <label class="usa-label" for="countycodeBasic">County </label><div class="tooltip" class="control-label"
-                              for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-              <div>
-                <select multiple class="form-control" style="width: 50%" id="countycodeBasic" name="countycode"
-                  data-placeholder="All Counties" aria-label="Input box for county parameter"></select>
+              <div class="formSection">
+                <label class="usa-label" for="countycodeBasic">County </label><div class="tooltip" class="control-label"
+                                for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                <div>
+                  <select multiple class="form-control" style="width: 50%" id="countycodeBasic" name="countycode"
+                    data-placeholder="All Counties" aria-label="Input box for county parameter"></select>
+                </div>
               </div>
-            </div>
-            <div class="formSection">
-              <label class="usa-label" for="point-location">Point Location </label><div class="tooltip"
-                              :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+              <div class="formSection">
+                <label class="usa-label" for="point-location">Point Location </label><div class="tooltip"
+                                :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+              </div>
             </div>
             <div class="grid-container" id="point-location-basic">
               <div class="grid-row">
@@ -137,9 +138,9 @@
                 <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="within"
                   id="withinBasic" aria-label="First of three input boxes for point location parameter. Input box for number of miles from point."></input></div>
                 <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="lat"
-                  placeholder="0" size="7" id="latBasic" v-model="latBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
+                  placeholder="0" size="7" id="latBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
                 <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="long"
-                  placeholder="0" id="longBasic" v-model="lonBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
+                  placeholder="0" id="longBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
                 <div class="tablet:grid-col-4"><div id="useMyLocationBasic"></div><!-- <button id="useMyLocationBasic"
                   class="usa-button usa-button--outline" type="button">Use my location</button> --></div>
               </div>
