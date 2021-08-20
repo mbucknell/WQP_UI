@@ -87,6 +87,7 @@ export default class DataDetailsView {
 
         this.$container.find('input.result-type:checked').prop('checked', false);
         $('#sites').prop('checked', true);
+        $('#basic-sites').prop('checked', true);
         $('#csv').prop('checked', true);
         $('#sorted').prop('checked', false);
         $('#hidden-sorted').prop('value', '');

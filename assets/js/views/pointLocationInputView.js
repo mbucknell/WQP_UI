@@ -18,7 +18,7 @@ export default class PointLocationInputView {
     }
 
     // GeoLocation easter egg.
-    updateMyLocation($lat, $lon, basic) {
+    updateMyLocation($lat, $lon) {
         var updateInputs = function(position) {
                 $lat.val(position.coords.latitude).trigger('change');
                 $lon.val(position.coords.longitude).trigger('change');
@@ -51,7 +51,6 @@ export default class PointLocationInputView {
         let $lon = this.$container.find('#long');
         let $latBasic = $('#latBasic');
         let $lonBasic = $('#longBasic');
-        let basic = true;
 
         initializeInput($within);
         initializeInput($lat);
@@ -66,10 +65,10 @@ export default class PointLocationInputView {
             $useMyLocationDivBasic.html('<button class="usa-button usa-button--outline" type="button">Use my location</button>');
             
             $useMyLocationDiv.find('button').click(() => {
-                this.updateMyLocation($lat, $lon, basic);
+                this.updateMyLocation($lat, $lon);
             });
             $useMyLocationDivBasic.find('button').click(() => {
-                this.updateMyLocation($latBasic, $lonBasic, basic);
+                this.updateMyLocation($latBasic, $lonBasic);
             });
         }
     }
