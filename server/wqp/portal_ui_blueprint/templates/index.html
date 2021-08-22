@@ -24,7 +24,7 @@
         <br>
         <p class="usa-alert__text">To download data complete the query below. Returning and experienced users
           may wish to
-          use the <span class="advancedLink" v-on:click="toggleForm = false; syncForms()">Advanced Download</span>.
+          use the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
         </p>
       </div>
     </div>
@@ -48,7 +48,7 @@
 <div class="tabs" aria-label="Two tabs to allow user to toggle between basic and advanced forms.">
   <div class="tab" aria-label="Tab for basic form. First of two tabs to allow user to toggle between basic and advanced forms.">
     <input type="radio" id="basic-tab" name="toggle-tabs" v-model="toggleForm" value="true">
-    <label for="basic-tab" class="tab-label">Basic</label>
+    <label for="basic-tab" class="tab-label" v-on:click="syncAtoBForm()">Basic</label>
     <div class="tab-panel">
       <div class="tab-content">
         <div id="basicForm">
@@ -94,7 +94,7 @@
 
           <div id="basicLocation" class="basicForm" v-show="stepOne">
             <p>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are
-              available in the <span class="advancedLink" v-on:click="toggleForm = false; syncForms()">Advanced Download</span>.
+              available in the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
             </p>
             <div id="placeBasic">
               <div class="formSection">
@@ -161,7 +161,7 @@
           <div id="basicFilterResults" class="basicForm" v-show="stepTwo">
             <p>Specify data source, date range, and sampling filters to apply to the desired dataset. Additional options
               are
-              available in the <span class="advancedLink" v-on:click="toggleForm = false; syncForms()">Advanced Download</span>.
+              available in the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
             </p>
             <div class="formSection">
               <label class="usa-label" for="dataSourceBasic">Data Source </label>
@@ -213,7 +213,7 @@
                   <div>
                     <label id="datesLabel" class="usa-label">Dates should be entered as mm-dd-yyyy, mm-yyyy, or yyyy</label></label>
                     <div>
-                      <label>from: </label><input class="form-control usa-input" type="text" id="startDateLoBasic"
+                      <label>from: </label><input class="form-control usa-input" type="text" id="startDateLoBasic" @blur="validate()"
                         name="startDateLo" placeholder="All Dates" size="18"
                         aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
                     </div>
@@ -223,7 +223,7 @@
                   <div>
                     <div>
                       <label class="control-label" for="startDateHiBasic">to: </label> <input
-                        class="form-control usa-input" type="text" id="startDateHiBasic" name="startDateHi"
+                        class="form-control usa-input" type="text" id="startDateHiBasic" name="startDateHi" @blur="validate()"
                         placeholder="All Dates" size="20"
                         aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
                     </div>
@@ -254,7 +254,7 @@
             </div>
           </div>
           <div id="basicDownload" class="basicForm" v-show="stepThree">
-            <p>Specify a data type and file format to download. Additional options are available in the <span class="advancedLink" v-on:click="toggleForm = false; syncForms()">Advanced Download</span>.
+            <p>Specify a data type and file format to download. Additional options are available in the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
             </p>
             <div class="formSection download-box-input-div">
               <label class="usa-label" for="download-data-div">Data Profiles </label>
@@ -302,8 +302,8 @@
             </div>
             <div class="formSection">
               <label class="usa-label" for="formatBasic">File Format </label>
-                              <div class="tooltip" :title="fileFormatTooltip" id="formatBasic" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-                <fieldset class="usa-fieldset">
+                <div class="tooltip" :title="fileFormatTooltip" id="formatBasic" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                <fieldset class="usa-fieldset" id="fileBasic">
                   <div class="usa-radio">
                     <input class="usa-radio__input" id="csv" type="radio" name="mimeType" value="csv"
                       checked="checked" />
@@ -363,7 +363,7 @@
 
   <div class="tab" aria-label="Tab for advanced form. Two of two tabs to allow user to toggle between basic and advanced forms.">
     <input type="radio" id="advanced-tab" name="toggle-tabs" v-model="toggleForm" value="false">
-    <label for="advanced-tab" class="tab-label" v-on:click="syncForms()">Advanced</label>
+    <label for="advanced-tab" class="tab-label" v-on:click="syncBtoAForm()">Advanced</label>
     <div class="tab-panel">
       <div class="tab-content">
         <div id="advancedForm">
@@ -540,9 +540,7 @@
                       <button type="button" id="showNldiMap" class="usa-button usa-button--outline">Show upstream downstream mapper
                       </button>
                       <div id="nldiMapInfo">
-                        <p>Upstream/Downstream information can be used to help you determine where to collect water quality data based on the flow of water. 
-                        Select a feature source, and optionally search for a location. Then, click a feature to select upstream/downstream navigation and 
-                        enter a desired distance.
+                        <p>Upstream/Downstream information can be used to help you determine where to collect water quality data based on the flow of water. Select a feature source, and optionally search for a location. Then, click a feature to select upstream/downstream navigation and enter a desired distance. These search criteria will be populated in your query.
                         </p>
                       </div>
                     </div>
