@@ -77,8 +77,8 @@ describe('Tests for SamplingParameterInputView', function() {
         expect(CodeSelect.prototype.initialize.calls.argsFor(0)[0].attr('id')).toEqual($sampleMedia.attr('id'));
 
         fetchCharacteristicTypeDeferred.resolve();
-        expect(CodeSelect.prototype.initialize.calls.count()).toBe(2);
-        expect(CodeSelect.prototype.initialize.calls.argsFor(1)[0].attr('id')).toEqual($characteristicType.attr('id'));
+        expect(CodeSelect.prototype.initialize.calls.count()).toBe(4);
+        expect(CodeSelect.prototype.initialize.calls.argsFor(2)[0].attr('id')).toEqual($characteristicType.attr('id'));
     });
 
     it('Expects that the pCode, min results, and dates are initialized if in the anchor url', () => {
