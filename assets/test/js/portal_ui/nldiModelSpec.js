@@ -87,13 +87,13 @@ describe('nldiModel', function() {
             .toEqual(`${Config.NLDI_SERVICES_ENDPOINT}nwissite/USGS-01010101/navigate/UT/dsSource?f=json&distance=12`);
     });
 
-    it('Expects getUrl without a distance parameter does not contain the distance query parameter', function() {
+    it('Expects getUrl without a distance parameter containts the distance query parameter 9999', function() {
         nldiModel.setData('featureSource', nldiModel.FEATURE_SOURCES[0]);
         nldiModel.setData('featureId', 'USGS-01010101');
         nldiModel.setData('navigation', nldiModel.NAVIGATION_MODES[2]);
 
         expect(nldiModel.getUrl('dsSource'))
-            .toEqual(`${Config.NLDI_SERVICES_ENDPOINT}nwissite/USGS-01010101/navigate/UT/dsSource?f=json&`);
+            .toEqual(`${Config.NLDI_SERVICES_ENDPOINT}nwissite/USGS-01010101/navigate/UT/dsSource?f=json&distance=9999`);
     });
 
     it('Expects setUrl will set the appropriate model elements', () => {

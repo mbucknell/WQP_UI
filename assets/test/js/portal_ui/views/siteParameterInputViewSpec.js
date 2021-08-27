@@ -74,7 +74,7 @@ describe('Tests for SiteParameterInputView', function() {
         expect(CodeSelect.prototype.initialize.calls.argsFor(0)[0].attr('id')).toEqual($siteType.attr('id'));
 
         fetchOrgDeferred.resolve();
-        expect(CodeSelect.prototype.initialize.calls.count()).toBe(2);
+        expect(CodeSelect.prototype.initialize.calls.count()).toBe(3);
         expect(CodeSelect.prototype.initialize.calls.argsFor(2)[0].attr('id')).toEqual($organization.attr('id'));
     });
 

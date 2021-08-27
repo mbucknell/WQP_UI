@@ -67,7 +67,7 @@ export default class DownloadProgressDialog {
 
     show(thisOpKind, dialogMessage) {
         let elements = this.getFormElements();
-        if(elements['StatusModal'].hidden){
+        if(elements['StatusModal'] && elements['StatusModal'].hidden){
             elements['StatusModal'].hidden = false;
         }
         var message = dialogMessage ? dialogMessage : 'Validating query ... Please wait.';
@@ -76,6 +76,13 @@ export default class DownloadProgressDialog {
         elements['DownloadButtons'].innerHTML = '';
         elements['Description'].innerHTML = message;
         elements['Heading'].innerHTML = (DIALOG[this.opKind].title);
+        // Remove existing continue and close buttons
+        if (document.getElementById('continueButton')){
+            document.getElementById('continueButton').remove();
+        }
+        if (document.getElementById('closeDownloadModal')){
+            document.getElementById('closeDownloadModal').remove();
+        }
     }
 
     updateProgress(counts, resultType, fileFormat, continueFnc) {
@@ -114,13 +121,13 @@ export default class DownloadProgressDialog {
             elements['Description'].innerHTML = `${getCountMessage()}<p>Click Continue to ${DIALOG[this.opKind].continueMessage}`;
             elements['DownloadButtons'].innerHTML = `${this.buttonHtml('closeDownloadModal', 'Cancel')}${this.buttonHtml('continueButton', 'Continue')}`;
             document.getElementById('continueButton').onclick = function() {
-                if(!elements['StatusModal'].hidden){
+                if(elements['StatusModal'] && !elements['StatusModal'].hidden){
                     elements['StatusModal'].hidden = true;
                 }
                 continueFnc(totalCount);
             };
             document.getElementById('closeDownloadModal').onclick = function() {
-                if(!elements['StatusModal'].hidden){
+                if(elements['StatusModal'] && !elements['StatusModal'].hidden){
                     elements['StatusModal'].hidden = true;
                 }
             };
