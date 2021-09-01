@@ -4,10 +4,10 @@ import ArcGisOnlineHelpView from './views/arcGisOnlineHelpView';
 import DownloadFormView from './views/downloadFormView';
 import ShowAPIView from './views/showAPIView';
 import SiteMapView from './views/siteMapView';
-import DownloadProgressDialog from './downloadProgressDialog';
+import DownloadProgressDialog from './DownloadProgressDialog.vue';
 import { initTooltip } from './uswdsComponents/uswdsTooltip';
-import * as dateValidator from './dateValidator';
 import Vue from 'vue';
+import DateValidator from './DateValidator.vue';
 
 $(document).ready(function () {
 
@@ -31,10 +31,14 @@ $(document).ready(function () {
     $("#basicLocation").show();
     $("#basicFilterResults").hide();
     $("#basicDownload").hide();
-    
+
     const forms = new Vue({
         el: '#forms',
         delimiters: ['[[', ']]'],
+        components: {
+          "date-validator": DateValidator,
+          "download-progress-dialog": DownloadProgressDialog,
+        },
         props: {
             // Show step labels
             showLabels: {
@@ -453,11 +457,13 @@ $(document).ready(function () {
                 let $startDateBasic =  $('#startDateLoBasic').val();
                 let $endDateBasic = $('#startDateHiBasic').val();
 
-                let start = dateValidator.format($startDateBasic, true)
-                let end = dateValidator.format($endDateBasic, false)
-
-                $('#startDateLoBasic').val(start).trigger('change');
-                $('#startDateHiBasic').val(end).trigger('change');
+                this.$nextTick(function() {
+                  // DOM is now updated
+                  let start = this.$refs.datevalidator.format($startDateBasic, true);
+                  let end = this.$refs.datevalidator.format($endDateBasic, false);
+                  $('#startDateLoBasic').val(start).trigger('change');
+                  $('#startDateHiBasic').val(end).trigger('change');
+                });
               }
         }
     });
@@ -479,9 +485,23 @@ $(document).ready(function () {
     let $form = $('#params');
     let $basicform = $('#paramsBasic');
 
+    // let form = document.getElementById('params');
+    // let basicForm = document.getElementById('basicParams');
+
     // Create sub views
-    let downloadProgressDialog = new DownloadProgressDialog($('#download-status-modal'), 'advanced');
-    let downloadProgressDialogBasic = new DownloadProgressDialog($('#download-status-modal-basic'), 'basic');
+    let downloadProgressClass = Vue.extend(DownloadProgressDialog);
+    let downloadProgressDialog = new downloadProgressClass({
+      propsData:{
+        el: document.getElementById('download-status-modal'), 
+        formType: 'advanced'
+      }
+    });
+    let downloadProgressDialogBasic = new downloadProgressClass({
+      propsData:{
+        el: document.getElementById('download-status-modal-basic'), 
+        formType: 'basic'
+      }
+    });
     let downloadFormView = new DownloadFormView({
         $form: $form,
         downloadProgressDialog: downloadProgressDialog

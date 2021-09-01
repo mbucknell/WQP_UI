@@ -1,4 +1,4 @@
-import downloadFormController from '../downloadFormController';
+// import downloadFormController from '../downloadFormController';
 import BiologicalSamplingInputView from './biologicalSamplingInputView';
 import BoundingBoxInputView from './boundingBoxInputView';
 import DataDetailsView from './dataDetailsView';
@@ -232,10 +232,10 @@ export default class DownloadFormView {
 
             event.preventDefault();
 
-            if (!downloadFormController.validateDownloadForm(this.$form)) {
-                console.log("invalid")
-                return;
-            }
+            // if (!downloadFormController.validateDownloadForm(this.$form)) {
+            //     console.log("invalid")
+            //     return;
+            // }
 
             window._gaq.push([
                 '_trackEvent',
@@ -262,7 +262,7 @@ export default class DownloadFormView {
      * @return {Boolean}
      */
     validateDownloadForm() {
-        return downloadFormController.validateDownloadForm(this.$form);
+        // return downloadFormController.validateDownloadForm(this.$form);
     }
 
     /*

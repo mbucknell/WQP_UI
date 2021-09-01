@@ -1,4 +1,4 @@
-import * as dateValidator from '../dateValidator';
+// import * as dateValidator from '../dateValidator';
 import InputValidation from './inputValidationView';
 import { CodeSelect, PagedCodeSelect } from './portalViews';
 
@@ -118,17 +118,17 @@ export default class SamplingParameterInputView {
         });
         new InputValidation({
             inputEl: $startDate,
-            validationFnc: dateValidator.validate,
-            updateFnc: function (value) {
-                return dateValidator.format(value, true);
-            }
+            // validationFnc: dateValidator.validate,
+            // updateFnc: function (value) {
+            //     return dateValidator.format(value, true);
+            // }
         });
         new InputValidation({
             inputEl: $endDate,
-            validationFnc: dateValidator.validate,
-            updateFnc: function (value) {
-                return dateValidator.format(value, false);
-            }
+            // validationFnc: dateValidator.validate,
+            // updateFnc: function (value) {
+            //     return dateValidator.format(value, false);
+            // }
         });
 
         return fetchComplete;
