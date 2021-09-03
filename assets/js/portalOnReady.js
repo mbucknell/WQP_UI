@@ -1,9 +1,9 @@
 import log from 'loglevel';
 import { TOOLTIP } from './tooltipDefinitions';
-import ArcGisOnlineHelpView from './views/arcGisOnlineHelpView';
-import DownloadFormView from './views/downloadFormView';
-import ShowAPIView from './views/showAPIView';
-import SiteMapView from './views/siteMapView';
+import ArcGisOnlineHelpView from './views/ArcGisOnlineHelpView.vue';
+import DownloadFormView from './views/DownloadFormView.vue';
+import ShowAPIView from './views/ShowAPIView.vue';
+import SiteMapView from './views/SiteMapView.vue';
 import DownloadProgressDialog from './DownloadProgressDialog.vue';
 import { initTooltip } from './uswdsComponents/uswdsTooltip';
 import Vue from 'vue';
@@ -16,21 +16,22 @@ $(document).ready(function () {
     $('#dataTypeBasic').select2();
     $('#fileFormatBasic').select2();
 
-    $('.index-box-primary').click(function () {
-      window.location = $(this).find('a').attr('href');
-      return false;
-    });
-    $('.index-box-secondary').click(function () {
-      window.location = $(this).find('a').attr('href');
-    });
-    $('.index-box-secondary .interior-list').click(function () {
-      window.location = $(this).find('a').attr('href');
-    });
+    ////// These might be old, there is no element with these class names in any other files/////////
+    // $('.index-box-primary').click(function () {
+    //   window.location = $(this).find('a').attr('href');
+    //   return false;
+    // });
+    // $('.index-box-secondary').click(function () {
+    //   window.location = $(this).find('a').attr('href');
+    // });
+    // $('.index-box-secondary .interior-list').click(function () {
+    //   window.location = $(this).find('a').attr('href');
+    // });
 
     // showing Location Parameters first for basic form
-    $("#basicLocation").show();
-    $("#basicFilterResults").hide();
-    $("#basicDownload").hide();
+    document.querySelector("#basicLocation").style.display = "block";
+    document.querySelector("#basicFilterResults").style.display = "none";
+    document.querySelector("#basicDownload").style.display = "none";
 
     const forms = new Vue({
         el: '#forms',
@@ -38,6 +39,9 @@ $(document).ready(function () {
         components: {
           "date-validator": DateValidator,
           "download-progress-dialog": DownloadProgressDialog,
+          ArcGisOnlineHelpView,
+          SiteMapView,
+          ShowAPIView,
         },
         props: {
             // Show step labels
@@ -125,11 +129,15 @@ $(document).ready(function () {
             this.$nextTick(function() {
               // DOM is now updated
 
-              // Identifying all tooltips
+              //Identifying all tooltips
               let elem = $(".tooltip")
               for (const el of elem) {
                   initTooltip(elem);
               }
+              // let elem = document.querySelectorAll(".tooltip");
+              // elem.forEach(el => {
+              //   initTooltip(el)
+              // })
           });
         },
         methods: {
@@ -153,17 +161,25 @@ $(document).ready(function () {
                 this.showStepParameters()
               },
               onStartOver(){
-                $('#paramsBasic')[0].reset();
-                $('#countrycodeBasic').val(null).trigger('change');
-                $('#statecodeBasic').val(null).trigger('change');
-                $('#countycodeBasic').val(null).trigger('change');
-                $('#siteTypeBasic').val(null).trigger('change');
-                $('#datasourceBasic').val(null).trigger('change');
-                $('#dataTypeBasic').val(null).trigger('change');
-                $('#fileFormatBasic').val(null).trigger('change');
-                $('#siteCodeBasic').val(null).trigger('change');
-                $('#sampleMediaBasic').val(null).trigger('change');
-                $('#charGroupBasic').val(null).trigger('change');
+                document.querySelector('#paramsBasic').reset();
+                document.querySelector('#countrycodeBasic').value = null;
+                document.querySelector('#countrycodeBasic').dispatchEvent(new Event('change'));
+                document.querySelector('#statecodeBasic').value = null;
+                document.querySelector('#statecodeBasic').dispatchEvent(new Event('change'));
+                document.querySelector('#countycodeBasic').value = null;
+                document.querySelector('#countycodeBasic').dispatchEvent(new Event('change'));
+                document.querySelector('#siteTypeBasic').value = null;
+                document.querySelector('#siteTypeBasic').dispatchEvent(new Event('change'));
+                document.querySelector('#dataSourceBasic').value = null;
+                document.querySelector('#dataSourceBasic').dispatchEvent(new Event('change'));
+                document.querySelector('#dataProfilesBasic').value = null;
+                document.querySelector('#dataProfilesBasic').dispatchEvent(new Event('change'));
+                document.querySelector('#formatBasic').value = null;
+                document.querySelector('#formatBasic').dispatchEvent(new Event('change'));
+                document.querySelector('#sampleMediaBasic').value = null;
+                document.querySelector('#sampleMediaBasic').dispatchEvent(new Event('change'));
+                document.querySelector('#charGroupBasic').value = null;
+                document.querySelector('#charGroupBasic').dispatchEvent(new Event('change'));
                 this.step = 0;
                 this.showStepParameters()
               },
@@ -183,238 +199,296 @@ $(document).ready(function () {
                 }
               },
               closeIntro() {
-                $('#formIntro').hide();
+                document.querySelector('#formIntro').style.display = "none";
               },
               syncBtoAForm() {
                 // country
-                var basicCountry = $('#countrycodeBasic').val();
-                $('#countrycode').val(basicCountry).trigger('change');
+                var basicCountry = document.querySelector('#countrycodeBasic').value;
+                var countrycode = document.querySelector('#countrycode')
+                countrycode.value = basicCountry;
+                countrycode.dispatchEvent(new Event('change'));
 
                 // state
-                var basicState = $('#statecodeBasic').val();
-                $('#statecode').val(basicState).trigger('change');
+                var basicState = document.querySelector('#statecodeBasic').value;
+                var statecode = document.querySelector('#statecode');
+                statecode.value = basicState;
+                statecode.dispatchEvent(new Event('change'));
 
                 // site type
-                var basicSiteType = $('#siteTypeBasic').val();
-                $('#siteType').val(basicSiteType).trigger('change');
+                var basicSiteType = document.querySelector('#siteTypeBasic').value;
+                var siteType = document.querySelector('#siteType');
+                siteType.value = basicSiteType;
+                siteType.dispatchEvent(new Event('change'));
                 
                 // within
-                var basicWithin = $('#withinBasic').val();
-                $('#within').val(basicWithin).trigger('change');
+                var basicWithin = document.querySelector('#withinBasic').value;
+                var within = document.querySelector('#within');
+                within.value = basicWithin;
+                within.dispatchEvent(new Event('change'));
 
                 // lat/long
-                var latitudeBasic = $('#latBasic').val();
-                $('#lat').val(latitudeBasic).trigger('change');
-                var longBasic = $('#longBasic').val();
-                $('#long').val(longBasic).trigger('change');
+                var latitudeBasic = document.querySelector('#latBasic').value;
+                var lat = document.querySelector('#lat');
+                lat.value = latitudeBasic;
+                lat.dispatchEvent(new Event('change'));
+                var longBasic = document.querySelector('#longBasic').value;
+                var long = document.querySelector('#long');
+                long.value = longBasic;
+                long.dispatchEvent(new Event('change'));
 
                 // dates
-                var startBasic = $('#startDateLoBasic').val();
-                $('#startDateLo').val(startBasic).trigger('change');
-                var endBasic = $('#startDateHiBasic').val();
-                $('#startDateHi').val(endBasic).trigger('change');
+                var startBasic = document.querySelector('#startDateLoBasic').value;
+                var startDateLo = document.querySelector('#startDateLo');
+                startDateLo.value = startBasic;
+                startDateLo.dispatchEvent(new Event('change'));
+                var endBasic = document.querySelector('#startDateHiBasic').value;
+                var startDateHi = document.querySelector('#startDateHi');
+                startDateHi.value = endBasic;
+                startDateHi.dispatchEvent(new Event('change'));
                 
                 // sample media
-                var sampleBasic = $('#sampleMediaBasic').val();
-                $('#sampleMedia').val(sampleBasic).trigger('change');
+                var sampleBasic = document.querySelector('#sampleMediaBasic').value;
+                var sampleMedia = document.querySelector('#sampleMedia');
+                sampleMedia.value = sampleBasic;
+                sampleMedia.dispatchEvent(new Event('change'));
 
                 // characteristic group
-                var charBasic = $('#charGroupBasic').val();
-                $('#characteristicType').val(charBasic).trigger('change');
+                var charBasic = document.querySelector('#charGroupBasic').value;
+                var charType = document.querySelector('#characteristicType');
+                charType.value = charBasic;
+                charType.dispatchEvent(new Event('change'));
 
                 // datasources
-                var nwisBasic = $('#nwis-basic')[0].checked;
-                $('#nwis')[0].checked = nwisBasic;
-                $('#nwis').trigger('change');
-                var stewardsBasic = $('#stewards-basic')[0].checked;
-                $('#stewards')[0].checked = stewardsBasic;
-                $('#stewards').trigger('change');
-                var storetBasic = $('#storet-basic')[0].checked;
-                $('#storet')[0].checked = storetBasic;
-                $('#storet').trigger('change');
+                var nwisBasic = document.querySelector('#nwis-basic').checked;
+                var nwis = document.querySelector('#nwis');
+                nwis.checked = nwisBasic;
+                nwis.dispatchEvent(new Event('change'));
+                var stewardsBasic = document.querySelector('#stewards-basic').checked;
+                var stewards = document.querySelector('#stewards');
+                stewards.checked = stewardsBasic;
+                stewards.dispatchEvent(new Event('change'));
+                var storetBasic = document.querySelector('#storet-basic').checked;
+                var storet = document.querySelector('#storet');
+                storet.checked = storetBasic;
+                storet.dispatchEvent(new Event('change'));
 
                 // county
-                var basicCounty = $('#countycodeBasic').val();
-                $('#countycode').val(basicCounty[0]).trigger('change');
+                var basicCounty = document.querySelector('#countycodeBasic').value;
+                var countycode = document.querySelector('#countycode');
+                countycode.value = basicCounty[0];
+                countycode.dispatchEvent(new Event('change'));
 
                 // sort
-                var sortedBasic = $('#sortDataBasic')[0].checked;
-                $('#sorted')[0].checked = sortedBasic;
+                var sortedBasic = document.querySelector('#sortDataBasic').checked;
+                var sorted = document.querySelector('#sorted')
+                sorted.checked = sortedBasic;
 
                 // data profiles
                 let selectedRadio;
                 // seeing radio is checked in the basic form
-                let radiobuttonsBasic = $('#dataProfilesBasic').find(':input');
-                for (const button in radiobuttonsBasic) {
-                  if (radiobuttonsBasic[button].checked === true) {
-                    selectedRadio = radiobuttonsBasic[button].id;
+                let radiobuttonsBasic = document.querySelector('#dataProfilesBasic');
+                let radiobuttonsInput = radiobuttonsBasic.querySelectorAll('input');
+                for (const button in radiobuttonsInput) {
+                  if (radiobuttonsInput[button].checked === true) {
+                    selectedRadio = radiobuttonsInput[button].id;
                     break;
                   }
                 }
 
                 // Setting checked radio in advanced form to false so there are not two selected
-                let radiobuttonsAdvanced = $('#dataprofiles').find(':input');
-                for (const button in radiobuttonsAdvanced) {
-                  if (radiobuttonsAdvanced[button].checked === true) {
-                    radiobuttonsAdvanced[button].checked = false;
+                let radiobuttonsAdvanced = document.querySelector('#dataprofiles')
+                let radiobuttonsAdvancedInput = radiobuttonsAdvanced.querySelectorAll('input');
+                for (const button in radiobuttonsAdvancedInput) {
+                  if (radiobuttonsAdvancedInput[button].checked === true) {
+                    radiobuttonsAdvancedInput[button].checked = false;
                     break;
                   }
                 }
 
                 switch (selectedRadio) {
                   case "basic-organization":
-                    $('#organization')[0].checked = true;
+                    document.querySelector('#organization').checked = true;
                     break;
                   case "basic-sites":
-                    $('#sites')[0].checked = true;
+                    document.querySelector('#sites').checked = true;
                     break;
                   case "basic-projects":
-                    $('#projects')[0].checked = true;
+                    document.querySelector('#projects').checked = true;
                     break;
                   case "basic-samples":
-                    $('#samples')[0].checked = true;
+                    document.querySelector('#samples').checked = true;
                     break;
                   case "basic-biosamples":
-                    $('#biosamples')[0].checked = true;
+                    document.querySelector('#biosamples').checked = true;
                     break;
                   case "basic-narrowsamples":
-                    $('#narrowsamples')[0].checked = true;
+                    document.querySelector('#narrowsamples').checked = true;
                     break;
                   case "basic-activity-input":
-                    $('#activity-input')[0].checked = true;
+                    document.querySelector('#activity-input').checked = true;
                     break;
                   }
 
                 // File Formats
                 let selectedFormatRadio;
                 // seeing radio is checked in the basic form
-                const formatbuttonsBasic = $('#fileBasic').find(':input');
-                for (const button in formatbuttonsBasic) {
-                  if (formatbuttonsBasic[button].checked === true) {
-                    selectedFormatRadio = formatbuttonsBasic[button].id;
+                const formatbuttonsBasic = document.querySelector('#fileBasic');
+                let formatbuttonsBasicInput = formatbuttonsBasic.querySelectorAll('input');
+                for (const button in formatbuttonsBasicInput) {
+                  if (formatbuttonsBasicInput[button].checked === true) {
+                    selectedFormatRadio = formatbuttonsBasicInput[button].id;
                     break;
                   }
                 }
 
                 // Setting checked radio in advanced form to false so there are not two selected
-                const formatbuttonsAdvanced = $('#fileFormat').find(':input');
-                for (const button in formatbuttonsAdvanced) {
-                  if (formatbuttonsAdvanced[button].checked === true) {
-                    formatbuttonsAdvanced[button].checked = false;
+                const formatbuttonsAdvanced = document.querySelector('#fileFormat')
+                let formatbuttonsAdvancedInput = formatbuttonsAdvanced.querySelectorAll('input');
+                for (const button in formatbuttonsAdvancedInput) {
+                  if (formatbuttonsAdvancedInput[button].checked === true) {
+                    formatbuttonsAdvancedInput[button].checked = false;
                     break;
                   }
                 }
 
                 switch (selectedFormatRadio) {
                   case "csv":
-                    $('#csvAdv')[0].checked = true;
+                    document.querySelector('#csvAdv').checked = true;
                     break;
                   case "tsv":
-                    $('#tsvAdv')[0].checked = true;
+                    document.querySelector('#tsvAdv').checked = true;
                     break;
                   case "xlsx":
-                    $('#xlsxAdv')[0].checked = true;
+                    document.querySelector('#xlsxAdv').checked = true;
                     break;
                   }
               },
               syncAtoBForm() {
                 // country
-                var basicCountry = $('#countrycode').val();
-                $('#countrycodeBasic').val(basicCountry).trigger('change');
+                var basicCountry = document.querySelector('#countrycode').value;
+                var countycodeBasic = document.querySelector('#countrycodeBasic');
+                countrycodeBasic.value = basicCountry;
+                countrycodeBasic.dispatchEvent(new Event('change'));
 
                 // state
-                var basicState = $('#statecode').val();
-                $('#statecodeBasic').val(basicState).trigger('change');
+                var basicState = document.querySelector('#statecode').value;
+                var statecodeBasic = document.querySelector('#statecodeBasic');
+                statecodeBasic.value = basicState;
+                statecodeBasic.dispatchEvent(new Event('change'));
 
                 // site type
-                var basicSiteType = $('#siteType').val();
-                $('#siteTypeBasic').val(basicSiteType).trigger('change');
+                var basicSiteType = document.querySelector('#siteType').value;
+                var siteTypeBasic = document.querySelector('#siteTypeBasic');
+                siteTypeBasic.value = basicSiteType;
+                siteTypeBasic.dispatchEvent(new Event('change'));
                 
                 // within
-                var basicWithin = $('#within').val();
-                $('#withinBasic').val(basicWithin).trigger('change');
+                var basicWithin = document.querySelector('#within').value;
+                var withinBasic = document.querySelector('#withinBasic');
+                withinBasic.value = basicWithin;
+                withinBasic.dispatchEvent(new Event('change'));
 
                 // lat/long
-                var latitudeBasic = $('#lat').val();
-                $('#latBasic').val(latitudeBasic).trigger('change');
-                var longBasic = $('#long').val();
-                $('#longBasic').val(longBasic).trigger('change');
+                var latitudeBasic = document.querySelector('#lat').value;
+                var latBasic = document.querySelector('#latBasic');
+                latBasic.value = latitudeBasic;
+                latBasic.dispatchEvent(new Event('change'));
+                var longBasic = document.querySelector('#long').value;
+                var long = document.querySelector('#longBasic');
+                long.value = longBasic;
+                long.dispatchEvent(new Event('change'));
 
                 // dates
-                var startBasic = $('#startDateLo').val();
-                $('#startDateLoBasic').val(startBasic).trigger('change');
-                var endBasic = $('#startDateHi').val();
-                $('#startDateHiBasic').val(endBasic).trigger('change');
+                var startBasic = document.querySelector('#startDateLo').value;
+                var startDateLoBasic = document.querySelector('#startDateLoBasic');
+                startDateLoBasic.value = startBasic;
+                startDateLoBasic.dispatchEvent(new Event('change'));
+                var endBasic = document.querySelector('#startDateHi').value;
+                var startDateHiBasic = document.querySelector('#startDateHiBasic');
+                startDateHiBasic.value = endBasic;
+                startDateHiBasic.dispatchEvent(new Event('change'));
                 
                 // sample media
-                var sampleBasic = $('#sampleMedia').val();
-                $('#sampleMediaBasic').val(sampleBasic).trigger('change');
+                var sampleBasic = document.querySelector('#sampleMedia').value;
+                var sampleMediaBasic = document.querySelector('#sampleMediaBasic');
+                sampleMediaBasic.value = sampleBasic;
+                sampleMediaBasic.dispatchEvent(new Event('change'));
 
                 // characteristic group
-                var charBasic = $('#characteristicType').val();
-                $('#charGroupBasic').val(charBasic).trigger('change');
+                var charBasic = document.querySelector('#characteristicType').value;
+                var charGroupBasic = document.querySelector('#charGroupBasic');
+                charGroupBasic.value = charBasic;
+                charGroupBasic.dispatchEvent(new Event('change'));
 
                 // datasources
-                var nwisBasic = $('#nwis')[0].checked;
-                $('#nwis-basic')[0].checked = nwisBasic;
-                $('#nwis').trigger('change');
+                var nwisBasic = document.querySelector('#nwis').checked;
+                var nwis = document.querySelector('#nwis-basic');
+                nwis.checked = nwisBasic;
+                nwis.dispatchEvent(new Event('change'));
 
-                var stewardsBasic = $('#stewards')[0].checked;
-                $('#stewards-basic')[0].checked = stewardsBasic;
-                $('#stewards').trigger('change');
+                var stewardsBasic = document.querySelector('#stewards').checked;
+                var stewards = document.querySelector('#stewards-basic');
+                stewards.checked = stewardsBasic;
+                stewards.dispatchEvent(new Event('change'));
 
-                var storetBasic = $('#storet')[0].checked;
-                $('#storet-basic')[0].checked = storetBasic;
-                $('#storet').trigger('change');
+                var storetBasic = document.querySelector('#storet').checked;
+                var storet = document.querySelector('#storet-basic');
+                storet.checked = storetBasic;
+                storet.dispatchEvent(new Event('change'));
                 // sort
-                var sortedBasic = $('#sorted')[0].checked;
-                $('#sortDataBasic')[0].checked = sortedBasic;
+                var sortedBasic = document.querySelector('#sorted').checked;
+                var sortDataBasic = document.querySelector('#sortDataBasic');
+                sortDataBasic.checked = sortedBasic;
 
                 // county
-                var basicCounty = $('#countycode').val();
-                $('#countycodeBasic').val(basicCounty[0]).trigger('change');
+                var basicCounty = document.querySelector('#countycode').value;
+                var countycodeBasic = document.querySelector('#countycodeBasic');
+                countycodeBasic.value = basicCounty;
+                countycodeBasic.dispatchEvent(new Event('change'));
 
                 // data profiles
                 let selectedRadio;
                 // seeing radio is checked in the basic form
-                const radiobuttonsBasic = $('#dataProfilesBasic').find(':input');
-                for (const button in radiobuttonsBasic) {
-                  if (radiobuttonsBasic[button].checked === true) {
-                    radiobuttonsBasic[button].checked = false;
+                const radiobuttonsBasic = document.querySelector('#dataProfilesBasic');
+                let radiobuttonsBasicInput = radiobuttonsBasic.querySelectorAll('input');
+                for (const button in radiobuttonsBasicInput) {
+                  if (radiobuttonsBasicInput[button].checked === true) {
+                    radiobuttonsBasicInput[button].checked = false;
                     break;
                   }
                 }
 
                 // Setting checked radio in advanced form to false so there are not two selected
-                const radiobuttonsAdvanced = $('#dataprofiles').find(':input');
-                for (const button in radiobuttonsAdvanced) {
-                  if (radiobuttonsAdvanced[button].checked === true) {
-                    selectedRadio = radiobuttonsAdvanced[button].id    
+                const radiobuttonsAdvanced = document.querySelector('#dataprofiles');
+                let radiobuttonsAdvancedInput = radiobuttonsAdvanced.querySelectorAll('input');
+                for (const button in radiobuttonsAdvancedInput) {
+                  if (radiobuttonsAdvancedInput[button].checked === true) {
+                    selectedRadio = radiobuttonsAdvancedInput[button].id    
                     break;
                   }
                 }
 
                 switch (selectedRadio) {
                   case "organization-data":
-                    $('#basic-organization')[0].checked = true;
+                    document.querySelector('#basic-organization').checked = true;
                     break;
                   case "sites":
-                    $('#basic-sites')[0].checked = true;
+                    document.querySelector('#basic-sites').checked = true;
                     break;
                   case "projects":
-                    $('#basic-projects')[0].checked = true;
+                    document.querySelector('#basic-projects').checked = true;
                     break;
                   case "samples":
-                    $('#basic-samples')[0].checked = true;
+                    document.querySelector('#basic-samples').checked = true;
                     break;
                   case "biosamples":
-                    $('#basic-biosamples')[0].checked = true;
+                    document.querySelector('#basic-biosamples').checked = true;
                     break;
                   case "narrowsamples":
-                    $('#basic-narrowsamples')[0].checked = true;
+                    document.querySelector('#basic-narrowsamples').checked = true;
                     break;
                   case "activity-input":
-                    $('#basic-activity-input')[0].checked = true;
+                    document.querySelector('#basic-activity-input').checked = true;
                     break;
                   default:
                     break;
@@ -423,19 +497,21 @@ $(document).ready(function () {
                 // File Formats
                 let selectedFormatRadio;
                 // seeing radio is checked in the basic form
-                const formatbuttonsBasic = $('#fileBasic').find(':input');
-                for (const button in formatbuttonsBasic) {
-                  if (formatbuttonsBasic[button].checked === true) {
-                    formatbuttonsBasic[button].checked = false;
+                const formatbuttonsBasic = document.querySelector('#fileBasic');
+                let formatbuttonsBasicInput = formatbuttonsBasic.querySelectorAll('input');
+                for (const button in formatbuttonsBasicInput) {
+                  if (formatbuttonsBasicInput[button].checked === true) {
+                    formatbuttonsBasicInput[button].checked = false;
                     break;
                   }
                 }
 
                 // Setting checked radio in advanced form to false so there are not two selected
-                const formatbuttonsAdvanced = $('#fileFormat').find(':input');
-                for (const button in formatbuttonsAdvanced) {
-                  if (formatbuttonsAdvanced[button].checked === true) {
-                    selectedFormatRadio = formatbuttonsAdvanced[button].id;
+                const formatbuttonsAdvanced = document.querySelector('#fileFormat');
+                let formatbuttonsAdvancedInput = formatbuttonsAdvanced.querySelectorAll('input');
+                for (const button in formatbuttonsAdvancedInput) {
+                  if (formatbuttonsAdvancedInput[button].checked === true) {
+                    selectedFormatRadio = formatbuttonsAdvancedInput[button].id;
                     
                     break;
                   }
@@ -443,26 +519,28 @@ $(document).ready(function () {
 
                 switch (selectedFormatRadio) {
                   case "csvAdv":
-                    $('#csv')[0].checked = true;
+                    document.querySelector('#csv').checked = true;
                     break;
                   case "tsvAdv":
-                    $('#tsv')[0].checked = true;
+                    document.querySelector('#tsv').checked = true;
                     break;
                   case "xlsxAdv":
-                    $('#xlsx')[0].checked = true;
+                    document.querySelector('#xlsx').checked = true;
                     break;
                   }
               },
               validate() {
-                let $startDateBasic =  $('#startDateLoBasic').val();
-                let $endDateBasic = $('#startDateHiBasic').val();
+                let $startDateBasic = document.querySelector('#startDateLoBasic').value;
+                let $endDateBasic = document.querySelector('#startDateHiBasic').value;
 
                 this.$nextTick(function() {
                   // DOM is now updated
                   let start = this.$refs.datevalidator.format($startDateBasic, true);
                   let end = this.$refs.datevalidator.format($endDateBasic, false);
-                  $('#startDateLoBasic').val(start).trigger('change');
-                  $('#startDateHiBasic').val(end).trigger('change');
+                  document.querySelector('#startDateLoBasic').value = start;
+                  document.querySelector('#startDateLoBasic').dispatchEvent(new Event('change'));;
+                  document.querySelector('#startDateHiBasic').value = end;
+                  document.querySelector('#startDateHiBasic').dispatchEvent(new Event('change'));
                 });
               }
         }
@@ -482,11 +560,8 @@ $(document).ready(function () {
         log.setLevel('warn', false);
     }
 
-    let $form = $('#params');
-    let $basicform = $('#paramsBasic');
-
-    // let form = document.getElementById('params');
-    // let basicForm = document.getElementById('basicParams');
+    let form = document.querySelector('#params');
+    let basicform = document.querySelector('#paramsBasic');
 
     // Create sub views
     let downloadProgressClass = Vue.extend(DownloadProgressDialog);
@@ -502,52 +577,50 @@ $(document).ready(function () {
         formType: 'basic'
       }
     });
-    let downloadFormView = new DownloadFormView({
-        $form: $form,
+    let downloadFormClass = Vue.extend(DownloadFormView);
+    let downloadFormView = new downloadFormClass({
+      propsData:{
+        form: form, 
         downloadProgressDialog: downloadProgressDialog
+      }
     });
-    let downloadBasicFormView = new DownloadFormView({
-        $form: $basicform,
-        downloadProgressDialog: downloadProgressDialogBasic
-    });
-    let siteMapView = new SiteMapView({
-        $container: $('#mapping-div'),
+    let siteMapClass = Vue.extend(SiteMapView);
+    let siteMapView = new siteMapClass({
+        container: document.querySelector('#mapping-div'),
         downloadProgressDialog: downloadProgressDialog,
         downloadFormView: downloadFormView
     });
-    let showAPIView = new ShowAPIView({
-        $container: $('#show-queries-div'),
-        getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView),
-        getResultType: $.proxy(downloadFormView.getResultType, downloadFormView)
+    let showAPIClass = Vue.extend(ShowAPIView);
+    let showAPIView = new showAPIClass({
+        propsData: {
+          container: document.querySelector('#show-queries-div'),
+          getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView),
+          getResultType: $.proxy(downloadFormView.getResultType, downloadFormView)
+        }
     });
-
-    let arcGisOnlineHelpView = new ArcGisOnlineHelpView({
-        $button: $('#show-arcgis-online-help'),
-        $dialog: $('#arcgis-online-modal'),
-        $siteMapViewContainer: $('#mapping-div'),
-        getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView)
-    });
+/////////////NOT CURRENTLY BEING USED?? #MAPPING-DIV COMMENTED OUT IN INDEX.HTML/////////////////////////
+    // let arcGisOnlineHelpClass = Vue.extend(ArcGisOnlineHelpView);
+    // let arcGisOnlineHelpView = new arcGisOnlineHelpClass({
+    //   propsData:{
+    //     button: document.querySelector('#show-arcgis-online-help'),
+    //     dialog: document.querySelector('#arcgis-online-modal'),
+    //     siteMapViewContainer: document.querySelector('#mapping-div'),
+    //     getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView)
+    //   }
+    // });
 
     //Initialize subviews
     let initDownloadForm = downloadFormView.initialize();
-    let initDownloadFormBasic = downloadBasicFormView.initialize();
     // siteMapView.initialize();
     showAPIView.initialize();
-    arcGisOnlineHelpView.initialize();
+    // arcGisOnlineHelpView.initialize();
 
     // TODO wqp-1723
-    initDownloadForm.fail(function (jqxhr) {
-        let $dialog = $('#service-error-dialog');
+    initDownloadForm.catch(function (jqxhr) {
+        let $dialog = document.querySelector('#service-error-dialog');
         if (jqxhr.status === 401 || jqxhr.status === 403) {
-            $dialog.find('.modal-body').html('No longer authorized to use the application. Please reload the page to login again');
+            $dialog.querySelector('.modal-body').innerHTML = 'No longer authorized to use the application. Please reload the page to login again';
         }
-        $dialog.modal('show');
-    });
-    initDownloadFormBasic.fail(function (jqxhr) {
-        let $dialog = $('#service-error-dialog');
-        if (jqxhr.status === 401 || jqxhr.status === 403) {
-            $dialog.find('.modal-body').html('No longer authorized to use the application. Please reload the page to login again');
-        }
-        $dialog.modal('show');
+        $dialog.modal.style.display = "block";
     });
 });

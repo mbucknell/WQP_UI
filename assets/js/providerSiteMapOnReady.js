@@ -7,5 +7,6 @@ $(document).ready(function() {
     var latitude = site.LatitudeMeasure;
     var longitude = site.LongitudeMeasure;
     var map = siteMap(latitude, longitude, {mapDivId : 'site-map', mapZoom: 10});
+    console.log(map);
     addOverlays(map);
 });

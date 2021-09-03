@@ -11,9 +11,9 @@ export default {
         // Returns object. The object has a required property isValid. If isValid is false, the
         // object will also contain errorMessage property.
         // Assumes that individual input validation has already been done
-        var within = spec.withinEl.val();
-        var lat = spec.latEl.val();
-        var lon = spec.lonEl.val();
+        var within = spec.withinEl.value;
+        var lat = spec.latEl.value;
+        var lon = spec.lonEl.value;
 
         if (within && lat && lon) {
             return {isValid: true};
@@ -26,17 +26,17 @@ export default {
             return {isValid: true};
         }
       },
-      validateBoundingBox = function (spec) {
+      validateBoundingBox(spec) {
         // spec has the following properites
         //      northEl, southEl, eastEl, westEl : input jquery elements
         // Returns object. The object has a required property isValid. If isValid is false, the
         // object will also contain errorMessage property.
         // Assumes that individual input validation has already been done
 
-        var north = spec.northEl.val();
-        var south = spec.southEl.val();
-        var east = spec.eastEl.val();
-        var west = spec.westEl.val();
+        var north = spec.northEl.value;
+        var south = spec.southEl.value;
+        var east = spec.eastEl.value;
+        var west = spec.westEl.value;
 
         if (north && south && east && west) {
             if (parseFloat(south) >= parseFloat(north)) {
@@ -61,7 +61,7 @@ export default {
             return {isValid: true};
         }
       },
-      validateDateRange = function (spec) {
+      validateDateRange(spec) {
         // spec has the following properties:
         //      fromDateEl, toDateEl - Input jquery elements
         // Returns object. The object has a required property isValid. If isValid is false, the
@@ -73,8 +73,8 @@ export default {
             return new Date(dateArray[2], dateArray[0] - 1, dateArray[1], 0, 0, 0, 0);
         };
 
-        var fromDateStr = spec.fromDateEl.val();
-        var toDateStr = spec.toDateEl.val();
+        var fromDateStr = spec.fromDateEl.value;
+        var toDateStr = spec.toDateEl.value;
 
         if (fromDateStr && toDateStr) {
             if (getDate(fromDateStr) < getDate(toDateStr)) {
@@ -93,23 +93,23 @@ export default {
         // Validate download form. If invalid show validate dialog with error message and return false.
         // Otherwise return true
 
-        var validateModalEl = $('#validate-download-dialog');
+        var validateModalEl = document.querySelector('#validate-download-dialog');
         var showModal = function (message) {
-            validateModalEl.find('.modal-body').html(message);
-            validateModalEl.modal('show');
+            validateModalEl.querySelector('.modal-body').innerHTML = message;
+            validateModalEl.style.display = "block";
         };
 
         // Check to see if any input validation error messages exist
-        if (form.find('.error-message').length > 0) {
+        if (form.querySelector('.error-message').length > 0) {
             showModal('Need to correct input validation errors on form');
             return false;
         }
 
         var result;
         result = this.validatePointLocation({
-            withinEl: form.find('#within'),
-            latEl: form.find('#lat'),
-            lonEl: form.find('#long')
+            withinEl: form.querySelector('#within'),
+            latEl: form.querySelector('#lat'),
+            lonEl: form.querySelector('#long')
         });
         if (!result.isValid) {
             showModal(result.errorMessage);
@@ -117,10 +117,10 @@ export default {
         }
 
         result = this.validateBoundingBox({
-            northEl: form.find('#north'),
-            southEl: form.find('#south'),
-            eastEl: form.find('#east'),
-            westEl: form.find('#west')
+            northEl: form.querySelector('#north'),
+            southEl: form.querySelector('#south'),
+            eastEl: form.querySelector('#east'),
+            westEl: form.querySelector('#west')
         });
         if (!result.isValid) {
             showModal(result.errorMessage);
@@ -128,8 +128,8 @@ export default {
         }
 
         result = this.validateDateRange({
-            fromDateEl: form.find('#startDateLo'),
-            toDateEl: form.find('#startDateHi')
+            fromDateEl: form.querySelector('#startDateLo'),
+            toDateEl: form.querySelector('#startDateHi')
         });
         if (!result.isValid) {
             showModal(result.errorMessage);
@@ -139,6 +139,5 @@ export default {
         return true;
       }
     }
-  }
 }
 </script>

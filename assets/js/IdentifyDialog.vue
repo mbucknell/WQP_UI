@@ -51,7 +51,7 @@ export default {
                     features.features.forEach((f) => {
                         let option = new Option(f.properties.name, f.properties.name, true, true);
 
-                        siteIdSelect.append(option).dispatchEvent(new Event('change'));
+                        siteIdSelect.appendChild(option).dispatchEvent(new Event('change'));
                         siteIdSelect.dispatchEvent(new Event(('select2:select')));
                     });
 
