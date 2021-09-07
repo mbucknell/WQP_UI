@@ -34,7 +34,6 @@ export default {
         let hiddenSorted = this.container.querySelector('input[type="hidden"][name="sorted"]');
         let mimeTypeRadioboxes = this.container.querySelector('input[name="mimeType"]');
         let resultTypeRadioboxes = this.container.querySelector('input.result-type');
-        console.log(resultTypeRadioboxes)
 
 
         initializeInput(hiddenSorted);
@@ -44,7 +43,7 @@ export default {
         }
         const mimeTypeInitValues = getAnchorQueryValues(mimeTypeRadioboxes.getAttribute('name'));
         if (mimeTypeInitValues.length) {
-            this.container.querySelector(`input[value="{mimeTypeInitValues[0]}"]`).checked = true;
+            this.container.querySelector(`input[value="${mimeTypeInitValues[0]}"]`).checked = true;
         }
 
         mimeTypeRadioboxes.addEventListener('change', () => {
@@ -57,7 +56,6 @@ export default {
             let dataProfile = this.container.querySelector('input[name="dataProfile"]');
 
             // Uncheck previously checked button
-            console.log(node)
             this.container.querySelector('input.result-type:checked:not('+ node + '))').checked = false;
 
             // If activity, biological results or narrow results desired add a hidden input to set the

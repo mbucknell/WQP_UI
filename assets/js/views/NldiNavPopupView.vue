@@ -2,8 +2,9 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import popupTemplate from '../hbTemplates/nldiFeatureSourcePopup.hbs';
-import * as nldiModel from '../nldiModel';
+import NldiModel from '../NldiModel.vue';
 
 /*
 * Creates a nldi navigation popup onMap. The popup will contain information about the feature
@@ -19,18 +20,25 @@ import * as nldiModel from '../nldiModel';
 export default {
   name: "NldiNavPopupView",
   props: ['onMap', 'feature', 'atLatLng', 'navHandler'],
+  components: {
+      NldiModel
+  },
   methods: {
       initialize(){
+        let nldiClass = Vue.extend(NldiModel);
+        let nldiModel = new nldiClass();
         var nldiData = nldiModel.getData();
+        let navModes = nldiModel.getNavModes()
+
         var context = {
             nwisSite: nldiData.featureSource.id === 'nwissite',
             pourPoint: nldiData.featureSource.id === 'huc12pp',
-            navigationModes: nldiModel.NAVIGATION_MODES,
-            feature : feature
+            navigationModes: navModes,
+            feature : this.feature
         };
         var navButton;
 
-        onMap.openPopup(popupTemplate(context), atLatLng);
+        this.onMap.openPopup(popupTemplate(context), this.atLatLng);
         navButton = document.querySelector('.navigation-selection-div button');
         document.querySelector('.navigation-selection-div select').addEventListener('change', function (ev) {
             var selectedValue = ev.target.selectedOptions[0].value;
@@ -45,11 +53,8 @@ export default {
         document.querySelector('.navigation-selection-div input[type="text"]').addEventListener('change', function (ev) {
             nldiModel.setData('distance', ev.target.value);
         });
-        navButton.onclick = navHandler;
+        navButton.onclick = this.navHandler;
       }
   },
-  mounted() {
-      this.initialize();
-  }
 }
 </script>

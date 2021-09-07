@@ -89,7 +89,7 @@ export default {
             return {isValid: true};
         }
       },
-      validateDownloadForm(form) {
+      validateDownloadForm(form, formType) {
         // Validate download form. If invalid show validate dialog with error message and return false.
         // Otherwise return true
 
@@ -100,43 +100,69 @@ export default {
         };
 
         // Check to see if any input validation error messages exist
-        if (form.querySelector('.error-message').length > 0) {
+        if (form.querySelector('.error-message') !== null && form.querySelector('.error-message').length > 0) {
             showModal('Need to correct input validation errors on form');
             return false;
         }
 
         var result;
-        result = this.validatePointLocation({
-            withinEl: form.querySelector('#within'),
-            latEl: form.querySelector('#lat'),
-            lonEl: form.querySelector('#long')
-        });
-        if (!result.isValid) {
-            showModal(result.errorMessage);
-            return false;
-        }
+        //  Advanced form validation
+        if(formType == "advanced"){
+            result = this.validatePointLocation({
+                withinEl: form.querySelector('#within'),
+                latEl: form.querySelector('#lat'),
+                lonEl: form.querySelector('#long')
+            });
+            if (!result.isValid) {
+                showModal(result.errorMessage);
+                return false;
+            }
 
-        result = this.validateBoundingBox({
-            northEl: form.querySelector('#north'),
-            southEl: form.querySelector('#south'),
-            eastEl: form.querySelector('#east'),
-            westEl: form.querySelector('#west')
-        });
-        if (!result.isValid) {
-            showModal(result.errorMessage);
-            return false;
-        }
+            result = this.validateBoundingBox({
+                northEl: form.querySelector('#north'),
+                southEl: form.querySelector('#south'),
+                eastEl: form.querySelector('#east'),
+                westEl: form.querySelector('#west')
+            });
+            if (!result.isValid) {
+                showModal(result.errorMessage);
+                return false;
+            }
 
-        result = this.validateDateRange({
-            fromDateEl: form.querySelector('#startDateLo'),
-            toDateEl: form.querySelector('#startDateHi')
-        });
-        if (!result.isValid) {
-            showModal(result.errorMessage);
-            return false;
-        }
+            result = this.validateDateRange({
+                fromDateEl: form.querySelector('#startDateLo'),
+                toDateEl: form.querySelector('#startDateHi')
+            });
+            if (!result.isValid) {
+                showModal(result.errorMessage);
+                return false;
+            }
 
-        return true;
+            return true;
+        }
+        // Basic form validation
+        else{
+            result = this.validatePointLocation({
+                withinEl: form.querySelector('#withinBasic'),
+                latEl: form.querySelector('#latBasic'),
+                lonEl: form.querySelector('#longBasic')
+            });
+            if (!result.isValid) {
+                showModal(result.errorMessage);
+                return false;
+            }
+
+            result = this.validateDateRange({
+                fromDateEl: form.querySelector('#startDateLoBasic'),
+                toDateEl: form.querySelector('#startDateHiBasic')
+            });
+            if (!result.isValid) {
+                showModal(result.errorMessage);
+                return false;
+            }
+
+            return true;
+        }
       }
     }
 }

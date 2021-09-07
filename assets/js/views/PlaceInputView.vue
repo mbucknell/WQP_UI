@@ -420,48 +420,46 @@ export default {
         });
 
         let inputValidationClass = Vue.extend(InputValidationView);
-        new inputValidationClass({
-            propsData: {
-                inputEl : countySelectBasic,
-                validationFnc : function(val, ev) {
-                    let result;
-                    if (getStateKeysBasic().length === 0) {
-                        ev.preventDefault();
-                        result  = {
-                            isValid : false,
-                            errorMessage : 'Please select at least one state'
-                        };
-                    } else {
-                        result = {
-                            isValid : true
-                        };
-                    }
-                    return result;
-                },
-                event : 'select2:opening'
-            }
+        let inputValidationViewBasic = new inputValidationClass();
+        inputValidationViewBasic.initialize({
+            inputEl : countySelectBasic,
+            validationFnc : function(val, ev) {
+                let result;
+                if (getStateKeysBasic().length === 0) {
+                    ev.preventDefault();
+                    result  = {
+                        isValid : false,
+                        errorMessage : 'Please select at least one state'
+                    };
+                } else {
+                    result = {
+                        isValid : true
+                    };
+                }
+                return result;
+            },
+            event : 'select2:opening'
         });
         
-        new inputValidationClass({
-            propsData: {
-                inputEl : countySelect,
-                validationFnc : function(val, ev) {
-                    let result;
-                    if (getStateKeys().length === 0) {
-                        ev.preventDefault();
-                        result  = {
-                            isValid : false,
-                            errorMessage : 'Please select at least one state'
-                        };
-                    } else {
-                        result = {
-                            isValid : true
-                        };
-                    }
-                    return result;
-                },
-                event : 'select2:opening'
-            }
+        let inputValidationViewAdv = new inputValidationClass();
+        inputValidationViewAdv.initialize({
+            inputEl : countySelect,
+            validationFnc : function(val, ev) {
+                let result;
+                if (getStateKeys().length === 0) {
+                    ev.preventDefault();
+                    result  = {
+                        isValid : false,
+                        errorMessage : 'Please select at least one state'
+                    };
+                } else {
+                    result = {
+                        isValid : true
+                    };
+                }
+                return result;
+            },
+            event : 'select2:opening'
         });
         
         return fetchComplete;

@@ -92,7 +92,6 @@ export default {
         var organizationSelect = this.container.querySelector('#organization');
         var siteIdSelect = this.container.querySelector('#siteid');
         var hucInput = this.container.querySelector('#huc');
-        var minActivitiesInput = this.container.querySelector('#min-activities');
 
         var fetchSiteType = this.siteTypeModel.fetch();
         var fetchOrganization = this.organizationModel.fetch();
@@ -122,22 +121,14 @@ export default {
         });
 
         initializeInput(hucInput);
-        initializeInput(minActivitiesInput);
 
         let inputValidationClass = Vue.extend(InputValidationView);
         // Add event handlers
-        new inputValidationClass({
-            propsData: {
-                inputEl: hucInput,
-                validationFnc: hucValidator.validate,
-                updateFnc: hucValidator.format
-            }
-        });
-        new inputValidationClass({
-            propsData: {
-                inputEl : minActivitiesInput,
-                validationFnc : positiveIntValidator
-            }
+        let hucInputVal = new inputValidationClass();
+        hucInputVal.initialize({
+            inputEl: hucInput,
+            validationFnc: hucValidator.validate,
+            updateFnc: hucValidator.format
         });
 
         return fetchComplete;

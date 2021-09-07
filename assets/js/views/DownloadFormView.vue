@@ -32,7 +32,7 @@ let downloadFormController = new downloadFormControllerClass();
  */
 export default {
   name: "DownloadFormView",
-  props: ['form', 'downloadProgressDialog'],
+  props: ['form', 'downloadProgressDialog', 'downloadProgressDialogBasic'],
   components: {
       DownloadFormController,
       SamplingParameterInputView,
@@ -189,22 +189,24 @@ export default {
         // });
 
         // Initialize the share window and button event handler
-        // const $shareContainer = this.form.querySelector('.share-container');
-        // const $shareText = $shareContainer.querySelector('textarea');
-        // $shareText.value = window.location.href;
-        // $shareContainer.querySelector('button').onclick(() => {
-        //     $shareText.get(0).select();
+        const shareContainer = this.form.querySelector('.share-container');
+        const shareText = shareContainer.querySelector('textarea');
+        shareText.value = window.location.href;
+////////////NOT CURRENTLY USED???///////////////////////////////////////////////////////////////////
+        // shareContainer.querySelector('button').onclick(() => {
+        //     shareText.get(0).select();
         //     document.execCommand('copy');
         // });
 
         // Set up change event handler for form inputs to update the hash part of the url
-        let inputs = this.form.querySelector('input[name], select[name], textarea[name], button[name]');
-        inputs.onchange = () => {
-            const queryParamArray = this.getQueryParamArray();
-            const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
-            window.location.hash = `#${queryString}`;
-            shareText.value = window.location.href;
-        };
+        let inputs = this.form.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
+            input.onchange = () => {
+                const queryParamArray = this.getQueryParamArray();
+                const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+                window.location.hash = `#${queryString}`;
+                shareText.value = window.location.href;
+            };
+        });
 
         let dataProviders = this.form.querySelector('#providers-select');
         let basicForm = document.querySelector('#paramsBasic');
@@ -257,8 +259,27 @@ export default {
             this.dataDetailsView.resetContainer();
         };
 
+        // // Set up the Download button for basic and advanced forms
+        this.setUpDownloadButton(basicForm);
+        this.setUpDownloadButton(this.form);
+
+        return initComplete;
+    },
+    setUpDownloadButton(form) {
+        let formType;
+        let buttonSelector;
+        let downloadProgressDialog;
+        if (form.id == "params"){
+            formType = "advanced";
+            buttonSelector = "#main-button";
+            downloadProgressDialog = this.downloadProgressDialog;
+        }else{
+            formType = "basic";
+            buttonSelector = "#basic-main-button";
+            downloadProgressDialog = this.downloadProgressDialogBasic;
+        }
         // Set up the Download button
-        this.form.querySelector('.main-button').onclick = (event) => {
+        form.querySelector(buttonSelector).onclick = (event) => {
             const fileFormat = this.dataDetailsView.getMimeType();
             const resultType = this.dataDetailsView.getResultType();
             const queryParamArray = this.getQueryParamArray();
@@ -272,12 +293,11 @@ export default {
                     queryString,
                     parseInt(totalCount)]);
 
-                this.form.submit();
+                form.submit();
             };
 
             event.preventDefault();
-
-            if (!downloadFormController.validateDownloadForm(this.form)) {
+            if (!downloadFormController.validateDownloadForm(form, formType)) {
                 console.log("invalid")
                 return;
             }
@@ -289,17 +309,15 @@ export default {
                 queryString
             ]);
 
-            this.downloadProgressDialog.show('download');
+            downloadProgressDialog.show('download');
             queryService.fetchQueryCounts(resultType, queryParamArray, providers.getIds())
                 .then((counts) => {
-                    this.downloadProgressDialog.updateProgress(counts, resultType, fileFormat, startDownload);
+                    downloadProgressDialog.updateProgress(counts, resultType, fileFormat, startDownload);
                 })
                 .catch((message) => {
-                    this.downloadProgressDialog.cancelProgress(message);
+                    downloadProgressDialog.cancelProgress(message);
                 });
         };
-
-        return initComplete;
     },
 
     /*

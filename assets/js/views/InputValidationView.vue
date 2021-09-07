@@ -14,31 +14,29 @@
 
 export default {
   name: "InputValidationView",
-  props: ['spec'],
   methods: {
-      initialize() {
+      initialize(spec) {
         var event = spec.event || 'change';
 
         spec.inputEl.addEventListener(event, function (ev) {
-            var inputValue = $(this).val();
+            var inputValue = spec.inputEl.value;
             var result = spec.validationFnc(inputValue, ev);
-            var parent = $(this).parent();
+            var parent = spec.inputEl.parentNode;
 
-            parent.querySelector('.error-message').remove();
+            if(parent.querySelector('.error-message') !== null){
+                parent.querySelector('.error-message').remove();
+            }
             if (result.isValid) {
-                parent.classList.remove('alert alert-danger');
+                parent.classList.remove('alert', 'alert-danger');
                 if (spec.updateFnc) {
-                    $(this).val(spec.updateFnc(inputValue));
+                    spec.inputEl.value = spec.updateFnc(inputValue);
                 }
             } else {
-                parent.classList.add('alert alert-danger');
+                parent.classList.add('alert', 'alert-danger');
                 parent.appendChild('<div class="error-message">' + result.errorMessage + '</div>');
             }
         });
       }
   },
-  mounted() {
-      this.initialize();
-  }
 }
 </script>

@@ -39,6 +39,7 @@ export default {
         let minresults = this.container.querySelector('#minresults');
         let startDate = this.container.querySelector('#startDateLo');
         let endDate = this.container.querySelector('#startDateHi');
+        var minActivitiesInput = this.container.querySelector('#min-activities');
 
         let fetchSampleMedia = this.sampleMediaModel.fetch();
         let fetchCharacteristicType = this.characteristicTypeModel.fetch();
@@ -116,29 +117,35 @@ export default {
 
         let inputValidationView = Vue.extend(InputValidationView);
         // Add input validations and reformatting handlers
-        new inputValidationView({
-            propsData: {
-                inputEl : minresults,
-                validationFnc : positiveIntValidator
+        let inputMinResults = new inputValidationView();
+        inputMinResults.initialize({
+            inputEl : minresults,
+            validationFnc : positiveIntValidator
+        });
+        let inputStartDate = new inputValidationView();
+        inputStartDate.initialize({
+            inputEl: startDate,
+            validationFnc: function (value) {
+                return datevalidator.validate(value);
+            },
+            updateFnc: function (value) {
+                return datevalidator.format(value, true);
             }
         });
-        new inputValidationView({
-            propsData: {
-                inputEl: startDate,
-                validationFnc: datevalidator.validate(),
-                updateFnc: function (value) {
-                    return datevalidator.format(value, true);
-                }
+        let inputEndDate = new inputValidationView();
+        inputEndDate.initialize({
+            inputEl: endDate,
+            validationFnc: function(value) {
+                return datevalidator.validate(value)
+            },
+            updateFnc: function (value) {
+                return datevalidator.format(value, false);
             }
         });
-        new inputValidationView({
-            propsData: {
-                inputEl: endDate,
-                validationFnc: datevalidator.validate(),
-                updateFnc: function (value) {
-                    return datevalidator.format(value, false);
-                }
-            }
+        let minActivitiesVal = new inputValidationView();
+        minActivitiesVal.initialize({
+            inputEl: minActivitiesInput,
+            validationFnc: positiveIntValidator
         });
 
         return fetchComplete;

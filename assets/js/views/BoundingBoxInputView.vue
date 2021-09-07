@@ -35,11 +35,10 @@ export default {
         let bbox = this.container.querySelector('input[name="bBox"]');
 
         let inputValidationClass = Vue.extend(InputValidationView);
-        new inputValidationClass({
-            propsData:{
-                inputEl: textInputs,
-                validationFnc: realNumberValidator
-            }
+        let inputValidationView = new inputValidationClass();
+        inputValidationView.initialize({
+            inputEl: textInputs,
+            validationFnc: realNumberValidator
         });
 
         const initBboxValues = getAnchorQueryValues('bBox');

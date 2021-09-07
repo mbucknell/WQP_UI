@@ -51,11 +51,10 @@ export default {
      */
     initialize() {
         let inputValidationClass = Vue.extend(InputValidationView)
-        new inputValidationClass({
-            propsData: {
-                inputEl: this.container.querySelector('input[type="text"]'),
-                validationFnc: realNumberValidator
-            }
+        let inputValidationView = new inputValidationClass();
+        inputValidationView.initialize( {
+            inputEl: this.container.querySelector('input[type="text"]'),
+            validationFnc: realNumberValidator
         });
 
         let within = this.container.querySelector('#within');

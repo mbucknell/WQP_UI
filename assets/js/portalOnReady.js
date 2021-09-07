@@ -581,7 +581,8 @@ $(document).ready(function () {
     let downloadFormView = new downloadFormClass({
       propsData:{
         form: form, 
-        downloadProgressDialog: downloadProgressDialog
+        downloadProgressDialog: downloadProgressDialog,
+        downloadProgressDialogBasic: downloadProgressDialogBasic,
       }
     });
     let siteMapClass = Vue.extend(SiteMapView);

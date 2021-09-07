@@ -7,15 +7,20 @@ import partial from 'lodash/partial';
 
 import Vue from 'vue';
 import NldiNavPopupView from './NldiNavPopupView.vue';
-import * as nldiModel from '../nldiModel';
+import NldiModel from '../NldiModel.vue';
 import { getAnchorQueryValues } from '../utils';
 import axios from 'axios';
+
+let nldiClass = Vue.extend(NldiModel);
+const nldiModel = new nldiClass();
+nldiModel.initialize();
 
 export default {
   name: "NldiView",
   props: ['mapDivId', 'input'],
   components: {
       NldiNavPopupView,
+      NldiModel
   },
   methods: {
     getRetrieveMessage() {
@@ -114,7 +119,7 @@ export default {
 
                     self.updateNldiInput(nldiModel.getUrl('wqp'));
                     // Update the api query urls
-                    $('#params').trigger('change');
+                    document.querySelector('#params').dispatchEvent(new Event('change'));
                 })
                 .catch(function (error) {
                     // handle error
@@ -153,7 +158,7 @@ export default {
                     this.map.openPopup(this.getRetrieveMessage(), ev.latlng);
                     this.updateNldiSites();
                 };
-
+           
                 if (features.length === 0) {
                     this.map.openPopup('<p>No query point has been selected. Please click on a point to query from.</p>', ev.latlng);
 
@@ -164,7 +169,7 @@ export default {
                         features[0].properties[featureIdProperty]);
 
                     let nldiNavPopupClass = Vue.extend(NldiNavPopupView);
-                    new nldiNavPopupClass({
+                    let nldiPopup = new nldiNavPopupClass({
                         propsData: {
                             onMap: this.map, 
                             feature: features[0], 
@@ -172,6 +177,7 @@ export default {
                             navHandler: navHandler,
                         }
                     });
+                    nldiPopup.initialize();
                 }
             })
             .catch((error) => {
@@ -212,7 +218,7 @@ export default {
         this.cleanUpMaps();
         this.map.closePopup();
         // Update the api query urls
-        $('#params').trigger('change');
+        document.querySelector('#params').dispatchEvent(new Event('change'));
     },
     /*
      * Initialize the map.
@@ -242,7 +248,7 @@ export default {
 
         const featureSourceSelectControl = L.control.featureSourceSelectControl({
             changeHandler : this.featureSourceChangeHandler.bind(this),
-            featureSourceOptions : nldiModel.FEATURE_SOURCES,
+            featureSourceOptions : nldiModel.getFeatureSource(),
             initialFeatureSourceValue : nldiModel.getData().featureSource.id
         });
 
