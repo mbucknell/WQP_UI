@@ -2,8 +2,12 @@
 </template>
 
 <script>
-import { CodeSelect, PagedCodeSelect } from './portalViews';
+import Vue from 'vue';
+import PortalViews from './PortalViews.vue';
 import { getAnchorQueryValues} from '../utils';
+
+let portalViewClass = Vue.extend(PortalViews);
+let portalViews = new portalViewClass();
 
 /*
  * Creates a sampling parameter input view
@@ -16,6 +20,9 @@ import { getAnchorQueryValues} from '../utils';
 export default {
   name: "BiologicalSamplingView",
   props: ['container', 'assemblageModel'],
+  components: {
+      PortalViews
+  },
   methods: {
       initialize() {
         var assemblage = this.container.querySelector('#assemblage');
@@ -24,8 +31,9 @@ export default {
         var fetchAssemblageModel = this.assemblageModel.fetch();
         var fetchComplete = Promise.all([fetchAssemblageModel]);
 
-        fetchAssemblageModel.done(() => {
-            new CodeSelect(
+        fetchAssemblageModel.then(() => {
+            portalViews.codeSelect(
+                "getAssemblageOptionsState",
                 assemblage,
                 {
                     model : this.assemblageModel
@@ -34,7 +42,9 @@ export default {
                 getAnchorQueryValues(assemblage.getAttribute('name'))
             );
         });
-        new PagedCodeSelect(
+
+        portalViews.pagedCodeSelect(
+            "getTaxOptionsState",
             taxonomicName,
             {
                 codes: 'subjecttaxonomicname'

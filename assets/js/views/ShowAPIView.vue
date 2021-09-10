@@ -28,7 +28,7 @@ export default {
 
         const showServiceCallsHandler = () => {
             let resultType = this.getResultType();
-            let queryParamArray = this.getQueryParamArray();
+            let queryParamArray = this.getQueryParamArray(this.container.closest("form"));
             const queryParamsWithoutCSRFToken = queryParamArray.filter( param => param.name !== 'csrf_token' );
 
             let apiQueryString = queryService.getFormUrl(resultType, getQueryString(queryParamsWithoutCSRFToken));

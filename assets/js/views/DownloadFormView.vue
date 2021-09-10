@@ -10,16 +10,24 @@ import DataDetailsView from './DataDetailsView.vue';
 import NldiView from './NldiView.vue';
 import PlaceInputView from './PlaceInputView.vue';
 import PointLocationInputView from './PointLocationInputView.vue';
-import { StaticSelect2 } from './portalViews';
+import PortalViews from './PortalViews.vue';
 import SamplingParameterInputView from './SamplingParameterInputView.vue';
 import SiteParameterInputView from './SiteParameterInputView.vue';
-import { CachedCodes, CodesWithKeys } from '../portalModels';
+import CachedCodesModel from '../CachedCodesModel.vue';
+import CodesWithKeysModel from '../CodesWithKeysModel.vue';
 import providers from '../providers';
 import queryService from '../queryService';
 import { toggleShowHideSections, getQueryString, getAnchorQueryValues } from '../utils';
+import store from '../store/store.js'
 
 let downloadFormControllerClass = Vue.extend(DownloadFormController);
 let downloadFormController = new downloadFormControllerClass();
+
+let cachedCodesClass = Vue.extend(CachedCodesModel);
+let codesWithKeysClass = Vue.extend(CodesWithKeysModel);
+
+let portalViewClass = Vue.extend(PortalViews);
+let portalViews = new portalViewClass();
 
 /*
  * Initializes the download form and provides methods to get information from the form
@@ -43,6 +51,9 @@ export default {
       SiteParameterInputView,
       PointLocationInputView,
       DataDetailsView,
+      CachedCodesModel,
+      CodesWithKeysModel,
+      PortalViews
   },
   methods: {
     /*
@@ -58,18 +69,24 @@ export default {
             return ids.length > 1 ? ids[0] + ':' + ids[1] : '';
         };
 
-        const countryModel = new CachedCodes({
-            codes : 'countrycode'
+        const countryModel = new cachedCodesClass({
+            propsData: {
+                codes : 'countrycode',
+            }
         });
-        const stateModel = new CodesWithKeys({
-            codes : 'statecode',
-            keyParameter : 'countrycode',
-            parseKey : getCountryFromState
+        const stateModel = new codesWithKeysClass({
+            propsData: {
+                codes : 'statecode',
+                keyParameter : 'countrycode',
+                parseKey : getCountryFromState
+            }
         });
-        const countyModel = new CodesWithKeys({
-            codes : 'countycode',
-            keyParameter : 'statecode',
-            parseKey : getStateFromCounty
+        const countyModel = new codesWithKeysClass({
+            propsData: {
+                codes : 'countycode',
+                keyParameter : 'statecode',
+                parseKey : getStateFromCounty
+            }
         });
         let placeInputViewClass = Vue.extend(PlaceInputView);
             return new placeInputViewClass({
@@ -107,23 +124,23 @@ export default {
         const siteParameterInputView = new siteParameterInputClass({
             propsData: {
                 container : this.form.querySelector('#site-params'),
-                siteTypeModel : new CachedCodes({codes : 'sitetype'}),
-                organizationModel : new CachedCodes({codes : 'organization'})
+                siteTypeModel : new cachedCodesClass({propsData: {codes : 'sitetype'}}),
+                organizationModel : new cachedCodesClass({propsData: {codes : 'organization'}})
             }
         });
         let samplingParametersClass = Vue.extend(SamplingParameterInputView);
         const samplingParametersInputView = new samplingParametersClass({
             propsData: {
                 container : this.form.querySelector('#sampling'),
-                sampleMediaModel : new CachedCodes({codes: 'samplemedia'}),
-                characteristicTypeModel : new CachedCodes({codes: 'characteristictype'})
+                sampleMediaModel : new cachedCodesClass({propsData: {codes: 'samplemedia'}}),
+                characteristicTypeModel : new cachedCodesClass({propsData: {codes: 'characteristictype'}})
             }
         });
         let biologicalSamplingInputClass = Vue.extend(BiologicalSamplingInputView);
         const biologicalSamplingInputView = new biologicalSamplingInputClass({
             propsData: {
                 container : this.form.querySelector('#biological'),
-                assemblageModel : new CachedCodes({codes: 'assemblage'})
+                assemblageModel : new cachedCodesClass({propsData: {codes: 'assemblage'}})
             }
         });
         let dataDetailsClass = Vue.extend(DataDetailsView);
@@ -139,12 +156,20 @@ export default {
         // fetch the providers and initialize the providers select
         let initializeProviders = providers.fetch()
             .then(() => {
-                const providerSelect = this.form.querySelector('#providers-select');
-                new StaticSelect2(
-                    providerSelect,
-                    providers.getIds(),
-                    {},
-                    getAnchorQueryValues(providerSelect.getAttribute('name')));
+                /////////// Is this being used?//////////////////////////////////////
+                // const providerSelect = this.form.querySelector('#providers-select');
+                // portalViews.staticSelect2(
+                //     providerSelect,
+                //     providers.getIds(),
+                //     {},
+                //     getAnchorQueryValues(providerSelect.getAttribute('name'))
+                // );
+
+                // new StaticSelect2(
+                //     providerSelect,
+                //     providers.getIds(),
+                //     {},
+                //     getAnchorQueryValues(providerSelect.getAttribute('name')));
             });
 
         // Initialize form sub view
@@ -198,18 +223,27 @@ export default {
         //     document.execCommand('copy');
         // });
 
+        let basicForm = document.querySelector('#paramsBasic');
+
         // Set up change event handler for form inputs to update the hash part of the url
         let inputs = this.form.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
             input.onchange = () => {
-                const queryParamArray = this.getQueryParamArray();
+                const queryParamArray = this.getQueryParamArray(this.form);
                 const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
                 window.location.hash = `#${queryString}`;
                 shareText.value = window.location.href;
             };
         });
+        let basicInputs = basicForm.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
+            input.onchange = () => {
+                const queryParamArray = this.getQueryParamArray(basicForm);
+                const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+                window.location.hash = `#${queryString}`;
+                shareText.value = window.location.href;
+            }
+        });
 
         let dataProviders = this.form.querySelector('#providers-select');
-        let basicForm = document.querySelector('#paramsBasic');
         // Add click handler for clear parameters button
         basicForm.querySelector('.reset-params').onclick = () => {
             document.querySelector('#withinBasic').value = '';
@@ -219,13 +253,10 @@ export default {
             document.querySelector('#longBasic').value = '';
             document.querySelector('#longBasic').dispatchEvent(new Event('change'));
             document.querySelector('#countrycodeBasic').value = null;
-            document.querySelector('#countrycodeBasic').dispatchEvent(new Event('change'));
-            document.querySelector('#statecodeBasic').value = null;
-            document.querySelector('#statecodeBasic').dispatchEvent(new Event('change'));
-            document.querySelector('#countycodeBasic').value = null;
-            document.querySelector('#countycodeBasic').dispatchEvent(new Event('change'));
-            document.querySelector('#siteTypeBasic').value = null;
-            document.querySelector('#siteTypeBasic').dispatchEvent(new Event('change'));
+            store.commit("getCountryState", []);
+            store.commit("getStateState", []);
+            store.commit("getCountyState", []);
+            store.commit("getSitetypeState", [])
             placeInputView.resetContainer();
             pointLocationInputView.resetContainer();
             siteParameterInputView.resetContainer();
@@ -237,16 +268,12 @@ export default {
             document.querySelector('#startDateLoBasic').dispatchEvent(new Event('change'));
             document.querySelector('#startDateHiBasic').value = '';
             document.querySelector('#startDateHiBasic').dispatchEvent(new Event('change'));
-            let checkboxes = document.querySelector('.datasources-basic').querySelector('input, select, button, textarea');
-            checkboxes.each(function(checkbox){
-                checkboxes[checkbox].checked = true;
+            let checkboxes = document.querySelector('.datasources-basic').querySelectorAll('input, select, button, textarea');
+            checkboxes.forEach(function(checkbox){
+                checkbox.checked = true;
             });
-            document.querySelector('#siteCodeBasic').value = null;
-            document.querySelector('#siteCodeBasic').dispatchEvent(new Event('change'));
-            document.querySelector('#sampleMediaBasic').value = null;
-            document.querySelector('#sampleMediaBasic').dispatchEvent(new Event('change'));
-            document.querySelector('#charGroupBasic').value = null;
-            document.querySelector('#charGroupBasic').dispatchEvent(new Event('change'));
+            store.commit("getSampleMediaState", []);
+            store.commit("getChargroupState", []);
             samplingParametersInputView.resetContainer();
         };
 
@@ -282,7 +309,7 @@ export default {
         form.querySelector(buttonSelector).onclick = (event) => {
             const fileFormat = this.dataDetailsView.getMimeType();
             const resultType = this.dataDetailsView.getResultType();
-            const queryParamArray = this.getQueryParamArray();
+            const queryParamArray = this.getQueryParamArray(form);
             const queryString = decodeURIComponent(getQueryString(queryParamArray));
 
             const startDownload = (totalCount) => {
@@ -335,35 +362,36 @@ export default {
      * it will be a string.
      * @return {Array of Objects with name, value, and multiple properties}
      */
-    getQueryParamArray() {
+    getQueryParamArray(currentForm) {
         // Need to eliminate form parameters within the mapping-div
-        const formInputs = this.form.querySelectorAll('input:not(#mapping-div input, #nldi-map input), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div butto, #nldi-map button');
-
+        const formInputs = currentForm.querySelectorAll('input:not(#mapping-div input, #nldi-map input), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button');
         let result = [];
         let providersArray = [];
         var length = formInputs.length;
         formInputs.forEach(function(el, index) {
-            if (el.getAttribute('type') !== 'radio' || el.checked || (el.className === 'datasources usa-checkbox__input')) {
-                const value = el.value;
-                const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
-                const name = el.getAttribute('name');
-                if (valueIsNotEmpty && name) {
-                    if ((valueIsNotEmpty &&  el.className === 'datasources usa-checkbox__input') && (el.checked === true)) {
-                        providersArray.push(value)
-                    } else if (el.className !== 'datasources usa-checkbox__input') {
-                        result.push({
-                            name: name,
-                            value: value,
-                            multiple: el.dataset.multiple ? true : false
-                        });
+            if (el.type != 'radio' || el.checked || (el.className === 'datasources usa-checkbox__input') ) {
+                if (el.name != 'dataProfile'){
+                    const value = el.value;
+                    const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
+                    const name = el.getAttribute('name');
+                    if (valueIsNotEmpty && name) {
+                        if ((valueIsNotEmpty &&  el.className === 'datasources usa-checkbox__input') && (el.checked === true)) {
+                            providersArray.push(value)
+                        } else if (el.className !== 'datasources usa-checkbox__input') {
+                            result.push({
+                                name: name,
+                                value: value,
+                                multiple: el.dataset.multiple ? true : false
+                            });
+                        }
                     }
-                }
-                if (index === (length - 1)) {
-                    result.push({
-                        name: 'providers',
-                        value: providersArray,
-                        multiple: el.dataset.multiple ? true : false
-                    })
+                    if (index === (length - 1)) {
+                        result.push({
+                            name: 'providers',
+                            value: providersArray,
+                            multiple: el.dataset.multiple ? true : false
+                        })
+                    }
                 }
             }
         });

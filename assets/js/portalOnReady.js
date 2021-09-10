@@ -8,13 +8,26 @@ import DownloadProgressDialog from './DownloadProgressDialog.vue';
 import { initTooltip } from './uswdsComponents/uswdsTooltip';
 import Vue from 'vue';
 import DateValidator from './DateValidator.vue';
+import MultiselectCountry from './MultiselectCountry.vue';
+import MultiselectState from './MultiselectState.vue';
+import MultiselectCounty from './MultiselectCounty.vue';
+import MultiselectSitetype from './MultiselectSitetype.vue';
+import MultiselectCharGroup from './MultiselectCharGroup.vue';
+import MultiselectSampleMedia from './MultiselectSampleMedia.vue';
+import MultiselectOrgID from './MultiselectOrgID.vue';
+import MultiselectProjID from './MultiselectProjID.vue';
+import MultiselectSiteID from './MultiselectSiteID.vue';
+import MultiselectChar from './MultiselectChar.vue';
+import MultiselectAssemblage from './MultiselectAssemblage.vue';
+import MultiselectTax from './MultiselectTax.vue';
+import store from "./store/store";
 
 $(document).ready(function () {
 
     // initializeing multiselects 
-    $('#datasourceBasic').select2();
-    $('#dataTypeBasic').select2();
-    $('#fileFormatBasic').select2();
+    // $('#datasourceBasic').select2();
+    // $('#dataTypeBasic').select2();
+    // $('#fileFormatBasic').select2();
 
     ////// These might be old, there is no element with these class names in any other files/////////
     // $('.index-box-primary').click(function () {
@@ -35,6 +48,7 @@ $(document).ready(function () {
 
     const forms = new Vue({
         el: '#forms',
+        store: store,
         delimiters: ['[[', ']]'],
         components: {
           "date-validator": DateValidator,
@@ -42,6 +56,18 @@ $(document).ready(function () {
           ArcGisOnlineHelpView,
           SiteMapView,
           ShowAPIView,
+          "Multiselectcountry": MultiselectCountry,
+          "Multiselectstate": MultiselectState,
+          "Multiselectcounty": MultiselectCounty,
+          "Multiselectsitetype": MultiselectSitetype,
+          "Multiselectchargroup": MultiselectCharGroup,
+          "Multiselectsamplemedia": MultiselectSampleMedia,
+          "Multiselectorg": MultiselectOrgID,
+          "Multiselectprojid": MultiselectProjID,
+          "Multiselectsiteid": MultiselectSiteID,
+          "Multiselectchar": MultiselectChar,
+          "Multiselectassemblage": MultiselectAssemblage,
+          "Multiselecttax": MultiselectTax,
         },
         props: {
             // Show step labels
@@ -162,24 +188,18 @@ $(document).ready(function () {
               },
               onStartOver(){
                 document.querySelector('#paramsBasic').reset();
-                document.querySelector('#countrycodeBasic').value = null;
-                document.querySelector('#countrycodeBasic').dispatchEvent(new Event('change'));
-                document.querySelector('#statecodeBasic').value = null;
-                document.querySelector('#statecodeBasic').dispatchEvent(new Event('change'));
-                document.querySelector('#countycodeBasic').value = null;
-                document.querySelector('#countycodeBasic').dispatchEvent(new Event('change'));
-                document.querySelector('#siteTypeBasic').value = null;
-                document.querySelector('#siteTypeBasic').dispatchEvent(new Event('change'));
+                store.commit("getCountryState", []);
+                store.commit("getStateState", []);
+                store.commit("getCountyState", []);
+                store.commit("getSitetypeState", []);
+                store.commit("getSampleMediaState", []);
+                store.commit("getChargroupState", []);
                 document.querySelector('#dataSourceBasic').value = null;
                 document.querySelector('#dataSourceBasic').dispatchEvent(new Event('change'));
                 document.querySelector('#dataProfilesBasic').value = null;
                 document.querySelector('#dataProfilesBasic').dispatchEvent(new Event('change'));
                 document.querySelector('#formatBasic').value = null;
                 document.querySelector('#formatBasic').dispatchEvent(new Event('change'));
-                document.querySelector('#sampleMediaBasic').value = null;
-                document.querySelector('#sampleMediaBasic').dispatchEvent(new Event('change'));
-                document.querySelector('#charGroupBasic').value = null;
-                document.querySelector('#charGroupBasic').dispatchEvent(new Event('change'));
                 this.step = 0;
                 this.showStepParameters()
               },
@@ -202,23 +222,11 @@ $(document).ready(function () {
                 document.querySelector('#formIntro').style.display = "none";
               },
               syncBtoAForm() {
-                // country
-                var basicCountry = document.querySelector('#countrycodeBasic').value;
-                var countrycode = document.querySelector('#countrycode')
-                countrycode.value = basicCountry;
-                countrycode.dispatchEvent(new Event('change'));
-
                 // state
                 var basicState = document.querySelector('#statecodeBasic').value;
                 var statecode = document.querySelector('#statecode');
                 statecode.value = basicState;
                 statecode.dispatchEvent(new Event('change'));
-
-                // site type
-                var basicSiteType = document.querySelector('#siteTypeBasic').value;
-                var siteType = document.querySelector('#siteType');
-                siteType.value = basicSiteType;
-                siteType.dispatchEvent(new Event('change'));
                 
                 // within
                 var basicWithin = document.querySelector('#withinBasic').value;
@@ -245,18 +253,6 @@ $(document).ready(function () {
                 var startDateHi = document.querySelector('#startDateHi');
                 startDateHi.value = endBasic;
                 startDateHi.dispatchEvent(new Event('change'));
-                
-                // sample media
-                var sampleBasic = document.querySelector('#sampleMediaBasic').value;
-                var sampleMedia = document.querySelector('#sampleMedia');
-                sampleMedia.value = sampleBasic;
-                sampleMedia.dispatchEvent(new Event('change'));
-
-                // characteristic group
-                var charBasic = document.querySelector('#charGroupBasic').value;
-                var charType = document.querySelector('#characteristicType');
-                charType.value = charBasic;
-                charType.dispatchEvent(new Event('change'));
 
                 // datasources
                 var nwisBasic = document.querySelector('#nwis-basic').checked;
@@ -364,23 +360,12 @@ $(document).ready(function () {
                   }
               },
               syncAtoBForm() {
-                // country
-                var basicCountry = document.querySelector('#countrycode').value;
-                var countycodeBasic = document.querySelector('#countrycodeBasic');
-                countrycodeBasic.value = basicCountry;
-                countrycodeBasic.dispatchEvent(new Event('change'));
 
                 // state
                 var basicState = document.querySelector('#statecode').value;
                 var statecodeBasic = document.querySelector('#statecodeBasic');
                 statecodeBasic.value = basicState;
                 statecodeBasic.dispatchEvent(new Event('change'));
-
-                // site type
-                var basicSiteType = document.querySelector('#siteType').value;
-                var siteTypeBasic = document.querySelector('#siteTypeBasic');
-                siteTypeBasic.value = basicSiteType;
-                siteTypeBasic.dispatchEvent(new Event('change'));
                 
                 // within
                 var basicWithin = document.querySelector('#within').value;
@@ -407,18 +392,6 @@ $(document).ready(function () {
                 var startDateHiBasic = document.querySelector('#startDateHiBasic');
                 startDateHiBasic.value = endBasic;
                 startDateHiBasic.dispatchEvent(new Event('change'));
-                
-                // sample media
-                var sampleBasic = document.querySelector('#sampleMedia').value;
-                var sampleMediaBasic = document.querySelector('#sampleMediaBasic');
-                sampleMediaBasic.value = sampleBasic;
-                sampleMediaBasic.dispatchEvent(new Event('change'));
-
-                // characteristic group
-                var charBasic = document.querySelector('#characteristicType').value;
-                var charGroupBasic = document.querySelector('#charGroupBasic');
-                charGroupBasic.value = charBasic;
-                charGroupBasic.dispatchEvent(new Event('change'));
 
                 // datasources
                 var nwisBasic = document.querySelector('#nwis').checked;

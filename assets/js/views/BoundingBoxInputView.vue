@@ -5,7 +5,7 @@
 import Vue from 'vue';
 import InputValidationView from './InputValidationView.vue';
 
-import { realNumberValidator } from '../portalValidators';
+import PortalValidators from '../PortalValidators.vue';
 import { getAnchorQueryValues } from '../utils';
 
 /*
@@ -20,7 +20,8 @@ export default {
   name: "BoundingBoxInputView",
   props: ['container'],
   components: {
-      InputValidationView
+      InputValidationView,
+      PortalValidators
   },
   methods: {
       /*
@@ -33,6 +34,10 @@ export default {
         let west = this.container.querySelector('#west');
         let east = this.container.querySelector('#east');
         let bbox = this.container.querySelector('input[name="bBox"]');
+
+        let portalValidatorsClass = Vue.extend(PortalValidators);
+        let portalValidators = new portalValidatorsClass();
+        let realNumberValidator = portalValidators.realNumberValidator();
 
         let inputValidationClass = Vue.extend(InputValidationView);
         let inputValidationView = new inputValidationClass();

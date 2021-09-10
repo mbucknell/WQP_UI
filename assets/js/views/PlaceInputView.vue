@@ -10,11 +10,15 @@ import union from 'lodash/union';
 
 import Vue from 'vue';
 import InputValidationView from './InputValidationView.vue';
-import { CodeSelect, CascadedCodeSelect } from './portalViews';
+import store from '../store/store.js'
+import PortalViews from './PortalViews.vue';
 import { getPostalCode } from '../stateFIPS';
 import { getAnchorQueryValues} from '../utils';
 
 const USA = 'US';
+
+let portalViewClass = Vue.extend(PortalViews);
+let portalViews = new portalViewClass();
 
 /*
  * Initializes and manages the Place inputs
@@ -31,7 +35,8 @@ export default {
   name: "PlaceInputView",
   props: ['container', 'countyModel', 'stateModel', 'countryModel'],
   components:{
-      InputValidationView
+      InputValidationView,
+      PortalViews
   },
   methods: {
       initializeCountrySelect(select, model, initValues=[]) {
@@ -58,13 +63,14 @@ export default {
             isMatch: isMatch
         };
 
-        new CodeSelect(
+        portalViews.codeSelect("getCountryOptionsState",
             select,
             spec, {
             templateSelection: templateSelection
             },
             initValues
         );
+
     },
     initializeCountrySelectBasic(select, model, initValues=[]) {
         var isMatch = function (searchTerm, lookup) {
@@ -90,7 +96,7 @@ export default {
             isMatch: isMatch
         };
 
-        new CodeSelect(
+        portalViews.codeSelect("getCountryOptionsState",
             select,
             spec, {
             templateSelection: templateSelection
@@ -135,7 +141,8 @@ export default {
             return result;
         };
 
-        new CascadedCodeSelect(
+        portalViews.cascadedCodeSelect(
+            "getStateOptionsState",
             select,
             spec,
             {
@@ -181,7 +188,8 @@ export default {
             return result;
         };
 
-        new CascadedCodeSelect(
+        portalViews.cascadedCodeSelect(
+            "getStateOptionsState",
             select,
             spec,
             {
@@ -226,7 +234,8 @@ export default {
             return result;
         };
 
-        new CascadedCodeSelect(
+        portalViews.cascadedCodeSelect(
+            "getCountyOptionsState",
             select,
             countySpec,
             {
@@ -271,7 +280,8 @@ export default {
             return result;
         };
 
-        new CascadedCodeSelect(
+        portalViews.cascadedCodeSelect(
+            "getCountyOptionsState",
             select,
             countySpec,
             {
@@ -360,38 +370,6 @@ export default {
         });
 
         //Add event handlers
-        countrySelect.addEventListener('change', function (ev) {
-            /* update states */
-            let countries = ev.target.value;
-            const states = stateSelect.value;
-            const isInCountries = function(state) {
-                const countryCode = state.split(':')[0];
-                return includes(countries, countryCode);
-            };
-
-            if (!countries) {
-                countries = [USA];
-            }
-            stateSelect.value = filter(states, isInCountries);
-            stateSelect.dispatchEvent(new Event('change'));
-        });
-
-        //Add event handlers
-        countrySelectBasic.addEventListener('change', function (ev) {
-            /* update states */
-            let countries = ev.target.value;
-            const states = stateSelectBasic.value;
-            const isInCountries = function(state) {
-                const countryCode = state.split(':')[0];
-                return includes(countries, countryCode);
-            };
-
-            if (!countries) {
-                countries = [USA];
-            }
-            stateSelectBasic.value = filter(states, isInCountries);
-            stateSelectBasic.dispatchEvent(new Event('change'));
-        }); 
 
         stateSelect.addEventListener('change', function (ev) {
             const states = ev.target.value;

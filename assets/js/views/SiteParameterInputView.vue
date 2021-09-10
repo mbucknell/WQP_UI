@@ -4,9 +4,8 @@
 <script>
 import Vue from 'vue'
 import InputValidationView from './InputValidationView.vue';
-import { CodeSelect, PagedCodeSelect } from './portalViews';
+import PortalViews from './PortalViews.vue';
 import HucValidator from '../HucValidator.vue';
-import { positiveIntValidator } from '../portalValidators';
 import { getAnchorQueryValues, initializeInput } from '../utils';
 
 /*
@@ -22,12 +21,16 @@ import { getAnchorQueryValues, initializeInput } from '../utils';
 let hucValidatorClass = Vue.extend(HucValidator);
 const hucValidator = new hucValidatorClass();
 
+let portalViewClass = Vue.extend(PortalViews);
+let portalViews = new portalViewClass();
+
 export default {
   name: "SiteParameterInputView",
   props: ['container', 'siteTypeModel', 'organizationModel'],
   components: {
       HucValidator,
       InputValidationView,
+      PortalViews
   },
   methods: {
       /*
@@ -53,7 +56,10 @@ export default {
                     return true;
                 }
             };
-            new CodeSelect(select,
+
+            portalViews.codeSelect(
+                "getOrgIDOptionsState",
+                select,
                 {
                     model : model,
                     formatData : formatData,
@@ -62,7 +68,7 @@ export default {
                     minimumInputLength: 2,
                     closeOnSelect : false
                 },
-                 getAnchorQueryValues(select.getAttribute('name'))
+                getAnchorQueryValues(select.getAttribute('name'))
             );
         };
 
@@ -73,7 +79,8 @@ export default {
 
             var parametername = 'organizationid';
 
-            new PagedCodeSelect(
+            portalViews.pagedCodeSelect(
+                "getSiteIDOptionsState",
                 select,
                 {
                     codes: 'monitoringlocation',
@@ -84,7 +91,8 @@ export default {
                 },
                 orgsel,
                 parametername,
-                getAnchorQueryValues(select.getAttribute('name')));
+                getAnchorQueryValues(select.getAttribute('name'))
+            );
         };
 
         var siteTypeSelect = this.container.querySelector('#siteType');
@@ -100,20 +108,24 @@ export default {
         initializeSiteIdSelect(siteIdSelect, organizationSelect);
 
         fetchSiteType.then(() => {
-            new CodeSelect(
+            portalViews.codeSelect(
+                "getSitetypeOptionsState",
                 siteTypeSelect,
                 {
                     model : this.siteTypeModel
                 },
                 {},
-                getAnchorQueryValues(siteTypeSelect.getAttribute('name')));
-            new CodeSelect(
+                getAnchorQueryValues(siteTypeSelect.getAttribute('name'))
+            );
+            portalViews.codeSelect(
+                "getSitetypeOptionsState",
                 siteTypeSelectBasic,
                 {
                     model : this.siteTypeModel
                 },
                 {},
-                getAnchorQueryValues(siteTypeSelectBasic.getAttribute('name')));
+                getAnchorQueryValues(siteTypeSelectBasic.getAttribute('name'))
+            );
         });
 
         fetchOrganization.then(() => {

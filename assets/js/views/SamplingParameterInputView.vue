@@ -5,10 +5,13 @@
 import Vue from 'vue';
 import DateValidator from '../DateValidator.vue';
 import InputValidationView from './InputValidationView.vue';
-import { CodeSelect, PagedCodeSelect } from './portalViews';
+import PortalViews from './PortalViews.vue';
 
-import { positiveIntValidator } from '../portalValidators';
+import PortalValidators from '../PortalValidators.vue';
 import { getAnchorQueryValues, initializeInput } from '../utils';
+
+let portalViewClass = Vue.extend(PortalViews);
+let portalViews = new portalViewClass();
 
 /*
  * Creates a sampling parameter input view
@@ -25,7 +28,9 @@ export default {
   props: ['container', 'sampleMediaModel', 'characteristicTypeModel'],
   components:{
       DateValidator,
-      InputValidationView
+      InputValidationView,
+      PortalValidators,
+      PortalViews
   },
   methods: {
       initialize() {
@@ -49,7 +54,8 @@ export default {
         const datevalidator = new dateValidatorClass();
 
         fetchSampleMedia.then(() => {
-            new CodeSelect(
+            portalViews.codeSelect(
+                "getSampleMediaOptionsState",
                 sampleMedia,
                 {
                     model : this.sampleMediaModel
@@ -57,7 +63,8 @@ export default {
                 {},
                 getAnchorQueryValues(sampleMedia.getAttribute('name'))
             );
-            new CodeSelect(
+            portalViews.codeSelect(
+                "getSampleMediaOptionsState",
                 sampleMediaBasic,
                 {
                     model : this.sampleMediaModel
@@ -67,7 +74,8 @@ export default {
             );
         });
         fetchCharacteristicType.then(() => {
-            new CodeSelect(
+            portalViews.codeSelect(
+                "getChargroupOptionsState",
                 characteristicType,
                 {
                     model : this.characteristicTypeModel
@@ -75,7 +83,8 @@ export default {
                 {},
                 getAnchorQueryValues(characteristicType.getAttribute('name'))
             );
-            new CodeSelect(
+            portalViews.codeSelect(
+                "getChargroupOptionsState",
                 characteristicTypeBasic,
                 {
                     model : this.characteristicTypeModel
@@ -85,7 +94,8 @@ export default {
             );
         });
 
-        new PagedCodeSelect(
+        portalViews.pagedCodeSelect(
+            "getCharOptionsState",
             characteristicName,
             {
                 codes: 'characteristicname'
@@ -97,7 +107,8 @@ export default {
             null,
             getAnchorQueryValues(characteristicName.getAttribute('name'))
         );
-        new PagedCodeSelect(
+        portalViews.pagedCodeSelect(
+            "getProjIDOptionsState",
             projectCode,
             {
                 codes: 'project'
@@ -114,6 +125,10 @@ export default {
         initializeInput(minresults);
         initializeInput(startDate);
         initializeInput(endDate);
+
+        let portalValidatorsClass = Vue.extend(PortalValidators);
+        let portalValidators = new portalValidatorsClass();
+        let positiveIntValidator = portalValidators.positiveIntValidator();
 
         let inputValidationView = Vue.extend(InputValidationView);
         // Add input validations and reformatting handlers

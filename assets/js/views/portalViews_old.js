@@ -6,6 +6,7 @@ import includes from 'lodash/includes';
 
 import providers from '../providers';
 
+import store from '../store/store.js'
 
 /*
  * @param {jquery element for select} el
@@ -144,12 +145,12 @@ export class PagedCodeSelect {
  @param {Array of String} initValues
  */
 export class CodeSelect {
-    constructor(el, options, select2Options, initValues=[]) {
-        this.initialize(el, options, select2Options, initValues);
+    constructor(state, el, options, select2Options, initValues=[]) {
+        this.initialize(state, el, options, select2Options, initValues);
     }
 
     // This exists solely so it may be mocked in the test suite
-    initialize(el, options, select2Options, initValues) {
+    initialize(state, el, options, select2Options, initValues) {
         var isMatch;
         var defaultOptions;
 
@@ -206,7 +207,9 @@ export class CodeSelect {
             data: map(options.model.getAll(), formatData)
         };
 
-        el.select2($.extend(defaultOptions, select2Options));
+        store.commit(state, defaultOptions.data);
+
+        // el.select2($.extend(defaultOptions, select2Options));
     }
 }
 
@@ -260,7 +263,6 @@ export class CascadedCodeSelect {
             data: map(options.model.getAll(), initFormatData)
         };
 
-
         // Set up the ajax transport property to fetch the options if they need to be refreshed,
         // otherwise use what is in the model.
         defaultOptions.ajax = {
@@ -299,6 +301,7 @@ export class CascadedCodeSelect {
             }
         };
 
-        el.select2($.extend(defaultOptions, select2Options));
+        store.commit("getStateOptionsState", defaultOptions.data);
+        // el.select2($.extend(defaultOptions, select2Options));
     }
 }

@@ -101,28 +101,25 @@
                 <label class="usa-label" for="countrycodeBasic">Country </label><div class="tooltip" class="control-label"
                               for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <div>
-                  <select multiple class="form-control" style="width: 50%" id="countrycodeBasic" name="countrycode"
-                    data-placeholder="All Countries" aria-label="Input box for country parameter"></select>
+                  <Multiselectcountry id="countrycodeBasic" style="width: 50%;" name="countrycode"></Multiselectcountry>
                 </div>
               </div>
               <div class="formSection">
                 <label class="usa-label" for="statecodeBasic">State </label><div class="tooltip" class="control-label"
                               for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <div>
-                  <select multiple class="form-control" style="width: 50%" id="statecodeBasic" name="statecode"
-                    data-placeholder="All States" aria-label="Input box for state parameter"></select>
+                  <Multiselectstate id="statecodeBasic" style="width: 50%;" name="statecode"></Multiselectstate>
                 </div>
               </div>
               <div class="formSection">
                 <label class="usa-label" for="countycodeBasic">County </label><div class="tooltip" class="control-label"
                                 for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <div>
-                  <select multiple class="form-control" style="width: 50%" id="countycodeBasic" name="countycode"
-                    data-placeholder="All Counties" aria-label="Input box for county parameter"></select>
+                  <Multiselectcounty id="countycodeBasic" style="width: 50%;" name="countycode"></Multiselectcounty>
                 </div>
               </div>
               <div class="formSection">
-                <label class="usa-label" for="point-location">Point Location </label><div class="tooltip"
+                <label class="usa-label" for="point-location-basic">Point Location </label><div class="tooltip"
                                 :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               </div>
             </div>
@@ -149,8 +146,7 @@
               <label class="usa-label" for="siteTypeBasic">Site Type </label>
                             <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
-                <select multiple class="form-control" style="width: 50%" id="siteTypeBasic" name="siteType"
-                  data-placeholder="All Site Types" aria-label="Input box for site type parameter"></select>
+                <Multiselectsitetype id="siteTypeBasic" style="width: 50%"></Multiselectsitetype>
               </div>
             </div>
             <div class="menu-buttons">
@@ -236,16 +232,14 @@
               <label class="usa-label" for="sampleMediaBasic">Sample Media </label>
                                 <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
-                <select multiple class="form-control" style="width: 50%" id="sampleMediaBasic" name="sampleMedia"
-                  data-placeholder="All Sample Media" aria-label="Input box for sample media parameter"></select>
+                <Multiselectsamplemedia id="sampleMediaBasic" name="sampleMedia" style="width: 50%"></Multiselectsamplemedia>
               </div>
             </div>
             <div class="formSection">
               <label class="usa-label" for="charGroupBasic">Characteristic Group </label>
                                 <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
               <div>
-                <select multiple class="form-control" style="width: 50%" id="charGroupBasic" name="charGroup"
-                  data-placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter"></select>
+                <Multiselectchargroup id="charGroupBasic" name="charGroup" style="width: 50%"></Multiselectchargroup>
               </div>
             </div>
             <div>
@@ -394,9 +388,7 @@
                           <label class="usa-label" for="countrycode">Country </label><div class="tooltip" class="control-label"
                             for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                           <div>
-                            <select multiple class="form-control" id="countrycode" name="countrycode"
-                              data-placeholder="All Countries" style="width: 100%"
-                              aria-label="Input box for country parameter"></select>
+                            <Multiselectcountry id="countrycode" name="countrycode"></Multiselectcountry>
                           </div>
                         </div>
                         <br>
@@ -404,18 +396,14 @@
                           <label class="usa-label" for="statecode">State </label><div class="tooltip" class="control-label"
                             for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                           <div>
-                            <select multiple class="form-control" id="statecode" name="statecode"
-                              data-placeholder="All States" style="width: 100%"
-                              aria-label="Input box for state parameter"></select>
+                            <Multiselectstate id="statecode" name="statecode"></Multiselectstate>
                           </div>
                           <br>
                           <div class="form-group">
                             <label class="usa-label" for="countycode">County </label><div class="tooltip" class="control-label"
                               for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                             <div>
-                              <select multiple class="form-control" id="countycode" name="countycode"
-                                data-placeholder="All Counties" style="width: 100%"
-                                aria-label="Input box for county parameter"></select>
+                              <Multiselectcounty id="countycode" name="countycode"></Multiselectcounty>
                             </div>
                           </div>
                         </div>
@@ -498,8 +486,7 @@
                             <label class="usa-label" for="siteType">Site Type </label>
                             <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                             <div>
-                              <select multiple id="siteType" name="siteType" data-placeholder="All Site Types"
-                                style="width: 100%" aria-label="Input box for site type parameter"></select>
+                              <Multiselectsitetype id="siteType" style="width: 100%"></Multiselectsitetype>
                             </div>
                           </div>
                           <br>
@@ -508,9 +495,7 @@
                             <div class="tooltip" :title="orgIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                             </div>
                             <div>
-                              <select multiple id="organization" name="organization"
-                                data-placeholder="All Organization IDs" style="width: 100%"
-                                aria-label="Input box for organization ID parameter"></select>
+                              <Multiselectorg id="organization" name="organization" style="width: 100%"></Multiselectorg>
                             </div>
                           </div>
                           <br>
@@ -519,9 +504,7 @@
                             <div class="tooltip" :title="siteIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                             </div>
                             <div>
-                              <select multiple id="siteid" input class="form-control" name="siteid"
-                                data-placeholder="All Site IDs" style="width: 100%"
-                                aria-label="Input box for site ID parameter"></select>
+                              <Multiselectsiteid id="siteid" name="siteid" style="width: 100%"></Multiselectsiteid>
                             </div>
                           </div>
                           <br>
@@ -576,37 +559,28 @@
                                 <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
-                                  <select multiple class="form-control" name="sampleMedia" id="sampleMedia"
-                                    data-placeholder="All Sample Media" style="width: 100%"
-                                    aria-label="Input box for sample media parameter"></select>
+                                  <Multiselectsamplemedia id="sampleMedia" name="sampleMedia" style="width: 100%"></Multiselectsamplemedia>
                                 </div>
                                 <br>
                                 <label class="usa-label" for="characteristicType">Characteristic Group </label>
                                 <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
-                                  <select multiple class="form-control" name="characteristicType"
-                                    id="characteristicType" data-placeholder="All Characteristic Groups"
-                                    style="width: 100%"
-                                    aria-label="Input box for characteristic groups parameter"></select>
+                                    <Multiselectchargroup id="characteristicType" name="characteristicType" style="width: 100%"></Multiselectchargroup>
                                 </div>
                                 <br>
                                 <label class="usa-label" for="characteristicName">Characteristics </label>
                                 <div class="tooltip" :title="characteristicsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
-                                  <select multiple class="form-control" name="characteristicName"
-                                    id="characteristicName" data-placeholder="All Characteristics" style="width: 100%"
-                                    aria-label="Input box for characteristics parameter"></select>
+                                  <Multiselectchar id="characteristicName" name="characteristicName" style="width: 100%"></Multiselectchar>
                                 </div>
                                 <br>
                                 <label class="usa-label" for="project-code">Project ID </label>
                                 <div class="tooltip" :title="projectIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
-                                  <select multiple class="form-control" name="project" id="project-code"
-                                    data-placeholder="All Project IDs" style="width: 100%"
-                                    aria-label="Input box for project ID parameter"></select>
+                                  <Multiselectprojid id="project-code" name="project" style="width: 100%"></Multiselectprojid>
                                 </div>
                               </div>
                               <div class="tablet:grid-col-4">
@@ -629,9 +603,7 @@
                                     <div class="tooltip" :title="assemblageTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                     </div>
                                     <div>
-                                      <select multiple name="assemblage" id="assemblage"
-                                        data-placeholder="All Assemblages" style="width: 100%"
-                                        aria-label="First of two input boxes for biological sampling parameters. Input box for assemblage parameter."></select>
+                                      <Multiselectassemblage id="assemblage" name="assemblage" style="width: 100%"></Multiselectassemblage>
                                     </div>
                                     <br>
                                     <div class="form-group">
@@ -639,10 +611,7 @@
                                           Name </label><div class="tooltip" for="control-label"
                                         :title="taxNameTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                                       <div>
-                                        <select multiple name="subjectTaxonomicName"
-                                          aria-label="Select a taxonomic name" id="subject-taxonomic-name"
-                                          data-placeholder="All Taxonomic Names" style="width: 100%"
-                                          aria-label="Second of two input boxes for biological sampling parameters. Input box for taxonomic name parameter."></select>
+                                        <Multiselecttax id="subject-taxonomic-name" name="subjectTaxonomicName" style="width: 100%"></Multiselecttax>
                                       </div>
                                     </div>
                                   </div>

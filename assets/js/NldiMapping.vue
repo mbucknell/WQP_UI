@@ -108,22 +108,33 @@ export default {
         };
 
         var addNldiLinesToMap = function(endpointUrl, style) {
-            $.getJSON(endpointUrl, distanceParam, function(data) {
+            axios.get(endpointUrl, {
+                params : {
+                    distanceParam
+                }
+            })
+            .then(function(response){
+                data = response.json();
                 addLineDataToMap(data, style);
-            });
+            })
+            // $.getJSON(endpointUrl, distanceParam, function(data) {
+            //     addLineDataToMap(data, style);
+            // });
         };
 
         var addNldiPointsToMap = function(endpointUrl, style) {
-            // fetch(endpointUrl, distanceParam)
-            //     .then(function (response){
-            //         return response.json();
-            //     })
-            //     .then(function (data){
-            //         addPointDataToMap(data, style);
-            //     });
-            $.getJSON(endpointUrl, distanceParam, function(data) {
+            axios.get(endpointUrl, {
+                params : {
+                    distanceParam
+                }
+            })
+            .then(function(response){
+                data = response.json();
                 addPointDataToMap(data, style);
-            });
+            })
+            // $.getJSON(endpointUrl, distanceParam, function(data) {
+            //     addPointDataToMap(data, style);
+            // });
         };
 
         var WQPURLUT = nldiUrl + WQP + '/' + MONITORING_LOCATION_IDENTIFIER + '/navigate/' + UT + '/wqp';
@@ -143,12 +154,20 @@ export default {
         ];
 
         // style the current site so it can be easily identified
-        $.getJSON(WQPURLSITE, {}, function(data) {
+        axios.get(WQPURLSITE)
+        .then(function(response){
+            data = response.json();
             addPointDataToMap(data, geojsonThisSiteMarkerOptions);
             var coord = data.features[0].geometry.coordinates;
             var latlon = L.GeoJSON.coordsToLatLng(coord);
             map.setView(latlon, 10);
-        });
+        })
+        // $.getJSON(WQPURLSITE, {}, function(data) {
+        //     addPointDataToMap(data, geojsonThisSiteMarkerOptions);
+        //     var coord = data.features[0].geometry.coordinates;
+        //     var latlon = L.GeoJSON.coordsToLatLng(coord);
+        //     map.setView(latlon, 10);
+        // });
 
         nldiLines.forEach(function(pair) {
             addNldiLinesToMap(pair.url, pair.style);

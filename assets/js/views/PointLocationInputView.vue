@@ -7,7 +7,7 @@ import log from 'loglevel';
 import Vue from 'vue';
 import InputValidationView from './InputValidationView.vue';
 
-import { realNumberValidator } from '../portalValidators';
+import PortalValidators from '../PortalValidators.vue';
 import { initializeInput } from '../utils';
 
 /*
@@ -23,6 +23,7 @@ export default {
   props: ['container'],
   components: {
       InputValidationView,
+      PortalValidators
   },
   methods: {
       // GeoLocation easter egg.
@@ -50,6 +51,10 @@ export default {
      * Initializes all widgets and DOM event handlers
      */
     initialize() {
+        let portalValidatorsClass = Vue.extend(PortalValidators);
+        let portalValidators = new portalValidatorsClass();
+        let realNumberValidator = portalValidators.realNumberValidator();
+
         let inputValidationClass = Vue.extend(InputValidationView)
         let inputValidationView = new inputValidationClass();
         inputValidationView.initialize( {
