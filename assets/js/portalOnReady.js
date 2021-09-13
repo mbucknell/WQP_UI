@@ -164,6 +164,7 @@ $(document).ready(function () {
                 this.showStepParameters()
               },
               onAdvancedStartOver(){
+                $('#params')[0].reset();
                 $('#countrycode').val(null).trigger('change');
                 $('#statecode').val(null).trigger('change');
                 $('#countycode').val(null).trigger('change');
