@@ -63,7 +63,6 @@ export default {
             resolvePromise(self.cachedData);
         })
         .catch(function(jqXHR, textStatus, error) {
-            console.log(jqXHR)
             log.error('Can\'t  get ' + self.codes + ', Server error: ' + error);
             rejectPromise(error);
         })

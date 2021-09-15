@@ -62,7 +62,7 @@ export default {
         })
         .then(function (data) {
             self.cachedData = map(keys, (key) => {
-                var filtered = filter(data.codes, (lookup) => {
+                var filtered = filter(data.data.codes, (lookup) => {
                     return self.parseKey(lookup.value) === key;
                 });
                 return {

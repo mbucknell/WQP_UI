@@ -5,6 +5,7 @@
 <script>
 import Vue from 'vue';
 import Multiselect from 'vue-multiselect';
+import includes from 'lodash/includes';
 import filter from 'lodash/filter';
 
 export default {
@@ -28,9 +29,9 @@ export default {
     onchange() {
       /* update states */
       let countries = this.countryValue;
-      const states = this.$store.state.stateSelectedState;
+      const states = this.$store.state.stateOptionsState;
       const isInCountries = function(state) {
-          const countryCode = state.split(':')[0];
+          const countryCode = state.id.split(':')[0];
           return includes(countries, countryCode);
       };
 
@@ -38,7 +39,7 @@ export default {
           countries = [USA];
       }
       let statesArray = filter(states, isInCountries);
-      this.$store.commit("getStateState", statesArray);
+      this.$store.commit("getStateOptionsState", statesArray);
       this.$store.commit("getCountryState", this.countryValue);
     }
   },

@@ -64,7 +64,6 @@ export default {
                 return has(object, 'id') ? object.id : null;
             },
             data: initValues.map((id) => {
-                console.log(id)
                 return {
                     id: id,
                     text: id,
