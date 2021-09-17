@@ -9,12 +9,17 @@ $black: #000;
 
 @import "../../node_modules/uswds/dist/scss/uswds";
 
-body,
-html {
+body {
+  background-color: #BDCCD4;
+}
+
+#forms {
+  background-color: white;
+  padding-top: 20px;
 }
 
 #main-header {
-  background-color: #253f60;
+  background-color: #253F60;
   padding-bottom: 5px;
 }
 
@@ -152,7 +157,6 @@ html {
 
 // Home Page form intro
 #formIntro {
-  margin-top: 20px;
   margin-bottom: 20px;
   background-color: #e6e6e6; //uswds gray 10
   box-sizing: border-box;
@@ -190,6 +194,14 @@ html {
       }
     }
   }
+}
+
+.usa-footer__primary-section {
+  background-color: #323C41 !important;
+}
+
+.usa-footer__primary-section a:link, a:visited {
+  color: white !important;
 }
 
 #close-announcement img {
@@ -346,11 +358,11 @@ html {
 }
 
 a:link {
-  color: grey;
+  color: #005ea2;
 }
 
 a:visited {
-  color: grey;
+  color: #005ea2;
 }
 
 #main-button {
