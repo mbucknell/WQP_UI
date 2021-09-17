@@ -17,7 +17,7 @@ describe('Tests for DownloadProgressDialog', function () {
                 '<ul class="usa-button-group" id="downloadButtons"></ul>'+
             '</div>'
 
-        thisDialog = new DownloadProgressDialog(document.getElementById('download-status-modal'));
+        thisDialog = new DownloadProgressDialog(document.getElementById('download-status-modal'), "advanced");
         continueSpy = jasmine.createSpy('continueSpy');
     });
     afterEach(function () {

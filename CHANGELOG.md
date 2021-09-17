@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update NLDI url for downloads
 - Query strings update when NLDI map returns sites
 - Added search and download functionality to basic form
+- Fix download bug when switching between basic and advanced form
 
 ## [5.24.0](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.23.0...WQP_UI-5.24.0) - 2021-05-10
 ### Changed

@@ -89,7 +89,7 @@ describe('Tests for DownloadFormView', function() {
         expect(SamplingParameterInputView.prototype.initialize).toHaveBeenCalled();
         expect(BiologicalSamplingInputView.prototype.initialize).toHaveBeenCalled();
         expect(DataDetailsView.prototype.initialize).toHaveBeenCalled();
-        expect(NldiView.prototype.initialize).toHaveBeenCalled();
+        expect(NldiView.prototype.initialize).not.toHaveBeenCalled();
     });
 
     it('Expects that the providers are fetched', function() {
