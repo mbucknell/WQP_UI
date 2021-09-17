@@ -6,19 +6,19 @@ Yes. The WQP provides an easy way to access data stored in three large water qua
 
 ***How often are the data refreshed?***
 
-The USGS services are refreshed every 24 hours. The EPA services are refreshed once a week on Thursday evening. The STEWARDS data are refreshed once a week on Saturdays. 
+The NWIS (USGS) services are refreshed every 24 hours. The WQX (EPA) services are refreshed once a week on Thursday evening. The STEWARDS (ARS) data are refreshed once a week on Saturdays. 
 
 ***How much data are available?***
 
 As of July 2015, over 265 million results from over 2.2 million monitoring locations are currently accessible through the portal. The portal reports samples and results collected from each location since the beginning of the databases.
 
-***Why do I have to add "USGS-" or other organization identifiers in front of my NWIS Site ID when searching? Why do I have to add the Organization ID in front of my EPA Site ID when searching?***
+***Why do I have to add "USGS-" or other organization identifiers in front of my NWIS (USGS) Site ID when searching? Why do I have to add the Organization ID in front of my WQX (EPA) Site ID when searching?***
 
-The **Site IDs** in the EPA and NWIS systems have not been harmonized; therefore, a **Site ID** may be *duplicated* across the two systems. Additionally, EPA aggregates data from different organizations who have not harmonized their identifiers. 
+The **Site IDs** in the WQX (EPA) and NWIS (USGS) systems have not been harmonized; therefore, a **Site ID** may be *duplicated* across the two systems. Additionally, WQX (EPA) aggregates data from different organizations who have not harmonized their identifiers. 
 
 ***Why is the MonitoringLocationIdentifier not the same as the Site ID?***
 
-The **MonitoringLocationIdentifier** is consistent within the WQP. This Identifier will not be consistent with the **Site ID** used by EPA or NWIS because **Site IDs** are duplicated across those databases.
+The **MonitoringLocationIdentifier** is consistent within the WQP. This Identifier will not be consistent with the **Site ID** used by WQX (EPA) or NWIS (USGS) because **Site IDs** are duplicated across those databases.
 
 ***Why will Google Earth display more points than the Mapping tool when I download data in KML format?***
 
