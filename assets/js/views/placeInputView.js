@@ -459,10 +459,6 @@ export default class PlaceInputView {
         return fetchComplete;
     }
 
-    countyBasicInputValidation() {
-        
-    }
-
     resetContainer() {
         let $inputs = this.$container.find(':input[name]');
         $inputs.val('');

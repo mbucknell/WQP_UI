@@ -70,12 +70,12 @@ describe('Tests for SiteParameterInputView', function() {
         expect(CodeSelect.prototype.initialize).not.toHaveBeenCalled();
 
         fetchSiteTypeDeferred.resolve();
-        expect(CodeSelect.prototype.initialize.calls.count()).toBe(1);
+        expect(CodeSelect.prototype.initialize.calls.count()).toBe(2);
         expect(CodeSelect.prototype.initialize.calls.argsFor(0)[0].attr('id')).toEqual($siteType.attr('id'));
 
         fetchOrgDeferred.resolve();
-        expect(CodeSelect.prototype.initialize.calls.count()).toBe(2);
-        expect(CodeSelect.prototype.initialize.calls.argsFor(1)[0].attr('id')).toEqual($organization.attr('id'));
+        expect(CodeSelect.prototype.initialize.calls.count()).toBe(3);
+        expect(CodeSelect.prototype.initialize.calls.argsFor(2)[0].attr('id')).toEqual($organization.attr('id'));
     });
 
     it('Expects the huc and min activities inputs to be initialized if in the anchor url', () => {
