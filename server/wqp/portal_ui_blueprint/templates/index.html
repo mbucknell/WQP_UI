@@ -214,7 +214,7 @@
                     <label id="datesLabel" class="usa-label">Dates should be entered as mm-dd-yyyy, mm-yyyy, or yyyy</label></label>
                     <div>
                       <label>from: </label><input class="form-control usa-input" type="text" id="startDateLoBasic" @blur="validate()"
-                        name="startDateLo" placeholder="All Dates" size="18"
+                        name="startDateLo" placeholder="mm-dd-yyyy" size="18"
                         aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
                     </div>
                   </div>
@@ -224,7 +224,7 @@
                     <div>
                       <label class="control-label" for="startDateHiBasic">to: </label> <input
                         class="form-control usa-input" type="text" id="startDateHiBasic" name="startDateHi" @blur="validate()"
-                        placeholder="All Dates" size="20"
+                        placeholder="mm-dd-yyyy" size="20"
                         aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
                     </div>
                   </div>
@@ -654,9 +654,10 @@
                                     <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                     </div>
                                     <div>
+                                      <label id="datesLabelAdv" class="usa-label">Dates should be entered as mm-dd-yyyy, mm-yyyy, or yyyy</label>
                                       <div>
                                         <label>from: </label><input class="form-control usa-input" type="text" id="startDateLo"
-                                          name="startDateLo" placeholder="All Dates" size="18"
+                                          name="startDateLo" placeholder="mm-dd-yyyy" size="18"
                                           aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
                                       </div>
                                     </div>
@@ -666,7 +667,7 @@
                                       <div>
                                         <label class="control-label" for="startDateHi">to: </label> <input
                                           class="form-control usa-input" type="text" id="startDateHi" name="startDateHi"
-                                          placeholder="All Dates" size="20"
+                                          placeholder="mm-dd-yyyy" size="20"
                                           aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
                                       </div>
                                     </div>
