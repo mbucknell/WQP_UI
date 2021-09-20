@@ -221,13 +221,7 @@ $(document).ready(function () {
               closeIntro() {
                 document.querySelector('#formIntro').style.display = "none";
               },
-              syncBtoAForm() {
-                // state
-                var basicState = document.querySelector('#statecodeBasic').value;
-                var statecode = document.querySelector('#statecode');
-                statecode.value = basicState;
-                statecode.dispatchEvent(new Event('change'));
-                
+              syncBtoAForm() {  
                 // within
                 var basicWithin = document.querySelector('#withinBasic').value;
                 var within = document.querySelector('#within');
@@ -267,12 +261,6 @@ $(document).ready(function () {
                 var storet = document.querySelector('#storet');
                 storet.checked = storetBasic;
                 storet.dispatchEvent(new Event('change'));
-
-                // county
-                var basicCounty = document.querySelector('#countycodeBasic').value;
-                var countycode = document.querySelector('#countycode');
-                countycode.value = basicCounty[0];
-                countycode.dispatchEvent(new Event('change'));
 
                 // sort
                 var sortedBasic = document.querySelector('#sortDataBasic').checked;
@@ -360,12 +348,6 @@ $(document).ready(function () {
                   }
               },
               syncAtoBForm() {
-
-                // state
-                var basicState = document.querySelector('#statecode').value;
-                var statecodeBasic = document.querySelector('#statecodeBasic');
-                statecodeBasic.value = basicState;
-                statecodeBasic.dispatchEvent(new Event('change'));
                 
                 // within
                 var basicWithin = document.querySelector('#within').value;
@@ -412,12 +394,6 @@ $(document).ready(function () {
                 var sortedBasic = document.querySelector('#sorted').checked;
                 var sortDataBasic = document.querySelector('#sortDataBasic');
                 sortDataBasic.checked = sortedBasic;
-
-                // county
-                var basicCounty = document.querySelector('#countycode').value;
-                var countycodeBasic = document.querySelector('#countycodeBasic');
-                countycodeBasic.value = basicCounty;
-                countycodeBasic.dispatchEvent(new Event('change'));
 
                 // data profiles
                 let selectedRadio;

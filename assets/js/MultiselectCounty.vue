@@ -1,5 +1,8 @@
 <template>
-    <multiselect v-model="countyValue" @input="onchange" tag-placeholder="All Counties" placeholder="All Counties" aria-label="Input box for county parameter" label="text" track-by="id" :options="countyOptions" :multiple="true" :taggable="true"></multiselect>
+    <multiselect v-model="countyValue" name="countycode" @input="updateSelected" tag-placeholder="All Counties" placeholder="All Counties" aria-label="Input box for county parameter" label="text" track-by="id" :options="countyOptions" :multiple="true" :taggable="true">
+      <span slot="noOptions">Type to search</span>
+      <span slot="noResult">No results found</span>
+    </multiselect>
 </template>
 
 <script>
@@ -20,12 +23,10 @@ export default {
   methods: {
     updateSelected(value) {
       this.countyValue = value;
+      this.$store.commit("getCountyState", this.countyValue);
     },
     updateOptions(value) {
       this.countyOptions = value;
-    },
-    onchange() {
-      this.$store.commit("getCountyState", this.countyValue);
     },
   },
   watch: {
@@ -33,7 +34,6 @@ export default {
       deep: true,
       handler(){
         this.updateSelected(this.$store.state.countySelectedState);
-        this.onchange();
       }
     },
     "$store.state.countyOptionsState": {

@@ -72,40 +72,14 @@ export default {
             );
         };
 
-        const initializeSiteIdSelect = function(select, orgsel) {
-            var formatData = function(data) {
-                return data.value + ' - ' + data.desc;
-            };
-
-            var parametername = 'organizationid';
-
-            portalViews.pagedCodeSelect(
-                "getSiteIDOptionsState",
-                select,
-                {
-                    codes: 'monitoringlocation',
-                    formatData: formatData
-                },
-                {
-                    minimumInputLength: 2
-                },
-                orgsel,
-                parametername,
-                getAnchorQueryValues(select.getAttribute('name'))
-            );
-        };
-
         var siteTypeSelect = this.container.querySelector('#siteType');
         var siteTypeSelectBasic = document.querySelector('#siteTypeBasic');
         var organizationSelect = this.container.querySelector('#organization');
-        var siteIdSelect = this.container.querySelector('#siteid');
         var hucInput = this.container.querySelector('#huc');
 
         var fetchSiteType = this.siteTypeModel.fetch();
         var fetchOrganization = this.organizationModel.fetch();
         var fetchComplete = Promise.all([fetchSiteType, fetchOrganization]);
-
-        initializeSiteIdSelect(siteIdSelect, organizationSelect);
 
         fetchSiteType.then(() => {
             portalViews.codeSelect(

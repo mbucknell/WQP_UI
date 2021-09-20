@@ -1,12 +1,15 @@
 <template>
-    <multiselect v-model="countryValue" @input="onchange" tag-placeholder="All Countries" placeholder="All Countries" aria-label="Input box for country parameter" label="text" track-by="id" :options="countryOptions" :multiple="true" :taggable="true"></multiselect>
+    <multiselect v-model="countryValue" name="countrycode" @input="updateSelected" tag-placeholder="All Countries" placeholder="All Countries" aria-label="Input box for country parameter" label="text" track-by="id" :options="countryOptions" :multiple="true" :taggable="true">
+      <span slot="noOptions">Type to search</span>
+      <span slot="noResult">No results found</span>
+    </multiselect>
 </template>
 
 <script>
 import Vue from 'vue';
 import Multiselect from 'vue-multiselect';
-import includes from 'lodash/includes';
 import filter from 'lodash/filter';
+import includes from 'lodash/includes';
 
 export default {
   name: "MultiselectCountry",
@@ -22,39 +25,23 @@ export default {
   methods: {
     updateSelected(value) {
       this.countryValue = value;
+      this.$store.commit("getCountryState", value);
     },
     updateOptions(value) {
       this.countryOptions = value;
     },
-    onchange() {
-      /* update states */
-      let countries = this.countryValue;
-      const states = this.$store.state.stateOptionsState;
-      const isInCountries = function(state) {
-          const countryCode = state.id.split(':')[0];
-          return includes(countries, countryCode);
-      };
-
-      if (!countries) {
-          countries = [USA];
-      }
-      let statesArray = filter(states, isInCountries);
-      this.$store.commit("getStateOptionsState", statesArray);
-      this.$store.commit("getCountryState", this.countryValue);
-    }
   },
   watch: {
-    "$store.state.countrySelectedState": {
-      deep: true,
-      handler(){
-        this.updateSelected(this.$store.state.countrySelectedState);
-        this.onchange();
-      }
-    },
     "$store.state.countryOptionsState": {
       deep: true,
       handler(){
         this.updateOptions(this.$store.state.countryOptionsState);
+      }
+    },
+    "$store.state.countrySelectedState": {
+      deep: true,
+      handler(){
+        this.updateSelected(this.$store.state.countrySelectedState);
       }
     },
   }

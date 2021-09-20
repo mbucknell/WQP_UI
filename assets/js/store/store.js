@@ -20,17 +20,15 @@ export default new Vuex.Store({
     orgIDSelectedState: [],
     orgIDOptionsState: [],
     projIDSelectedState: [],
-    projIDOptionsState: [],
+    projIDOptionsState: {},
     siteIDSelectedState: [],
-    siteIDOptionsState: [],
+    siteIDOptionsState: {},
     charSelectedState: [],
-    charOptionsState: [],
+    charOptionsState: {},
     assemblageSelectedState: [],
     assemblageOptionsState: [],
     taxSelectedState: [],
-    taxOptionsState: [],
-    minSampleSelectedState: [],
-    minSampleOptionsState: []
+    taxOptionsState: {},
   },
   mutations: {
     getCountryState(state, selected) {

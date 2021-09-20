@@ -94,33 +94,6 @@ export default {
             );
         });
 
-        portalViews.pagedCodeSelect(
-            "getCharOptionsState",
-            characteristicName,
-            {
-                codes: 'characteristicname'
-            },
-            {
-                closeOnSelect : false
-            },
-            null,
-            null,
-            getAnchorQueryValues(characteristicName.getAttribute('name'))
-        );
-        portalViews.pagedCodeSelect(
-            "getProjIDOptionsState",
-            projectCode,
-            {
-                codes: 'project'
-            },
-            {
-                closeOnSelect : false
-            },
-            null,
-            null,
-            getAnchorQueryValues(projectCode.getAttribute('name'))
-        );
-
         initializeInput(pcode);
         initializeInput(minresults);
         initializeInput(startDate);

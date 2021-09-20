@@ -41,6 +41,11 @@ let portalViews = new portalViewClass();
 export default {
   name: "DownloadFormView",
   props: ['form', 'downloadProgressDialog', 'downloadProgressDialogBasic'],
+  data () {
+    return {
+      selectedForm: document.querySelector('#paramsBasic')
+    }
+  },
   components: {
       DownloadFormController,
       SamplingParameterInputView,
@@ -222,6 +227,19 @@ export default {
         //     shareText.get(0).select();
         //     document.execCommand('copy');
         // });
+        let self = this;
+
+        document.querySelector('#basic-tab').onclick = function(){
+            let formtype = document.querySelector('#paramsBasic');
+            self.updateSelected(formtype);
+        }
+
+        document.querySelector('#advanced-tab').onclick = function(){
+            let formtype = document.querySelector('#params');
+            self.updateSelected(formtype);
+        }
+
+        this.setUpWatchers();
 
         let basicForm = document.querySelector('#paramsBasic');
 
@@ -291,6 +309,57 @@ export default {
         this.setUpDownloadButton(this.form);
 
         return initComplete;
+    },
+    updateSelected(formtype) {
+        this.selectedForm = formtype;
+    },
+    setUpWatchers(){
+        const shareContainer = this.form.querySelector('.share-container');
+        const shareText = shareContainer.querySelector('textarea');
+        let self = this;
+        let getQuery = function(){
+            const queryParamArray = self.getQueryParamArray(self.selectedForm);
+            const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+            window.location.hash = `#${queryString}`;
+            shareText.value = window.location.href;
+        }
+
+        store.watch(() => store.state.countrySelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.stateMediaSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.countyMediaSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.sitetypeSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.siteIDSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.projIDSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.orgIDSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.chargroupSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.sampleMediaSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.charSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.assemblageSelectedState, () => {
+            getQuery();
+        });
+        store.watch(() => store.state.taxSelectedState, () => {
+            getQuery();
+        });
     },
     setUpDownloadButton(form) {
         let formType;
@@ -363,18 +432,34 @@ export default {
      * @return {Array of Objects with name, value, and multiple properties}
      */
     getQueryParamArray(currentForm) {
+        let stores = [
+            {name: "countrycode", value: store.state.countrySelectedState}, 
+            {name: "statecode", value: store.state.stateSelectedState},
+            {name: "countycode", value: store.state.countySelectedState},
+            {name: "siteType", value: store.state.sitetypeSelectedState},
+            {name: "characteristicType", value: store.state.chargroupSelectedState},
+            {name: "sampleMedia", value: store.state.sampleMediaSelectedState},
+            {name: "organization", value: store.state.orgIDSelectedState},
+            {name: "project", value: store.state.projIDSelectedState},
+            {name: "siteid", value: store.state.siteIDSelectedState},
+            {name: "characteristicName", value: store.state.charSelectedState},
+            {name: "assemblage", value: store.state.assemblageSelectedState},
+            {name: "subjectTaxonomicName", value: store.state.taxSelectedState}
+        ];
+
         // Need to eliminate form parameters within the mapping-div
         const formInputs = currentForm.querySelectorAll('input:not(#mapping-div input, #nldi-map input), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button');
         let result = [];
         let providersArray = [];
         var length = formInputs.length;
         formInputs.forEach(function(el, index) {
+            let multiselectArray = [];
             if (el.type != 'radio' || el.checked || (el.className === 'datasources usa-checkbox__input') ) {
                 if (el.name != 'dataProfile'){
                     const value = el.value;
                     const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
                     const name = el.getAttribute('name');
-                    if (valueIsNotEmpty && name) {
+                    if (valueIsNotEmpty && name && el.className !== 'multiselect__input') {
                         if ((valueIsNotEmpty &&  el.className === 'datasources usa-checkbox__input') && (el.checked === true)) {
                             providersArray.push(value)
                         } else if (el.className !== 'datasources usa-checkbox__input') {
@@ -392,6 +477,23 @@ export default {
                             multiple: el.dataset.multiple ? true : false
                         })
                     }
+                    else if(el.className === 'multiselect__input'){
+                        stores.forEach(function(state){
+                            if (state.name === el.name){
+                                state.value.forEach(function(stateValue){
+                                    multiselectArray.push(stateValue.id);
+                                });
+                                
+                                if(multiselectArray.length !== 0){
+                                    result.push({
+                                        name: el.name,
+                                        value: multiselectArray,
+                                        multiple: el.dataset.multiple ? true : false
+                                    })
+                                }
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -401,6 +503,6 @@ export default {
     getResultType() {
         return this.dataDetailsView.getResultType();
     }
-  }
+  },
 }
 </script>

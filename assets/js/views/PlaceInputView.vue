@@ -7,6 +7,7 @@ import filter from 'lodash/filter';
 import has from 'lodash/has';
 import last from 'lodash/last';
 import union from 'lodash/union';
+import map from 'lodash/map';
 
 import Vue from 'vue';
 import InputValidationView from './InputValidationView.vue';
@@ -14,6 +15,7 @@ import store from '../store/store.js'
 import PortalViews from './PortalViews.vue';
 import { getPostalCode } from '../stateFIPS';
 import { getAnchorQueryValues} from '../utils';
+import providers from '../providers.js';
 
 const USA = 'US';
 
@@ -313,43 +315,82 @@ export default {
         const initCounties = getAnchorQueryValues(countySelect.getAttribute('name'));
 
         const getCountryKeys = function () {
-            const results = countrySelect.value;
+            const results = store.state.countrySelectedState;
             return results.length > 0 ? results : [USA];
         };
         const getCountryKeysBasic = function () {
-            const results = countrySelectBasic.value;
+            const results = store.state.countrySelectedState;
             return results.length > 0 ? results : [USA];
         };
 
         const getStateKeys = function() {
-            const results = stateSelect.value;
+            const results = store.state.stateSelectedState;
             return results.length > 0 ? results : [];
         };
         const getStateKeysBasic = function() {
-            const results = stateSelectBasic.value;
+            const results = store.state.stateSelectedState;
             return results.length > 0 ? results : [];
         };
 
         //Fetch initial model data
         let fetchCountries = this.countryModel.fetch();
         let fetchCountriesBasic = this.countryModel.fetch();
+
         let fetchStates = this.stateModel.fetch(union([USA], initCountries));
         let fetchStatesBasic = this.stateModel.fetch(union([USA], initCountriesBasic));
+
+        //When country changes, fetch states again
+        store.watch(() => store.state.countrySelectedState, () => {
+            if(store.state.countrySelectedState.length !== 0){
+                fetchStates = this.stateModel.fetch(union([store.state.countrySelectedState[0].id], initCountries));
+            }else{
+                fetchStates = this.stateModel.fetch(union([USA], initCountries));
+            }
+            fetchStates.then((result) => {
+                store.commit("getStateOptionsState", map(result, (data) => {
+                    return {
+                        id: data.id,
+                        text: data.desc + ' (' + providers.formatAvailableProviders(data.providers) + ')'
+                    };
+                })
+                );
+            });
+        });
+
         let fetchCounties;
         if (initStates.length) {
             fetchCounties = this.countyModel.fetch(initStates);
         } else {
             fetchCounties = Promise.resolve();
         }
+
         let fetchCountiesBasic;
         if (initStates.length) {
             fetchCountiesBasic = this.countyModel.fetch(initStates);
         } else {
             fetchCountiesBasic = Promise.resolve();
         }
-        let fetchComplete = Promise.all([fetchCountries, fetchStates, fetchCounties, fetchCountriesBasic, fetchStatesBasic, fetchCountiesBasic]);
+        let fetchComplete = Promise.all([fetchCountries, fetchStates, fetchCounties, fetchCountiesBasic]);
 
-        //Initialize select2s
+        //When state changes, fetch counties again
+        store.watch(() => store.state.stateSelectedState, () => {
+            if(store.state.stateSelectedState.length !== 0){
+                fetchCounties = this.countyModel.fetch(union([store.state.stateSelectedState[0].id], initCountries));
+            }else{
+                fetchCounties = this.countyModel.fetch(union([USA], initCountries));
+            }
+            fetchCounties.then((result) => {
+                store.commit("getCountyOptionsState", map(result, (data) => {
+                    return {
+                        id: data.id,
+                        text: data.desc + ' (' + providers.formatAvailableProviders(data.providers) + ')'
+                    };
+                })
+                );
+            });
+        });
+
+        //Initialize multiselects
         fetchCountries.then(() => {
             this.initializeCountrySelect(countrySelect, this.countryModel, initCountries);
         });
@@ -367,34 +408,6 @@ export default {
         });
         fetchCountiesBasic.then(() => {
             this.initializeCountySelectBasic(countySelectBasic, this.countyModel, getStateKeysBasic, initCountiesBasic);
-        });
-
-        //Add event handlers
-
-        stateSelect.addEventListener('change', function (ev) {
-            const states = ev.target.value;
-            const counties = countySelect.value;
-            const isInStates = function(county) {
-                const codes = county.split(':');
-                const stateCode = codes[0] + ':' + codes[1];
-                return includes(states, stateCode);
-            };
-
-            countySelect.value = filter(counties, isInStates);
-            countySelect.dispatchEvent(new Event('change'));
-        });
-
-        stateSelectBasic.addEventListener('change', function (ev) {
-            const states = ev.target.value;
-            const counties = countySelectBasic.value;
-            const isInStates = function(county) {
-                const codes = county.split(':');
-                const stateCode = codes[0] + ':' + codes[1];
-                return includes(states, stateCode);
-            };
-
-            countySelectBasic.value = filter(counties, isInStates);
-            countySelectBasic.dispatchEvent(new Event('change'));
         });
 
         let inputValidationClass = Vue.extend(InputValidationView);

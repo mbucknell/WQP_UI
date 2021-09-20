@@ -43,20 +43,6 @@ export default {
             );
         });
 
-        portalViews.pagedCodeSelect(
-            "getTaxOptionsState",
-            taxonomicName,
-            {
-                codes: 'subjecttaxonomicname'
-            },
-            {
-                closeOnSelect : false
-            },
-            null,
-            null,
-            getAnchorQueryValues(taxonomicName.getAttribute('name'))
-        );
-
         return fetchComplete;
     },
     resetContainer() {

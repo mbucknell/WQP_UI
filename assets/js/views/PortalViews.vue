@@ -7,10 +7,12 @@ import isEqual from 'lodash/isEqual';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
+import log from 'loglevel';
 
 import providers from '../providers';
 
 import store from '../store/store.js'
+import axios from 'axios';
 
 export default {
   name: "PortalViews",
@@ -33,113 +35,6 @@ export default {
     //     };
     //     el.select2($.extend({}, defaultOptions, select2Options));
     // },
-
-    /*
-    * Creates a select2 which uses pageing and dynamic querying
-    * @param {jquery element} el - selecting a hidden input
-    * @param {Object} spec
-    *    @prop {String} codes - String used in the url to retrieve the select2's data.
-    *    @prop {Number} pagesize (optional) - page size to use in request. Defaults to 20
-    *    @prop {Function} formatData (optional) - Function takes an Object with value, desc (optional), and providers properties and returns a string.
-    * @param {Object} select2Options
-    * @param {jquery element} $filter (optional) input, select, or textarea used in filtering the PagedCodeSelect
-    * @param {String} parametername - parameter name to be used in additional lookup
-    */
-    pagedCodeSelect(state, el, spec, select2Options, filter, parametername, initValues=[]) {
-        this.spec = spec;
-        this.parametername = parametername;
-
-        this.spec.pagesize = this.spec.pagesize ? this.spec.pagesize : 20;
-        if (!('formatData' in spec)) {
-            this.spec.formatData = function (data) {
-                var desc = data.hasOwnProperty('desc') && data.desc ? data.desc
-                    : data.value;
-                return desc + ' (' + providers.formatAvailableProviders(data.providers) + ')';
-            };
-        }
-        var defaultOptions = {
-            allowClear: true,
-            theme: 'bootstrap',
-            templateSelection: (object) => {
-                return has(object, 'id') ? object.id : null;
-            },
-            data: initValues.map((id) => {
-                return {
-                    id: id,
-                    text: id,
-                    selected: true
-                };
-            }),
-            ajax: {
-                url: Config.CODES_ENDPOINT + '/' + this.spec.codes,
-                dataType: 'json',
-                data: (params) => {
-                    return {
-                        text: params.term,
-                        pagesize: this.spec.pagesize,
-                        pagenumber: params.page,
-                        mimeType: 'json'
-                    };
-                },
-                delay: 250,
-                processResults: (data, params) => {
-                    var results = map(data.codes, (code) => {
-                      console.log(code)
-                        return {
-                            id: code.value,
-                            text: this.spec.formatData(code)
-                        };
-                    });
-                    var page = params.page || 1;
-
-                    return {
-                        results: results,
-                        pagination: {
-                            more : this.spec.pagesize * page < data.recordCount
-                        }
-                    };
-                }
-            }
-        };
-
-        if (filter) {
-            filter.addEventListener('change', () => {
-                var parents = filter.value;
-                var children = el.value;
-                var isInParent = (child) => {
-                    return includes(parents, child);
-                };
-                el.value(filter(children, isInParent)).dispatchEvent(new Event('change'));
-                defaultOptions.ajax.url = Config.CODES_ENDPOINT + '/' + this.spec.codes + this.getParentParams(parents);
-                store.commit(state, defaultOptions.data);
-                // el.select2($.extend(defaultOptions, select2Options));
-            });
-        }
-
-        // el.select2($.extend(defaultOptions, select2Options));
-        store.commit(state, defaultOptions.data);
-
-        function getParentParams(parentValue) {
-            var suffix = '';
-            //add parentValue to URL, using .join if it is an array and simply appending if a string
-            if (parentValue.length > 0) {
-                suffix = '?' + this.parametername + '=';
-                if (typeof parentValue === 'string') {
-                    //val() converts arrays to strings if not called on a select multiple. In this case, convert it back.
-                    if (includes(parentValue, ',')) {
-                        parentValue = parentValue.split(',');
-                    } else {
-                        suffix += parentValue;
-                    }
-                }
-                if (Array.isArray(parentValue)) {
-                    suffix += parentValue.join('&' + this.parametername + '=');
-                }
-
-            }
-            return suffix;
-        }
-    },
 
     /*
     @param {jquery element selecting a select input} el
@@ -257,44 +152,6 @@ export default {
             data: map(options.model.getAll(), initFormatData)
         };
 
-        // Set up the ajax transport property to fetch the options if they need to be refreshed,
-        // otherwise use what is in the model.
-        defaultOptions.ajax = {
-            transport: function (params, success, failure) {
-                var deferred = $.Deferred();
-                var modelKeys = options.model.getAllKeys().sort();
-                var selectedKeys = options.getKeys().sort();
-                var filteredLookups;
-
-                if (isEqual(modelKeys, selectedKeys)) {
-                    filteredLookups = filter(options.model.getAll(), function (lookup) {
-                        return options.isMatch(params.data.term, lookup);
-                    });
-                    deferred.resolve(filteredLookups);
-                } else {
-                    options.model.fetch(selectedKeys)
-                        .done(function (data) {
-                            filteredLookups = filter(data, function(lookup) {
-                                return options.isMatch(params.data.term, lookup);
-                            });
-                            deferred.resolve(filteredLookups);
-                        })
-                        .fail(function () {
-                            deferred.reject();
-                        });
-                }
-                deferred.done(success).fail(failure);
-
-                return deferred.promise();
-            },
-            processResults: function (resp) {
-                var result = map(resp, function (lookup) {
-                    return options.formatData(lookup);
-                });
-                return {results: result};
-            }
-        };
-      
         store.commit(state, defaultOptions.data);
     }
   }

@@ -1,5 +1,8 @@
 <template>
-    <multiselect v-model="stateValue" @input="onchange" tag-placeholder="All States" placeholder="All States" aria-label="Input box for state parameter" label="text" track-by="id" :options="stateOptions" :multiple="true" :taggable="true"></multiselect>
+    <multiselect v-model="stateValue" name="statecode" @input="updateSelected" placeholder="All States" aria-label="Input box for state parameter" label="text" track-by="id" :options="stateOptions" :multiple="true" :taggable="true">
+      <span slot="noOptions">Type to search</span>
+      <span slot="noResult">No results found</span>
+    </multiselect>
 </template>
 
 <script>
@@ -21,36 +24,23 @@ export default {
   methods: {
     updateSelected(value) {
       this.stateValue = value;
+      this.$store.commit("getStateState", value);
     },
     updateOptions(value) {
       this.stateOptions = value;
     },
-    onchange() {
-      const states = this.stateValue;
-      const counties = this.$store.state.countySelectedState;
-      const isInStates = function(county) {
-          const codes = county.split(':');
-          const stateCode = codes[0] + ':' + codes[1];
-          return includes(states, stateCode);
-      };
-
-      let countyArray = filter(counties, isInStates);
-      this.$store.commit("getCountyState", countyArray);
-      this.$store.commit("getStateState", states);
-    }
   },
   watch: {
-    "$store.state.stateSelectedState": {
-      deep: true,
-      handler(){
-        this.updateSelected(this.$store.state.stateSelectedState);
-        this.onchange();
-      }
-    },
     "$store.state.stateOptionsState": {
       deep: true,
       handler(){
         this.updateOptions(this.$store.state.stateOptionsState);
+      }
+    },
+    "$store.state.stateSelectedState": {
+      deep: true,
+      handler(){
+        this.updateSelected(this.$store.state.stateSelectedState);
       }
     },
   }

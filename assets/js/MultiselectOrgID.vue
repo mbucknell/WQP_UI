@@ -1,5 +1,8 @@
 <template>
-    <multiselect v-model="orgIDValue" tag-placeholder="All Organization IDs" placeholder="All Organization IDs" aria-label="Input box for organization ID parameter" label="text" track-by="id" :options="orgIDOptions" :multiple="true" :taggable="true"></multiselect>
+    <multiselect v-model="orgIDValue" @input="updateSelected" tag-placeholder="All Organization IDs" name="organization" placeholder="All Organization IDs" aria-label="Input box for organization ID parameter" label="text" track-by="id" :options="orgIDOptions" :multiple="true" :taggable="true">
+      <span slot="noOptions">Type to search</span>
+      <span slot="noResult">No results found</span>
+    </multiselect>
 </template>
 
 <script>
@@ -20,6 +23,7 @@ export default {
   methods: {
     updateSelected(value) {
       this.orgIDValue = value;
+      this.$store.commit("getOrgIDState", value);
     },
     updateOptions(value) {
       this.orgIDOptions = value;
