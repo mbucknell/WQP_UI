@@ -27,9 +27,9 @@ Users less familiar with the standard notation used to encode a web services req
 
 #### **Available Databases**
 
-**USGS NWIS** - Water-resources data collected from approximately 1.5 million sites in all 50 states, the District of Columbia, Puerto Rico, the Virgin Islands, Guam, American Samoa, and the Commonwealth of the Northern Mariana Islands. NWIS is updated every 24 hours. Data recently added to NWIS may not be immediately accessible through the WQP. Data is available for each location since the beginning of the database.
+**NWIS (USGS)** - Water-resources data collected from approximately 1.5 million sites in all 50 states, the District of Columbia, Puerto Rico, the Virgin Islands, Guam, American Samoa, and the Commonwealth of the Northern Mariana Islands. NWIS (USGS) is updated every 24 hours. Data recently added to NWIS (USGS) may not be immediately accessible through the WQP. Data is available for each location since the beginning of the database.
 
-**USEPA** - A data warehouse for water quality, biological, and physical data used by state environmental agencies, the EPA, other federal agencies, universities, private citizens, and others. EPA is updated weekly on Thursday evening. Data recently added to EPA may not be immediately accessible through the WQP. Data is available for each location since the beginning of the database.
+**WQX (EPA)** - A data warehouse for water quality, biological, and physical data used by state environmental agencies, the EPA, other federal agencies, universities, private citizens, and others. WQX (EPA) is updated weekly on Thursday evening. Data recently added to WQX (EPA) may not be immediately accessible through the WQP. Data is available for each location since the beginning of the database.
 
 ### **Explanation of portal search parameters**
 
@@ -79,8 +79,8 @@ The WQP can be searched through three different search options:
 | **Lake, Reservoir, Impoundment**           | An inland body of standing fresh or saline water that is generally too deep to permit submerged aquatic vegetation to take root across the entire body (cf: wetland). This site type includes an expanded part of a river, a reservoir behind a dam, and a natural or excavated depression containing a water body without surface-water inlet and/or outlet.                                                                                                                                                                                                                                                                                                                         |
 | **Land**                                   | A location on the surface of the earth that is not normally saturated with water. Land sites are appropriate for sampling vegetation, overland flow of water, or measuring land-surface properties such as temperature. (See also: Wetland).                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | **Ocean**                                  | Site in the open ocean, gulf, or sea. (See also: Estuary).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| **Other Groundwater *(EPA only)***        | A location below the land surface that cannot otherwise be categorized within the other site types.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| **Other Surface Water *(EPA only)***      | A water body on the land surface that cannot otherwise be categorized within the other site types.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Other Groundwater *(WQX only)***        | A location below the land surface that cannot otherwise be categorized within the other site types.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Other Surface Water *(WQX only)***      | A water body on the land surface that cannot otherwise be categorized within the other site types.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **Spring**                                 | A location at which the water table intersects the land surface, resulting in a natural flow of groundwater to the surface. Springs may be perennial, intermittent, or ephemeral.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | **Stream**                                 | A body of running water moving under gravity flow in a defined channel. The channel may be entirely natural, or altered by engineering practices through straightening, dredging, and (or) lining.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **Subsurface**                             | A location below the land surface, but not a well, soil hole, or excavation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -100,13 +100,13 @@ The WQP can be searched through three different search options:
 > * South: 45.93
 > * West: -89.68
 
-***Organization ID*** - Identifies a unique ***business*** or ***company***. Use the **organization ID window** to select one or multiple organization IDs. Type at least two characters for a list to appear. For more information on Water Quality Exchange (WQX) Organization IDs, see [About EPA/WQX](https://www.epa.gov/waterdata/water-quality-data).
+***Organization ID*** - Identifies a unique ***business*** or ***company***. Use the **organization ID window** to select one or multiple organization IDs. Type at least two characters for a list to appear. For more information on Water Quality Exchange (WQX) Organization IDs, see [About WQX (EPA)](https://www.epa.gov/waterdata/water-quality-data).
 
 ***Site ID*** - Identifies a ***monitoring location*** by a unique name, number, or code. Use the **site ID window** to select one or multiple site IDs. Type at least two characters for a list to appear. 
 
 > *Web Services Request:* IDs are displayed as: AGENCY-STATION NUMBER. If STATION NUMBER is specified but not AGENCY, "USGS" will be assigned as the default.
-> * For NWIS site: ```#siteid=USGS-301650089215300```
-> * For EPA site: ```#siteid=R10BUNKER-CUA005-5```
+> * For NWIS (USGS) site: ```#siteid=USGS-301650089215300```
+> * For WQX (EPA) site: ```#siteid=R10BUNKER-CUA005-5```
 > * For multiple sites: ```#siteid=IN002-385000086310010&siteid=USSCS-311039092211614&siteid=USEPA-414120087304701```
 
 ***HUC*** - Identifies the ***hydrological unit*** ([lists and maps of hydrologic units](http://water.usgs.gov/GIS/huc.html)) up to the cataloging unit level of precision. Use the **HUC ID window** to select one or multiple HUC IDs. Separate multiple HUC IDs with a **semicolon** (";"). Select partial HUCs using **trailing wildcards** ("*"). 
@@ -137,9 +137,9 @@ The WQP can be searched through three different search options:
 |:-----------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | **Air**                           | Atmospheric gases.                                                                                                                                                                                                                                                                                                                                                  |
 | **Biological Tissue *(NWIS only)*** | Any type of tissue that comprises either whole or parts of insects, fish, or other organisms living in an aquatic environment, animals that may or may not have been collected from a water body, or whole or parts of plants, aquatic or non-aquatic.                                                                                                              |
-| **Habitat *(EPA only)***         | The habitat conditions at the monitoring site; physical features of the area surrounding the monitoring location site.                                                                                                                                                                                                                                              |
+| **Habitat *(WQX only)***         | The habitat conditions at the monitoring site; physical features of the area surrounding the monitoring location site.                                                                                                                                                                                                                                              |
 | **Other**                         | None of the other sample media.                                                                                                                                                                                                                                                                                                                                     |
-| **QC *(EPA only)***              | Data that provides quality control results; often paired with other results information.                                                                                                                                                                                                                                                                            |
+| **QC *(WQX only)***              | Data that provides quality control results; often paired with other results information.                                                                                                                                                                                                                                                                            |
 | **Sediment**                      | Includes bottom material and suspended sediment sample media. Bottom material is a mixture of mineral and organic matter that compose the top bed deposits (usually the first few inches) underlying a body of water. Suspended sediment is sediment carried in suspension by the turbulent components of the fluid or by the Brownian movement (a law of physics). |
 | **Soil**                          | A wet or dry substance composed of unconsolidated fine grain rock fragments (minerals) and organic material that has been modified sufficiently by physical, chemical, or biological processes to support terrestrial plant growth.                                                                                                                                 |
 | **Water**                         | The physical or chemical composition of the water at the monitoring site.                                                                                                                                                                                                                                                                                           |
@@ -155,17 +155,17 @@ The WQP can be searched through three different search options:
 
 ***Minimum result per site*** - Returns only sites where at least a ***minimum number*** of results have been reported. Use the **minimum results window** to select a value; the default is **1**.
 
-***Characteristic*** - Identifies types of ***environmental measurements***. Use the **characteristics window** to select one or multiple characteristics. Parentheses after each characteristic represent which database(s) it is represented in. The names are derived from the USEPA [Substance Registry System (SRS)](http://iaspub.epa.gov/sor_internet/registry/substreg/home/overview/home.do). USGS uses parameter codes for the same purpose and has [associated most parameters to SRS names](http://www.waterqualitydata.us/public_srsnames.jsp).
+***Characteristic*** - Identifies types of ***environmental measurements***. Use the **characteristics window** to select one or multiple characteristics. Parentheses after each characteristic represent which database(s) it is represented in. The names are derived from the WQX (EPA) [Substance Registry System (SRS)](http://iaspub.epa.gov/sor_internet/registry/substreg/home/overview/home.do). USGS uses parameter codes for the same purpose and has [associated most parameters to SRS names](http://www.waterqualitydata.us/public_srsnames.jsp).
 
-The nomenclature for USEPA and USGS characteristics are **not** identical. 
-> *Example:* The USEPA lists each dissolved oxygen characteristic, while the USGS classifies dissolved oxygen under "oxygen". Consequently, users interested in retrieving dissolved oxygen data from both databases must select *"dissolved oxygen"* from EPA and *"oxygen"* from the WQP list of characteristics. Selecting *"oxygen"* will return dissolved oxygen results from the USGS **and** all USEPA results relating to free gaseous oxygen. 
+The nomenclature for WQX (EPA) and USGS characteristics are **not** identical. 
+> *Example:* The WQX (EPA) lists each dissolved oxygen characteristic, while the USGS classifies dissolved oxygen under "oxygen". Consequently, users interested in retrieving dissolved oxygen data from both databases must select *"dissolved oxygen"* from WQX (EPA) and *"oxygen"* from the WQP list of characteristics. Selecting *"oxygen"* will return dissolved oxygen results from the USGS **and** all WQX (EPA) results relating to free gaseous oxygen. 
 
 Small differences in naming may cause chemically identical characteristics to be listed under different names or names that are formatted differently. 
 > *Example:* *1,4-dichlorobenzene* may be listed as *"1,4-dichlorobenzene"*, *"p-dichlorobenzene"*, or *both*. A user desiring all *1,4-dichlorobenzene* data would need to select **both** names (and variants thereof) to retrieve the results.
 
 ***Project ID*** - Uniquely identifies a ***data collection project***. Use the **project ID window** to select one or multiple project IDs. Parentheses after each project ID represent which database it is represented in. 
 
-***Parameter Code*** - Identifies a characteristic using [***NWIS codes***](https://nwis.waterdata.usgs.gov/usa/nwis/pmcodes). Use the **parameter code window** to select one or multiple parameter codes. Specifying a parameter code will limit the query to ***NWIS only***.
+***Parameter Code*** - Identifies a characteristic using [***NWIS (USGS) codes***](https://nwis.waterdata.usgs.gov/usa/nwis/pmcodes). Use the **parameter code window** to select one or multiple parameter codes. Specifying a parameter code will limit the query to ***NWIS (USGS) only***.
 
 ***Biological sampling parameters*** - Filter by parameters specific to ***biological organisms***: assemblage and taxonomic name. 
 
@@ -205,7 +205,7 @@ Small differences in naming may cause chemically identical characteristics to be
 
 ***Show Sites on Map*** - Previews the ***locations of sites*** **before** downloading the data, up to 250,000 sites. Sites are color coded by data source. 
 
-The example below displays part of the South Skunk watershed, with NWIS, EPA, and STEWARDS sites.
+The example below displays part of the South Skunk watershed, with NWIS (USGS), WQX (EPA), and STEWARDS (ARS) sites.
 
 ![Result of clicking "Show sites on map" button](/assets/img/portal_userguide_image1.png)
 
@@ -213,9 +213,9 @@ For additional information about the sites, click on individual sites. Use the b
 
 ![Additional information about sites](/assets/img/portal_userguide_image2.png)
 
-The Water Quality Portal only provides discrete monitoring data. To see USGS long-term flow monitoring sites, click the layer picker on the upper right and toggle on "NWIS Stream Gages". These gage locations are based on the [GAGES-II dataset](http://water.usgs.gov/GIS/metadata/usgswrd/XML/gagesII_Sept2011.xml), which only runs through 2009. Some gages are now discontinued and other gage data may be more accurate.
+The Water Quality Portal only provides discrete monitoring data. To see USGS long-term flow monitoring sites, click the layer picker on the upper right and toggle on "NWIS (USGS) Stream Gages". These gage locations are based on the [GAGES-II dataset](http://water.usgs.gov/GIS/metadata/usgswrd/XML/gagesII_Sept2011.xml), which only runs through 2009. Some gages are now discontinued and other gage data may be more accurate.
 
-![NWIS Stream Gages](/assets/img/portal_userguide_image3.png)
+![NWIS (USGS) Stream Gages](/assets/img/portal_userguide_image3.png)
 
 </details>
 
@@ -282,9 +282,9 @@ The tables below list the metadata for each retrieval type.
 | WellDepthMeasure/MeasureUnitCode*                | The code that represents the unit for measuring the item.                                                                                                                            |
 | WellHoleDepthMeasure/MeasureValue*               | Depth below land surface datum (LSD) to the bottom of the hole on completion of drilling. Measure value is given in the units stored in WellHoleDepthMeasure/MeasureUnitCode.        |
 | WellHoleDepthMeasure/MeasureUnitCode*            | The code that represents the unit for measuring the item.                                                                                                                            |
-| ProviderName                                     | The name of the database that provided the data to the Water Quality portal (E.G. EPA, NWIS, STEWARDS).                                                                            |
+| ProviderName                                     | The name of the database that provided the data to the Water Quality portal (E.G. WQX, NWIS, STEWARDS).                                                                            |
 
-*Element is only in NWIS.
+*Element is only in NWIS (USGS).
 
 </details>
 
@@ -413,11 +413,11 @@ Contains a comprehensive set of WQX 3.0 data elements to determine the physical 
 | DetectionQuantitationLimitMeasure/MeasureValue    | Constituent concentration that, when processed through the complete method, produces a signal that is statistically different from a blank. Measure value is given in the units stored in DetectionQuantitationLimitMeasure/MeasureUnitCode. |
 | DetectionQuantitationLimitMeasure/MeasureUnitCode | The code that represents the unit for measuring the item.                                                                                                                                                                                    |
 | PreparationStartDate                              | The calendar date when the preparation/extraction of the sample for analysis began.                                                                                                                                                          |
-| DataProvider                                      | The source system that provided data to the Water Quality Portal (NWIS, EPA, STEWARDS, etc).                                                                                                                                               |
+| DataProvider                                      | The source system that provided data to the Water Quality Portal (NWIS, WQX, STEWARDS, etc).                                                                                                                                               |
 
-*Element is only in NWIS.
+*Element is only in NWIS (USGS).
 
-†Element is only in EPA.
+†Element is only in WQX (EPA).
 
 </details>
 
@@ -558,7 +558,7 @@ Contains a comprehensive set of WQX 3.0 data elements to determine the biologica
 | TaxonomistAccreditationIndicator                              | Indicates whether the taxonomist is accredited.                                                                                                                                                                                              |
 | TaxonomistAccreditationAuthorityName                          | An outside accreditation authority identifier for the taxonomist.                                                                                                                                                                            |
 | PreparationStartDate                                          | The calendar date when the preparation/extraction of the sample for analysis began.                                                                                                                                                          |
-| ProviderName                                                  | The source system that provided data to the Water Quality Portal (NWIS, EPA, STEWARDS, etc).                                                                                                                                               |
+| ProviderName                                                  | The source system that provided data to the Water Quality Portal (NWIS, WQX, STEWARDS, etc).                                                                                                                                               |
 
 </details>
 
@@ -647,7 +647,7 @@ This data profile contains minimal data from parts of the WQX data model that ar
 | TaxonomistAccreditationIndicator               | Indicates whether the taxonomist is accredited.                                                                                                                                                                                                                                                                                    |
 | TaxonomistAccreditationAuthorityName           | An outside accreditation authority identifier for the taxonomist.                                                                                                                                                                                                                                                                  |
 | LabSamplePreparationUrl                        | (this column is not yet populated) A WQP url to access one or more Lab Sample Preparation data.  Describes Lab Sample Preparation procedures which may alter the original state of the Sample and produce Lab subsamples.  These Lab Subsamples are analyzed and reported by the Lab as Sample results.                            |
-| ProviderName                                   | The source system that provided data to the Water Quality Portal (NWIS, EPA, STEWARDS, etc).                                                                                                                                                                                                                                     |
+| ProviderName                                   | The source system that provided data to the Water Quality Portal (NWIS, WQX, STEWARDS, etc).                                                                                                                                                                                                                                     |
 
 </details>
 

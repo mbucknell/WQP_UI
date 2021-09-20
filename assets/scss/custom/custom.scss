@@ -365,10 +365,6 @@ a:visited {
   color: #005ea2;
 }
 
-#main-button {
-  float: left;
-}
-
 #basic-main-button, #main-button {
   color: white;
 }
@@ -562,7 +558,11 @@ a:visited {
   padding-top: 10px;
 }
 
-#datesLabel {
-  font-size: 14px; 
+#datesLabel { 
   padding:0px 10px 10px 0px;
+}
+
+#datesLabel, #datesLabelAdv {
+  font-size: 14px;
+  font-weight: normal !important;
 }
