@@ -15,7 +15,6 @@ import SamplingParameterInputView from './SamplingParameterInputView.vue';
 import SiteParameterInputView from './SiteParameterInputView.vue';
 import CachedCodesModel from '../CachedCodesModel.vue';
 import CodesWithKeysModel from '../CodesWithKeysModel.vue';
-import providers from '../providers';
 import queryService from '../queryService';
 import { toggleShowHideSections, getQueryString, getAnchorQueryValues } from '../utils';
 import store from '../store/store.js'
@@ -40,7 +39,7 @@ let portalViews = new portalViewClass();
  */
 export default {
   name: "DownloadFormView",
-  props: ['form', 'downloadProgressDialog', 'downloadProgressDialogBasic'],
+  props: ['form', 'downloadProgressDialog', 'downloadProgressDialogBasic', "providers"],
   data () {
     return {
       selectedForm: document.querySelector('#paramsBasic')
@@ -65,6 +64,7 @@ export default {
      * @return {PlaceInputView}
      */
     getPlaceInputView() {
+        let self = this;
         // Initialize Place inputs
         const getCountryFromState = function(id) {
             return id ? id.split(':')[0] : '';
@@ -99,7 +99,8 @@ export default {
                     container : document.querySelector('#place'),
                     countryModel : countryModel,
                     stateModel : stateModel,
-                    countyModel : countyModel
+                    countyModel : countyModel,
+                    providers: self.providers
                 }
             });
     },
@@ -130,7 +131,8 @@ export default {
             propsData: {
                 container : this.form.querySelector('#site-params'),
                 siteTypeModel : new cachedCodesClass({propsData: {codes : 'sitetype'}}),
-                organizationModel : new cachedCodesClass({propsData: {codes : 'organization'}})
+                organizationModel : new cachedCodesClass({propsData: {codes : 'organization'}}),
+                providers: this.providers
             }
         });
         let samplingParametersClass = Vue.extend(SamplingParameterInputView);
@@ -138,14 +140,16 @@ export default {
             propsData: {
                 container : this.form.querySelector('#sampling'),
                 sampleMediaModel : new cachedCodesClass({propsData: {codes: 'samplemedia'}}),
-                characteristicTypeModel : new cachedCodesClass({propsData: {codes: 'characteristictype'}})
+                characteristicTypeModel : new cachedCodesClass({propsData: {codes: 'characteristictype'}}),
+                providers: this.providers
             }
         });
         let biologicalSamplingInputClass = Vue.extend(BiologicalSamplingInputView);
         const biologicalSamplingInputView = new biologicalSamplingInputClass({
             propsData: {
                 container : this.form.querySelector('#biological'),
-                assemblageModel : new cachedCodesClass({propsData: {codes: 'assemblage'}})
+                assemblageModel : new cachedCodesClass({propsData: {codes: 'assemblage'}}),
+                providers: this.providers
             }
         });
         let dataDetailsClass = Vue.extend(DataDetailsView);
@@ -158,9 +162,11 @@ export default {
             }
         });
 
+//////////////Not currently being used?///////////////////////////////////////////
         // fetch the providers and initialize the providers select
-        let initializeProviders = providers.fetch()
-            .then(() => {
+        // let initializeProviders = this.providers.fetch()
+        //     .then(() => {
+        //         console.log(initializeProviders)
                 /////////// Is this being used?//////////////////////////////////////
                 // const providerSelect = this.form.querySelector('#providers-select');
                 // portalViews.staticSelect2(
@@ -175,7 +181,7 @@ export default {
                 //     providers.getIds(),
                 //     {},
                 //     getAnchorQueryValues(providerSelect.getAttribute('name')));
-            });
+            // });
 
         // Initialize form sub view
         const initPlaceInputView = placeInputView.initialize();
@@ -184,7 +190,7 @@ export default {
         const initBiologicalSamplingInputInputView = biologicalSamplingInputView.initialize();
         let initComplete = Promise.all([
             initBiologicalSamplingInputInputView,
-            initializeProviders,
+            // initializeProviders,
             initPlaceInputView,
             initSamplingParametersInputView,
             initSiteParameterInputView]);
@@ -406,7 +412,7 @@ export default {
             ]);
 
             downloadProgressDialog.show('download');
-            queryService.fetchQueryCounts(resultType, queryParamArray, providers.getIds())
+            queryService.fetchQueryCounts(resultType, queryParamArray, self.providers.getIds())
                 .then((counts) => {
                     downloadProgressDialog.updateProgress(counts, resultType, fileFormat, startDownload);
                 })

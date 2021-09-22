@@ -15,7 +15,6 @@ import store from '../store/store.js'
 import PortalViews from './PortalViews.vue';
 import { getPostalCode } from '../stateFIPS';
 import { getAnchorQueryValues} from '../utils';
-import providers from '../providers.js';
 
 const USA = 'US';
 
@@ -35,10 +34,10 @@ let portalViews = new portalViewClass();
 
 export default {
   name: "PlaceInputView",
-  props: ['container', 'countyModel', 'stateModel', 'countryModel'],
+  props: ['container', 'countyModel', 'stateModel', 'countryModel', "providers"],
   components:{
       InputValidationView,
-      PortalViews
+      PortalViews,
   },
   methods: {
       initializeCountrySelect(select, model, initValues=[]) {
@@ -70,7 +69,8 @@ export default {
             spec, {
             templateSelection: templateSelection
             },
-            initValues
+            initValues,
+            this.providers
         );
 
     },
@@ -103,7 +103,8 @@ export default {
             spec, {
             templateSelection: templateSelection
             },
-            initValues
+            initValues,
+            this.providers
         );
     },
     initializeStateSelect(select, model, getCountryKeys, initValues=[]) {
@@ -150,7 +151,8 @@ export default {
             {
                 templateSelection: templateSelection
             },
-            initValues
+            initValues,
+            this.providers
         );
     },
     initializeStateSelectBasic(select, model, getCountryKeys, initValues=[]) {
@@ -197,7 +199,8 @@ export default {
             {
                 templateSelection: templateSelection
             },
-            initValues
+            initValues,
+            this.providers
         );
     },
     initializeCountySelect(select, model, getStateKeys, initValues) {
@@ -243,7 +246,8 @@ export default {
             {
                 templateSelection: templateSelection
             },
-            initValues
+            initValues,
+            this.providers
         );
     },
     initializeCountySelectBasic(select, model, getStateKeys, initValues) {
@@ -289,7 +293,8 @@ export default {
             {
                 templateSelection: templateSelection
             },
-            initValues
+            initValues,
+            this.providers
         );
     },
     /*
@@ -299,6 +304,7 @@ export default {
      *      @reject - If any of the fetches failed.
      */
     initialize() {
+        let self = this;
         //Initialize select els
         let countrySelectBasic = document.querySelector('#countrycodeBasic');
         let countrySelect = this.container.querySelector('#countrycode');
@@ -350,7 +356,7 @@ export default {
                 store.commit("getStateOptionsState", map(result, (data) => {
                     return {
                         id: data.id,
-                        text: data.desc + ' (' + providers.formatAvailableProviders(data.providers) + ')'
+                        text: data.desc + ' (' + self.providers.formatAvailableProviders(data.providers) + ')'
                     };
                 })
                 );
@@ -383,7 +389,7 @@ export default {
                 store.commit("getCountyOptionsState", map(result, (data) => {
                     return {
                         id: data.id,
-                        text: data.desc + ' (' + providers.formatAvailableProviders(data.providers) + ')'
+                        text: data.desc + ' (' + self.providers.formatAvailableProviders(data.providers) + ')'
                     };
                 })
                 );

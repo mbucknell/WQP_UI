@@ -9,15 +9,11 @@ import filter from 'lodash/filter';
 import includes from 'lodash/includes';
 import log from 'loglevel';
 
-import providers from '../providers';
-
 import store from '../store/store.js'
 import axios from 'axios';
 
 export default {
   name: "PortalViews",
-  components: {
-  },
   methods: {
     /*
     * @param {jquery element for select} el
@@ -47,7 +43,7 @@ export default {
     @param {Object} select2Options
     @param {Array of String} initValues
     */
-    codeSelect(state, el, options, select2Options, initValues=[]) {
+    codeSelect(state, el, options, select2Options, initValues=[], providers) {
         var isMatch;
         var defaultOptions;
 
@@ -119,7 +115,7 @@ export default {
     *  @param {Object} select2Options
     *  @param {Array of String} initValues
     */
-    cascadedCodeSelect(state, el, options, select2Options, initValues=[]) {
+    cascadedCodeSelect(state, el, options, select2Options, initValues=[], providers) {
         // Assign defaults for optional parameters
         if (!has(options, 'isMatch')) {
             options.isMatch = function (term, data) {

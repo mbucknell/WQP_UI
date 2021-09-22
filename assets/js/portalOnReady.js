@@ -7,6 +7,7 @@ import SiteMapView from './views/SiteMapView.vue';
 import DownloadProgressDialog from './DownloadProgressDialog.vue';
 import { initTooltip } from './uswdsComponents/uswdsTooltip';
 import Vue from 'vue';
+import Providers from './Providers.vue';
 import DateValidator from './DateValidator.vue';
 import MultiselectCountry from './MultiselectCountry.vue';
 import MultiselectState from './MultiselectState.vue';
@@ -68,6 +69,7 @@ $(document).ready(function () {
           "Multiselectchar": MultiselectChar,
           "Multiselectassemblage": MultiselectAssemblage,
           "Multiselecttax": MultiselectTax,
+          Providers
         },
         props: {
             // Show step labels
@@ -148,25 +150,115 @@ $(document).ready(function () {
             stepOne: true,
             stepTwo: false,
             stepThree: false,
+            providers: [],
         },
         mounted: function() {
 
             // Create tooltips
             this.$nextTick(function() {
               // DOM is now updated
-
-              //Identifying all tooltips
-              let elem = $(".tooltip")
-              for (const el of elem) {
-                  initTooltip(elem);
-              }
-              // let elem = document.querySelectorAll(".tooltip");
-              // elem.forEach(el => {
-              //   initTooltip(el)
-              // })
+              let elemNodeList = document.querySelectorAll(".tooltip");
+              elemNodeList.forEach(elem => {
+                elem.className = 'usa-tooltip';
+                elem.setAttribute('data-position', 'right');
+              })
+              initTooltip(elemNodeList)
           });
+          
+          let self = this;
+          let providersClass = Vue.extend(Providers);
+          let providerClass = new providersClass();
+          providerClass.fetch()
+            .then(function(){
+              self.providers = providerClass;
+              self.initialize()
+            })
+            .catch(function(){
+              self.initialize()
+            })
         },
         methods: {
+            initialize() {
+                // Handler for closing site announcement
+                const announcement = document.getElementById("siteAnnouncement")
+                const announcementcloseButton = document.getElementById("close-announcement")
+
+                announcementcloseButton.onclick = function() { announcement.remove() };
+
+                // Set the loglevel
+                if (Config.DEBUG) {
+                    log.setLevel('debug', false);
+                } else {
+                    log.setLevel('warn', false);
+                }
+
+                let form = document.querySelector('#params');
+                let basicform = document.querySelector('#paramsBasic');
+
+                // Create sub views
+                let downloadProgressClass = Vue.extend(DownloadProgressDialog);
+                let downloadProgressDialog = new downloadProgressClass({
+                  propsData:{
+                    el: document.getElementById('download-status-modal'), 
+                    formType: 'advanced'
+                  }
+                });
+                let downloadProgressDialogBasic = new downloadProgressClass({
+                  propsData:{
+                    el: document.getElementById('download-status-modal-basic'), 
+                    formType: 'basic'
+                  }
+                });
+                let downloadFormClass = Vue.extend(DownloadFormView);
+                let downloadFormView = new downloadFormClass({
+                  propsData:{
+                    form: form, 
+                    downloadProgressDialog: downloadProgressDialog,
+                    downloadProgressDialogBasic: downloadProgressDialogBasic,
+                    providers: this.providers
+                  }
+                });
+                let siteMapClass = Vue.extend(SiteMapView);
+                let siteMapView = new siteMapClass({
+                    container: document.querySelector('#mapping-div'),
+                    downloadProgressDialog: downloadProgressDialog,
+                    downloadFormView: downloadFormView,
+                    providers: this.providers
+                });
+                let showAPIClass = Vue.extend(ShowAPIView);
+                let showAPIView = new showAPIClass({
+                    propsData: {
+                      container: document.querySelector('#show-queries-div'),
+                      getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView),
+                      getResultType: $.proxy(downloadFormView.getResultType, downloadFormView)
+                    }
+                });
+            /////////////NOT CURRENTLY BEING USED?? #MAPPING-DIV COMMENTED OUT IN INDEX.HTML/////////////////////////
+                // let arcGisOnlineHelpClass = Vue.extend(ArcGisOnlineHelpView);
+                // let arcGisOnlineHelpView = new arcGisOnlineHelpClass({
+                //   propsData:{
+                //     button: document.querySelector('#show-arcgis-online-help'),
+                //     dialog: document.querySelector('#arcgis-online-modal'),
+                //     siteMapViewContainer: document.querySelector('#mapping-div'),
+                //     getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView)
+                //   }
+                // });
+
+                //Initialize subviews
+                let initDownloadForm = downloadFormView.initialize();
+                // siteMapView.initialize();
+                showAPIView.initialize();
+                // arcGisOnlineHelpView.initialize();
+
+                // TODO wqp-1723
+                initDownloadForm.catch(function (jqxhr) {
+                    let $dialog = document.querySelector('#service-error-dialog');
+                    if (jqxhr.status === 401 || jqxhr.status === 403) {
+                        $dialog.querySelector('.modal-body').innerHTML = 'No longer authorized to use the application. Please reload the page to login again';
+                    }
+                    $dialog.modal.style.display = "block";
+                });
+            },
             onClickTitle() {
                 this.$emit('selectTitle', this.currentTitle);
               },
@@ -493,84 +585,5 @@ $(document).ready(function () {
                 });
               }
         }
-    });
-
-
-    // Handler for closing site announcement
-    const announcement = document.getElementById("siteAnnouncement")
-    const announcementcloseButton = document.getElementById("close-announcement")
-
-    announcementcloseButton.onclick = function() { announcement.remove() };
-
-    // Set the loglevel
-    if (Config.DEBUG) {
-        log.setLevel('debug', false);
-    } else {
-        log.setLevel('warn', false);
-    }
-
-    let form = document.querySelector('#params');
-    let basicform = document.querySelector('#paramsBasic');
-
-    // Create sub views
-    let downloadProgressClass = Vue.extend(DownloadProgressDialog);
-    let downloadProgressDialog = new downloadProgressClass({
-      propsData:{
-        el: document.getElementById('download-status-modal'), 
-        formType: 'advanced'
-      }
-    });
-    let downloadProgressDialogBasic = new downloadProgressClass({
-      propsData:{
-        el: document.getElementById('download-status-modal-basic'), 
-        formType: 'basic'
-      }
-    });
-    let downloadFormClass = Vue.extend(DownloadFormView);
-    let downloadFormView = new downloadFormClass({
-      propsData:{
-        form: form, 
-        downloadProgressDialog: downloadProgressDialog,
-        downloadProgressDialogBasic: downloadProgressDialogBasic,
-      }
-    });
-    let siteMapClass = Vue.extend(SiteMapView);
-    let siteMapView = new siteMapClass({
-        container: document.querySelector('#mapping-div'),
-        downloadProgressDialog: downloadProgressDialog,
-        downloadFormView: downloadFormView
-    });
-    let showAPIClass = Vue.extend(ShowAPIView);
-    let showAPIView = new showAPIClass({
-        propsData: {
-          container: document.querySelector('#show-queries-div'),
-          getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView),
-          getResultType: $.proxy(downloadFormView.getResultType, downloadFormView)
-        }
-    });
-/////////////NOT CURRENTLY BEING USED?? #MAPPING-DIV COMMENTED OUT IN INDEX.HTML/////////////////////////
-    // let arcGisOnlineHelpClass = Vue.extend(ArcGisOnlineHelpView);
-    // let arcGisOnlineHelpView = new arcGisOnlineHelpClass({
-    //   propsData:{
-    //     button: document.querySelector('#show-arcgis-online-help'),
-    //     dialog: document.querySelector('#arcgis-online-modal'),
-    //     siteMapViewContainer: document.querySelector('#mapping-div'),
-    //     getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView)
-    //   }
-    // });
-
-    //Initialize subviews
-    let initDownloadForm = downloadFormView.initialize();
-    // siteMapView.initialize();
-    showAPIView.initialize();
-    // arcGisOnlineHelpView.initialize();
-
-    // TODO wqp-1723
-    initDownloadForm.catch(function (jqxhr) {
-        let $dialog = document.querySelector('#service-error-dialog');
-        if (jqxhr.status === 401 || jqxhr.status === 403) {
-            $dialog.querySelector('.modal-body').innerHTML = 'No longer authorized to use the application. Please reload the page to login again';
-        }
-        $dialog.modal.style.display = "block";
     });
 });

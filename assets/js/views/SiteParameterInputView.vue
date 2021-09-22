@@ -26,7 +26,7 @@ let portalViews = new portalViewClass();
 
 export default {
   name: "SiteParameterInputView",
-  props: ['container', 'siteTypeModel', 'organizationModel'],
+  props: ['container', 'siteTypeModel', 'organizationModel', 'providers'],
   components: {
       HucValidator,
       InputValidationView,
@@ -40,6 +40,7 @@ export default {
      *      @reject - if any model's fetch failed.
      */
     initialize() {
+        let self = this;
         const initializeOrganizationSelect = function(select, model) {
             var formatData = function(data) {
                 return {
@@ -68,7 +69,8 @@ export default {
                     minimumInputLength: 2,
                     closeOnSelect : false
                 },
-                getAnchorQueryValues(select.getAttribute('name'))
+                getAnchorQueryValues(select.getAttribute('name')),
+                self.providers
             );
         };
 
@@ -89,7 +91,8 @@ export default {
                     model : this.siteTypeModel
                 },
                 {},
-                getAnchorQueryValues(siteTypeSelect.getAttribute('name'))
+                getAnchorQueryValues(siteTypeSelect.getAttribute('name')),
+                this.providers
             );
             portalViews.codeSelect(
                 "getSitetypeOptionsState",
@@ -98,7 +101,8 @@ export default {
                     model : this.siteTypeModel
                 },
                 {},
-                getAnchorQueryValues(siteTypeSelectBasic.getAttribute('name'))
+                getAnchorQueryValues(siteTypeSelectBasic.getAttribute('name')),
+                this.providers
             );
         });
 

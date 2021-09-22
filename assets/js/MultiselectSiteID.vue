@@ -12,7 +12,6 @@ import axios from 'axios';
 import log from 'loglevel';
 import map from 'lodash/map';
 import includes from 'lodash/includes';
-import providers from './providers.js';
 
 export default {
   name: "MultiselectSiteID",

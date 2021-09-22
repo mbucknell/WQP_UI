@@ -11,18 +11,18 @@ import Multiselect from 'vue-multiselect';
 import axios from 'axios';
 import log from 'loglevel';
 import map from 'lodash/map';
-import providers from './providers.js';
 
 export default {
   name: "MultiselectChar",
   components: {
-    "multiselect": Multiselect.Multiselect
+    "multiselect": Multiselect.Multiselect,
   },
+  props: ['providers'],
   data () {
     return {
       charValue: [],
       charOptions: [],
-      isLoading: false
+      isLoading: false,
     }
   },
   methods: {
@@ -40,7 +40,7 @@ export default {
       let formatData = function (data) {
           var desc = data.hasOwnProperty('desc') && data.desc ? data.desc
               : data.value;
-          return desc + ' (' + providers.formatAvailableProviders(data.providers) + ')';
+          return desc + ' (' + self.providers.formatAvailableProviders(data.providers) + ')';
       };
 
       axios.get(Config.CODES_ENDPOINT + '/' + "characteristicname",

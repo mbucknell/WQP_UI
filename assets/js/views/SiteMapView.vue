@@ -4,7 +4,6 @@
 <script>
 import filter from 'lodash/filter';
 
-import providers from '../providers';
 import queryService from '../queryService';
 import { getQueryString, toggleShowHideSections } from '../utils';
 import SiteMap from '../siteMap';
@@ -25,7 +24,7 @@ const STATION_RESULTS = 'Station';
 
 export default {
   name: "SiteMapView",
-  props: ['container', 'downloadProgressDialog', 'downloadFormView'],
+  props: ['container', 'downloadProgressDialog', 'downloadFormView', 'providers'],
   methods: {
         /*
      * Initialize the site map and all of it's controls
@@ -109,7 +108,7 @@ export default {
 
 
                 this.downloadProgressDialog.show('map');
-                queryService.fetchQueryCounts(STATION_RESULTS, queryParamArray, providers.getIds())
+                queryService.fetchQueryCounts(STATION_RESULTS, queryParamArray, this.providers.getIds())
                     .then((counts) => {
                         const fileFormat = 'xml';
                         this.downloadProgressDialog.updateProgress(counts, STATION_RESULTS, fileFormat, showMap);

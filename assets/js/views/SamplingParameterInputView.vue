@@ -25,7 +25,7 @@ let portalViews = new portalViewClass();
 
 export default {
   name: "SamplingParameterInputView",
-  props: ['container', 'sampleMediaModel', 'characteristicTypeModel'],
+  props: ['container', 'sampleMediaModel', 'characteristicTypeModel', 'providers'],
   components:{
       DateValidator,
       InputValidationView,
@@ -61,7 +61,8 @@ export default {
                     model : this.sampleMediaModel
                 },
                 {},
-                getAnchorQueryValues(sampleMedia.getAttribute('name'))
+                getAnchorQueryValues(sampleMedia.getAttribute('name')),
+                this.providers
             );
             portalViews.codeSelect(
                 "getSampleMediaOptionsState",
@@ -70,7 +71,8 @@ export default {
                     model : this.sampleMediaModel
                 },
                 {},
-                getAnchorQueryValues(sampleMediaBasic.getAttribute('name'))
+                getAnchorQueryValues(sampleMediaBasic.getAttribute('name')),
+                this.providers
             );
         });
         fetchCharacteristicType.then(() => {
@@ -81,7 +83,8 @@ export default {
                     model : this.characteristicTypeModel
                 },
                 {},
-                getAnchorQueryValues(characteristicType.getAttribute('name'))
+                getAnchorQueryValues(characteristicType.getAttribute('name')),
+                this.providers
             );
             portalViews.codeSelect(
                 "getChargroupOptionsState",
@@ -90,7 +93,8 @@ export default {
                     model : this.characteristicTypeModel
                 },
                 {},
-                getAnchorQueryValues(characteristicTypeBasic.getAttribute('name'))
+                getAnchorQueryValues(characteristicTypeBasic.getAttribute('name')),
+                this.providers
             );
         });
 
@@ -101,7 +105,7 @@ export default {
 
         let portalValidatorsClass = Vue.extend(PortalValidators);
         let portalValidators = new portalValidatorsClass();
-        let positiveIntValidator = portalValidators.positiveIntValidator();
+        let positiveIntValidator = portalValidators.positiveIntValidator;
 
         let inputValidationView = Vue.extend(InputValidationView);
         // Add input validations and reformatting handlers

@@ -5,7 +5,8 @@
 import map from 'lodash/map';
 
 import countsHbTemplate from './hbTemplates/counts.hbs';
-import providers from './providers';
+import Vue from 'vue';
+import Providers from './Providers.vue';
 
 // constants for the two different download statuses
 const DIALOG = {
@@ -40,9 +41,15 @@ const RESULT_TYPE_TO_TOTAL_COUNT_PROPERTY_MAP = {
     'BiologicalHabitatMetric': 'biologicalHabitatMetrics'
 };
 
+let providersClass = Vue.extend(Providers);
+let providers = new providersClass();
+
 export default {
   name: "DownloadProgressDialog",
   props: ['el', 'formType'],
+  components:{
+      Providers
+  },
   methods: {
     getFormElements(){
         let elements;

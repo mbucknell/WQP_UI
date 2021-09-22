@@ -37,7 +37,7 @@ export default {
 
         let portalValidatorsClass = Vue.extend(PortalValidators);
         let portalValidators = new portalValidatorsClass();
-        let realNumberValidator = portalValidators.realNumberValidator();
+        let realNumberValidator = portalValidators.realNumberValidator;
 
         let inputValidationClass = Vue.extend(InputValidationView);
         let inputValidationView = new inputValidationClass();

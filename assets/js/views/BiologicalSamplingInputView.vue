@@ -19,7 +19,7 @@ let portalViews = new portalViewClass();
  */
 export default {
   name: "BiologicalSamplingView",
-  props: ['container', 'assemblageModel'],
+  props: ['container', 'assemblageModel', 'providers'],
   components: {
       PortalViews
   },
@@ -39,7 +39,8 @@ export default {
                     model : this.assemblageModel
                 },
                 {},
-                getAnchorQueryValues(assemblage.getAttribute('name'))
+                getAnchorQueryValues(assemblage.getAttribute('name')),
+                this.providers
             );
         });
 

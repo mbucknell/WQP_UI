@@ -12,13 +12,13 @@ import axios from 'axios';
 import log from 'loglevel';
 import map from 'lodash/map';
 import includes from 'lodash/includes';
-import providers from './providers.js';
 
 export default {
   name: "MultiselectProjID",
   components: {
     "multiselect": Multiselect.Multiselect
   },
+  props: ["providers"],
   data () {
     return {
       projIDValue: [],
@@ -46,7 +46,7 @@ export default {
       let formatData = function (data) {
           var desc = data.hasOwnProperty('desc') && data.desc ? data.desc
               : data.value;
-          return desc + ' (' + providers.formatAvailableProviders(data.providers) + ')';
+          return desc + ' (' + self.providers.formatAvailableProviders(data.providers) + ')';
       };
 
       axios.get(Config.CODES_ENDPOINT + '/' + "project",
@@ -76,7 +76,5 @@ export default {
       })
     }
   },
-  watch: {
-  }
 }
 </script>

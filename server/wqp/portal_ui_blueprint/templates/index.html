@@ -573,14 +573,14 @@
                                 <div class="tooltip" :title="characteristicsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
-                                  <Multiselectchar id="characteristicName" name="characteristicName" style="width: 100%"></Multiselectchar>
+                                  <Multiselectchar :providers="providers" id="characteristicName" name="characteristicName" style="width: 100%"></Multiselectchar>
                                 </div>
                                 <br>
                                 <label class="usa-label" for="project-code">Project ID </label>
                                 <div class="tooltip" :title="projectIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                 </div>
                                 <div>
-                                  <Multiselectprojid id="project-code" name="project" style="width: 100%"></Multiselectprojid>
+                                  <Multiselectprojid :providers="providers" id="project-code" name="project" style="width: 100%"></Multiselectprojid>
                                 </div>
                               </div>
                               <div class="tablet:grid-col-4">
@@ -611,7 +611,7 @@
                                           Name </label><div class="tooltip" for="control-label"
                                         :title="taxNameTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                                       <div>
-                                        <Multiselecttax id="subject-taxonomic-name" name="subjectTaxonomicName" style="width: 100%"></Multiselecttax>
+                                        <Multiselecttax :providers="providers" id="subject-taxonomic-name" name="subjectTaxonomicName" style="width: 100%"></Multiselecttax>
                                       </div>
                                     </div>
                                   </div>
