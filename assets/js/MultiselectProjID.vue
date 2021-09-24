@@ -12,6 +12,7 @@ import axios from 'axios';
 import log from 'loglevel';
 import map from 'lodash/map';
 import includes from 'lodash/includes';
+import { getAnchorQueryValues} from './utils';
 
 export default {
   name: "MultiselectProjID",
@@ -29,9 +30,6 @@ export default {
     }
   },
   methods: {
-    limitText (count) {
-      return `and ${count} other project IDs`
-    },
     updateSelected(value) {
       this.projIDValue = value;
       this.$store.commit("getProjIDState", value);
@@ -39,15 +37,14 @@ export default {
     updateOptions(value) {
       this.projIDOptions = value;
     },
+    formatData(data){
+      var desc = data.hasOwnProperty('desc') && data.desc ? data.desc
+            : data.value;
+        return desc + ' (' + this.providers.formatAvailableProviders(data.providers) + ')';
+    },
     onchange(value) {
       this.isLoading = true;
       let self = this;
-      
-      let formatData = function (data) {
-          var desc = data.hasOwnProperty('desc') && data.desc ? data.desc
-              : data.value;
-          return desc + ' (' + self.providers.formatAvailableProviders(data.providers) + ')';
-      };
 
       axios.get(Config.CODES_ENDPOINT + '/' + "project",
       { params:
@@ -62,7 +59,7 @@ export default {
         var results = map(data.data.codes, (code) => {
             return {
                 id: code.value,
-                text: formatData(code),
+                text: self.formatData(code),
             };
         });
 
@@ -74,7 +71,46 @@ export default {
           log.error('Can\'t  get ' + self.codes + ', Server error: ' + error);
           self.isLoading = false;
       })
+    },
+    getInitValues(values) {
+      let selectedValue = [];
+      let self = this;
+
+      values.forEach(function(value){
+        axios.get(Config.CODES_ENDPOINT + '/' + "project",
+          { params:
+              {
+                  text: value,
+                  pagesize: 1,
+                  mimeType: 'json'
+              }
+          })
+          .then(function (data) {
+            let code = data.data.codes[0];
+              var results = {
+                      id: code.value,
+                      text: self.formatData(code),
+              };
+              selectedValue.push(results);
+              if(selectedValue.length === values.length){
+                self.updateSelected(selectedValue)
+              }
+          })
+          .catch(function(jqXHR, textStatus, error) {
+              log.error('Can\'t  get ' + self.codes + ', Server error: ' + error);
+          })
+      });
     }
   },
+  watch: {
+    providers: function(){
+      let self = this;
+      let projectName = document.querySelector('#project-code');
+      let initValues = getAnchorQueryValues(projectName.getAttribute('name'));
+      if (initValues.length > 0){
+          self.getInitValues(initValues);
+      }
+    },
+  }
 }
 </script>

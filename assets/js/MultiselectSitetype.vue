@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="sitetypeValue" @input="onchange" name="siteType" tag-placeholder="All Site Types" placeholder="All Site Types" aria-label="Input box for site type parameter" label="text" track-by="id" :options="sitetypeOptions" :multiple="true" :taggable="true">
+    <multiselect v-model="sitetypeValue" @input="updateSelected" name="siteType" tag-placeholder="All Site Types" placeholder="All Site Types" aria-label="Input box for site type parameter" label="text" track-by="id" :options="sitetypeOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
@@ -23,20 +23,17 @@ export default {
   methods: {
     updateSelected(value) {
       this.sitetypeValue = value;
+      this.$store.commit("getSitetypeState", value);
     },
     updateOptions(value) {
       this.sitetypeOptions = value;
     },
-    onchange() {
-      this.$store.commit("getSitetypeState", this.sitetypeValue);
-    }
   },
   watch: {
     "$store.state.sitetypeSelectedState": {
       deep: true,
       handler(){
         this.updateSelected(this.$store.state.sitetypeSelectedState);
-        this.onchange();
       }
     },
     "$store.state.sitetypeOptionsState": {

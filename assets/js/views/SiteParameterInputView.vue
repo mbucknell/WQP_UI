@@ -59,6 +59,7 @@ export default {
             };
 
             portalViews.codeSelect(
+                "getOrgIDState",
                 "getOrgIDOptionsState",
                 select,
                 {
@@ -82,26 +83,30 @@ export default {
         var fetchSiteType = this.siteTypeModel.fetch();
         var fetchOrganization = this.organizationModel.fetch();
         var fetchComplete = Promise.all([fetchSiteType, fetchOrganization]);
+        let initSitetype = getAnchorQueryValues(siteTypeSelect.getAttribute('name'));
+        let initSitetypeBasic = getAnchorQueryValues(siteTypeSelectBasic.getAttribute('name'));
 
         fetchSiteType.then(() => {
             portalViews.codeSelect(
+                "getSitetypeState",
                 "getSitetypeOptionsState",
                 siteTypeSelect,
                 {
                     model : this.siteTypeModel
                 },
                 {},
-                getAnchorQueryValues(siteTypeSelect.getAttribute('name')),
+                initSitetype,
                 this.providers
             );
             portalViews.codeSelect(
+                "getSitetypeState",
                 "getSitetypeOptionsState",
                 siteTypeSelectBasic,
                 {
                     model : this.siteTypeModel
                 },
                 {},
-                getAnchorQueryValues(siteTypeSelectBasic.getAttribute('name')),
+                initSitetypeBasic,
                 this.providers
             );
         });

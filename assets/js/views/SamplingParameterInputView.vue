@@ -52,48 +52,56 @@ export default {
 
         let dateValidatorClass = Vue.extend(DateValidator);
         const datevalidator = new dateValidatorClass();
+        let initSampleMedia = getAnchorQueryValues(sampleMedia.getAttribute('name'));
+        let initSampleMediaBasic = getAnchorQueryValues(sampleMediaBasic.getAttribute('name'));
+        let initChargroup = getAnchorQueryValues(characteristicType.getAttribute('name'));
+        let initChargroupBasic = getAnchorQueryValues(characteristicTypeBasic.getAttribute('name'));
 
         fetchSampleMedia.then(() => {
             portalViews.codeSelect(
+                "getSampleMediaState",
                 "getSampleMediaOptionsState",
                 sampleMedia,
                 {
                     model : this.sampleMediaModel
                 },
                 {},
-                getAnchorQueryValues(sampleMedia.getAttribute('name')),
+                initSampleMedia,
                 this.providers
             );
             portalViews.codeSelect(
+                "getSampleMediaState",
                 "getSampleMediaOptionsState",
                 sampleMediaBasic,
                 {
                     model : this.sampleMediaModel
                 },
                 {},
-                getAnchorQueryValues(sampleMediaBasic.getAttribute('name')),
+                initSampleMediaBasic,
                 this.providers
             );
         });
         fetchCharacteristicType.then(() => {
             portalViews.codeSelect(
+                "getChargroupState",
                 "getChargroupOptionsState",
                 characteristicType,
                 {
                     model : this.characteristicTypeModel
                 },
                 {},
-                getAnchorQueryValues(characteristicType.getAttribute('name')),
+                initChargroup,
                 this.providers
             );
             portalViews.codeSelect(
+                "getChargroupState",
                 "getChargroupOptionsState",
                 characteristicTypeBasic,
                 {
                     model : this.characteristicTypeModel
                 },
                 {},
-                getAnchorQueryValues(characteristicTypeBasic.getAttribute('name')),
+                initChargroupBasic,
                 this.providers
             );
         });

@@ -12,6 +12,7 @@ import axios from 'axios';
 import log from 'loglevel';
 import map from 'lodash/map';
 import includes from 'lodash/includes';
+import { getAnchorQueryValues} from './utils';
 
 export default {
   name: "MultiselectSiteID",
@@ -63,6 +64,13 @@ export default {
         };
       }
     },
+    formatData(data){
+      if (data.desc !== undefined){
+        return data.value + ' - ' + data.desc;
+      }else{
+        return data.value
+      }
+    },
     onchange(value) {
       this.isLoading = true;
       let self = this;
@@ -79,14 +87,6 @@ export default {
         url = Config.CODES_ENDPOINT + '/' + "monitoringlocation";
       }
 
-      let formatData = function(data){
-        if (data.desc !== undefined){
-          return data.value + ' - ' + data.desc;
-        }else{
-          return data.value
-        }
-      }
-
       axios.get(url,
       { params:
           {
@@ -99,7 +99,7 @@ export default {
         var results = map(data.data.codes, (code) => {
             return {
                 id: code.value,
-                text: formatData(code),
+                text: self.formatData(code),
             };
         });
         
@@ -111,7 +111,37 @@ export default {
           log.error('Can\'t  get ' + self.codes + ', Server error: ' + error);
           self.isLoading = false;
       })
-    }
+    },
+    getInitValues(values){
+      let selectedValue = [];
+      let self = this;
+      let url = Config.CODES_ENDPOINT + '/' + "monitoringlocation";
+
+      values.forEach(function(value){
+        axios.get(url,
+          { params:
+              {
+                  text: value,
+                  pagesize: 1,
+                  mimeType: 'json'
+              }
+          })
+          .then(function (data, params) {
+            let code = data.data.codes[0];
+            var results = {
+                    id: code.value,
+                    text: self.formatData(code),
+            };
+            selectedValue.push(results);
+            if(selectedValue.length === values.length){
+              self.updateSelected(selectedValue)
+            }
+          })
+          .catch(function(jqXHR, textStatus, error) {
+              log.error('Can\'t  get ' + self.codes + ', Server error: ' + error);
+          })
+      });
+    },
   },
   watch: {
     "$store.state.orgIDSelectedState": {
@@ -124,6 +154,14 @@ export default {
         }
       }
     },
+  },
+  mounted() {
+    let self = this;
+    let siteidName = document.querySelector('#siteid');
+    let initValues = getAnchorQueryValues(siteidName.getAttribute('name'));
+    if (initValues.length > 0){
+        self.getInitValues(initValues);
+    }
   }
 }
 </script>

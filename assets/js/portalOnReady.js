@@ -227,11 +227,11 @@ $(document).ready(function () {
                 });
                 let showAPIClass = Vue.extend(ShowAPIView);
                 let showAPIView = new showAPIClass({
-                    propsData: {
-                      container: document.querySelector('#show-queries-div'),
-                      getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView),
-                      getResultType: $.proxy(downloadFormView.getResultType, downloadFormView)
-                    }
+                  propsData: {
+                    container: document.querySelector('#show-queries-div'),
+                    getQueryParamArray: downloadFormView.getQueryParamArray.bind(downloadFormView),
+                    getResultType: downloadFormView.getResultType.bind(downloadFormView)
+                  }
                 });
             /////////////NOT CURRENTLY BEING USED?? #MAPPING-DIV COMMENTED OUT IN INDEX.HTML/////////////////////////
                 // let arcGisOnlineHelpClass = Vue.extend(ArcGisOnlineHelpView);

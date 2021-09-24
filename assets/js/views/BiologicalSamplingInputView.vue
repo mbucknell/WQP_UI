@@ -30,16 +30,18 @@ export default {
 
         var fetchAssemblageModel = this.assemblageModel.fetch();
         var fetchComplete = Promise.all([fetchAssemblageModel]);
+        let initValues = getAnchorQueryValues(assemblage.getAttribute('name'));
 
         fetchAssemblageModel.then(() => {
             portalViews.codeSelect(
+                "getAssemblageState",
                 "getAssemblageOptionsState",
                 assemblage,
                 {
                     model : this.assemblageModel
                 },
                 {},
-                getAnchorQueryValues(assemblage.getAttribute('name')),
+                initValues,
                 this.providers
             );
         });

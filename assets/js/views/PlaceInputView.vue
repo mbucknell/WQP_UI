@@ -64,7 +64,9 @@ export default {
             isMatch: isMatch
         };
 
-        portalViews.codeSelect("getCountryOptionsState",
+        portalViews.codeSelect(
+            "getCountryState", 
+            "getCountryOptionsState",
             select,
             spec, {
             templateSelection: templateSelection
@@ -98,7 +100,9 @@ export default {
             isMatch: isMatch
         };
 
-        portalViews.codeSelect("getCountryOptionsState",
+        portalViews.codeSelect(
+            "getCountryState",
+            "getCountryOptionsState",
             select,
             spec, {
             templateSelection: templateSelection
@@ -145,6 +149,7 @@ export default {
         };
 
         portalViews.cascadedCodeSelect(
+            "getStateState",
             "getStateOptionsState",
             select,
             spec,
@@ -193,6 +198,7 @@ export default {
         };
 
         portalViews.cascadedCodeSelect(
+            "getStateState",
             "getStateOptionsState",
             select,
             spec,
@@ -240,6 +246,7 @@ export default {
         };
 
         portalViews.cascadedCodeSelect(
+            "getCountyState",
             "getCountyOptionsState",
             select,
             countySpec,
@@ -287,6 +294,7 @@ export default {
         };
 
         portalViews.cascadedCodeSelect(
+            "getCountyState",
             "getCountyOptionsState",
             select,
             countySpec,

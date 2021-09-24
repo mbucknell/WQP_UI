@@ -43,7 +43,7 @@ export default {
     @param {Object} select2Options
     @param {Array of String} initValues
     */
-    codeSelect(state, el, options, select2Options, initValues=[], providers) {
+    codeSelect(selectedState, state, el, options, select2Options, initValues=[], providers) {
         var isMatch;
         var defaultOptions;
 
@@ -101,6 +101,13 @@ export default {
         };
 
         store.commit(state, defaultOptions.data);
+        if(initValues.length !== 0){
+            let initState = [];
+            initValues.forEach(function(value){
+                initState.push(formatData(options.model.getLookup(value)))
+            });
+            store.commit(selectedState, initState)
+        }
     },
 
     /*
@@ -115,7 +122,10 @@ export default {
     *  @param {Object} select2Options
     *  @param {Array of String} initValues
     */
-    cascadedCodeSelect(state, el, options, select2Options, initValues=[], providers) {
+    cascadedCodeSelect(selectedState, state, el, options, select2Options, initValues=[], providers) {
+        let selectOptions = options.model.getAll();
+        let initState = [];
+
         // Assign defaults for optional parameters
         if (!has(options, 'isMatch')) {
             options.isMatch = function (term, data) {
@@ -140,15 +150,21 @@ export default {
         const initFormatData = function(data) {
             let result = options.formatData(data);
             result.selected = includes(initValues, result.id);
+            if(result.selected){
+                initState.push(result);
+            }
             return result;
         };
         var defaultOptions = {
             allowClear: true,
             theme: 'bootstrap',
-            data: map(options.model.getAll(), initFormatData)
+            data: map(selectOptions, initFormatData)
         };
 
         store.commit(state, defaultOptions.data);
+        if(initValues.length !== 0){
+            store.commit(selectedState, initState)
+        }
     }
   }
 }

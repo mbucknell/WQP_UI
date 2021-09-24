@@ -333,10 +333,10 @@ export default {
         store.watch(() => store.state.countrySelectedState, () => {
             getQuery();
         });
-        store.watch(() => store.state.stateMediaSelectedState, () => {
+        store.watch(() => store.state.stateSelectedState, () => {
             getQuery();
         });
-        store.watch(() => store.state.countyMediaSelectedState, () => {
+        store.watch(() => store.state.countySelectedState, () => {
             getQuery();
         });
         store.watch(() => store.state.sitetypeSelectedState, () => {
@@ -412,7 +412,7 @@ export default {
             ]);
 
             downloadProgressDialog.show('download');
-            queryService.fetchQueryCounts(resultType, queryParamArray, self.providers.getIds())
+            queryService.fetchQueryCounts(resultType, queryParamArray, this.providers.getIds())
                 .then((counts) => {
                     downloadProgressDialog.updateProgress(counts, resultType, fileFormat, startDownload);
                 })
