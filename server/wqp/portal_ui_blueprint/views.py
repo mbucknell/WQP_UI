@@ -152,6 +152,18 @@ def apps_using_portal():
     return render_template('apps_using_portal.html', feed_content=pull_feed(feed_url))
 
 
+@portal_ui.route('/publications.jsp')
+@portal_ui.route('/publications/', endpoint='publications-canonical')
+@invalid_usgs_view
+def publications():
+    if request.path == '/publications.jsp':
+        return redirect(url_for('portal_ui.publications-canonical')), 301
+    feed_url = "https://my.usgs.gov/confluence/createrssfeed.action?types=page&spaces=qwdp&title=myUSGS+4.0+RSS+Feed&" \
+               "labelString=wqp_applications&excludedSpaceKeys%3D&sort=modified&maxResults=10&timeSpan=600&" \
+               "showContent=true&confirm=Create+RSS+Feed"
+    return render_template('publications.html', feed_content=pull_feed(feed_url))
+
+
 @portal_ui.route('/other_portal_links.jsp')
 @portal_ui.route('/other_portal_links/', endpoint='other_portal_links-canonical')
 @invalid_usgs_view
