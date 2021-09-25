@@ -30,8 +30,8 @@
             This site is in the watershed defined by the 8 digit <a href="http://water.usgs.gov/GIS/huc.html" title="Learn more about HUCs" target="_blank"> Hydrologic Unit Code (HUC)</a>
         {{ site['HUCEightDigitCode'] }}.  You can learn more about what is happening in this HUC at the
         <a href="https://cfpub.epa.gov/surf/huc.cfm?huc_code={{ site['HUCEightDigitCode'] }}" title="go to the EPA's site about this HUC" target="_blank"> EPA's Surf Your Watershed site</a> or at the <a target="_blank" href="http://water.usgs.gov/lookup/getwatershed?{{ site['HUCEightDigitCode']  }}" title="Go to the USGS Science in Your watershed site">USGS Science In Your Watershed site</a>.
-            To learn more about water use in this watershed, you can go to the <a target="_blank" title="Go to the National Water Census Water Use Data Portal " href="http://cida.usgs.gov/nwc/#!waterbudget/huc/{{ site['HUCEightDigitCode'] }}">National Water Census Data Portal</a>. {% endif %}
-        {% if site['ProviderName'] == 'NWIS' %}See more details of this site the the <a target="_blank" title="Go to the USGS NWIS site summary page" href="http://waterdata.usgs.gov/nwis/inventory?agency_code={{ site_data_additional['NWISOrg'] }}&site_no={{ site_data_additional['NWISNumber'] }}">USGS NWIS Web page for this site</a>. {% endif %}
+             {% endif %}
+        {% if site['ProviderName'] == 'NWIS' %}See more details of this site the the <a target="_blank" title="Go to the USGS NWIS site summary page" href="https://waterdata.usgs.gov/monitoring-location/{{ site_data_additional['NWISNumber'] }}">USGS NWIS Web page for this site</a>. {% endif %}
         {% if site['DrainageAreaMeasure/MeasureValue'] %} This site has a drainage area of {{ site['DrainageAreaMeasure/MeasureValue'] }} {{ site['DrainageAreaMeasure/MeasureUnitCode'] }}{% if site['ContributingDrainageAreaMeasure/MeasureValue'] %} and the contributing drainage area is {{ site['ContributingDrainageAreaMeasure/MeasureValue'] }} {{ site['ContributingDrainageAreaMeasure/MeasureUnitCode'] }}{% endif %}.{% endif %}
     </p>
 
@@ -65,7 +65,7 @@
         {% if site['WellHoleDepthMeasure/MeasureValue'] and site['WellHoleDepthMeasure/MeasureUnitCode'] %}The well hole depth is {{ site['WellHoleDepthMeasure/MeasureValue'] }} {{ site['WellHoleDepthMeasure/MeasureUnitCode'] }}.{% endif %}
     </p>
 
-    To download the metadata about this site along with water quality data, go to the <a href="{{ url_for("portal_ui.home-canonical") }}">Portal Page</a> and enter "{{ site['MonitoringLocationIdentifier'] }}" into the "Site ID" box under Site Parameters
+    To download the metadata about this site along with water quality data, go to the <a href="{{ url_for('portal_ui.home-canonical') }}">Portal Page</a> and enter "{{ site['MonitoringLocationIdentifier'] }}" into the "Site ID" box under Site Parameters
 
     <h2>Upstream and downstream stations</h2>
     <p> This map shows all Water Quality Portal stations that are 10 miles upstream (dashed dark blue) and 10 miles downstream (solid light blue) of this monitoring location (indicated by the large blue circle).
