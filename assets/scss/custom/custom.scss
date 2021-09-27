@@ -414,36 +414,29 @@ a:visited {
   background-color: white;
 }
 
-//Select2
-//matching select2 style to usa-input style
-.select2-container--focus {
-  outline: 0.25rem solid #2491ff !important;
-  outline-offset: 0 !important;
+//vue multiselect
+//matching multiselect style to usa-input style
+.multiselect__tags, .multiselect__input {
+  font-size: 1.06rem !important;
 }
 
-.select2-search__field {
-  font-family: inherit !important;
-  font-size: inherit !important;
-  min-height: 32px;
-  height: auto !important;
-  padding: 0.5rem !important;
-  width: 100% !important;
-}
-
-.select2-selection__choice {
-  white-space: normal !important;
-  margin-right: 5px !important;
-}
-
-.select2-selection {
-  font-size: inherit !important;
+.multiselect__tags {
+  border-width: 1px !important;
   border-color: #565c65 !important;
   border-style: solid !important;
   border-radius: 0 !important;
 }
 
-.select2-selection--multiple {
-  box-shadow: none !important;
+.multiselect__input:focus {
+  outline: none !important;
+}
+
+.multiselect:focus-within {
+  outline: .25rem solid #2491ff !important;
+}
+
+.multiselect__tag, .multiselect__option--highlight, .multiselect__option--selected.multiselect__option--highlight {
+  background: #005ea2 !important;
 }
 
 //USWDS
