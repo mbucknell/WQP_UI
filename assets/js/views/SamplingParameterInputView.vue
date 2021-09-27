@@ -44,6 +44,8 @@ export default {
         let minresults = this.container.querySelector('#minresults');
         let startDate = this.container.querySelector('#startDateLo');
         let endDate = this.container.querySelector('#startDateHi');
+        let startDateBasic = document.querySelector('#startDateLoBasic');
+        let endDateBasic = document.querySelector('#startDateHiBasic');
         var minActivitiesInput = this.container.querySelector('#min-activities');
 
         let fetchSampleMedia = this.sampleMediaModel.fetch();
@@ -108,8 +110,11 @@ export default {
 
         initializeInput(pcode);
         initializeInput(minresults);
+        initializeInput(minActivitiesInput);
         initializeInput(startDate);
         initializeInput(endDate);
+        initializeInput(startDateBasic);
+        initializeInput(endDateBasic);
 
         let portalValidatorsClass = Vue.extend(PortalValidators);
         let portalValidators = new portalValidatorsClass();

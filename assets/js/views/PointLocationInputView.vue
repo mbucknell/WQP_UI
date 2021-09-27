@@ -64,12 +64,16 @@ export default {
         let within = this.container.querySelector('#within');
         let lat = this.container.querySelector('#lat');
         let lon = this.container.querySelector('#long');
+        let withinBasic = document.querySelector('#withinBasic');
         let latBasic = document.querySelector('#latBasic');
         let lonBasic = document.querySelector('#longBasic');
 
         initializeInput(within);
         initializeInput(lat);
         initializeInput(lon);
+        initializeInput(withinBasic);
+        initializeInput(latBasic);
+        initializeInput(lonBasic);
 
         // only give user the option if their browser supports geolocation
         if (window.navigator.geolocation && window.navigator.geolocation.getCurrentPosition) {
