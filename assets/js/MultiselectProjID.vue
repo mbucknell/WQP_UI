@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="projIDValue" @input="updateSelected" name="project" open-direction="bottom" label="text" track-by="id" placeholder="All Project IDs" aria-label="Input box for project ID parameter" :options="projIDOptions" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :max-height="600" :hide-selected="true" @search-change="onchange">
+    <multiselect v-model="projIDValue" @input="updateSelected" name="project" open-direction="bottom" label="text" track-by="id" placeholder="All Project IDs" aria-label="Input box for project ID parameter" select-label="" :options="projIDOptions" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :max-height="200" :hide-selected="true" @search-change="onchange">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
@@ -110,6 +110,9 @@ export default {
       if (initValues.length > 0){
           self.getInitValues(initValues);
       }
+
+      // Get initial options
+      this.onchange('');
     },
   }
 }

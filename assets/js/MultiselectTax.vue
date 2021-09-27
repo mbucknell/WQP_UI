@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="taxValue" @input="updateSelected" name="subjectTaxonomicName" label="text" track-by="id" placeholder="All Taxonomic Names" aria-label="Second of two input boxes for biological sampling parameters. Input box for taxonomic name parameter." :options="taxOptions" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :options-limit="200" :max-height="600" :show-no-results="false" :hide-selected="true" @search-change="onchange">
+    <multiselect v-model="taxValue" @input="updateSelected" name="subjectTaxonomicName" label="text" track-by="id" placeholder="All Taxonomic Names" aria-label="Second of two input boxes for biological sampling parameters. Input box for taxonomic name parameter." select-label="" :options="taxOptions" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :options-limit="200" :max-height="200" :show-no-results="false" :hide-selected="true" @search-change="onchange">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
@@ -104,7 +104,10 @@ export default {
       let initValues = getAnchorQueryValues(taxonomicName.getAttribute('name'));
       if (initValues.length > 0){
           self.getInitValues(initValues);
-      }    
+      }
+
+      // Get initial options
+      this.onchange('');  
     },
   }
 }

@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="countyValue" name="countycode" @input="updateSelected" tag-placeholder="All Counties" placeholder="All Counties" aria-label="Input box for county parameter" label="text" track-by="id" :options="countyOptions" :multiple="true" :taggable="true">
+    <multiselect v-model="countyValue" name="countycode" @input="updateSelected" tag-placeholder="All Counties" placeholder="All Counties" aria-label="Input box for county parameter" label="text" track-by="id" select-label="" :max-height="200" :options="countyOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>

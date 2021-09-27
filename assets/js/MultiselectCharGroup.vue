@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="chargroupValue" @input="onchange" name="characteristicType" tag-placeholder="All Characteristic Groups" placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter" label="text" track-by="id" :options="chargroupOptions" :multiple="true" :taggable="true">
+    <multiselect v-model="chargroupValue" @input="onchange" name="characteristicType" tag-placeholder="All Characteristic Groups" placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter" label="text" track-by="id" select-label="" :max-height="200" :options="chargroupOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>

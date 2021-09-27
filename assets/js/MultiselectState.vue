@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="stateValue" name="statecode" @input="updateSelected" placeholder="All States" aria-label="Input box for state parameter" label="text" track-by="id" :options="stateOptions" :multiple="true" :taggable="true">
+    <multiselect v-model="stateValue" name="statecode" @input="updateSelected" placeholder="All States" aria-label="Input box for state parameter" label="text" track-by="id" select-label="" :max-height="200" :options="stateOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>

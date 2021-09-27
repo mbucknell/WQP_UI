@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="sitetypeValue" @input="updateSelected" name="siteType" tag-placeholder="All Site Types" placeholder="All Site Types" aria-label="Input box for site type parameter" label="text" track-by="id" :options="sitetypeOptions" :multiple="true" :taggable="true">
+    <multiselect v-model="sitetypeValue" @input="updateSelected" name="siteType" tag-placeholder="All Site Types" placeholder="All Site Types" aria-label="Input box for site type parameter" label="text" track-by="id" select-label="" :max-height="200" :options="sitetypeOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>

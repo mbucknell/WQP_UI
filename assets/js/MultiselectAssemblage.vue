@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="assemblageValue" @input="updateSelected" name="assemblage" tag-placeholder="All Assemblages" placeholder="All Assemblages" aria-label="First of two input boxes for biological sampling parameters. Input box for assemblage parameter." label="text" track-by="id" :options="assemblageOptions" :multiple="true" :taggable="true">
+    <multiselect v-model="assemblageValue" @input="updateSelected" name="assemblage" tag-placeholder="All Assemblages" placeholder="All Assemblages" aria-label="First of two input boxes for biological sampling parameters. Input box for assemblage parameter." label="text" track-by="id" select-label="" :max-height="200" :options="assemblageOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>

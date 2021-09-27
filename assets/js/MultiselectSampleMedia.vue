@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="sampleMediaValue" @input="onchange" name="sampleMedia" tag-placeholder="All Sample Media" placeholder="All Sample Media" aria-label="Input box for sample media parameter" label="text" track-by="id" :options="sampleMediaOptions" :multiple="true" :taggable="true">
+    <multiselect v-model="sampleMediaValue" @input="onchange" name="sampleMedia" tag-placeholder="All Sample Media" placeholder="All Sample Media" aria-label="Input box for sample media parameter" label="text" track-by="id" select-label="" :max-height="200" :options="sampleMediaOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>

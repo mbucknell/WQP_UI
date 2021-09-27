@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="charValue" @input="updateSelected" name="characteristicName" label="text" track-by="id" placeholder="All Characteristics" aria-label="Input box for characteristics parameter" :options="charOptions" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :max-height="600" :show-no-results="false" :hide-selected="true" @search-change="onchange">
+    <multiselect v-model="charValue" @input="updateSelected" name="characteristicName" label="text" track-by="id" placeholder="All Characteristics" aria-label="Input box for characteristics parameter" select-label="" :options="charOptions" :max-height="200" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :show-no-results="false" :hide-selected="true" @search-change="onchange">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
@@ -105,7 +105,9 @@ export default {
       let initValues = getAnchorQueryValues(charName.getAttribute('name'));
       if (initValues.length > 0){
           self.getInitValues(initValues);
-      }    
+      }
+      // Get initial options
+      this.onchange('');
     },
   }
 }
