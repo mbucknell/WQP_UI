@@ -53,12 +53,7 @@
       <div class="tab-content">
         <div id="basicForm">
           <form role="form" id="paramsBasic" name="paramsBasic" autocomplete="off" method="post" action="
-                          {%  if config.WATERAUTH_AUTHORIZE_URL %}
-                            {{ url_for('portal_ui.wqp_download_proxy', op='Station')}}
-                          {%  else %}
-                            {{ config.SEARCH_QUERY_ENDPOINT }}Station/search
-                            {% endif %}
-                            ">
+          {{ config.SEARCH_QUERY_ENDPOINT }}Station/search">
           <h3 class="site-preview-heading">Download Water Quality Data</h3>
           <div class="usa-step-indicator" aria-label="progress">
             <ol v-if="steps" class="usa-step-indicator__segments" :class="{            
@@ -368,11 +363,7 @@
       <div class="tab-content">
         <div id="advancedForm">
           <form role="form" id="params" name="params" autocomplete="off" method="post" action="
-                          {%  if config.WATERAUTH_AUTHORIZE_URL %}
-                            {{ url_for('portal_ui.wqp_download_proxy', op='Station')}}
-                          {%  else %}
                             {{ config.SEARCH_QUERY_ENDPOINT }}Station/search
-                            {% endif %}
                             ">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
             <div id="place">

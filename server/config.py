@@ -46,14 +46,6 @@ NWIS_SITES_INVENTORY_ENDPOINT = 'https://waterdata.usgs.gov/monitoring-location/
 
 GEO_SEARCH_API_ENDPOINT = 'https://txdata.usgs.gov/search_api/1.1/services.ashx/search'
 
-# If using server side authentication, set these to configure the OAuth2 client.
-# See https://docs.authlib.org/en/latest/client/frameworks.html#flask-client for more information
-WATERAUTH_CLIENT_ID = os.environ.get('WATERAUTH_CLIENT_ID', '')
-WATERAUTH_CLIENT_SECRET = os.environ.get('WATERAUTH_CLIENT_SECRET', '')
-WATERAUTH_ACCESS_TOKEN_URL = os.environ.get('WATERAUTH_ACCESS_TOKEN_URL', '')
-WATERAUTH_AUTHORIZE_URL = os.environ.get('WATERAUTH_AUTHORIZE_URL', '')
-WATERAUTH_API_BASE_URL = os.environ.get('WATERAUTH_API_BASE_URL', '')
-
 WSGI_STR = os.environ.get('WSGI_STR', '')  # When using real urls this is the string that should be removed from url's to get the correct mapping
 
 # In each dictionary,
