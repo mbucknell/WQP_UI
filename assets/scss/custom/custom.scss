@@ -6,11 +6,11 @@ $black: #000;
 
 // Import all other custom scss files
 @import "layout.scss";
-
 @import "../../node_modules/uswds/dist/scss/uswds";
 
 body,
 html {
+
 }
 
 #main-header {
@@ -112,14 +112,14 @@ html {
       border-radius: 5px;
       padding: 5px;
 
-      .usa-radio label{
-        margin: 12px 5px 5px 5px;
-      }
-
-      #nldi-selector-title {
+	  #nldi-selector-title {
         font-weight: bold;
         font-size: 14px;
         margin: 5px 5px 5px 12px;
+      }
+
+      .usa-radio label{
+        margin: 12px 5px 5px 5px;
       }
     }
 
@@ -127,6 +127,7 @@ html {
       display: inline-flex; 
       justify-content: center;
     }
+
 
     // Reset easy button
     .easy-button-button {
@@ -164,6 +165,7 @@ html {
     margin: 25px 0 0 0;
 
     .usa-card__body.links-only {
+
       a {
         font-size: 15px;
         line-height: 16px;
@@ -243,6 +245,7 @@ html {
   width: 45%;
   float: right;
 }
+
 #endDate {
   width: 45%;
   float: right;
@@ -276,11 +279,14 @@ html {
 #locationaccordion {
   overflow: visible;
   margin-bottom: 5px;
+  box-sizing: border-box;
 }
+
 #filteraccordion {
   overflow: visible;
   margin-bottom: 5px;
 }
+
 #downloadaccordion {
   overflow: visible;
 }

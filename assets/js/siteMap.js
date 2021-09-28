@@ -27,7 +27,6 @@ export default class SiteMap {
         this.$legendDiv = $legendDiv;
         this.$sldSelect = $sldSelect;
     }
-
     /*
      * Create the site map, with the base layers, overlay layers, and identify controls and event handlers.
      * Should be called before any of the other methods in this object.
@@ -89,7 +88,6 @@ export default class SiteMap {
                     });
             }
         };
-
         const identifySitesAtPointHandler = (ev) => {
             const southwestPoint = L.point(ev.layerPoint.x - 5, ev.layerPoint.y - 5);
             const northeastPoint = L.point(ev.layerPoint.x + 5, ev.layerPoint.y + 5);
@@ -125,7 +123,6 @@ export default class SiteMap {
                 remove: false
             }
         });
-
         this.map = new MapWithSingleClickHandler(this.mapDivId, {
             center: [37.0, -100.0],
             zoom: 3,
@@ -146,6 +143,7 @@ export default class SiteMap {
         this.map.on(L.Draw.Event.CREATED, (ev) => {
             drawIdentifyBox(ev.layer);
         });
+		
         this.map.on(L.Draw.Event.EDITED, (ev) => {
             drawIdentifyBox(ev.layers.getLayers()[0]);
         });

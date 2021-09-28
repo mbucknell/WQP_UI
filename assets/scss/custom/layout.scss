@@ -4,7 +4,6 @@
 #pageBody{
 	display: block;
 	width: 95%;
-	// max-width: 1080px;
 	max-width: 960px;
 	margin: 0 auto;
 	box-sizing: border-box;
@@ -13,7 +12,6 @@
 .announcement-body {
 	display: block;
 	width: 95%;
-	// max-width: 1080px;
 	max-width: 960px;
 	margin: 0 auto;
 	box-sizing: border-box;
@@ -27,7 +25,9 @@
 
 // TODO
 // Add sticky sidebar nav on guide pages?
+// Stick at top after scroll
 .sticky-sidebar{
 	position: sticky;
 	top: 0;
+
 }

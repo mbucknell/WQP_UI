@@ -106,6 +106,7 @@ export const toggleShowHideSections = function($button, $contentDiv) {
     }
 };
 
+
 /*
  * Cookie utils
  */
@@ -130,6 +131,7 @@ export const Cookie = {
         return '';
     }
 };
+
 
 /*
  * @return {Object} containing the headers that should be used for service calls to WQP services.
@@ -165,6 +167,7 @@ export const getAnchorQueryValues = function(param) {
  * Initialize the value of the $el input. Will only use the first value returned from getAnchorQueryValues if any.
  * @param {Jquery element} $el - should be a text input with a name attribute
  */
+
 export const initializeInput = function(el) {
     const initValues = getAnchorQueryValues(el.getAttribute('name'));
     el.value = initValues.length ? initValues[0] : '';
@@ -176,6 +179,7 @@ export const initializeInput = function(el) {
  * @param queryParamArray An array of values gathered from user input on web form.
  * @return {string} a formatted line that can be used a curl command.
  */
+
 export const getCurlString = function(resultType, queryParamArray) {
     let curlLeadingString = 'curl -X POST --header \'Content-Type: application/json\' --header \'Accept: application/zip';
     let urlBase = Config.QUERY_URLS[resultType];

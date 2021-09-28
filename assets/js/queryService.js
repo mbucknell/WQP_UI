@@ -77,6 +77,7 @@ export default {
             }
         });
 
+
         return deferred.promise();
     },
 
@@ -85,6 +86,7 @@ export default {
      * @param {String} queryParams - a query string
      * @returns {String} - the url and query params to download data
      */
+	
     getFormUrl: function(resultType, queryParams) {
         var result = Config.DOWNLOAD_URLS[resultType];
         if (queryParams) {
