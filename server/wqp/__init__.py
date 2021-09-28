@@ -3,7 +3,6 @@ import json
 import os
 import sys
 
-from authlib.flask.client import OAuth
 from celery import Celery
 from celery.signals import after_setup_task_logger
 from flask import Flask, jsonify, request
@@ -66,14 +65,6 @@ if 'NO_INSTANCE_CONFIG' not in os.environ:
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 celery.conf.update(app.config)
 
-# Enable authentication if configured.
-oauth = None  # pylint: disable=C0103
-if app.config.get('WATERAUTH_AUTHORIZE_URL'):
-    oauth = OAuth(app)  # pylint: disable=C0103
-    oauth.register('waterauth',
-                   client_kwargs={'verify': app.config.get('VERIFY_CERT', True)}
-                   )
-
 if app.config.get('LOGGING_ENABLED'):
     log_directory = app.config.get('LOGGING_DIRECTORY')
     loglevel = app.config.get('LOGGING_LEVEL')
@@ -119,13 +110,11 @@ if _manifest_path:
         app.config['ASSET_MANIFEST'] = json.loads(f.read())
 
 
-from .auth.views import auth_blueprint  # pylint: disable=C0413
 from .portal_ui_blueprint.views import portal_ui  # pylint: disable=C0413
 from .sites.views import sites_blueprint  # pylint: disable=C0413
 from .wqx.views import wqx  # pylint: disable=C0413
 from . import filters  # pylint: disable=C0413
 
-app.register_blueprint(auth_blueprint, url_prefix='')
 app.register_blueprint(portal_ui, url_prefix='/wqp')
 app.register_blueprint(sites_blueprint, url_prefix='/sites')
 app.register_blueprint(wqx, url_prefix='/portal/schemas')
