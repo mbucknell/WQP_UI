@@ -86,7 +86,7 @@ export default {
      * @returns {String} - the url and query params to download data
      */
     getFormUrl: function(resultType, queryParams) {
-        var result = Config.DOWNLOAD_URLS[resultType];
+        var result = Config.QUERY_URLS[resultType];
         if (queryParams) {
             result = result + '?' + queryParams;
         }
