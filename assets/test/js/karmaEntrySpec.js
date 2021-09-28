@@ -14,6 +14,7 @@ import './portal_ui/providersSpec';
 import './portal_ui/queryServiceSpec';
 import './portal_ui/utilsSpec';
 import './portal_ui/tooltipSpec';
+import './portal_ui/multiselectCharGroupSpec';
 
 import './portal_ui/leafletControls/FeatureSourceSelectControlSpec';
 import './portal_ui/leafletControls/SearchControlSpec';

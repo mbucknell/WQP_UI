@@ -23,7 +23,7 @@ import MultiselectAssemblage from './MultiselectAssemblage.vue';
 import MultiselectTax from './MultiselectTax.vue';
 import store from "./store/store";
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function() {
 
     // initializeing multiselects 
     // $('#datasourceBasic').select2();
@@ -240,7 +240,7 @@ $(document).ready(function () {
                 //     button: document.querySelector('#show-arcgis-online-help'),
                 //     dialog: document.querySelector('#arcgis-online-modal'),
                 //     siteMapViewContainer: document.querySelector('#mapping-div'),
-                //     getQueryParamArray: $.proxy(downloadFormView.getQueryParamArray, downloadFormView)
+                //     getQueryParamArray: downloadFormView.getQueryParamArray.bind(downloadFormView)
                 //   }
                 // });
 

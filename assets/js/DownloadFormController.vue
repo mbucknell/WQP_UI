@@ -7,7 +7,7 @@ export default {
   methods: {
       validatePointLocation(spec) {
         // spec has the following properties
-        //      withinEl, latEl, lonEl : input jquery elements
+        //      withinEl, latEl, lonEl : input elements
         // Returns object. The object has a required property isValid. If isValid is false, the
         // object will also contain errorMessage property.
         // Assumes that individual input validation has already been done
@@ -28,7 +28,7 @@ export default {
       },
       validateBoundingBox(spec) {
         // spec has the following properites
-        //      northEl, southEl, eastEl, westEl : input jquery elements
+        //      northEl, southEl, eastEl, westEl : input elements
         // Returns object. The object has a required property isValid. If isValid is false, the
         // object will also contain errorMessage property.
         // Assumes that individual input validation has already been done
@@ -63,7 +63,7 @@ export default {
       },
       validateDateRange(spec) {
         // spec has the following properties:
-        //      fromDateEl, toDateEl - Input jquery elements
+        //      fromDateEl, toDateEl - Input elements
         // Returns object. The object has a required property isValid. If isValid is false, the
         // object will also contain errorMessage property.
         // Assumes that individual input validation has already been done.

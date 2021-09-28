@@ -117,9 +117,6 @@ export default {
                 data = response.json();
                 addLineDataToMap(data, style);
             })
-            // $.getJSON(endpointUrl, distanceParam, function(data) {
-            //     addLineDataToMap(data, style);
-            // });
         };
 
         var addNldiPointsToMap = function(endpointUrl, style) {
@@ -132,9 +129,6 @@ export default {
                 data = response.json();
                 addPointDataToMap(data, style);
             })
-            // $.getJSON(endpointUrl, distanceParam, function(data) {
-            //     addPointDataToMap(data, style);
-            // });
         };
 
         var WQPURLUT = nldiUrl + WQP + '/' + MONITORING_LOCATION_IDENTIFIER + '/navigate/' + UT + '/wqp';
@@ -162,12 +156,6 @@ export default {
             var latlon = L.GeoJSON.coordsToLatLng(coord);
             map.setView(latlon, 10);
         })
-        // $.getJSON(WQPURLSITE, {}, function(data) {
-        //     addPointDataToMap(data, geojsonThisSiteMarkerOptions);
-        //     var coord = data.features[0].geometry.coordinates;
-        //     var latlon = L.GeoJSON.coordsToLatLng(coord);
-        //     map.setView(latlon, 10);
-        // });
 
         nldiLines.forEach(function(pair) {
             addNldiLinesToMap(pair.url, pair.style);
