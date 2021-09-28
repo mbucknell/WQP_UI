@@ -15,7 +15,7 @@ import axios from 'axios';
 /*
  *
  * @params -
- *          @prop {String} codes - Used in the ajax url to retrieve the data
+ *          @prop {String} codes - Used in the url to retrieve the data
  *          @prop {String} keyParameter - the parameter name to use to retrieve the appropriate data subset
  *          @prop {Function} parseKey - function takes a lookup item and returns a string for the key it represents.
  * @returns {CodesWithKeys}

@@ -44,7 +44,7 @@ export default {
 
         this.button.click(() => {
             var queryParamArray = this.getQueryParamArray();
-            var selectedSld = $sldSelect.value;
+            var selectedSld = sldSelect.value;
             this.showDialog(queryParamArray, selectedSld);
         });
     }
