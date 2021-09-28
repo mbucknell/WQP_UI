@@ -26,4 +26,7 @@ export class TOOLTIP {
     static get databasesTooltip() { return '<center>Select one or multiple <strong><em>databases</strong></em> from which the data <br>will be retrieved. <strong>All</strong> databases are searched by default.</center>'}
     static get dataDownloadTooltip() { return '<center><strong><em>Water monitoring data</strong></em> is delivered in a format and nomenclature <br>defined by the WQX Outbound Schema. <em>Metadata</em> on these <br>formats is displayed in Tables 4-12 of the User Guide.</center>';}
     static get fileFormatTooltip() { return '<center>Choose a <strong><em>file format</strong></em> to <br>download the result set.</center>';}
+    static get stationTooltip() { return '<center><strong><em>Web service</strong></em> for downloading site data and associated metadata. Please see web services guide for additional information.</center>';}
+    static get cURLTooltip() { return '<center><strong><em>Web service</strong></em> for direct download of the selected data profile. Please see web services guide for additional information.</center>';}
+    static get WFSTooltip() { return '<center><strong><em>OGC-compliant geospatial web services</strong></em> for site data and associated metadata. Please see web services guide for additional information.</center>';}
 }

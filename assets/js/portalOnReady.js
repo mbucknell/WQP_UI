@@ -105,6 +105,9 @@ $(document).ready(function () {
             databasesTooltip: TOOLTIP.databasesTooltip,
             dataDownloadTooltip: TOOLTIP.dataDownloadTooltip,
             fileFormatTooltip: TOOLTIP.fileFormatTooltip,
+            stationTooltip: TOOLTIP.stationTooltip,
+            cURLTooltip: TOOLTIP.cURLTooltip,
+            WFSTooltip: TOOLTIP.WFSTooltip,
             steps: [
                 'Location Parameters',
                 'Filter Results',
