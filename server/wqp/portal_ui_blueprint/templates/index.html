@@ -915,17 +915,20 @@
 
                             <div id="api-queries-div">
                               <div class="show-query-text" id="query-div">
-                                <b></b>
+                                <b></b><div class="tooltip" :title="stationTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
                                 <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
                                   aria-label="Current data download URL based on input search parameters"></textarea>
                               </div>
                               <div class="show-query-text" id="curl-query-div">
-                                <b>cURL</b>
+                                <b>cURL</b><div class="tooltip" :title="cURLTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
                                 <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
                                   aria-label="Current cURL based on input search parameters"></textarea>
                               </div>
                               <div class="show-query-text" id="getfeature-query-div">
-                                <b>WFS GetFeature</b>
+                                <b>WFS GetFeature</b><div class="tooltip" :title="WFSTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
                                 <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
                                   aria-label="Current WFS GetFeature URL based on input search parameters"></textarea>
                               </div>
