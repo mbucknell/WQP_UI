@@ -57,7 +57,7 @@ export default {
         let inputValidationClass = Vue.extend(InputValidationView)
         let inputValidationView = new inputValidationClass();
         inputValidationView.initialize( {
-            inputEl: this.container.querySelector('input[type="text"]'),
+            inputEl: this.container.querySelectorAll('input[type="text"]'),
             validationFnc: realNumberValidator
         });
 
@@ -92,9 +92,12 @@ export default {
         }
     },
     resetContainer() {
-        let inputs = this.container.querySelector('input[name], select[name], textarea[name], button[name]');
-        inputs.value = '';
-        inputs.dispatchEvent(new Event('change'));
+        let inputs = this.container.querySelectorAll('input[name], select[name], textarea[name], button[name]');
+        // inputs.value = '';
+        inputs.forEach(function(input) {
+            input.value = '';
+            input.dispatchEvent(new Event('change'));
+        });
     }
   }
 }

@@ -1,4 +1,5 @@
-import {showIdentifyPopup} from './identifyDialog';
+import IdentifyDialog from './IdentifyDialog.vue';
+import Vue from 'vue';
 
 const BASE_LAYER_Z_INDEX = 1;
 const HYDRO_LAYER_Z_INDEX = 2;
@@ -19,13 +20,17 @@ const WQP_SITES_LAYER_Z_INDEX = 4;
  *      @func addSitesLayer
  *      @func clearBoxIdFeature
  */
+
+let identifyDialogClass = Vue.extend(IdentifyDialog);
+let identifyDialog = new identifyDialogClass();
+
 export default class SiteMap {
 
-    constructor({mapDivId, $loadingIndicator, $legendDiv, $sldSelect}) {
+    constructor({mapDivId, loadingIndicator, legendDiv, sldSelect}) {
         this.mapDivId = mapDivId;
-        this.$loadingIndicator = $loadingIndicator;
-        this.$legendDiv = $legendDiv;
-        this.$sldSelect = $sldSelect;
+        this.loadingIndicator = loadingIndicator;
+        this.legendDiv = legendDiv;
+        this.sldSelect = sldSelect;
     }
     /*
      * Create the site map, with the base layers, overlay layers, and identify controls and event handlers.
@@ -59,10 +64,10 @@ export default class SiteMap {
             if (this.wqpSitesLayer) {
                 const popupLatLng = bounds.getCenter();
 
-                this.$loadingIndicator.show();
+                this.loadingIndicator.style.display = "block";
                 this.wqpSitesLayer.fetchSitesInBBox(bounds)
-                    .done((resp) => {
-                        showIdentifyPopup({
+                    .then((resp) => {
+                        identifyDialog.showIdentifyPopup({
                             map: this.map,
                             popup: identifyPopup,
                             atLatLng: popupLatLng,
@@ -72,7 +77,7 @@ export default class SiteMap {
                             this.drawnIdentifyBoxFeature.clearLayers();
                         }
                     })
-                    .fail((jqxhr) => {
+                    .catch((jqxhr) => {
                         let msg = '';
                         if (jqxhr.status === 401 || jqxhr.status === 403) {
                             msg = 'No longer authorized to use the application. Please reload the page to login again';
@@ -83,8 +88,9 @@ export default class SiteMap {
                         identifyPopup.setContent(msg);
                         this.map.openPopup(msg, popupLatLng);
                     })
-                    .always(() => {
-                        this.$loadingIndicator.hide();
+                    // always executed
+                    .then(() => {
+                        this.loadingIndicator.style.display = "none";
                     });
             }
         };
@@ -152,13 +158,13 @@ export default class SiteMap {
         this.map.addSingleClickHandler(identifySitesAtPointHandler);
 
         //Set up sld switcher
-        this.$sldSelect.change(() => {
+        this.sldSelect.onchange = () => {
             if (this.wqpSitesLayer) {
                 this.wqpSitesLayer.setParams({
-                    styles: this.$sldSelect.val()
+                    styles: this.sldSelect.value
                 });
             }
-        });
+        };
     }
 
     /*
@@ -184,16 +190,16 @@ export default class SiteMap {
                 this.wqpSitesLayer.updateQueryParams(queryParamArray);
             } else {
                 this.wqpSitesLayer = L.wqpSitesLayer(queryParamArray, {
-                    styles: this.$sldSelect.val(),
+                    styles: this.sldSelect.value,
                     zIndex: WQP_SITES_LAYER_Z_INDEX
                 });
                 this.wqpSitesLayer.on('loading', () => {
-                    this.$loadingIndicator.show();
+                    this.loadingIndicator.style.display = "block";
                 });
                 this.wqpSitesLayer.on('load', () => {
-                    this.$loadingIndicator.hide();
+                    this.loadingIndicator.style.display = "none";
                     this.wqpSitesLayer.getLegendGraphic((src) => {
-                        this.$legendDiv.html('<img  src="' + src + '" />');
+                        this.legendDiv.innerHTML = '<img  src="' + src + '" />';
                     });
                 });
                 this.map.addLayer(this.wqpSitesLayer);

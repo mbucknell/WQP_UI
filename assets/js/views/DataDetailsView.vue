@@ -32,45 +32,70 @@ export default {
 
         let sorted = this.container.querySelector('#sorted');
         let hiddenSorted = this.container.querySelector('input[type="hidden"][name="sorted"]');
-        let mimeTypeRadioboxes = this.container.querySelector('input[name="mimeType"]');
-        let resultTypeRadioboxes = this.container.querySelector('input.result-type');
-
-
+        let mimeTypeRadioboxes = document.querySelectorAll('input[name="mimeType"]');
+        let resultTypeRadioboxes = document.querySelectorAll('input.result-type');
         initializeInput(hiddenSorted);
         const sortedInitValues = getAnchorQueryValues(hiddenSorted.getAttribute('name'));
         if (sortedInitValues.length) {
             sorted.checked = sortedInitValues[0] === 'yes';
         }
-        const mimeTypeInitValues = getAnchorQueryValues(mimeTypeRadioboxes.getAttribute('name'));
-        if (mimeTypeInitValues.length) {
-            this.container.querySelector(`input[value="${mimeTypeInitValues[0]}"]`).checked = true;
-        }
-
-        mimeTypeRadioboxes.addEventListener('change', () => {
-            this.updateResultTypeAction(this.getResultType());
+        let self = this;
+        const mimeTypeInitValues = [];
+        mimeTypeRadioboxes.forEach(function(radiobox){
+            mimeTypeInitValues.push(getAnchorQueryValues(radiobox.getAttribute('name')));
         });
 
-        resultTypeRadioboxes.addEventListener('change', (event) => {
-            const node = event.currentTarget;
-            const resultType = document.querySelector(node).value;
-            let dataProfile = this.container.querySelector('input[name="dataProfile"]');
-
-            // Uncheck previously checked button
-            this.container.querySelector('input.result-type:checked:not('+ node + '))').checked = false;
-
-            // If activity, biological results or narrow results desired add a hidden input to set the
-            // dataProfile, otherwise remove it.
-            dataProfile.remove();
-            if (biosamples.checked) {
-                this.container.appendChild('<input type="hidden" name="dataProfile" value="biological" />');
-            } else if (narrowResults.checked){
-                this.container.appendChild('<input type="hidden" name="dataProfile" value="narrowResult" />');
-            } else if (activity.checked) {
-                this.container.appendChild('<input type="hidden" name="dataProfile" value="activityAll" />');
+        mimeTypeInitValues.forEach(function(item){
+            if (item.length) {
+                document.querySelector(`input[value="${item[0]}"]`).checked = true;
             }
+        })
 
-            this.updateResultTypeAction(resultType);
+        mimeTypeRadioboxes.forEach(function(radiobox){
+            radiobox.onclick = () => {
+                self.updateResultTypeAction(self.getResultType());
+            }
         });
+
+        resultTypeRadioboxes.forEach(function(radiobox) {
+            radiobox.onchange = (event) => {
+                const node = event.currentTarget;
+                const resultType = document.querySelector('#' + node.id).value;
+                let dataProfile = self.container.querySelector('input[name="dataProfile"]');
+                // Uncheck previously checked button
+                document.querySelectorAll('input.result-type:checked:not(#'+ node.id + ')').forEach(function(input){
+                    input.checked = false;
+                    input.removeAttribute("checked", "checked")
+                });
+                // If activity, biological results or narrow results desired add a hidden input to set the
+                // dataProfile, otherwise remove it.
+                if(dataProfile !== null){
+                    dataProfile.remove();
+                }
+                if (biosamples.checked) {
+                    let newInput = document.createElement("input");
+                    newInput.type = "hidden";
+                    newInput.value = "biological";
+                    newInput.name = "dataProfile";
+                    self.container.appendChild(newInput);
+                } else if (narrowResults.checked){
+                    let newInput = document.createElement("input");
+                    newInput.type = "hidden";
+                    newInput.value = "narrowResult";
+                    newInput.name = "dataProfile";
+                    self.container.appendChild(newInput);
+                } else if (activity.checked) {
+                    let newInput = document.createElement("input");
+                    newInput.type = "hidden";
+                    newInput.value = "activityAll";
+                    newInput.name = "dataProfile";
+                    self.container.appendChild(newInput);
+                }
+
+                self.updateResultTypeAction(resultType);
+            };
+
+        })
 
         sorted.onchange = function () {
             const val = sorted.checked ? 'yes' : 'no';
@@ -80,25 +105,29 @@ export default {
 
         hiddenSorted.onchange = () => {
             if (!hiddenSorted.value) {
-                sorted.prop.checked = false;
+                sorted.checked = false;
             }
         };
     },
     resetContainer() {
-        let inputs = this.container.querySelector('input[name], select[name], textarea[name], button[name]');
+        let inputs = this.container.querySelectorAll('input[name], select[name], textarea[name], button[name]');
 
-        this.container.querySelector('input.result-type:checked').checked = false;
+        document.querySelector('input.result-type').checked = false;
         document.querySelector('#sites').checked = true;
         document.querySelector('#basic-sites').checked = true;
         document.querySelector('#csv').checked = true;
         document.querySelector('#sorted').checked = false;
         document.querySelector('#hidden-sorted').value = '';
-        document.querySelector('input[name="dataProfile"]').remove();
-        setEnabled(this.container.querySelector('input[name="mimeType"]'), true);
-        inputs.dispatchEvent(new Event('change'));
+        if(document.querySelector('input[name="dataProfile"]') !== null){
+            document.querySelector('input[name="dataProfile"]').remove();
+        }
+        setEnabled(document.querySelector('input[name="mimeType"]'), true);
+        inputs.forEach(function(input){
+            input.dispatchEvent(new Event('change'));
+        });
     },
     getResultType() {
-        return this.container.querySelector('input.result-type:checked').value;
+        return document.querySelector('input.result-type:checked').value;
     },
     getMimeType() {
         return this.container.querySelector('input[name="mimeType"]:checked').value;

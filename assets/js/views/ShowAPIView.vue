@@ -38,9 +38,13 @@ export default {
             apiQueryTitle.innerHTML = resultType.replace(/([A-Z])/g, ' $1');
             apiQueryText.innerHTML = apiQueryString;
             curlText.innerHTML = curlString;
-
-            let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter( param => param.name !== 'dataProfile' );
-            wfsText.innerHTML = L.WQPSitesLayer.getWfsGetFeatureUrl(queryWithoutDataProfileArray);
+            
+            if(queryParamsWithoutCSRFToken.filter( param => param.name.includes('dataProfile'))){
+                let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter( param => param.name !== 'dataProfile' );
+                wfsText.innerHTML = L.WQPSitesLayer.getWfsGetFeatureUrl(queryWithoutDataProfileArray);
+            }else{
+                wfsText.innerHTML = L.WQPSitesLayer.getWfsGetFeatureUrl(queryParamsWithoutCSRFToken);
+            }
         };
 
         // Update the service calls when the
@@ -52,6 +56,14 @@ export default {
                 showServiceCallsHandler();
             }
         };
+        document.querySelector('#advanced-tab').onclick = () => {
+            this.showAPIViewVisible;
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        }
+        document.querySelector('.advancedLink').onclick = () => {
+            this.showAPIViewVisible;
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        }
     }
   },
 }

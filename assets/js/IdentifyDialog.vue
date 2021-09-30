@@ -27,7 +27,7 @@ const EAST_ID = '#east';
 export default {
   name: "IdentifyDialog",
   methods: {
-    showIdentifyPopup  = function({map, popup, atLatLng, features}) {
+    showIdentifyPopup({map, popup, atLatLng, features}) {
 
         if (features.features.length) {
             const exceedsFeatureLimit = features.features.length > FEATURE_LIMIT;
@@ -56,7 +56,7 @@ export default {
                     });
 
                 }
-            });
+            };
         } else {
             map.closePopup(popup);
         }

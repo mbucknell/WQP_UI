@@ -2,6 +2,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 /**
  * Add NLDI layer overlays to a leaflet map. An overlay is added for the flowlines
  * upstream and downstream of a site; another overlay is added to upstream and
@@ -13,10 +15,9 @@
 
 export default {
   name: "NldiMapping",
-  props: ['nldiMap'],
   methods: {
-      initialize(){
-        var map = this.nldiMap;
+      addOverlays(nldiMap){
+        var map = nldiMap;
         var nldiUrl = Config.NLDI_SERVICES_ENDPOINT;
         var site = Config.site;
         var WQP = 'wqp';
@@ -114,8 +115,11 @@ export default {
                 }
             })
             .then(function(response){
-                data = response.json();
+                let data = response.data
                 addLineDataToMap(data, style);
+            })
+            .catch(function(error){
+                console.log(error)
             })
         };
 
@@ -126,8 +130,11 @@ export default {
                 }
             })
             .then(function(response){
-                data = response.json();
+                let data = response.data;
                 addPointDataToMap(data, style);
+            })
+            .catch(function(error){
+                console.log(error)
             })
         };
 
@@ -150,11 +157,14 @@ export default {
         // style the current site so it can be easily identified
         axios.get(WQPURLSITE)
         .then(function(response){
-            data = response.json();
+            let data = response.data;
             addPointDataToMap(data, geojsonThisSiteMarkerOptions);
             var coord = data.features[0].geometry.coordinates;
             var latlon = L.GeoJSON.coordsToLatLng(coord);
             map.setView(latlon, 10);
+        })
+        .catch(function(error){
+            console.log(error)
         })
 
         nldiLines.forEach(function(pair) {
@@ -165,9 +175,6 @@ export default {
             addNldiPointsToMap(pair.url, pair.style);
         });
     }
-  },
-  mounted(){
-      this.initialize();
   }
 }
 </script>

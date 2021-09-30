@@ -25,7 +25,7 @@ export const getQueryString = function(queryParamArray, ignoreList, multiSelectD
 
     var paramArray = [];
 
-    each(resultArray, function(param) {
+    resultArray.forEach(function(param) {
         // If not string than it is assumed to be an array
         if (typeof param.value === 'string') {
             paramArray.push(param);
@@ -35,7 +35,7 @@ export const getQueryString = function(queryParamArray, ignoreList, multiSelectD
                 value: param.value.join(';')
             });
         } else {
-            each(param.value, function(val) {
+            param.value.forEach(function(val) {
                 paramArray.push({
                     name: param.name,
                     value: val
@@ -66,7 +66,7 @@ export const getQueryParamJson = function(queryParamArray) {
 };
 
 export const isExtraSmallBrowser = function() {
-    return $('body').width() < 750;
+    return document.querySelector('body').offsetWidth < 750;
 };
 
 /*
@@ -74,34 +74,32 @@ export const isExtraSmallBrowser = function() {
  * @param {Array of jquery input elements} $els
  * @param {Boolean} isEnabled
  */
-export const setEnabled = function($els, isEnabled /* Boolean */) {
-    $els.prop('disabled', !isEnabled);
-    $els.each(function() {
-        var $label = $('label[for="' + $(this).attr('id') + '"]');
-        if (isEnabled) {
-            $label.removeClass('disabled');
-        } else {
-            $label.addClass('disabled');
-        }
-    });
+export const setEnabled = function(els, isEnabled /* Boolean */) {
+    els.disabled = !isEnabled;
+    var label = document.querySelector('label[for="' + els.getAttribute('id') + '"]');
+    if (isEnabled) {
+        label.classList.remove('disabled');
+    } else {
+        label.classList.add('disabled');
+    }
 };
 
 /*
- * @param {Jquery element} $button - The show/hide toggle button jquery element
+ * @param button - The show/hide toggle button element
  * @param {Jquery element} $contentDiv - The content div that is controlled by buttonEl.
  * @return {Boolean} - true if contentDivEl is now visible, false otherwise.
  */
-export const toggleShowHideSections = function($button, $contentDiv) {
-    var $buttonImg = $button.find('img');
-    if ($buttonImg.attr('alt') === 'show') {
-        $button.attr('title', $button.attr('title').replace('Show', 'Hide'));
-        $buttonImg.attr('alt', 'hide').attr('src', COLLAPSE_IMG);
-        $contentDiv.slideDown();
+export const toggleShowHideSections = function(button, contentDiv) {
+    var buttonImg = button.querySelectorAll('img');
+    if (buttonImg.getAttribute('alt') === 'show') {
+        button.getAttribute('title', button.getAttribute('title').replace('Show', 'Hide'));
+        buttonImg.getAttribute('alt', 'hide').getAttribute('src', COLLAPSE_IMG);
+        contentDiv.slideDown();
         return true;
     } else {
-        $button.attr('title', $button.attr('title').replace('Hide', 'Show'));
-        $buttonImg.attr('alt', 'show').attr('src', EXPAND_IMG);
-        $contentDiv.slideUp();
+        button.getAttribute('title', button.getAttribute('title').replace('Hide', 'Show'));
+        buttonImg.getAttribute('alt', 'show').getAttribute('src', EXPAND_IMG);
+        contentDiv.slideUp();
         return false;
     }
 };

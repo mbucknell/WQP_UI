@@ -87,7 +87,7 @@ export default {
         if (nldiUri.length !== 5) {
             return;
         }
-        setFeatureSource(nldiUri[0]);
+        this.setFeatureSource(nldiUri[0]);
         modelData.featureId = nldiUri[1];
         modelData.navigation = find(NAVIGATION_MODES, (mode) => mode.id === nldiUri[3]);
 

@@ -28,7 +28,7 @@ export default {
      * Initializes all input widgets and DOM event handlers
      */
     initialize() {
-        let textInputs = this.container.querySelector('input[type="text"]');
+        let textInputs = this.container.querySelectorAll('input[type="text"]');
         let north = this.container.querySelector('#north');
         let south = this.container.querySelector('#south');
         let west = this.container.querySelector('#west');
@@ -59,20 +59,22 @@ export default {
         }
 
         //Update bBox hidden input if any of the bounding box text fields are updated
-        textInputs.onchange = () => {
-            const northVal = north.value;
-            const southVal = south.value;
-            const eastVal = east.value;
-            const westVal = west.value;
-            if (northVal && southVal && eastVal && westVal) {
-                let bboxVal = `${westVal},${southVal},${eastVal},${northVal}`;
-                bbox.value = bboxVal
-                bbox.dispatchEvent(new Event('change'));
-            } else  {
-                bbox.value = '';
-                bbox.dispatchEvent(new Event('change'));
+        textInputs.forEach(function(input){
+            input.onchange = () => {
+                const northVal = north.value;
+                const southVal = south.value;
+                const eastVal = east.value;
+                const westVal = west.value;
+                if (northVal && southVal && eastVal && westVal) {
+                    let bboxVal = `${westVal},${southVal},${eastVal},${northVal}`;
+                    bbox.value = bboxVal
+                    bbox.dispatchEvent(new Event('change'));
+                } else  {
+                    bbox.value = '';
+                    bbox.dispatchEvent(new Event('change'));
+                }
             }
-        };
+        });
 
 
     },

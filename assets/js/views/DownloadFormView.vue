@@ -162,27 +162,6 @@ export default {
             }
         });
 
-//////////////Not currently being used?///////////////////////////////////////////
-        // fetch the providers and initialize the providers select
-        // let initializeProviders = this.providers.fetch()
-        //     .then(() => {
-        //         console.log(initializeProviders)
-                /////////// Is this being used?//////////////////////////////////////
-                // const providerSelect = this.form.querySelector('#providers-select');
-                // portalViews.staticSelect2(
-                //     providerSelect,
-                //     providers.getIds(),
-                //     {},
-                //     getAnchorQueryValues(providerSelect.getAttribute('name'))
-                // );
-
-                // new StaticSelect2(
-                //     providerSelect,
-                //     providers.getIds(),
-                //     {},
-                //     getAnchorQueryValues(providerSelect.getAttribute('name')));
-            // });
-
         // Initialize form sub view
         const initPlaceInputView = placeInputView.initialize();
         const initSiteParameterInputView = siteParameterInputView.initialize();
@@ -190,7 +169,6 @@ export default {
         const initBiologicalSamplingInputInputView = biologicalSamplingInputView.initialize();
         let initComplete = Promise.all([
             initBiologicalSamplingInputInputView,
-            // initializeProviders,
             initPlaceInputView,
             initSamplingParametersInputView,
             initSiteParameterInputView]);
@@ -214,6 +192,7 @@ export default {
             this.form.querySelector('#nldi-map').style.display = "none";
         }
 
+
 ////////////NOT CURRENTLY USED???///////////////////////////////////////////////////////////////////
         // Add Click handler for form show/hide/button
         // this.form.querySelector('.panel-heading .show-hide-toggle').onclick(function (el) {
@@ -228,13 +207,8 @@ export default {
         const shareContainer = this.form.querySelector('.share-container');
         const shareText = shareContainer.querySelector('textarea');
         shareText.value = window.location.href;
-////////////NOT CURRENTLY USED???///////////////////////////////////////////////////////////////////
-        // shareContainer.querySelector('button').onclick(() => {
-        //     shareText.get(0).select();
-        //     document.execCommand('copy');
-        // });
+        
         let self = this;
-
         document.querySelector('#basic-tab').onclick = function(){
             let formtype = document.querySelector('#paramsBasic');
             self.updateSelected(formtype);
@@ -387,11 +361,13 @@ export default {
             const queryParamArray = this.getQueryParamArray(form);
             const queryString = decodeURIComponent(getQueryString(queryParamArray));
 
+            let self = this;
+
             const startDownload = (totalCount) => {
                 window._gaq.push([
                     '_trackEvent',
                     'Portal Page',
-                    this.dataDetailsView.getResultType() + 'Download',
+                    self.dataDetailsView.getResultType() + 'Download',
                     queryString,
                     parseInt(totalCount)]);
 
@@ -454,7 +430,7 @@ export default {
         ];
 
         // Need to eliminate form parameters within the mapping-div
-        const formInputs = currentForm.querySelectorAll('input:not(#mapping-div input, #nldi-map input), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button');
+        const formInputs = currentForm.querySelectorAll('input:not(#mapping-div input, #nldi-map input, input[name="dataProfile"]), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button'); 
         let result = [];
         let providersArray = [];
         var length = formInputs.length;

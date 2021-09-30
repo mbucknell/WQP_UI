@@ -3,6 +3,7 @@ import has from 'lodash/has';
 import omit from 'lodash/omit';
 import log from 'loglevel';
 import numeral from 'numeral';
+import axios from 'axios';
 
 import { getHeaders, getQueryParamJson } from './utils';
 
@@ -20,7 +21,12 @@ export default {
      *      @reject {String} - If the fetch fails, returns an error message.
      */
     fetchQueryCounts: function(resultType, queryParamArray, providers) {
-        var deferred = $.Deferred();
+        var rejectPromise;
+        var resolvePromise;
+        var deferred = new Promise(function(resolve, reject){
+            resolvePromise = resolve;
+            rejectPromise = reject;
+        });
 
         var queryParamJson = getQueryParamJson(queryParamArray);
         var countQueryJson = omit(queryParamJson, ['mimeType', 'zip', 'sorted']);
@@ -30,55 +36,50 @@ export default {
             var result = numeral(countString).format('0,0');
             return result === '0' ? '0' : result;
         };
-
-        $.ajax({
-            url: Config.QUERY_URLS[resultType] + '/count?mimeType=json',
-            method: 'POST',
-            headers: getHeaders(),
-            contentType: 'application/json',
-            data: JSON.stringify(countQueryJson),
-            success: function(data) {
-                var result = {
-                    total: {
-                        sites: formatCount(data, 'Total-Site-Count'),
-                        projects: formatCount(data, 'Total-Project-Count'),
-                        projectmonitoringlocationweightings: formatCount(data, 'Total-ProjectMonitoringLocationWeighting-Count'),
-                        results: formatCount(data, 'Total-Result-Count'),
-                        activities: formatCount(data, 'Total-Activity-Count'),
-                        activitymetrics: formatCount(data, 'Total-ActivityMetric-Count'),
-                        resultdetections: formatCount(data, 'Total-ResultDetectionQuantitationLimit-Count'),
-                        organizations: formatCount(data, 'Total-Organization-Count'),
-                        biologicalHabitatMetrics: formatCount(data, 'Total-BiologicalMetric-Count')
-                    }
-                };
-                each(providers, function(provider) {
-                    result[provider] = {
-                        sites: formatCount(data, provider + '-Site-Count'),
-                        projects: formatCount(data, provider + '-Project-Count'),
-                        projectmonitoringlocationweightings: formatCount(data, provider + '-ProjectMonitoringLocationWeighting-Count'),
-                        results: formatCount(data, provider + '-Result-Count'),
-                        activities: formatCount(data, provider + '-Activity-Count'),
-                        activitymetrics: formatCount(data, provider + '-ActivityMetric-Count'),
-                        resultdetections: formatCount(data, provider + '-ResultDetectionQuantitationLimit-Count'),
-                        organizations: formatCount(data, provider + '-Organization-Count'),
-                        biologicalHabitatMetrics: formatCount(data, provider + '-BiologicalMetric-Count')
-                    };
-                });
-                log.debug('Successfully got counts');
-                deferred.resolve(result);
-            },
-            error: function(jqXHR, textStatus) {
-                log.error('Unable to contact the WQP services: ' + textStatus);
-                if (jqXHR.status === 401 || jqXHR.status === 403) {
-                    deferred.reject('No longer authorized to use the application. Please reload the page to login again');
-                } else {
-                    deferred.reject('Unable to contact the WQP services: ' + textStatus);
+        axios.post(Config.QUERY_URLS[resultType] + '/count?mimeType=json', countQueryJson, {
+            headers: getHeaders()})
+        .then(function (response) {
+            let data = response.data;
+            var result = {
+                total: {
+                    sites: formatCount(data, 'Total-Site-Count'),
+                    projects: formatCount(data, 'Total-Project-Count'),
+                    projectmonitoringlocationweightings: formatCount(data, 'Total-ProjectMonitoringLocationWeighting-Count'),
+                    results: formatCount(data, 'Total-Result-Count'),
+                    activities: formatCount(data, 'Total-Activity-Count'),
+                    activitymetrics: formatCount(data, 'Total-ActivityMetric-Count'),
+                    resultdetections: formatCount(data, 'Total-ResultDetectionQuantitationLimit-Count'),
+                    organizations: formatCount(data, 'Total-Organization-Count'),
+                    biologicalHabitatMetrics: formatCount(data, 'Total-BiologicalMetric-Count')
                 }
+            };
+            providers.forEach(function(provider) {
+                result[provider] = {
+                    sites: formatCount(data, provider + '-Site-Count'),
+                    projects: formatCount(data, provider + '-Project-Count'),
+                    projectmonitoringlocationweightings: formatCount(data, provider + '-ProjectMonitoringLocationWeighting-Count'),
+                    results: formatCount(data, provider + '-Result-Count'),
+                    activities: formatCount(data, provider + '-Activity-Count'),
+                    activitymetrics: formatCount(data, provider + '-ActivityMetric-Count'),
+                    resultdetections: formatCount(data, provider + '-ResultDetectionQuantitationLimit-Count'),
+                    organizations: formatCount(data, provider + '-Organization-Count'),
+                    biologicalHabitatMetrics: formatCount(data, provider + '-BiologicalMetric-Count')
+                };
+            });
+            log.debug('Successfully got counts');
+            resolvePromise(result);
+        })
+        .catch(function(jqXHR, textStatus) {
+            log.error(jqXHR)
+            log.error('Unable to contact the WQP services: ' + textStatus);
+            if (jqXHR.status === 401 || jqXHR.status === 403) {
+                rejectPromise('No longer authorized to use the application. Please reload the page to login again');
+            } else {
+                rejectPromise('Unable to contact the WQP services: ' + textStatus);
             }
-        });
+        })
 
-
-        return deferred.promise();
+        return deferred;
     },
 
     /*
@@ -92,7 +93,6 @@ export default {
         if (queryParams) {
             result = result + '?' + queryParams;
         }
-
         return result;
     }
 };

@@ -18,24 +18,54 @@ export default {
       initialize(spec) {
         var event = spec.event || 'change';
 
-        spec.inputEl.addEventListener(event, function (ev) {
-            var inputValue = spec.inputEl.value;
-            var result = spec.validationFnc(inputValue, ev);
-            var parent = spec.inputEl.parentNode;
+        if(spec.inputEl.length > 1){
+            spec.inputEl.forEach(function(el) {
+                el.addEventListener(event, function (ev) {
+                    var inputValue = el.value;
+                    var result = spec.validationFnc(inputValue, ev);
+                    var parent = el.parentNode;
 
-            if(parent.querySelector('.error-message') !== null){
-                parent.querySelector('.error-message').remove();
-            }
-            if (result.isValid) {
-                parent.classList.remove('alert', 'alert-danger');
-                if (spec.updateFnc) {
-                    spec.inputEl.value = spec.updateFnc(inputValue);
+                    if(parent.querySelector('.error-message') !== null){
+                        parent.removeChild(parent.querySelector('.error-message'));
+                    }
+                    if (result.isValid) {
+                        parent.classList.remove('alert', 'alert-danger');
+                        if (spec.updateFnc) {
+                            el.value = spec.updateFnc(inputValue);
+                        }
+                    } else {
+                        parent.classList.add('alert', 'alert-danger');
+                        let errorMessageDiv = document.createElement('div');
+                        errorMessageDiv.classList.add('error-message');
+                        parent.appendChild(errorMessageDiv);
+                        errorMessageDiv.innerText = result.errorMessage;
+                    }
+                })
+            })
+        }
+        else {
+            spec.inputEl.addEventListener(event, function (ev) {
+                var inputValue = spec.inputEl.value;
+                var result = spec.validationFnc(inputValue, ev);
+                var parent = spec.inputEl.parentNode;
+
+                if(parent.querySelector('.error-message') !== null){
+                    parent.removeChild(parent.querySelector('.error-message'));
                 }
-            } else {
-                parent.classList.add('alert', 'alert-danger');
-                parent.appendChild('<div class="error-message">' + result.errorMessage + '</div>');
-            }
-        });
+                if (result.isValid) {
+                    parent.classList.remove('alert', 'alert-danger');
+                    if (spec.updateFnc) {
+                        spec.inputEl.value = spec.updateFnc(inputValue);
+                    }
+                } else {
+                    parent.classList.add('alert', 'alert-danger');
+                    let errorMessageDiv = document.createElement('div');
+                    errorMessageDiv.classList.add('error-message');
+                    parent.appendChild(errorMessageDiv);
+                    errorMessageDiv.innerText = result.errorMessage;
+                }
+            });
+        }
       }
   },
 }

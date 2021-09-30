@@ -25,23 +25,6 @@ import store from "./store/store";
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    // initializeing multiselects 
-    // $('#datasourceBasic').select2();
-    // $('#dataTypeBasic').select2();
-    // $('#fileFormatBasic').select2();
-
-    ////// These might be old, there is no element with these class names in any other files/////////
-    // $('.index-box-primary').click(function () {
-    //   window.location = $(this).find('a').attr('href');
-    //   return false;
-    // });
-    // $('.index-box-secondary').click(function () {
-    //   window.location = $(this).find('a').attr('href');
-    // });
-    // $('.index-box-secondary .interior-list').click(function () {
-    //   window.location = $(this).find('a').attr('href');
-    // });
-
     // showing Location Parameters first for basic form
     document.querySelector("#basicLocation").style.display = "block";
     document.querySelector("#basicFilterResults").style.display = "none";
@@ -290,8 +273,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.querySelector('#dataSourceBasic').dispatchEvent(new Event('change'));
                 document.querySelector('#dataProfilesBasic').value = null;
                 document.querySelector('#dataProfilesBasic').dispatchEvent(new Event('change'));
-                document.querySelector('#formatBasic').value = null;
-                document.querySelector('#formatBasic').dispatchEvent(new Event('change'));
+                document.querySelector('#csv').checked = true;
+                document.querySelector('#csv').dispatchEvent(new Event('change'));
                 this.step = 0;
                 this.showStepParameters()
               },
@@ -430,12 +413,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 switch (selectedFormatRadio) {
                   case "csv":
                     document.querySelector('#csvAdv').checked = true;
+                    document.querySelector('#csvAdv').dispatchEvent(new Event('change'));
                     break;
                   case "tsv":
                     document.querySelector('#tsvAdv').checked = true;
+                    document.querySelector('#tsvAdv').dispatchEvent(new Event('change'));
                     break;
                   case "xlsx":
                     document.querySelector('#xlsxAdv').checked = true;
+                    document.querySelector('#xlsxAdv').dispatchEvent(new Event('change'));
                     break;
                   }
               },
@@ -537,7 +523,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // File Formats
                 let selectedFormatRadio;
-                // seeing radio is checked in the basic form
+                // setting radio is checked in the basic form
                 const formatbuttonsBasic = document.querySelector('#fileBasic');
                 let formatbuttonsBasicInput = formatbuttonsBasic.querySelectorAll('input');
                 for (const button in formatbuttonsBasicInput) {
@@ -561,23 +547,26 @@ document.addEventListener("DOMContentLoaded", function() {
                 switch (selectedFormatRadio) {
                   case "csvAdv":
                     document.querySelector('#csv').checked = true;
+                    document.querySelector('#csv').dispatchEvent(new Event('change'));
                     break;
                   case "tsvAdv":
                     document.querySelector('#tsv').checked = true;
+                    document.querySelector('#csv').dispatchEvent(new Event('change'));
                     break;
                   case "xlsxAdv":
                     document.querySelector('#xlsx').checked = true;
+                    document.querySelector('#csv').dispatchEvent(new Event('change'));
                     break;
                   }
               },
               validate() {
-                let $startDateBasic = document.querySelector('#startDateLoBasic').value;
-                let $endDateBasic = document.querySelector('#startDateHiBasic').value;
+                let startDateBasic = document.querySelector('#startDateLoBasic').value;
+                let endDateBasic = document.querySelector('#startDateHiBasic').value;
 
                 this.$nextTick(function() {
                   // DOM is now updated
-                  let start = this.$refs.datevalidator.format($startDateBasic, true);
-                  let end = this.$refs.datevalidator.format($endDateBasic, false);
+                  let start = this.$refs.datevalidator.format(startDateBasic, true);
+                  let end = this.$refs.datevalidator.format(endDateBasic, false);
                   document.querySelector('#startDateLoBasic').value = start;
                   document.querySelector('#startDateLoBasic').dispatchEvent(new Event('change'));;
                   document.querySelector('#startDateHiBasic').value = end;
