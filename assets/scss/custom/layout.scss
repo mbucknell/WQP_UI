@@ -5,23 +5,32 @@
 // Center page, max width
 .page-center{
 	display: block;
-	width: 95%;
-	max-width: 960px;
-	margin: 0 auto;
 	box-sizing: border-box;
+	background-color: white;
+	padding: 35px 0;
+
+	.page-center-content{
+		margin: 0 auto;
+		max-width: 960px;
+		width: 95%;
+		display: block;
+	}
 }
 
 // Sidebar, center rest of page
 .page-sidebar{
 	display: flex;
+	background-color: white;
+	box-sizing: border-box;
+	padding: 35px 0;
 
 	.sidebar{
 		width: 350px;
 		min-width: 350px;
 		box-sizing: border-box;
 		padding: 20px 0 20px 20px;
-		position: sticky;
-		top: 0;
+		// position: sticky;
+		// top: 0;
 	}
 
 	.page-sidebar-content{
@@ -29,19 +38,52 @@
 		display: block;
 		width: 95%;
 		max-width: 760px;
-		margin: 0 auto;
+		margin: s0 auto;
+		background-color: white;
 		position: relative;
-		padding: 0 0 0 20px;
+		padding: 0 0 0 40px;
 		box-sizing: border-box;
 	}
 
 }
 
+
 .markdown-page{
-	// background-color: white;
-	// box-sizing: border-box;
-	// padding: 35px;
+
+	table{
+		border-collapse: collapse;
+	}
+
+	table td,
+	table th{
+		text-align: left !important;
+		font-size: 14px;
+		box-sizing: border-box;
+		padding: 5px;
+		border: none;
+		border-bottom: 1px solid rgba(0,0,0,0.15);
+	}
+
+	table th{
+		font-size: 16px;
+		padding: 10px 3px 10px 3px;
+		background-color: rgba(0,0,0,0.1);
+	}
+
+	table tr:nth-child(even){
+		background-color: rgba(0,0,0,0.07);
+	}
+
+	blockquote{
+		border-left: 3px solid grey;
+		box-sizing: border-box;
+		padding-left: 15px;
+		font-size: 90%;
+		opacity: 0.7;
+	}
+	
 }
+
 
 .announcement-body {
 	display: block;
