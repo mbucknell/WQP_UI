@@ -1,5 +1,5 @@
 '''
-Views and a view decorator that implement an Oauth2 client.
+Views
 '''
 
 from io import BytesIO
@@ -10,8 +10,6 @@ import arrow
 from flask import render_template, request, make_response, redirect, url_for, abort, Response, jsonify, Blueprint, \
     send_file
 import redis
-
-from ..auth.views import authentication_required_when_configured
 
 from .. import app, session, csrf
 from ..utils import get_markdown, geoserver_proxy_request, retrieve_providers, retrieve_organizations, \
@@ -51,18 +49,16 @@ def contact_us():
     return render_template('contact_us.html')
 
 
-@portal_ui.route('/portal.jsp')
-@portal_ui.route('/portal/', endpoint='portal-canonical')
-@authentication_required_when_configured
+@portal_ui.route('/index.jsp')
+@portal_ui.route('/index/', endpoint='index-canonical')
 def portal():
     if request.path == '/portal.jsp':
-        return redirect(url_for('portal_ui.portal-canonical')), 301
-    return render_template('portal.html')
+        return redirect(url_for('portal_ui.index-canonical')), 301
+    return render_template('index.html')
 
 
 @portal_ui.route('/portal_userguide.jsp')
 @portal_ui.route('/portal_userguide/', endpoint='portal_userguide-canonical')
-@authentication_required_when_configured
 def portal_userguide():
     if request.path == '/portal_userguide.jsp':
         return redirect(url_for('portal_ui.portal_userguide-canonical')), 301
@@ -140,6 +136,18 @@ def apps_using_portal():
     return render_template('apps_using_portal.html', md_content=get_markdown(md_path))
 
 
+@portal_ui.route('/publications.jsp')
+@portal_ui.route('/publications/', endpoint='publications-canonical')
+@invalid_usgs_view
+def publications():
+    if request.path == '/publications.jsp':
+        return redirect(url_for('portal_ui.publications-canonical')), 301
+    feed_url = "https://my.usgs.gov/confluence/createrssfeed.action?types=page&spaces=qwdp&title=myUSGS+4.0+RSS+Feed&" \
+               "labelString=wqp_applications&excludedSpaceKeys%3D&sort=modified&maxResults=10&timeSpan=600&" \
+               "showContent=true&confirm=Create+RSS+Feed"
+    return render_template('publications.html', feed_content=pull_feed(feed_url))
+
+
 @portal_ui.route('/other_portal_links.jsp')
 @portal_ui.route('/other_portal_links/', endpoint='other_portal_links-canonical')
 @invalid_usgs_view
@@ -152,7 +160,6 @@ def other_portal_links():
 
 @portal_ui.route('/public_srsnames.jsp')
 @portal_ui.route('/public_srsnames/', endpoint='public_srsnames-canonical')
-@authentication_required_when_configured
 def public_srsnames():
     if request.path == '/public_srsnames.jsp':
         return redirect(url_for('portal_ui.public_srsnames-canonical')), 301
@@ -207,7 +214,6 @@ def sites_geoserverproxy(op):
 
 
 @portal_ui.route('/crossdomain.xml')
-@authentication_required_when_configured
 def crossdomain():
     xml = render_template('crossdomain.xml')
     response = make_response(xml)
@@ -216,7 +222,6 @@ def crossdomain():
 
 
 @portal_ui.route('/kml/wqp_styles.kml')
-@authentication_required_when_configured
 def kml():
     xml = render_template('wqp_styles.kml')
     response = make_response(xml)
@@ -348,7 +353,6 @@ def uris(provider_id, organization_id, site_id):
 
 
 @portal_ui.route('/clear_cache/<provider_id>/')
-@authentication_required_when_configured
 def clear_cache(provider_id=None):
     if redis_config:
         redis_db_number = generate_redis_db_number(provider_id)
@@ -365,7 +369,6 @@ def clear_cache(provider_id=None):
 
 
 @portal_ui.route('/sites_cache_task/<provider_id>', methods=['POST'])
-@authentication_required_when_configured
 def sitescachetask(provider_id):
     providers = retrieve_providers()
     if provider_id not in providers:
@@ -377,7 +380,6 @@ def sitescachetask(provider_id):
 
 
 @portal_ui.route('/status/<task_id>')
-@authentication_required_when_configured
 def taskstatus(task_id):
     task = load_sites_into_cache_async.AsyncResult(task_id)
     if task.state == 'PENDING':
@@ -408,7 +410,6 @@ def taskstatus(task_id):
 
 
 @portal_ui.route('/manage_cache')
-@authentication_required_when_configured
 def manage_cache():
     provider_list = ['NWIS', 'STORET', 'STEWARDS', 'BIODATA']
     status_list = []

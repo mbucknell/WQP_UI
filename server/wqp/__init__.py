@@ -3,16 +3,12 @@ import json
 import os
 import sys
 
-from authlib.flask.client import OAuth
 from celery import Celery
 from celery.signals import after_setup_task_logger
 from flask import Flask, jsonify, request
 from flask_wtf.csrf import CSRFProtect
-from flask_swagger import swagger
 from requests import Session
 from whitenoise import WhiteNoise
-
-from .flask_swagger_blueprint import get_swaggerui_blueprint
 
 
 __version__ = '5.25.0dev'
@@ -69,14 +65,6 @@ if 'NO_INSTANCE_CONFIG' not in os.environ:
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 celery.conf.update(app.config)
 
-# Enable authentication if configured.
-oauth = None  # pylint: disable=C0103
-if app.config.get('WATERAUTH_AUTHORIZE_URL'):
-    oauth = OAuth(app)  # pylint: disable=C0103
-    oauth.register('waterauth',
-                   client_kwargs={'verify': app.config.get('VERIFY_CERT', True)}
-                   )
-
 if app.config.get('LOGGING_ENABLED'):
     log_directory = app.config.get('LOGGING_DIRECTORY')
     loglevel = app.config.get('LOGGING_LEVEL')
@@ -122,39 +110,13 @@ if _manifest_path:
         app.config['ASSET_MANIFEST'] = json.loads(f.read())
 
 
-from .auth.views import auth_blueprint  # pylint: disable=C0413
 from .portal_ui_blueprint.views import portal_ui  # pylint: disable=C0413
 from .sites.views import sites_blueprint  # pylint: disable=C0413
 from .wqx.views import wqx  # pylint: disable=C0413
 from . import filters  # pylint: disable=C0413
 
-app.register_blueprint(auth_blueprint, url_prefix='')
 app.register_blueprint(portal_ui, url_prefix='/wqp')
 app.register_blueprint(sites_blueprint, url_prefix='/sites')
 app.register_blueprint(wqx, url_prefix='/portal/schemas')
-
-
-# Set up swagger endpoints
-@app.route('/spec')
-def spec():
-    host = request.url_root.rstrip('/').replace(app.config['WSGI_STR'], '')
-    return jsonify(swagger(app,
-                           from_file_keyword="swagger_from_file",
-                           template={
-                               "host": host.replace('http://', ''),
-                               "info": {
-                                   "version": "1.0",
-                                   "title": "WQP Sites service"
-                               }
-                           }))
-
-# Create swagger ui blueprint
-SWAGGER_URL = '/apidocs'
-API_VIEW_FUNC = 'spec'
-
-swaggerui_blueprint = get_swaggerui_blueprint(
-    api_view_func=API_VIEW_FUNC
-)
-app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 app.wsgi_app = WhiteNoise(app.wsgi_app, root='/assets', prefix='wqp/static/')

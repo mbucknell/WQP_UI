@@ -48,27 +48,13 @@
                 BiologicalHabitatMetric: Config.SEARCH_QUERY_ENDPOINT + 'BiologicalMetric/search',
                 Organization: Config.SEARCH_QUERY_ENDPOINT + 'Organization/search'
             };
-            if ("{{ config.WATERAUTH_AUTHORIZE_URL }}") {
-                Config.DOWNLOAD_URLS = {
-                    Station: '{{ url_for("portal_ui.wqp_download_proxy", op="Station") }}',
-                    Project: '{{ url_for("portal_ui.wqp_download_proxy", op="Project") }}',
-                    ProjectMonitoringLocationWeighting: '{{ url_for("portal_ui.wqp_download_proxy", op="ProjectMonitoringLocationWeighting") }}',
-                    Result: '{{ url_for("portal_ui.wqp_download_proxy", op="Result") }}',
-                    Activity: '{{ url_for("portal_ui.wqp_download_proxy", op="Activity") }}',
-                    ActivityMetric: '{{ url_for("portal_ui.wqp_download_proxy", op="ActivityMetric") }}',
-                    ResultDetectionQuantitationLimit: '{{ url_for("portal_ui.wqp_download_proxy", op="ResultDetectionQuantitationLimit") }}',
-                    BiologicalHabitatMetric: '{{ url_for("portal_ui.wqp_download_proxy", op="BiologicalMetric") }}',
-                    Organization: '{{ url_for("portal_ui.wqp_download_proxy", op="Organization") }}'
-                };
-            } else {
-                Config.DOWNLOAD_URLS = Config.QUERY_URLS;
-            }
 
             Config.SITES_GEOSERVER_ENDPOINT = '{{ config.SITES_MAP_GEOSERVER_ENDPOINT }}/';
             Config.WQP_MAP_GEOSERVER_ENDPOINT = '{{ url_for("portal_ui.wqp_geoserverproxy", op="") }}';
             Config.NLDI_SERVICES_ENDPOINT = '{{ config.NLDI_SERVICES_ENDPOINT }}';
             Config.GEO_SEARCH_API_ENDPOINT = '{{ config.GEO_SEARCH_API_ENDPOINT }}';
             Config.HYDRO_LAYER_ENDPOINT = '{{ config.HYDRO_LAYER_ENDPOINT }}';
+            Config.NLDI_ENABLED = '{{ config.NLDI_ENABLED }}';
             Config.NHDPLUS_FLOWLINE_ENDPOINT = '{{ config.NHDPLUS_FLOWLINE_ENDPOINT }}';
             Config.NHDPLUS_FLOWLINE_LAYER_NAME = '{{ config.NHDPLUS_FLOWLINE_LAYER_NAME }}';
             Config.STATIC_ENDPOINT = '{{ config.STATIC_ROOT }}';

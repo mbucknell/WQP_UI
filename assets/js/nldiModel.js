@@ -35,7 +35,7 @@ const nwisSitesFeatureSource = {
     }
 };
 
-export const FEATURE_SOURCES = [huc12FeatureSource, nwisSitesFeatureSource];
+export const FEATURE_SOURCES = [nwisSitesFeatureSource, huc12FeatureSource];
 export const NAVIGATION_MODES = [
     {id : 'UM', text : 'Upstream main'},
     {id : 'DM', text : 'Downstream main'},
@@ -92,9 +92,9 @@ export const getUrl = function(dataSource) {
 
     if (modelData.featureSource && modelData.featureId && modelData.navigation) {
         const dataSourceString = dataSource ? '/' + dataSource : '';
-        const distanceParameter = modelData.distance ? `?distance=${modelData.distance}` : '';
+        const distanceParameter = modelData.distance ? `distance=${modelData.distance}` : 'distance=9999';
         result = `${Config.NLDI_SERVICES_ENDPOINT}${modelData.featureSource.id}/${modelData.featureId}/` +
-            `navigate/${modelData.navigation.id}${dataSourceString}${distanceParameter}`;
+            `navigate/${modelData.navigation.id}${dataSourceString}?f=json&${distanceParameter}`;
     }
     return result;
 };

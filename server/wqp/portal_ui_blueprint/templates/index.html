@@ -11,6 +11,7 @@
 
 <!-- Basic Form -->
 <div id="forms">
+<<<<<<< HEAD
 	<div id="formIntro">
 		<div>
 		<div class="usa-alert__body new-wqp-body">
@@ -852,11 +853,911 @@
 									<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
 										<use xlink:href="/assets/img/sprite.svg#close"></use>
 									</svg>
+=======
+  <div id="formIntro">
+    <div>
+      <div class="usa-alert__body new-wqp-body">
+        <h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
+        <p class="usa-alert__text">
+          The Water Quality Portal (WQP) is the premiere source of discrete water-quality data 
+          in the United States and beyond. This cooperative service integrates publicly available 
+          water-quality data from the United States Geological Survey (USGS), the Environmental Protection Agency 
+          (EPA), and over 400 state, federal, tribal, and local agencies. 
+          <a href="/wqp/portal_userguide">Learn More</a></p>
+        <br>
+        <p class="usa-alert__text">To download data complete the query below. Returning and experienced users
+          may wish to
+          use the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
+        </p>
+      </div>
+    </div>
+  
+    <div id="formIntroFooter">
+  
+      <div class="footer-flex">
+        <button class="usa-button usa-button--outline" id="closeIntroButton" v-on:click="closeIntro">Close intro</button>
+      </div>
+  
+  
+      <!-- Don't show again checkbox -->
+      <div class="footer-flex">
+        <div class="usa-checkbox">
+          <input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
+          <label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="tabs" aria-label="Two tabs to allow user to toggle between basic and advanced forms.">
+  <div class="tab" aria-label="Tab for basic form. First of two tabs to allow user to toggle between basic and advanced forms.">
+    <input type="radio" id="basic-tab" name="toggle-tabs" v-model="toggleForm" value="true">
+    <label for="basic-tab" class="tab-label" v-on:click="syncAtoBForm()">Basic</label>
+    <div class="tab-panel">
+      <div class="tab-content">
+        <div id="basicForm">
+          <form role="form" id="paramsBasic" name="paramsBasic" autocomplete="off" method="post" action="
+          {{ config.SEARCH_QUERY_ENDPOINT }}Station/search">
+          <h3 class="site-preview-heading">Download Water Quality Data</h3>
+          <div class="usa-step-indicator" aria-label="progress">
+            <ol v-if="steps" class="usa-step-indicator__segments" :class="{            
+					'usa-step-indicator--counters': showStepNumbers && size != 'sm',
+					'usa-step-indicator--counters-sm': showStepNumbers && size == 'sm',
+					'usa-step-indicator--center': centerLabels
+				}">
+              <li v-for="(item, index) in steps" :key="index" class="usa-step-indicator__segment"
+                :aria-current="(step == index) ? true : false" :class="{
+							'usa-step-indicator__segment--complete': step <= index,
+							'usa-step-indicator__segment--current': step == index}">
+                <span class="usa-step-indicator__segment-label">
+                  <span v-if="item.title && showLabels">[[item.title]]</span>
+                  <span v-else-if="showLabels">[[item]]</span>
+                  <span v-if="step < index" class="usa-sr-only">completed</span>
+                  <span v-if="step < index" class="usa-sr-only">not completed</span>
+                </span>
+              </li>
+            </ol>
+            <div class="usa-step-indicator__header mt-1">
+              <h2 class="usa-step-indicator__heading">
+                <span class="usa-step-indicator__heading-counter">
+                  <span class="usa-sr-only">Step</span>
+                  <span class="usa-step-indicator__current-step">[[step+1]]</span>
+                  <span class="usa-step-indicator__total-steps">of [[steps.length]]</span>
+                </span>
+                <slot name="title" v-bind="{ currentTitle }">
+                  <span class="usa-step-indicator__heading-text" @click="onClickTitle()">[[currentTitle]]</span>
+                </slot>
+              </h2>
+            </div>
+          </div>
+
+          <div id="basicLocation" class="basicForm" v-show="stepOne">
+            <p>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are
+              available in the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
+            </p>
+            <div id="placeBasic">
+              <div class="formSection">
+                <label class="usa-label" for="countrycodeBasic">Country </label><div class="tooltip" class="control-label"
+                              for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                <div>
+                  <select multiple class="form-control" style="width: 50%" id="countrycodeBasic" name="countrycode"
+                    data-placeholder="All Countries" aria-label="Input box for country parameter"></select>
+                </div>
+              </div>
+              <div class="formSection">
+                <label class="usa-label" for="statecodeBasic">State </label><div class="tooltip" class="control-label"
+                              for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                <div>
+                  <select multiple class="form-control" style="width: 50%" id="statecodeBasic" name="statecode"
+                    data-placeholder="All States" aria-label="Input box for state parameter"></select>
+                </div>
+              </div>
+              <div class="formSection">
+                <label class="usa-label" for="countycodeBasic">County </label><div class="tooltip" class="control-label"
+                                for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                <div>
+                  <select multiple class="form-control" style="width: 50%" id="countycodeBasic" name="countycode"
+                    data-placeholder="All Counties" aria-label="Input box for county parameter"></select>
+                </div>
+              </div>
+              <div class="formSection">
+                <label class="usa-label" for="point-location">Point Location </label><div class="tooltip"
+                                :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+              </div>
+            </div>
+            <div class="grid-container" id="point-location-basic">
+              <div class="grid-row">
+                <div class="tablet:grid-col-1"></div>
+                <div class="tablet:grid-col-1">Miles of</div>
+                <div class="tablet:grid-col-1">Lat</div>
+                <div class="tablet:grid-col-1">Long</div>
+              </div>
+              <div class="grid-row" id="point-location-basic-input">
+                <div class="tablet:grid-col-1" id="point-location-basic-within">Within</div>
+                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="within"
+                  id="withinBasic" aria-label="First of three input boxes for point location parameter. Input box for number of miles from point."></input></div>
+                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="lat"
+                  placeholder="0" size="7" id="latBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
+                <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="long"
+                  placeholder="0" id="longBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
+                <div class="tablet:grid-col-4"><div id="useMyLocationBasic"></div><!-- <button id="useMyLocationBasic"
+                  class="usa-button usa-button--outline" type="button">Use my location</button> --></div>
+              </div>
+            </div>
+            <div class="formSection">
+              <label class="usa-label" for="siteTypeBasic">Site Type </label>
+                            <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+              <div>
+                <select multiple class="form-control" style="width: 50%" id="siteTypeBasic" name="siteType"
+                  data-placeholder="All Site Types" aria-label="Input box for site type parameter"></select>
+              </div>
+            </div>
+            <div class="menu-buttons">
+              <button class="usa-button usa-button--outline reset-params" type="button">Clear search</button>
+              <button class="usa-button" v-on:click="onNext()" type="button">Next</button>
+            </div>
+          </div>
+          <div id="basicFilterResults" class="basicForm" v-show="stepTwo">
+            <p>Specify data source, date range, and sampling filters to apply to the desired dataset. Additional options
+              are
+              available in the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
+            </p>
+            <div class="formSection">
+              <label class="usa-label" for="dataSourceBasic">Data Source </label>
+                              <div class="tooltip" :title="databasesTooltip" id="dataSourceBasic" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                <fieldset class="usa-fieldset datasources-basic">
+                  <div class="usa-checkbox">
+                    <input class="datasources usa-checkbox__input" id="nwis-basic" type="checkbox" name="providers"
+                      value="NWIS" checked />
+                    <label class="usa-checkbox__label" for="nwis-basic">NWIS (USGS)</label>
+                  </div>
+                  <div class="usa-checkbox">
+                    <input class="datasources usa-checkbox__input" id="stewards-basic" type="checkbox" name="providers"
+                      value="STEWARDS" checked />
+                    <label class="usa-checkbox__label" for="stewards-basic">STEWARDS (ARS)</label>
+                  </div>
+                  <div class="usa-checkbox">
+                    <input class="datasources usa-checkbox__input" id="storet-basic" type="checkbox" name="providers"
+                      value="STORET" checked />
+                    <label class="usa-checkbox__label" for="storet-basic">WQX (EPA)</label>
+                  </div>
+                </fieldset>
+            </div>
+            <div class="formSection dateRange">
+              <!-- <div id="basic-dates">
+                <div class="usa-form-group" id="startDate">
+                  <div class="usa-label" id="event-date-start-label" for="event-date-start">Event Start
+                      date</div>
+                  <div class="usa-hint" id="event-date-start-hint">mm/dd/yyyy</div>
+                  <div class="usa-date-picker">
+                    <input class="usa-input" id="event-date-start" name="event-date-start" type="text"
+                    aria-label="Date in the format of month, day, year. Month as two characters, day as two characters, year as four characters" />
+                  </div>
+                </div>
+                <div class="usa-form-group" id="endDate">
+                  <div class="usa-label" id="event-date-end-label" for="event-date-end">Event End
+                      date</div>
+                  <div class="usa-hint" id="event-date-end-hint">mm/dd/yyyy</div>
+                  <div class="usa-date-picker">
+                    <input class="usa-input" id="event-date-end" name="event-date-end" type="text"
+                      aria-label="Date in the format of month, day, year. Month as two characters, day as two characters, year as four characters" />
+                  </div>
+                </div>
+              </div> -->
+              <div id="basic-dates">
+                <div id="start-date-select-basic">
+                  <label class="usa-label" for="date-row">Date Range </label>
+                  <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                  </div>
+                  <div>
+                    <label id="datesLabel" class="usa-label">Dates should be entered as mm-dd-yyyy, mm-yyyy, or yyyy</label></label>
+                    <div>
+                      <label>from: </label><input class="form-control usa-input" type="text" id="startDateLoBasic" @blur="validate()"
+                        name="startDateLo" placeholder="mm-dd-yyyy" size="18"
+                        aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
+                    </div>
+                  </div>
+                </div>
+                <div id="end-date-select-basic">
+                  <div>
+                    <div>
+                      <label class="control-label" for="startDateHiBasic">to: </label> <input
+                        class="form-control usa-input" type="text" id="startDateHiBasic" name="startDateHi" @blur="validate()"
+                        placeholder="mm-dd-yyyy" size="20"
+                        aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="formSection">
+              <label class="usa-label" for="sampleMediaBasic">Sample Media </label>
+                                <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+              <div>
+                <select multiple class="form-control" style="width: 50%" id="sampleMediaBasic" name="sampleMedia"
+                  data-placeholder="All Sample Media" aria-label="Input box for sample media parameter"></select>
+              </div>
+            </div>
+            <div class="formSection">
+              <label class="usa-label" for="charGroupBasic">Characteristic Group </label>
+                                <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+              <div>
+                <select multiple class="form-control" style="width: 50%" id="charGroupBasic" name="charGroup"
+                  data-placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter"></select>
+              </div>
+            </div>
+            <div>
+              <button class="usa-button usa-button--outline reset-filters" type="button">Clear search</button>
+              <button class="usa-button" v-on:click="onPrev()" type="button">Previous</button>
+              <button class="usa-button" v-on:click="onNext()" type="button">Next</button>
+            </div>
+          </div>
+          <div id="basicDownload" class="basicForm" v-show="stepThree">
+            <p>Specify a data type and file format to download. Additional options are available in the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
+            </p>
+            <div class="formSection download-box-input-div">
+              <label class="usa-label" for="download-data-div">Data Profiles </label>
+                          <div class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+              <div>
+                <fieldset class="usa-fieldset" id="dataProfilesBasic">
+                  <div class="usa-radio">
+                    <input class="result-type usa-radio__input" id="basic-organization" type="radio"
+                      value="Organization"/>
+                    <label class="usa-radio__label" for="basic-organization">Organization Data</label>
+                  </div>
+                  <div class="usa-radio">
+                    <input checked="checked" type="radio" class="result-type usa-radio__input" id="basic-sites"
+                      type="radio" value="Station"/>
+                    <label class="usa-radio__label" for="basic-sites">Site Data Only</label>
+                  </div>
+                  <div class="usa-radio">
+                    <input class="result-type usa-radio__input" id="basic-projects" type="radio" value="Project"
+                    />
+                    <label class="usa-radio__label" for="basic-projects">Project Data</label>
+                  </div>
+                  <div class="usa-radio">
+                    <input class="result-type usa-radio__input" id="basic-samples" type="radio" value="Result"
+                    />
+                    <label class="usa-radio__label" for="basic-samples">Sample Results (physical/chemical
+                      metadata)</label>
+                  </div>
+                  <div class="usa-radio">
+                    <input class="result-type usa-radio__input" id="basic-biosamples" type="radio" value="Result"
+                    />
+                    <label class="usa-radio__label" for="basic-biosamples">Sample Results (biological metadata)</label>
+                  </div>
+                  <div class="usa-radio">
+                    <input class="result-type usa-radio__input" id="basic-narrowsamples" type="radio" value="Result"
+                    />
+                    <label class="usa-radio__label" for="basic-narrowsamples">Sample Results (narrow)</label>
+                  </div>
+                  <div class="usa-radio">
+                    <input class="result-type usa-radio__input" id="basic-activity-input" type="radio" value="Activity"
+                    />
+                    <label class="usa-radio__label" for="basic-activity-input">Sampling Activity</label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <div class="formSection">
+              <label class="usa-label" for="formatBasic">File Format </label>
+                <div class="tooltip" :title="fileFormatTooltip" id="formatBasic" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                <fieldset class="usa-fieldset" id="fileBasic">
+                  <div class="usa-radio">
+                    <input class="usa-radio__input" id="csv" type="radio" name="mimeType" value="csv"
+                      checked="checked" />
+                    <label class="usa-radio__label" for="csv">Comma-Separated</label>
+                  </div>
+                  <div class="usa-radio">
+                    <input class="usa-radio__input" id="tsv" type="radio" name="mimeType" value="tsv" />
+                    <label class="usa-radio__label" for="tsv">Tab-Separated</label>
+                  </div>
+                  <div class="usa-radio">
+                    <input class="usa-radio__input" id="xlsx" type="radio" name="mimeType" value="xlsx" />
+                    <label class="usa-radio__label" for="xlsx">MS Excel 2007+</label>
+                  </div>
+                </fieldset>
+            </div>
+            <div class="usa-checkbox basicSortDataCheckbox">
+              <input type="checkbox" id="sortDataBasic" aria-label="Checkbox for sort data parameter" />
+              <label class="usa-label" for="sortDataBasic">Sort Data </label>
+              <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+              </div>
+            <div class="menu-buttons">
+              <button class="usa-button usa-button--outline" v-on:click="onStartOver()" id="startOver" type="button">Start over</button>
+              <button class="usa-button" v-on:click="onPrev()"  type="button">Previous</button>
+              <a class="usa-button main-button" id="basic-main-button" href="#download-status-modal-basic" type="submit" aria-controls="download-status-modal-basic" data-open-modal>Download</a>
+              <div class="usa-modal" id="download-status-modal-basic" aria-labelledby="download-status-modal-basic-heading"
+              aria-describedby="download-modal-basic-description">
+              <div class="usa-modal__content">
+                <div class="usa-modal__main">
+                  <h2 class="usa-modal__heading" id="download-status-modal-basic-heading">Download Status
+                  </h2>
+                  <div class="usa-prose">
+                    <p id="download-modal-basic-description"></p>
+                  </div>
+                  <div class="usa-modal__footer">
+                    <ul class="usa-button-group" id="downloadButtonsBasic">
+                    </ul>
+                  </div>
+                </div>
+                <button class="usa-button usa-modal__close" aria-label="Close this window"
+                  data-close-modal>
+
+                    <img src="{{ 'img/usa-icons/close.svg' | asset_url }}" alt="close"></img>
+
+                </button>
+              </div>
+            </div>
+            </div>
+          </div>
+        
+        
+        </form>
+      </div>
+      
+      </div>
+    </div>
+  
+
+  <div class="tab" aria-label="Tab for advanced form. Two of two tabs to allow user to toggle between basic and advanced forms.">
+    <input type="radio" id="advanced-tab" name="toggle-tabs" v-model="toggleForm" value="false">
+    <label for="advanced-tab" class="tab-label" v-on:click="syncBtoAForm()">Advanced</label>
+    <div class="tab-panel">
+      <div class="tab-content">
+        <div id="advancedForm">
+          <form role="form" id="params" name="params" autocomplete="off" method="post" action="
+                            {{ config.SEARCH_QUERY_ENDPOINT }}Station/search
+                            ">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <div id="place">
+              <div class="grid-col">
+                <div class="usa-accordion">
+                  <h4 class="usa-accordion__heading">
+                    <button class="usa-accordion__button" aria-expanded="true" aria-controls="locationaccordion">
+                      Select Location Parameters
+                    </button>
+                  </h4>
+                  <div id="locationaccordion" class="usa-accordion__content usa-prose">
+                    <div>Specify location parameters to describe the spatial extent of the desired dataset.
+                    </div>
+                    <br>
+                    <div class="grid-row grid-gap">
+                      <div class="tablet:grid-col-3">
+                        <div class="form-group">
+                          <label class="usa-label" for="countrycode">Country </label><div class="tooltip" class="control-label"
+                            for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                          <div>
+                            <select multiple class="form-control" id="countrycode" name="countrycode"
+                              data-placeholder="All Countries" style="width: 100%"
+                              aria-label="Input box for country parameter"></select>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                          <label class="usa-label" for="statecode">State </label><div class="tooltip" class="control-label"
+                            for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                          <div>
+                            <select multiple class="form-control" id="statecode" name="statecode"
+                              data-placeholder="All States" style="width: 100%"
+                              aria-label="Input box for state parameter"></select>
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <label class="usa-label" for="countycode">County </label><div class="tooltip" class="control-label"
+                              for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                            <div>
+                              <select multiple class="form-control" id="countycode" name="countycode"
+                                data-placeholder="All Counties" style="width: 100%"
+                                aria-label="Input box for county parameter"></select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tablet:grid-col-3">
+                        <div id="point-location">
+                          <div>
+                            <label class="usa-label" for="pointLocation">Point Location </label><div class="tooltip"
+                              :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                          </div>
+                          <div id="pointLocation">
+                            <div class="form-group">
+                              <label class="control-label" for="within">Within</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" name="within" size="16" id="within"
+                                  aria-label="First of three input boxes for point location parameter. Input box for number of miles from point." />
+                              </div>
+                            </div>
+                            <div id="miles-label">miles of</div>
+                            <div class="form-group">
+                              <label class="control-label" for="lat">Latitude</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" name="lat" size="16" id="lat" placeholder="0"
+                                  aria-label="Second of three input boxes for point location parameter. Input box for latitude." />
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="long">Longitude</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" name="long" size="16" id="long" placeholder="0"
+                                  aria-label="Third of three input boxes for point location parameter. Input box for longitude." />
+                              </div>
+                            </div>
+                            <div id="useMyLocation"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tablet:grid-col-3">
+                        <div id="bounding-box">
+                          <div>
+                            <label class="usa-label" for="boundingBox">Bounding Box </label><div class="tooltip"
+                              :title="boundingBoxTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                          </div>
+                          <div id="boundingBox">
+                            <div class="form-group">
+                              <label class="control-label" for="north">North:</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" size="16" id="north" placeholder="90"
+                                  aria-label="First of four input boxes for bounding box parameter. Input box for north latitude." />
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="south">South:</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" size="16" id="south" placeholder="-90"
+                                  aria-label="Second of four input boxes for bounding box parameter. Input box for south latitude." />
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="east">East:</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" size="16" id="east" placeholder="180"
+                                  aria-label="Third of four input boxes for bounding box parameter. Input box for east longitude." />
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="west">West:</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" size="16" id="west" placeholder="-180"
+                                  aria-label="Fourth of four input boxes for bounding box parameter. Input box for west longitude." />
+                              </div>
+                            </div>
+                          </div>
+                          <input type="hidden" name="bBox" />
+                        </div>
+                      </div>
+                      <div class="tablet:grid-col-3">
+                        <div id="site-params">
+                          <div class="form-group">
+                            <label class="usa-label" for="siteType">Site Type </label>
+                            <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                            <div>
+                              <select multiple id="siteType" name="siteType" data-placeholder="All Site Types"
+                                style="width: 100%" aria-label="Input box for site type parameter"></select>
+                            </div>
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <label class="usa-label" for="organization">Organization ID </label>
+                            <div class="tooltip" :title="orgIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                            </div>
+                            <div>
+                              <select multiple id="organization" name="organization"
+                                data-placeholder="All Organization IDs" style="width: 100%"
+                                aria-label="Input box for organization ID parameter"></select>
+                            </div>
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <label class="usa-label" for="siteid">Site ID </label>
+                            <div class="tooltip" :title="siteIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                            </div>
+                            <div>
+                              <select multiple id="siteid" input class="form-control" name="siteid"
+                                data-placeholder="All Site IDs" style="width: 100%"
+                                aria-label="Input box for site ID parameter"></select>
+                            </div>
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <label class="usa-label" for="huc">HUC </label>
+                            <div class="tooltip" :title="hucTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                            </div>
+                            <div>
+                              <input class="form-control usa-input" type="text" name="huc" id="huc" data-multiple="true"
+                                placeholder="All HUCs" size="16" aria-label="Input box for HUC parameter" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="nldi-container">
+                      <button type="button" id="showNldiMap" class="usa-button usa-button--outline">Show upstream downstream mapper
+                      </button>
+                      <div id="nldiMapInfo">
+                        <p>Upstream/Downstream information can be used to help you determine where to collect water quality data based on the flow of water. Select a feature source, and optionally search for a location. Then, click a feature to select upstream/downstream navigation and enter a desired distance. These search criteria will be populated in your query.
+                        </p>
+                      </div>
+                    </div>
+                    <div id="nldi-param-container">
+                        <input id="nldi-url" type="hidden" name="nldiurl" />
+                    </div>
+                    <div id="nldi-map-container">
+                      <div id="nldi-map"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="siteSamplingParams">
+              <div class="grid-col">
+                <div class="usa-accordion">
+                  <h4 class="usa-accordion__heading">
+                    <button class="usa-accordion__button" aria-expanded="true" aria-controls="filteraccordion">
+                      Filter Results
+                    </button>
+                  </h4>
+                  <div id="filteraccordion" class="usa-accordion__content usa-prose">
+                    <div>Specify data source, date range, and sampling filters to apply to the desired dataset.</div>
+                    <br>
+                    <div id="sampling-params" class="panel panel-default">
+                      <div class="panel-body">
+                        <div id="sampling" class="subpanel">
+                          <div class="subpanel-body">
+                            <div class="grid-row grid-gap">
+                              <div class="tablet:grid-col-4">
+                                <label class="usa-label" for="sampleMedia">Sample Media </label>
+                                <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
+                                <div>
+                                  <select multiple class="form-control" name="sampleMedia" id="sampleMedia"
+                                    data-placeholder="All Sample Media" style="width: 100%"
+                                    aria-label="Input box for sample media parameter"></select>
+                                </div>
+                                <br>
+                                <label class="usa-label" for="characteristicType">Characteristic Group </label>
+                                <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
+                                <div>
+                                  <select multiple class="form-control" name="characteristicType"
+                                    id="characteristicType" data-placeholder="All Characteristic Groups"
+                                    style="width: 100%"
+                                    aria-label="Input box for characteristic groups parameter"></select>
+                                </div>
+                                <br>
+                                <label class="usa-label" for="characteristicName">Characteristics </label>
+                                <div class="tooltip" :title="characteristicsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
+                                <div>
+                                  <select multiple class="form-control" name="characteristicName"
+                                    id="characteristicName" data-placeholder="All Characteristics" style="width: 100%"
+                                    aria-label="Input box for characteristics parameter"></select>
+                                </div>
+                                <br>
+                                <label class="usa-label" for="project-code">Project ID </label>
+                                <div class="tooltip" :title="projectIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
+                                <div>
+                                  <select multiple class="form-control" name="project" id="project-code"
+                                    data-placeholder="All Project IDs" style="width: 100%"
+                                    aria-label="Input box for project ID parameter"></select>
+                                </div>
+                              </div>
+                              <div class="tablet:grid-col-4">
+                                <label class="usa-label" for="pCode">Parameter Code
+                                  <span class="smallText">(NWIS ONLY) </span></label>
+                                <div class="tooltip" id="pcode-div" :title="paramCodeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
+                                <div>
+                                  <input class="form-control usa-input" type="text" size="23"
+                                    placeholder="All Parameter Codes" name="pCode" id="pCode" data-multiple="true"
+                                    aria-label="Input box for parameter code parameter" />
+                                </div>
+                                <br>
+                                <div id="biological" class="subpanel">
+                                  <div class="subpanel-heading">
+                                    <label class="usa-label" for="biological">Biological Parameters</label>
+                                  </div>
+                                  <div class="subpanel-body">
+                                    <label class="usa-label" for="assemblage">Assemblage </label>
+                                    <div class="tooltip" :title="assemblageTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                    </div>
+                                    <div>
+                                      <select multiple name="assemblage" id="assemblage"
+                                        data-placeholder="All Assemblages" style="width: 100%"
+                                        aria-label="First of two input boxes for biological sampling parameters. Input box for assemblage parameter."></select>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                      <label class="usa-label" for="subject-taxonomic-name">Taxonomic
+                                          Name </label><div class="tooltip" for="control-label"
+                                        :title="taxNameTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                                      <div>
+                                        <select multiple name="subjectTaxonomicName"
+                                          aria-label="Select a taxonomic name" id="subject-taxonomic-name"
+                                          data-placeholder="All Taxonomic Names" style="width: 100%"
+                                          aria-label="Second of two input boxes for biological sampling parameters. Input box for taxonomic name parameter."></select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="tablet:grid-col-4">
+                                <div id="date-row">
+                                  <div id="start-date-select">
+                                    <label class="usa-label" for="date-row">Date Range </label>
+                                    <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                    </div>
+                                    <div>
+                                      <label id="datesLabelAdv" class="usa-label">Dates should be entered as mm-dd-yyyy, mm-yyyy, or yyyy</label>
+                                      <div>
+                                        <label>from: </label><input class="form-control usa-input" type="text" id="startDateLo"
+                                          name="startDateLo" placeholder="mm-dd-yyyy" size="18"
+                                          aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div id="end-date-select">
+                                    <div>
+                                      <div>
+                                        <label class="control-label" for="startDateHi">to: </label> <input
+                                          class="form-control usa-input" type="text" id="startDateHi" name="startDateHi"
+                                          placeholder="mm-dd-yyyy" size="20"
+                                          aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <br>
+                                <div id="min-activities-parameters-div">
+                                  <label class="usa-label" forid="min-activities-div">Minimum Sampling Activities Per Site </label>
+                                  <div class="tooltip" id="min-activities-div" :title="minSamplingTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                  </div>
+                                  <div>
+                                    <input class="form-control usa-input" type="number" min="1" name="minactivities"
+                                      id="min-activities" placeholder="1" size="25"
+                                      aria-label="Input box for minimum sampling activities per site parameter" />
+                                  </div>
+                                </div>
+                                <br>
+                                <label class="usa-label" forid="minresults-div">Minimum Results Per Site </label>
+                                <div class="tooltip" id="minresults-div" :title="minimumResultsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
+                                <div>
+                                  <input class="form-control usa-input" type="number" min="1" name="minresults" id="minresults"
+                                    placeholder="1" size="25"
+                                    aria-label="Input box for minimum results per site parameter" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid-col">
+              <div class="usa-accordion">
+                <h4 class="usa-accordion__heading">
+                  <button class="usa-accordion__button" aria-expanded="true" aria-controls="downloadaccordion">
+                    Download the Data
+                  </button>
+                </h4>
+                <div id="downloadaccordion" class="usa-accordion__content usa-prose">
+                  <div>Specify a data type and file format to download.</div>
+                  <br>
+                  <div>
+                    <div id="download-box" class="grid-row grid-gap">
+                      <div id="download-box-input-div" class="grid-row grid-gap download-box-input-div">
+                        <div id="data-type-parameters-div" class="tablet:grid-col-3">
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <label class="usa-label" for="dataSource">Data Source </label>
+                              <div class="tooltip" :title="databasesTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                              </div>
+                              <fieldset class="usa-fieldset" id="dataSource">
+                                <div class="usa-checkbox">
+                                  <input class="datasources usa-checkbox__input" id="nwis" type="checkbox"
+                                    name="providers" value="NWIS" checked />
+                                  <label class="usa-checkbox__label" for="nwis">NWIS (USGS)</label>
+                                </div>
+                                <div class="usa-checkbox">
+                                  <input class="datasources usa-checkbox__input" id="stewards" type="checkbox"
+                                    name="providers" value="STEWARDS" checked />
+                                  <label class="usa-checkbox__label" for="stewards">STEWARDS (ARS)</label>
+                                </div>
+                                <div class="usa-checkbox">
+                                  <input class="datasources usa-checkbox__input" id="storet" type="checkbox"
+                                    name="providers" value="STORET" checked />
+                                  <label class="usa-checkbox__label" for="storet">WQX (EPA)</label>
+                                </div>
+                              </fieldset>
+                            </div>
+                            <br>
+                            <div id="download-tabular-data">
+                              <label class="usa-label" for="fileFormat">File Format </label>
+                              <div class="tooltip" :title="fileFormatTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                              </div>
+                              <fieldset class="usa-fieldset" id="fileFormat">
+                                <div class="usa-radio">
+                                  <input class="usa-radio__input" id="csvAdv" type="radio" name="mimeType" value="csv"
+                                    checked="checked" />
+                                  <label class="usa-radio__label" for="csvAdv">Comma-Separated</label>
+                                </div>
+                                <div class="usa-radio">
+                                  <input class="usa-radio__input" id="tsvAdv" type="radio" name="mimeType" value="tsv" />
+                                  <label class="usa-radio__label" for="tsvAdv">Tab-Separated</label>
+                                </div>
+                                <div class="usa-radio">
+                                  <input class="usa-radio__input" id="xlsxAdv" type="radio" name="mimeType" value="xlsx" />
+                                  <label class="usa-radio__label" for="xlsxAdv">MS Excel 2007+</label>
+                                </div>
+                              </fieldset>
+                            </div>
+                            <br>
+                            <div id="download-sorted-data-div">
+                              <input type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter" />
+                              <label class="usa-label" for="download-sorted-data-div">Sort Data </label>
+                              <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                              </div>
+                            </div>
+                            <input type="hidden" name="zip" id="zip" value="yes" />
+                            <input type="hidden" name="sorted" id="hidden-sorted" value="no" />
+                          </div>
+                        </div>
+                        <div id="download-data-kind-box" class="tablet:grid-col-9">
+                          <label class="usa-label" for="download-data-div">Data Profiles </label>
+                          <div class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                          </div>
+                          <fieldset class="usa-fieldset" id="dataprofiles">
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="organization-data" type="radio"
+                                value="Organization" />
+                              <label class="usa-radio__label" for="organization-data">Organization Data</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input checked="checked" type="radio" class="result-type usa-radio__input" id="sites"
+                                type="radio" value="Station" />
+                              <label class="usa-radio__label" for="sites">Site Data Only</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="projects" type="radio" value="Project" />
+                              <label class="usa-radio__label" for="projects">Project Data</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="proj-mon-weight" type="radio"
+                                value="ProjectMonitoringLocationWeighting" />
+                              <label class="usa-radio__label" for="proj-mon-weight">Project Monitoring Location
+                                Weighting
+                                Data</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="samples" type="radio" value="Result" />
+                              <label class="usa-radio__label" for="samples">Sample Results (physical/chemical
+                                metadata)</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="biosamples" type="radio" value="Result" />
+                              <label class="usa-radio__label" for="biosamples">Sample Results (biological
+                                metadata)</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="narrowsamples" type="radio"
+                                value="Result" />
+                              <label class="usa-radio__label" for="narrowsamples">Sample Results (narrow)</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="activity-input" type="radio"
+                                value="Activity" />
+                              <label class="usa-radio__label" for="activity-input">Sampling Activity</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="activitymetric-input" type="radio"
+                                value="ActivityMetric" />
+                              <label class="usa-radio__label" for="activitymetric-input">Sampling Activity
+                                Metrics</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="resultdetection" type="radio"
+                                value="ResultDetectionQuantitationLimit" />
+                              <label class="usa-radio__label" for="resultdetection">Result Detection Quantitation Limit
+                                Data</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="result-type usa-radio__input" id="biologicalHabitatMetric" type="radio"
+                                value="biologicalHabitatMetric" />
+                              <label class="usa-radio__label" for="biologicalHabitatMetric">Biological Habitat
+                                Metrics</label>
+                            </div>
+                          </fieldset>
+                        </div>
+                        <div id="map-and-query-div" class="tablet:grid-col-12">
+                          <!-- <div id="mapping-div" class="panel-body">
+                  <div id="map-ops-button-div" class="form-inline">
+                    <div id="show-on-map-button-div" class="form-group">
+                      <button type="button" class="usa-button usa-button--outline" id="show-on-map-button">
+                        Show sites on map
+                      </button>
+                    </div>
+                    <div id="sld-select-div" class="usa-label">
+                      <label>Style sites:&nbsp;</label>
+                      <select id="sld-select-input" class="usa-select">
+                        {% for sld in config.SITE_SLDS %}
+                        <option value="{{ sld.id }}" {% if loop.first %}checked{% endif %}>
+                          {{ sld.text }}
+                        </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div id="query-map-container">
+                    <div id="query-results-map"></div>
+                    <div id="map-loading-indicator">
+                      <i class="fa fa-spin fa-spinner fa-5x"></i>
+                    </div>
+                    <div id="map-popover" title="Detailed site information" data-trigger="focus"></div>
+                  </div>
+                  <div id="query-map-legend-div">
+                    <div class="legend-header">Sites Legend</div>
+                    <div class="legend-container"></div>
+                  </div>
+                </div> -->
+                          <div id="form-action">
+                            <div class="share-container">
+                              <div id="query-box-text">
+                                <div id="query-box-bold">
+                                  Query URL
+                                </div>
+                                <div id="query-box-muted">
+                                  Copy and share the URL of this query.
+                                </div>
+                              </div>
+                              <textarea class="wqp-textarea" class="usa-textarea" id="current-url-textarea" readonly rows="3"
+                                aria-label="Current URL based on input search parameters"></textarea>
+                            </div>
+                          </div>
+                          <div id="show-queries-div" class="grid-col">
+                            <!-- <a href="#arcgis-online-modal" class="usa-button usa-button--outline" id="show-arcgis-online-help" type="button" aria-controls="arcgis-online-modal" data-open-modal>
+                    Show ArcGIS Online Parameters
+                  </a> -->
+                            <div class="usa-modal usa-modal--lg" id="arcgis-online-modal"
+                              aria-labelledby="modal-2-heading" aria-describedby="modal-2-description">
+                              <div class="usa-modal__content">
+                                <div class="usa-modal__main">
+                                  <h2 class="usa-modal__heading" id="modal-2-heading">
+                                    Are you sure you want to continue?
+                                  </h2>
+                                  <div class="usa-prose">
+                                    <p id="modal-2-description">You have unsaved changes that will be lost.</p>
+                                  </div>
+                                  <div class="usa-modal__footer">
+                                    <ul class="usa-button-group">
+                                      <li class="usa-button-group__item">
+                                        <button type="button" class="usa-button" data-close-modal>Continue without
+                                          saving</button>
+                                      </li>
+                                      <li class="usa-button-group__item">
+                                        <button type="button"
+                                          class="usa-button usa-button--unstyled padding-105 text-center"
+                                          data-close-modal>Go back</button>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <button class="usa-button usa-modal__close" aria-label="Close this window"
+                                  data-close-modal>
+
+                                  <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+                                    <use xlink:href="{{ 'img/sprite.svg#close' | asset_url }}"></use> 
+                                  </svg>
+>>>>>>> 82a5b2f136b463f1c4291038662ddfcbcad0958f
 
 									</button>
 								</div>
 								</div>
 
+<<<<<<< HEAD
 								<div id="api-queries-div">
 								<div class="show-query-text" id="query-div">
 									<b></b>
@@ -909,6 +1810,53 @@
 									<svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
 									<use xlink:href="/assets/img/sprite.svg#close"></use>
 									</svg>
+=======
+                            <div id="api-queries-div">
+                              <div class="show-query-text" id="query-div">
+                                <b></b><div class="tooltip" :title="stationTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
+                                <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
+                                  aria-label="Current data download URL based on input search parameters"></textarea>
+                              </div>
+                              <div class="show-query-text" id="curl-query-div">
+                                <b>cURL</b><div class="tooltip" :title="cURLTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
+                                <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
+                                  aria-label="Current cURL based on input search parameters"></textarea>
+                              </div>
+                              <div class="show-query-text" id="getfeature-query-div">
+                                <b>WFS GetFeature</b><div class="tooltip" :title="WFSTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
+                                <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
+                                  aria-label="Current WFS GetFeature URL based on input search parameters"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <button class="usa-button usa-button--outline" v-on:click="onAdvancedStartOver()" id="advancedStartOver" type="button">Clear search</button>
+                          <a href="#download-status-modal" id="main-button" class="usa-button main-button" type="submit"
+                            aria-controls="download-status-modal" data-open-modal>
+                            Download
+                          </a>
+                          <div class="usa-modal" id="download-status-modal" aria-labelledby="download-modal-heading"
+                            aria-describedby="download-modal-description">
+                            <div class="usa-modal__content">
+                              <div class="usa-modal__main">
+                                <h2 class="usa-modal__heading" id="download-modal-heading">
+                                  Download Status
+                                </h2>
+                                <div class="usa-prose">
+                                  <p id="download-modal-description"></p>
+                                </div>
+                                <div class="usa-modal__footer">
+                                  <ul class="usa-button-group" id="downloadButtons">
+                                  </ul>
+                                </div>
+                              </div>
+                              <button class="usa-button usa-modal__close" aria-label="Close this window"
+                                data-close-modal>
+
+                                  <img src="{{ 'img/usa-icons/close.svg' | asset_url }}" alt="close"></img>
+>>>>>>> 82a5b2f136b463f1c4291038662ddfcbcad0958f
 
 								</button>
 								</div>
@@ -926,6 +1874,7 @@
 		</div>
 	</div>
 	</div>
+</div>
 </div>
 
 

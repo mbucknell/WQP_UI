@@ -30,7 +30,9 @@ export default class SamplingParameterInputView {
      */
     initialize() {
         let $sampleMedia = this.$container.find('#sampleMedia');
+        let $sampleMediaBasic = $('#sampleMediaBasic');
         let $characteristicType = this.$container.find('#characteristicType');
+        let $characteristicTypeBasic = $('#charGroupBasic');
         let $characteristicName = this.$container.find('#characteristicName');
         let $projectCode = this.$container.find('#project-code');
         let $pcode = this.$container.find('#pCode');
@@ -51,6 +53,14 @@ export default class SamplingParameterInputView {
                 {},
                 getAnchorQueryValues($sampleMedia.attr('name'))
             );
+            new CodeSelect(
+                $sampleMediaBasic,
+                {
+                    model : this.sampleMediaModel
+                },
+                {},
+                getAnchorQueryValues($sampleMediaBasic.attr('name'))
+            );
         });
         fetchCharacteristicType.done(() => {
             new CodeSelect(
@@ -60,6 +70,14 @@ export default class SamplingParameterInputView {
                 },
                 {},
                 getAnchorQueryValues($characteristicType.attr('name'))
+            );
+            new CodeSelect(
+                $characteristicTypeBasic,
+                {
+                    model : this.characteristicTypeModel
+                },
+                {},
+                getAnchorQueryValues($characteristicTypeBasic.attr('name'))
             );
         });
 

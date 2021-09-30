@@ -78,6 +78,7 @@ export default class SiteParameterInputView {
         };
 
         var $siteTypeSelect = this.$container.find('#siteType');
+        var $siteTypeSelectBasic = $('#siteTypeBasic');
         var $organizationSelect = this.$container.find('#organization');
         var $siteIdSelect = this.$container.find('#siteid');
         var $hucInput = this.$container.find('#huc');
@@ -97,6 +98,13 @@ export default class SiteParameterInputView {
                 },
                 {},
                 getAnchorQueryValues($siteTypeSelect.attr('name')));
+            new CodeSelect(
+                $siteTypeSelectBasic,
+                {
+                    model : this.siteTypeModel
+                },
+                {},
+                getAnchorQueryValues($siteTypeSelectBasic.attr('name')));
         });
 
         fetchOrganization.done(() => {

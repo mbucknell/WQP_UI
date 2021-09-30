@@ -3,6 +3,7 @@ import BiologicalSamplingInputView from '../../../../js/views/biologicalSampling
 import BoundingBoxInputView from '../../../../js/views/boundingBoxInputView';
 import DataDetailsView from '../../../../js/views/dataDetailsView';
 import DownloadFormView from '../../../../js/views/downloadFormView';
+import NldiView from '../../../../js/views/nldiView';
 import PlaceInputView from '../../../../js/views/placeInputView';
 import PointLocationInputView from '../../../../js/views/pointLocationInputView';
 import SamplingParameterInputView from '../../../../js/views/samplingParameterInputView';
@@ -19,7 +20,7 @@ describe('Tests for DownloadFormView', function() {
     var mockDownloadDialog;
 
     beforeEach(function() {
-        $('body').append('<div id="test-div"><form>' +
+        $('body').append('<div id="params"><form>' +
             '<div id="place"></div>' +
                 '<div id="point-location"></div>' +
                 '<div id="bounding-box"></div>' +
@@ -33,7 +34,7 @@ describe('Tests for DownloadFormView', function() {
                 '<input type="hidden" name="fake-param" value="Fake1" />' +
                 '<input type="hidden" name="fake-param-with-multi" data-multiple="true" value="Fake2" />' +
                 '<div id="mapping-div"><input type="hidden" name="map-param" value="Value1" /></div>' +
-                '<button id="main-button" type="submit">Download</button>' +
+                '<button class="main-button" type="submit">Download</button>' +
                 '</form></div>'
         );
 
@@ -51,6 +52,7 @@ describe('Tests for DownloadFormView', function() {
         spyOn(DataDetailsView.prototype, 'initialize');
         spyOn(DataDetailsView.prototype, 'getMimeType').and.returnValue('csv');
         spyOn(DataDetailsView.prototype, 'getResultType').and.returnValue('Result');
+        spyOn(NldiView.prototype, 'initialize');
 
         fetchProvidersDeferred = $.Deferred();
         spyOn(providers, 'fetch').and.returnValue(fetchProvidersDeferred);
@@ -75,7 +77,7 @@ describe('Tests for DownloadFormView', function() {
     });
 
     afterEach(function() {
-        $('#test-div').remove();
+        $('#params').remove();
     });
 
     it('Expects that the sub views are initialized when the view is initialized', function() {
@@ -87,6 +89,7 @@ describe('Tests for DownloadFormView', function() {
         expect(SamplingParameterInputView.prototype.initialize).toHaveBeenCalled();
         expect(BiologicalSamplingInputView.prototype.initialize).toHaveBeenCalled();
         expect(DataDetailsView.prototype.initialize).toHaveBeenCalled();
+        expect(NldiView.prototype.initialize).not.toHaveBeenCalled();
     });
 
     it('Expects that the providers are fetched', function() {
@@ -178,13 +181,13 @@ describe('Tests for DownloadFormView', function() {
 
         it('Expects that if the form does not validate, the download does not occur', function() {
             success = false;
-            $('#main-button').trigger('click');
+            $('.main-button').trigger('click');
             expect(mockDownloadDialog.show).not.toHaveBeenCalled();
         });
 
         it('Expects that if the form does validate, the downloadProgressDialog is shown and a counts request is made', function() {
             success = true;
-            $('#main-button').trigger('click');
+            $('.main-button').trigger('click');
 
             expect(mockDownloadDialog.show).toHaveBeenCalled();
             expect(queryService.fetchQueryCounts).toHaveBeenCalled();
@@ -210,14 +213,14 @@ describe('Tests for DownloadFormView', function() {
 
         it('Expects that if the count request is successful, the dialog is updated', function() {
             success = true;
-            $('#main-button').trigger('click');
+            $('.main-button').trigger('click');
             fetchCountsDeferred.resolve({});
             expect(mockDownloadDialog.updateProgress).toHaveBeenCalled();
         });
 
         it('Expects that if the head request fails, the dialog is canceled', function() {
             success = true;
-            $('#main-button').trigger('click');
+            $('.main-button').trigger('click');
             fetchCountsDeferred.reject();
             expect(mockDownloadDialog.cancelProgress).toHaveBeenCalled();
         });
