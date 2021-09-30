@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 ### **Applications**
 This is a partial list of other applications that use data from Water Quality Portal web services. If you know of an application that uses Water Quality Portal data or services, please [let us know](http://www.waterqualitydata.us/contact_us.jsp).
-=======
-## **Applications using the Water Quality Portal**
-
-This is a partial list of other applications that use data from Water Quality Portal web services. Tell us about other tools and applications using the Water Quality Portal! Email us at WQX@epa.gov to tell us about your tool..
->>>>>>> 82a5b2f136b463f1c4291038662ddfcbcad0958f
 
 **dataRetrieval ([1](https://github.com/USGS-R/dataRetrieval), [2](http://usgs-r.github.io/dataRetrieval/), [3](https://waterdata.usgs.gov/blog/dataretrieval/))**: An R package that can be used to pull data directly from the Water Quality Portal. Many tools have been built around supporting data output from this package.
 

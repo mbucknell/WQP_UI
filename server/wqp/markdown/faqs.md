@@ -10,11 +10,7 @@ The NWIS (USGS) services are refreshed every 24 hours. The WQX (EPA) services ar
 
 As of July 2015, over 265 million results from over 2.2 million monitoring locations are currently accessible through the portal. The portal reports samples and results collected from each location since the beginning of the databases.
 
-<<<<<<< HEAD
-### ***Why do I have to add "USGS-" or other organization identifiers in front of my NWIS Site ID when searching? Why do I have to add the Organization ID in front of my EPA Site ID when searching?***
-=======
 ***Why do I have to add "USGS-" or other organization identifiers in front of my NWIS (USGS) Site ID when searching? Why do I have to add the Organization ID in front of my WQX (EPA) Site ID when searching?***
->>>>>>> 82a5b2f136b463f1c4291038662ddfcbcad0958f
 
 The **Site IDs** in the WQX (EPA) and NWIS (USGS) systems have not been harmonized; therefore, a **Site ID** may be *duplicated* across the two systems. Additionally, WQX (EPA) aggregates data from different organizations who have not harmonized their identifiers. 
 
