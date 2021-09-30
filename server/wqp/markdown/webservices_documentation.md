@@ -1,6 +1,6 @@
-* [Submitting a Web Services Request](/server/wqp/markdownTextFiles/webservices_documentation.md#submitting-a-web-services-request)
+<!-- * [Submitting a Web Services Request](/server/wqp/markdownTextFiles/webservices_documentation.md#submitting-a-web-services-request)
 * [Web Service Request Examples](/server/wqp/markdownTextFiles/webservices_documentation.md#web-service-request-examples)
-* [Looking Up Domain Values through Web Services](/server/wqp/markdownTextFiles/webservices_documentation.md#looking-up-domain-values-through-web-services)
+* [Looking Up Domain Values through Web Services](/server/wqp/markdownTextFiles/webservices_documentation.md#looking-up-domain-values-through-web-services) -->
 
 The Water Quality Data Portal (WQP) provides easy access to data stored in three large water quality databases through form-based queries or standalone web services. The form interface and the web services offer equivalent input parameters and output formats. Submit a web service request to bypass the WQP form interface. For more information on the WQP input parameters and data retrievals, see the [User Guide](http://www.waterqualitydata.us/portal_userguide.jsp).  
 
@@ -28,7 +28,7 @@ Parameters must be appended to a base URL. Base URL construction depends on the 
 Construct a RESTlike web service query by concatenating the base URL with the desired parameters and arguments, ***Table 1***.  At least one parameter-argument pair must be specified. Separate multiple parameter-argument pairs with an *ampersand* ("&"). If no *mime type* is specified, the retrieval will default to **WQX-XML format**. See the [User Guide](http://www.waterqualitydata.us/portal_userguide.jsp) for a list of elements included in the result retrievals.
 
 ***Table 1.* URL-encoded retrieval parameters and arguments for WQP web services (parameter names are insensitive only to the leading capital letter)**
-<details>
+<details markdown="1">
   <summary>Expand Table</summary>
 
 |    REST parameter   |                                                                                                                                                                                                                    Argument                                                                                                                                                                                                                    |                                                                                                                                                                                                                      Discussion                                                                                                                                                                                                                     |
@@ -178,7 +178,7 @@ Base URL for looking up domain values: `https://www.waterqualitydata.us/Codes/{e
 There needs to be at least one argument in the web service call. If you want all domain values, you can just specify the mimetype: e.g. mimeType=json.
 
 ***Table 2.* Domain values web service parameters and arguments**
-<details>
+<details markdown="1">
   <summary>Expand Table</summary>
 
 |                                 {endpointName}                                | REST parameter |                    Argument                   |                                                                       Discussion                                                                       |                                               Example                                               |

@@ -2,104 +2,106 @@
 page_header_title %}Water Quality Portal Questions/Comments{% endblock %} {%
 block page_content %}
 <div class="page-center">
-  <p>
-    The Water Quality Portal Team welcomes your comments on how we can improve
-    our products. We strive to respond to every comment with an answer or an
-    appropriate referral as quickly as possible. Most comments will be responded
-    to within 10 business days.
-  </p>
-  <div id="ie-help">
-    <p>
-      For assistance, call 1-800-424-9067 or email to
-      <a href="mailto:WQX@epa.gov">WQX@epa.gov</a>. You may also contact your
-      &nbsp;<a
-        href="https://www.epa.gov/waterdata/storage-and-retrievalwater-quality-exchange-regional-points-contact">EPA
-        Regional EPA/ WQX Coordinator</a>.
-    </p>
-  </div>
-  <div id="form-help">
-    <p>
-      For assistance, call 1-800-424-9067 or use the form below to email us your
-      question or comment. You may also contact your&nbsp;<a
-        href="https://www.epa.gov/waterdata/storage-and-retrievalwater-quality-exchange-regional-points-contact">EPA
-        Regional EPA/ WQX Coordinator</a>.
-    </p>
-    <p>
-      To use the form, fill in the fields and then click the Send comments
-      button. An email window should appear. If the body of the message is
-      blank, please fill in the information that you added to the form. You
-      should then click send. If you have problems using this form, we suggest
-      that you send us your comments by e-mail to:
-      <a href="mailto:WQX@epa.gov">WQX@epa.gov</a>.
-    </p>
-    <form action="mailto:WQX@epa.gov?subject=Water Quality Portal question/comments" enctype="text/plain" method="post"
-      name="wqpform">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-      <table class="usa-table usa-table--borderless">
-        <tr>
-          <th scope="col"><label for="name">Name:</label></th>
-          <td>
-            <input class="usa-input" id="name" name="Name" type="text" value="{{ request.args.get('name', '') }}" />
-          </td>
-        </tr>
-        <tr>
-          <th scope="col"><label for="organization">Organization:</label></th>
-          <td>
-            <input class="usa-input" id="organization" name="Organization" type="text"
-              value="{{ request.args.get('organization', '') }}" />
-          </td>
-        </tr>
-        <tr>
-          <th scope="col"><label for="email">Email:</label></th>
-          <td>
-            <input class="usa-input" id="email" name="Email" type="text" value="{{ request.args.get('email', '') }}" />
-          </td>
-        </tr>
-        <tr>
-          <th scope="col"><label for="phone">Phone:</label></th>
-          <td>
-            <input class="usa-input" id="phone" name="Phone" type="text" value="{{ request.args.get('phone', '') }}" />
-          </td>
-        </tr>
-        <tr>
-          <th scope="col"><label for="address">Address:</label></th>
-          <td>
-            <textarea class="usa-textarea" id="address" name="Physical Address">
-{{ request.args.get('address', '') }}</textarea>
-            <br />
-          </td>
-        </tr>
-        <tr>
-          <th scope="col">
-            <label for="comments">Your comments or questions:</label>
-          </th>
-        </tr>
-        <tr>
-          <td colspan="2" align="left">
-            <textarea class="usa-textarea" id="comments" name="Comments">
-{{ request.args.get('comments', '') }}</textarea>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" style="text-align: center">
-            <ul class="usa-button-group">
-              <li class="usa-button-group__item">
-                <button type="reset" class="usa-button usa-button--outline">
-                  Reset
-                </button>
-              </li>
-              <li class="usa-button-group__item">
-                <button type="submit" class="usa-button" id="mail-submit-button"
-                  onclick="Javascript:document.wqpform.referring_page.value=document.referrer;">
-                  Submit
-                </button>
-              </li>
-            </ul>
-          </td>
-        </tr>
-      </table>
-    </form>
-  </div>
+	<div class="page-center-content">
+	<p>
+		The Water Quality Portal Team welcomes your comments on how we can improve
+		our products. We strive to respond to every comment with an answer or an
+		appropriate referral as quickly as possible. Most comments will be responded
+		to within 10 business days.
+	</p>
+	<div id="ie-help">
+		<p>
+		For assistance, call 1-800-424-9067 or email to
+		<a href="mailto:WQX@epa.gov">WQX@epa.gov</a>. You may also contact your
+		&nbsp;<a
+			href="https://www.epa.gov/waterdata/storage-and-retrievalwater-quality-exchange-regional-points-contact">EPA
+			Regional EPA/ WQX Coordinator</a>.
+		</p>
+	</div>
+	<div id="form-help">
+		<p>
+		For assistance, call 1-800-424-9067 or use the form below to email us your
+		question or comment. You may also contact your&nbsp;<a
+			href="https://www.epa.gov/waterdata/storage-and-retrievalwater-quality-exchange-regional-points-contact">EPA
+			Regional EPA/ WQX Coordinator</a>.
+		</p>
+		<p>
+		To use the form, fill in the fields and then click the Send comments
+		button. An email window should appear. If the body of the message is
+		blank, please fill in the information that you added to the form. You
+		should then click send. If you have problems using this form, we suggest
+		that you send us your comments by e-mail to:
+		<a href="mailto:WQX@epa.gov">WQX@epa.gov</a>.
+		</p>
+		<form action="mailto:WQX@epa.gov?subject=Water Quality Portal question/comments" enctype="text/plain" method="post"
+		name="wqpform">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+		<table class="usa-table usa-table--borderless">
+			<tr>
+			<th scope="col"><label for="name">Name:</label></th>
+			<td>
+				<input class="usa-input" id="name" name="Name" type="text" value="{{ request.args.get('name', '') }}" />
+			</td>
+			</tr>
+			<tr>
+			<th scope="col"><label for="organization">Organization:</label></th>
+			<td>
+				<input class="usa-input" id="organization" name="Organization" type="text"
+				value="{{ request.args.get('organization', '') }}" />
+			</td>
+			</tr>
+			<tr>
+			<th scope="col"><label for="email">Email:</label></th>
+			<td>
+				<input class="usa-input" id="email" name="Email" type="text" value="{{ request.args.get('email', '') }}" />
+			</td>
+			</tr>
+			<tr>
+			<th scope="col"><label for="phone">Phone:</label></th>
+			<td>
+				<input class="usa-input" id="phone" name="Phone" type="text" value="{{ request.args.get('phone', '') }}" />
+			</td>
+			</tr>
+			<tr>
+			<th scope="col"><label for="address">Address:</label></th>
+			<td>
+				<textarea class="usa-textarea" id="address" name="Physical Address">
+	{{ request.args.get('address', '') }}</textarea>
+				<br />
+			</td>
+			</tr>
+			<tr>
+			<th scope="col">
+				<label for="comments">Your comments or questions:</label>
+			</th>
+			</tr>
+			<tr>
+			<td colspan="2" align="left">
+				<textarea class="usa-textarea" id="comments" name="Comments">
+	{{ request.args.get('comments', '') }}</textarea>
+			</td>
+			</tr>
+			<tr>
+			<td colspan="2" style="text-align: center">
+				<ul class="usa-button-group">
+				<li class="usa-button-group__item">
+					<button type="reset" class="usa-button usa-button--outline">
+					Reset
+					</button>
+				</li>
+				<li class="usa-button-group__item">
+					<button type="submit" class="usa-button" id="mail-submit-button"
+					onclick="Javascript:document.wqpform.referring_page.value=document.referrer;">
+					Submit
+					</button>
+				</li>
+				</ul>
+			</td>
+			</tr>
+		</table>
+		</form>
+	</div>
+	</div>
 </div>
 {% endblock %} {% block body_page_script %} {% include
 "partials/hide_non_usgs_epa_logos.html" %}

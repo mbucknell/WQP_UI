@@ -52,7 +52,7 @@ def get_markdown(md_path):
     :param md_path: the path of associated markdown file
     :return: the markdown converted to HTML
     """
-	md = markdown.Markdown(extensions=[TocExtension(baselevel=1),TableExtension()], output_format="html5")
+	md = markdown.Markdown(extensions=[TocExtension(baselevel=1),'markdown.extensions.tables', 'markdown.extensions.md_in_html'], output_format="html5")
 	with open(md_path, 'r') as f:
 		text = f.read()
 		html = md.convert(text)
@@ -62,14 +62,13 @@ def get_markdown(md_path):
 		soup = BeautifulSoup(md.toc, 'html.parser')
 
 		feed_div = soup.find('div', class_='toc')
-		children_divs = feed_div.find('ul')
-		links = str(children_divs).replace('<li>', '<li class=\'usa-sidenav__item\'>')
+		child_divs = feed_div.find('ul')
+		links = str(child_divs).replace('<li>', '<li class=\'usa-sidenav__item\'>')
 		final = links.replace('<ul>', '<ul class=\'usa-sidenav\'>', 1)
-		sub = final.replace('<ul>', '<ul class=\'usa-sidenav__sublist\'>')
+		table_of_contents = final.replace('<ul>', '<ul class=\'usa-sidenav__sublist\'>')
 
-		content={'body': html, 'toc': sub}
+		content={'body': html, 'toc': table_of_contents}
 		return content
-
 
 
 def geoserver_proxy_request(target_url, cert_verification):
