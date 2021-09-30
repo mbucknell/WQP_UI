@@ -34,9 +34,9 @@ Users less familiar with the standard notation used to encode a web services req
 
 The WQP can be searched through three different search options:
 
-1. [***Location parameters***](#location-parameters)
-2. [***Site parameters***](#site-parameters)
-3. [***Sampling parameters***](#sampling-parameters)
+1. ***Location parameters***
+2. ***Site parameters***
+3. ***Sampling parameters***
 
 #### **LOCATION PARAMETERS**
 <details markdown="1">
