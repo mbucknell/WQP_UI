@@ -17,7 +17,7 @@ import CachedCodesModel from '../CachedCodesModel.vue';
 import CodesWithKeysModel from '../CodesWithKeysModel.vue';
 import queryService from '../queryService';
 import { toggleShowHideSections, getQueryString, getAnchorQueryValues } from '../utils';
-import store from '../store/store.js'
+import store from '../store/store.js';
 
 let downloadFormControllerClass = Vue.extend(DownloadFormController);
 let downloadFormController = new downloadFormControllerClass();
@@ -209,15 +209,15 @@ export default {
         shareText.value = window.location.href;
         
         let self = this;
-        document.querySelector('#basic-tab').onclick = function(){
+        document.querySelector('#basic-tab').addEventListener('click', function(){
             let formtype = document.querySelector('#paramsBasic');
             self.updateSelected(formtype);
-        }
+        });
 
-        document.querySelector('#advanced-tab').onclick = function(){
+        document.querySelector('#advanced-tab').addEventListener('click', function(){
             let formtype = document.querySelector('#params');
             self.updateSelected(formtype);
-        }
+        });
 
         this.setUpWatchers();
 
@@ -276,6 +276,15 @@ export default {
         };
 
         basicForm.querySelector('#startOver').onclick = () => {
+            placeInputView.resetContainer();
+            pointLocationInputView.resetContainer();
+            boundingBoxInputView.resetContainer();
+            samplingParametersInputView.resetContainer();
+            siteParameterInputView.resetContainer();
+            this.dataDetailsView.resetContainer();
+        };
+
+        this.form.querySelector('#advancedStartOver').onclick = () => {
             placeInputView.resetContainer();
             pointLocationInputView.resetContainer();
             boundingBoxInputView.resetContainer();
@@ -419,7 +428,7 @@ export default {
             {name: "statecode", value: store.state.stateSelectedState},
             {name: "countycode", value: store.state.countySelectedState},
             {name: "siteType", value: store.state.sitetypeSelectedState},
-            {name: "characteristicType", value: store.state.chargroupSelectedState},
+            {name: "charGroup", value: store.state.chargroupSelectedState},
             {name: "sampleMedia", value: store.state.sampleMediaSelectedState},
             {name: "organization", value: store.state.orgIDSelectedState},
             {name: "project", value: store.state.projIDSelectedState},

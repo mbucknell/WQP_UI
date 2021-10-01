@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="chargroupValue" @input="onchange" name="charGroup" tag-placeholder="All Characteristic Groups" placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter" label="text" track-by="id" select-label="" :max-height="200" :options="chargroupOptions" :multiple="true" :taggable="true">
+    <multiselect v-model="chargroupValue" @input="updateSelected" name="charGroup" tag-placeholder="All Characteristic Groups" placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter" label="text" track-by="id" select-label="" :max-height="200" :options="chargroupOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
@@ -23,20 +23,17 @@ export default {
   methods: {
     updateSelected(value) {
       this.chargroupValue = value;
+      this.$store.commit("getChargroupState", this.chargroupValue);
     },
     updateOptions(value) {
       this.chargroupOptions = value;
     },
-    onchange() {
-      this.$store.commit("getChargroupState", this.chargroupValue);
-    }
   },
   watch: {
     "$store.state.chargroupSelectedState": {
       deep: true,
       handler(){
         this.updateSelected(this.$store.state.chargroupSelectedState);
-        this.onchange();
       }
     },
     "$store.state.chargroupOptionsState": {

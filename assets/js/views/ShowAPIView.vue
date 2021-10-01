@@ -4,6 +4,7 @@
 <script>
 import queryService from '../queryService';
 import { getQueryString, getCurlString } from '../utils';
+import store from '../store/store.js'
 
 /*
  * Initializes the windows which show the various API calls
@@ -64,6 +65,46 @@ export default {
             this.showAPIViewVisible;
             this.container.closest('form').dispatchEvent(new Event('change'));
         }
+
+        this.setUpWatchers();
+    },
+    setUpWatchers() {
+        store.watch(() => store.state.countrySelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.stateSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.countySelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.sitetypeSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.siteIDSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.projIDSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.orgIDSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.chargroupSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.sampleMediaSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.charSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.assemblageSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.taxSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
     }
   },
 }

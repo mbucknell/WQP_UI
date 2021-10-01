@@ -109,6 +109,12 @@ export default {
       // Get initial options
       this.onchange('');  
     },
+    "$store.state.taxSelectedState": {
+      deep: true,
+      handler(){
+        this.updateSelected(this.$store.state.taxSelectedState);
+      }
+    },
   }
 }
 </script>

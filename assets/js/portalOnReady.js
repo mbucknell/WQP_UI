@@ -282,35 +282,68 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.showStepParameters()
               },
               onAdvancedStartOver(){
-                $('#params')[0].reset();
-                $('#countrycode').val(null).trigger('change');
-                $('#statecode').val(null).trigger('change');
-                $('#countycode').val(null).trigger('change');
-                $('#within').val(null).trigger('change');
-                $('#lat').val(null).trigger('change');
-                $('#long').val(null).trigger('change');
-                $('#north').val(null).trigger('change');
-                $('#south').val(null).trigger('change');
-                $('#east').val(null).trigger('change');
-                $('#west').val(null).trigger('change');
-                $('#siteType').val(null).trigger('change');
-                $('#organization').val(null).trigger('change');
-                $('#siteid').val(null).trigger('change');
-                $('#huc').val(null).trigger('change');
-                $('#sampleMedia').val(null).trigger('change');
-                $('#characteristicType').val(null).trigger('change');
-                $('#characteristicName').val(null).trigger('change');
-                $('#project-code').val(null).trigger('change');
-                $('#pCode').val(null).trigger('change');
-                $('#assemblage').val(null).trigger('change');
-                $('#subject-taxonomic-name').val(null).trigger('change');
-                $('#startDateHi').val(null).trigger('change');
-                $('#startDateLo').val(null).trigger('change');
-                $('#min-activities-div').val(null).trigger('change');
-                $('#minresults-div').val(null).trigger('change');
-                $('#dataSource').val(null).trigger('change');
-                $('#download-data-div').val(null).trigger('change');
-                $('#fileFormat').val(null).trigger('change');
+                document.querySelector('#params').reset();
+                store.commit("getCountryState", []);
+                store.commit("getStateState", []);
+                store.commit("getCountyState", []);
+                store.commit("getSitetypeState", []);
+                store.commit("getSampleMediaState", []);
+                store.commit("getChargroupState", []);
+                store.commit("getAssemblageState", []);
+                store.commit("getCharState", []);
+                store.commit("getOrgIDState", []);
+                store.commit("getProjIDState", []);
+                store.commit("getTaxState", []);
+                store.commit("getSiteIDState", []);
+                let within = document.querySelector('#within')
+                within.value = null;
+                within.dispatchEvent(new Event('change'));
+                let lat = document.querySelector('#lat');
+                lat.value = null;
+                lat.dispatchEvent(new Event('change'));
+                let long = document.querySelector('#long')
+                long.value = null;
+                long.dispatchEvent(new Event('change'));
+                let north = document.querySelector('#north');
+                north.value = null;
+                north.dispatchEvent(new Event('change'));
+                let south = document.querySelector('#south');
+                south.value = null;
+                south.dispatchEvent(new Event('change'));
+                let east = document.querySelector('#east');
+                east.value = null;
+                east.dispatchEvent(new Event('change'));
+                let west = document.querySelector('#west');
+                west.value = null;
+                west.dispatchEvent(new Event('change'));
+                let huc = document.querySelector('#huc');
+                huc.value = null;
+                huc.dispatchEvent(new Event('change'));
+                let pCode = document.querySelector('#pCode');
+                pCode.value = null;
+                pCode.dispatchEvent(new Event('change'));
+                let startDateHi = document.querySelector('#startDateHi');
+                startDateHi.value = null;
+                startDateHi.dispatchEvent(new Event('change'));
+                let startDateLo = document.querySelector('#startDateLo');
+                startDateLo.value = null;
+                startDateLo.dispatchEvent(new Event('change'));
+                let minActivities = document.querySelector('#min-activities-div');
+                minActivities.value = null;
+                minActivities.dispatchEvent(new Event('change'));
+                let minResults = document.querySelector('#minresults-div');
+                minResults.value = null;
+                minResults.dispatchEvent(new Event('change'));
+                let dataSource = document.querySelector('#dataSource')
+                dataSource.value = null;
+                dataSource.dispatchEvent(new Event('change'));
+                let downloadDiv = document.querySelector('#download-data-div');
+                downloadDiv.value = null;
+                downloadDiv.dispatchEvent(new Event('change'));
+                document.querySelector('#csvAdv').checked = true;
+                document.querySelector('#csvAdv').dispatchEvent(new Event('change'));
+                document.querySelector('#dataprofiles').value = null;
+                document.querySelector('#dataprofiles').dispatchEvent(new Event('change'));
                 this.step = 0;
                 this.showStepParameters()
               },

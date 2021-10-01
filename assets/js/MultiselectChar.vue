@@ -109,6 +109,12 @@ export default {
       // Get initial options
       this.onchange('');
     },
+    "$store.state.charSelectedState": {
+      deep: true,
+      handler(){
+        this.updateSelected(this.$store.state.charSelectedState);
+      }
+    },
   }
 }
 </script>

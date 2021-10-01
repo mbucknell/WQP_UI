@@ -154,6 +154,12 @@ export default {
         }
       }
     },
+    "$store.state.siteIDSelectedState": {
+      deep: true,
+      handler(){
+        this.updateSelected(this.$store.state.siteIDSelectedState);
+      }
+    },
   },
   mounted() {
     let self = this;

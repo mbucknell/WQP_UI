@@ -114,6 +114,12 @@ export default {
       // Get initial options
       this.onchange('');
     },
+    "$store.state.projIDSelectedState": {
+      deep: true,
+      handler(){
+        this.updateSelected(this.$store.state.projIDSelectedState);
+      }
+    },
   }
 }
 </script>
