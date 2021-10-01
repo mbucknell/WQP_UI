@@ -7,7 +7,12 @@
 {% block page_header_title %}Water Quality Portal Contributing Organizations{% endblock %}
 
 {% block page_content %}
-    <div id="content" class="main-body">
-        {{ feed_content|safe }}
-    </div>
+
+<div class="page-center markdown-page">
+	<div class="page-center-content no-sidebar">
+		<h1>Water Quality Portal Contributing Organizations</h1>
+		{{ md_content.body|safe }}
+	</div>
+</div>
+
 {% endblock %}

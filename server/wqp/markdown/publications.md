@@ -2,7 +2,7 @@
 The following publications have referred to or used the Water Quality Portal as a source of data. Submit additional publications that reference the WQP to gs-w-iow_POs@usgs.gov
 
 #### 2021
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Ahmed, M. H. and Lin, L.-S. (2021) ‘Dissolved oxygen concentration predictions for running waters with different land use land cover using a quantile regression forest machine learning technique’, _Journal of Hydrology_, 597, p. 126213. doi: [10.1016/j.jhydrol.2021.126213](https://doi.org/10.1016/j.jhydrol.2021.126213).
@@ -28,7 +28,7 @@ Topp, S. N. _et al._ (2021) ‘Multi-decadal improvement in U.S. lake water clar
 </details>
 
 #### 2020
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Agarwal, A. _et al._ (2020) ‘Assessing Contamination of Stream Networks near Shale Gas Development Using a New Geospatial Tool’, _Environmental Science & Technology_. doi: [10.1021/acs.est.9b06761](https://doi.org/10.1021/acs.est.9b06761).
@@ -58,7 +58,7 @@ Van Gray, J. B., Roberto, A. A. and Leff, L. G. (2020) ‘Acute salt stress prom
 </details>
 
 #### 2019
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Abdul-Aziz Omar I. and Ahmed Shakil (2019) ‘Evaluating the Emergent Controls of Stream Water Quality with Similitude and Dimensionless Numbers’, _Journal of Hydrologic Engineering_, 24(5), p. 04019010. doi: [10.1061/(ASCE)HE.1943-5584.0001769](https://doi.org/10.1061/(ASCE)HE.1943-5584.0001769).
@@ -142,7 +142,7 @@ Yigzaw, W. _et al._ (2019) ‘A Multi-layer Reservoir Thermal Stratification Mod
 </details>
 
 #### 2018
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Amos, H. M. _et al._ (2018) ‘What Goes Up Must Come Down: Integrating Air and Water Quality Monitoring for Nutrients’, _Environmental Science & Technology_, 52(20), pp. 11441–11448. doi: [10.1021/acs.est.8b03504](https://doi.org/10.1021/acs.est.8b03504).
@@ -244,7 +244,7 @@ Young, D. (2018) _Integrating Data Using Open Standards_. doi: [info:doi/10.2175
 </details>
 
 #### 2017
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Ascott, M. J. _et al._ (2017) ‘Global patterns of nitrate storage in the vadose zone’, _Nature Communications_, 8(1), p. 1416. doi: [10.1038/s41467-017-01321-w](https://doi.org/10.1038/s41467-017-01321-w).
@@ -340,7 +340,7 @@ Yen, J. D. L. _et al._ (2017) ‘Balancing generality and specificity in ecologi
 </details>
 
 #### 2016
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Barkmann, P. E. _et al._ (2016) ‘South Park, ColoradoThe interplay of tectonics and sedimentation creates one of Colorado’s crown jewels’, in Keller, S. M. and Morgan, M. L. (eds) _Unfolding the Geology of the West_. Geological Society of America. Available at: [http://dx.doi.org/10.1130/2016.0044(07)](http://dx.doi.org/10.1130/2016.0044(07)) (Accessed: 7 August 2017).
@@ -404,7 +404,7 @@ Ziman, M. (2016) _Data Intelligence For Improved Water Resource Management_. Ava
 </details>
 
 #### 2015
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Betanzo, E. A. _et al._ (2015) _Water Data to Answer Urgent Water Policy Questions: Monitoring design, available data, and filling data gaps for determining the effectiveness of agricultural management practices for reducing tributary nutrient loads to Lake Erie_. Northeast-Midwest Institute Report, p. 169. Available at: [http://www.nemw.org/lake-erie-report-2/](http://www.nemw.org/lake-erie-report-2/).
@@ -438,7 +438,7 @@ Veith, T. L. _et al._ (2015) ‘Navigating spatial and temporal complexity in de
 </details>
 
 #### 2014
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Bales, J. D. (2014) ‘Progress in Data Collection and Dissemination in Water Resources - 1974-2014’, _Water Resources Impact_, May, pp. 18–23. Available at: [https://water.usgs.gov/nrp/bales\_2014\_awra\_impact.pdf](https://water.usgs.gov/nrp/bales_2014_awra_impact.pdf) (Accessed: 7 August 2017).
@@ -460,7 +460,7 @@ Patton, E. W. _et al._ (2014) ‘SemantEco: A semantically powered modular archi
 </details>
 
 #### 2013
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Fisher, J. R. _et al._ (2013) _How Do We Know an Agricultural System is Sustainable?_ Available at: [https://www.researchgate.net/profile/Jonathan\_Fisher20/publication/264002578\_How\_Do\_We\_Know\_an\_Agricultural\_System\_is\_Sustainable/links/0deec53c810c7eb81d000000.pdf](https://www.researchgate.net/profile/Jonathan_Fisher20/publication/264002578_How_Do_We_Know_an_Agricultural_System_is_Sustainable/links/0deec53c810c7eb81d000000.pdf) (Accessed: 7 August 2017).
@@ -470,7 +470,7 @@ Lucido, J. M. (2013) ‘Best Practices for Making Scientific Data Discoverable a
 </details>
 
 #### 2012
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Daniels, S. (2012) ‘Human Impacts upon Crystal Lake (Benzie Co.): Past, Present, and Future’. _8th MiCorps Volunteer Monitoring Conference_, Higgins Lake, MI, 29 October. Available at: [http://www.clwa.us/PDF/HumanImpactsCrystalLake.pdf](http://www.clwa.us/PDF/HumanImpactsCrystalLake.pdf) (Accessed: 7 August 2017).
@@ -478,7 +478,7 @@ Daniels, S. (2012) ‘Human Impacts upon Crystal Lake (Benzie Co.): Past, Presen
 </details>
 
 #### 2009
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Nelson, K. T. and Zimmerman, B. (2009) _Closing the Data Gap_, _FedTech_. Available at: [https://fedtechmagazine.com/article/2010/01/closing-data-gap](https://fedtechmagazine.com/article/2010/01/closing-data-gap) (Accessed: 7 November 2017).
@@ -486,7 +486,7 @@ Nelson, K. T. and Zimmerman, B. (2009) _Closing the Data Gap_, _FedTech_. Availa
 </details>
 
 #### 2008
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Scott, J. _et al._ (2008) ‘U.S. Federal Water Quality Web Service Collaboration’, _Eos, Transactions American Geophysical Union_, 89(52), pp. 543–544. doi: [10.1029/2008EO520003](https://doi.org/10.1029/2008EO520003).
@@ -494,7 +494,7 @@ Scott, J. _et al._ (2008) ‘U.S. Federal Water Quality Web Service Collaboratio
 </details>
 
 #### 2006
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Methods and Data Comparability Board of the National Water Quality Monitoring Council (2006) _Data Elements for Reporting Water Quality Monitoring Results for Chemical, Biological, Toxicological, and Microbiological Analytes_. NWQMC Technical Report 3. Advisory Committee on Water Information. Available at: [https://acwi.gov/methods/pubs/wdqe\_pubs/wqde\_trno3.pdf](https://acwi.gov/methods/pubs/wdqe_pubs/wqde_trno3.pdf) (Accessed: 25 June 2018).
@@ -502,7 +502,7 @@ Methods and Data Comparability Board of the National Water Quality Monitoring Co
 </details>
 
 #### 2004 
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 Office, U. S. G. A. (2004) ‘Watershed Management: Better Coordination of Data Collection Efforts Needed to Support Key Decisions’, (GAO-04-382). Available at: [https://www.gao.gov/products/GAO-04-382](https://www.gao.gov/products/GAO-04-382) (Accessed: 7 November 2017).
@@ -510,7 +510,7 @@ Office, U. S. G. A. (2004) ‘Watershed Management: Better Coordination of Data 
 </details>
 
 #### No Date
-<details>
+<details markdown="1">
   <summary>Expand Publications</summary>
 
 _An Integrated Assessment Model for Valuing Water Quality Changes in the U.S_ (no date).

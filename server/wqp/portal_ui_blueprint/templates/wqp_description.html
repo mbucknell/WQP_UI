@@ -8,7 +8,11 @@
 
 {% block page_content %}
 
-    <div id="content" class="main-body">
-        {{ feed_content|safe }}
-    </div>
+<div class="page-center markdown-page">
+	<div class="page-center-content no-sidebar">
+		<h1>What is the Water Quality Portal (WQP)</h1>
+		{{ md_content.body|safe }}
+	</div>
+</div>
+
 {% endblock %}
