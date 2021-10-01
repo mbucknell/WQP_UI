@@ -1,6 +1,4 @@
-## **WQP Upload Data**
-
-![Help desk image](/assets/img/upload_data_image1.png) Your organization can participate in the Water Quality Portal (WQP).
+![Help desk image](/img/upload_data_image1.png) Your organization can participate in the Water Quality Portal (WQP).
 
 The WQX (EPA) has a spreadsheet template to help data owners organize their data and generate a file compatible with the WQP.
 
@@ -8,4 +6,4 @@ For information on how to prepare your data using WQX Web including an overview,
 
 For information on how to submit your data using WQX Web visit [Getting started with WQX Web](https://www.epa.gov/waterdata/wqx-web-account-registration).
 
-For questions about WQX Web, contact WQX (EPA)’s Help Desk ![Help desk image](/assets/img/upload_data_image1.png) at wqx@epa.gov or 1-800-424-9067.
+For questions about WQX Web, contact WQX (EPA)’s Help Desk ![Help desk image](/img/upload_data_image1.png) at wqx@epa.gov or 1-800-424-9067.

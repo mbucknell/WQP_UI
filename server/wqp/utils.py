@@ -8,8 +8,12 @@ import time
 from bs4 import BeautifulSoup
 import feedparser
 from flask import request, make_response, abort
+import markdown
+from markdown.extensions.toc import TocExtension
+from markdown.extensions.tables import TableExtension
 
 from . import app, session
+
 
 
 def create_request_resp_log_msg(response):
@@ -42,37 +46,29 @@ def create_redis_log_msg(redis_host, redis_port, db_number):
     msg = 'Connecting to Redis database {0} on {1}:{2}.'.format(db_number, redis_host, redis_port)
     return msg
 
-
-def pull_feed(feed_url):
+def get_markdown(md_path):
+	"""
+    Load text from static markdown files
+    :param md_path: the path of associated markdown file
+    :return: the markdown converted to HTML
     """
-    pull page data from a my.usgs.gov confluence wiki feed
-    :param feed_url: the url of the feed, created in confluence feed builder
-    :return: the html of the page itself, stripped of header and footer
-    """
-    app.logger.debug('Parsing content from %s.', feed_url)
-    feed = feedparser.parse(feed_url)
+	md = markdown.Markdown(extensions=[TocExtension(baselevel=1),'markdown.extensions.tables', 'markdown.extensions.md_in_html'], output_format="html5")
+	with open(md_path, 'r') as f:
+		text = f.read()
+		html = md.convert(text)
 
-    # Process html to remove unwanted mark-up and fix links
-    post = ''
-    if feed['entries']:
-        soup = BeautifulSoup(feed['entries'][0].summary, 'html.parser')
-
-        # Remove edited by paragraph
-        soup.p.extract()
-
+		# Create sidebar from md.toc
         # Remove final div in the feed
-        feed_div = soup.find('div', class_='feed')
-        children_divs = feed_div.findAll('div')
-        children_divs[len(children_divs) - 1].extract()
+		soup = BeautifulSoup(md.toc, 'html.parser')
 
-        # Translate any in page links to use relative URL
-        base = feed['entries'][0].summary_detail.base
-        links = feed_div.select('a[href^="' + base + '"]')
-        for link in links:
-            link['href'] = link['href'].replace(base, '')
-        post = str(soup)
+		feed_div = soup.find('div', class_='toc')
+		child_divs = feed_div.find('ul')
+		links = str(child_divs).replace('<li>', '<li class=\'usa-sidenav__item\'>')
+		final = links.replace('<ul>', '<ul class=\'usa-sidenav\'>', 1)
+		table_of_contents = final.replace('<ul>', '<ul class=\'usa-sidenav__sublist\'>')
 
-    return post
+		content={'body': html, 'toc': table_of_contents}
+		return content
 
 
 def geoserver_proxy_request(target_url, cert_verification):
