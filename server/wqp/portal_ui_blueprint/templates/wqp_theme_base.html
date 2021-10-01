@@ -91,7 +91,7 @@
               				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STEWARDS') }}" class="headerText">STEWARDS</a>
             			</li>
 						<li class="usa-nav__submenu-item">
-              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STORET') }}" class="headerText">EPA</a>
+              				<a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STORET') }}" class="headerText">WQX</a>
             			</li>
 					</ul>
 				</li>
@@ -123,6 +123,9 @@
 					  	</li>
 						<li class="usa-nav__submenu-item">
 							<a href="{{ url_for('portal_ui.other_portal_links-canonical') }}" class="">Other Water Quality Portals</a>
+					  	</li>
+						<li class="usa-nav__submenu-item">
+							<a href="{{ url_for('portal_ui.publications-canonical') }}" class="">Publications</a>
 					  	</li>
 						<li class="usa-nav__submenu-item">
 							<a href="{{ url_for('portal_ui.contact_us-canonical') }}" class="">Contact Us</a>
@@ -168,10 +171,7 @@
     <hr/>
     <div id="footer-row-div">
         <footer class="usa-footer">
-            <div class="grid-container usa-footer__return-to-top">
-              <a href="#">Return to top</a>
-            </div>
-            <div class="usa-footer__primary-section">
+            <div class="usa-footer__primary-section" id="primary-footer">
               <nav class="usa-footer__nav" aria-label="Footer navigation">
                 <ul class="grid-row grid-gap">
                   <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">

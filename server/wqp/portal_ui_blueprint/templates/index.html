@@ -53,12 +53,7 @@
       <div class="tab-content">
         <div id="basicForm">
           <form role="form" id="paramsBasic" name="paramsBasic" autocomplete="off" method="post" action="
-                          {%  if config.WATERAUTH_AUTHORIZE_URL %}
-                            {{ url_for('portal_ui.wqp_download_proxy', op='Station')}}
-                          {%  else %}
-                            {{ config.SEARCH_QUERY_ENDPOINT }}Station/search
-                            {% endif %}
-                            ">
+          {{ config.SEARCH_QUERY_ENDPOINT }}Station/search">
           <h3 class="site-preview-heading">Download Water Quality Data</h3>
           <div class="usa-step-indicator" aria-label="progress">
             <ol v-if="steps" class="usa-step-indicator__segments" :class="{            
@@ -150,7 +145,7 @@
               </div>
             </div>
             <div class="menu-buttons">
-              <button class="usa-button usa-button--outline reset-params" type="button">Clear parameters</button>
+              <button class="usa-button usa-button--outline reset-params" type="button">Clear search</button>
               <button class="usa-button" v-on:click="onNext()" type="button">Next</button>
             </div>
           </div>
@@ -166,17 +161,17 @@
                   <div class="usa-checkbox">
                     <input class="datasources usa-checkbox__input" id="nwis-basic" type="checkbox" name="providers"
                       value="NWIS" checked />
-                    <label class="usa-checkbox__label" for="nwis-basic">NWIS</label>
+                    <label class="usa-checkbox__label" for="nwis-basic">NWIS (USGS)</label>
                   </div>
                   <div class="usa-checkbox">
                     <input class="datasources usa-checkbox__input" id="stewards-basic" type="checkbox" name="providers"
                       value="STEWARDS" checked />
-                    <label class="usa-checkbox__label" for="stewards-basic">STEWARDS</label>
+                    <label class="usa-checkbox__label" for="stewards-basic">STEWARDS (ARS)</label>
                   </div>
                   <div class="usa-checkbox">
                     <input class="datasources usa-checkbox__input" id="storet-basic" type="checkbox" name="providers"
                       value="STORET" checked />
-                    <label class="usa-checkbox__label" for="storet-basic">EPA</label>
+                    <label class="usa-checkbox__label" for="storet-basic">WQX (EPA)</label>
                   </div>
                 </fieldset>
             </div>
@@ -211,7 +206,7 @@
                     <label id="datesLabel" class="usa-label">Dates should be entered as mm-dd-yyyy, mm-yyyy, or yyyy</label></label>
                     <div>
                       <label>from: </label><input class="form-control usa-input" type="text" id="startDateLoBasic" @blur="validate()"
-                        name="startDateLo" placeholder="All Dates" size="18"
+                        name="startDateLo" placeholder="mm-dd-yyyy" size="18"
                         aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
                     </div>
                   </div>
@@ -221,7 +216,7 @@
                     <div>
                       <label class="control-label" for="startDateHiBasic">to: </label> <input
                         class="form-control usa-input" type="text" id="startDateHiBasic" name="startDateHi" @blur="validate()"
-                        placeholder="All Dates" size="20"
+                        placeholder="mm-dd-yyyy" size="20"
                         aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
                     </div>
                   </div>
@@ -243,7 +238,7 @@
               </div>
             </div>
             <div>
-              <button class="usa-button usa-button--outline reset-filters" type="button">Clear filters</button>
+              <button class="usa-button usa-button--outline reset-filters" type="button">Clear search</button>
               <button class="usa-button" v-on:click="onPrev()" type="button">Previous</button>
               <button class="usa-button" v-on:click="onNext()" type="button">Next</button>
             </div>
@@ -363,11 +358,7 @@
       <div class="tab-content">
         <div id="advancedForm">
           <form role="form" id="params" name="params" autocomplete="off" method="post" action="
-                          {%  if config.WATERAUTH_AUTHORIZE_URL %}
-                            {{ url_for('portal_ui.wqp_download_proxy', op='Station')}}
-                          {%  else %}
                             {{ config.SEARCH_QUERY_ENDPOINT }}Station/search
-                            {% endif %}
                             ">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
             <div id="place">
@@ -624,9 +615,10 @@
                                     <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                     </div>
                                     <div>
+                                      <label id="datesLabelAdv" class="usa-label">Dates should be entered as mm-dd-yyyy, mm-yyyy, or yyyy</label>
                                       <div>
                                         <label>from: </label><input class="form-control usa-input" type="text" id="startDateLo"
-                                          name="startDateLo" placeholder="All Dates" size="18"
+                                          name="startDateLo" placeholder="mm-dd-yyyy" size="18"
                                           aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
                                       </div>
                                     </div>
@@ -636,7 +628,7 @@
                                       <div>
                                         <label class="control-label" for="startDateHi">to: </label> <input
                                           class="form-control usa-input" type="text" id="startDateHi" name="startDateHi"
-                                          placeholder="All Dates" size="20"
+                                          placeholder="mm-dd-yyyy" size="20"
                                           aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
                                       </div>
                                     </div>
@@ -695,17 +687,17 @@
                                 <div class="usa-checkbox">
                                   <input class="datasources usa-checkbox__input" id="nwis" type="checkbox"
                                     name="providers" value="NWIS" checked />
-                                  <label class="usa-checkbox__label" for="nwis">NWIS</label>
+                                  <label class="usa-checkbox__label" for="nwis">NWIS (USGS)</label>
                                 </div>
                                 <div class="usa-checkbox">
                                   <input class="datasources usa-checkbox__input" id="stewards" type="checkbox"
                                     name="providers" value="STEWARDS" checked />
-                                  <label class="usa-checkbox__label" for="stewards">STEWARDS</label>
+                                  <label class="usa-checkbox__label" for="stewards">STEWARDS (ARS)</label>
                                 </div>
                                 <div class="usa-checkbox">
                                   <input class="datasources usa-checkbox__input" id="storet" type="checkbox"
                                     name="providers" value="STORET" checked />
-                                  <label class="usa-checkbox__label" for="storet">EPA</label>
+                                  <label class="usa-checkbox__label" for="storet">WQX (EPA)</label>
                                 </div>
                               </fieldset>
                             </div>
@@ -893,22 +885,26 @@
 
                             <div id="api-queries-div">
                               <div class="show-query-text" id="query-div">
-                                <b></b>
+                                <b></b><div class="tooltip" :title="stationTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
                                 <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
                                   aria-label="Current data download URL based on input search parameters"></textarea>
                               </div>
                               <div class="show-query-text" id="curl-query-div">
-                                <b>cURL</b>
+                                <b>cURL</b><div class="tooltip" :title="cURLTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
                                 <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
                                   aria-label="Current cURL based on input search parameters"></textarea>
                               </div>
                               <div class="show-query-text" id="getfeature-query-div">
-                                <b>WFS GetFeature</b>
+                                <b>WFS GetFeature</b><div class="tooltip" :title="WFSTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                </div>
                                 <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
                                   aria-label="Current WFS GetFeature URL based on input search parameters"></textarea>
                               </div>
                             </div>
                           </div>
+                          <button class="usa-button usa-button--outline" v-on:click="onAdvancedStartOver()" id="advancedStartOver" type="button">Clear search</button>
                           <a href="#download-status-modal" id="main-button" class="usa-button main-button" type="submit"
                             aria-controls="download-status-modal" data-open-modal>
                             Download

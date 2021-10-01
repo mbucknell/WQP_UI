@@ -124,6 +124,9 @@ document.addEventListener("DOMContentLoaded", function() {
             databasesTooltip: TOOLTIP.databasesTooltip,
             dataDownloadTooltip: TOOLTIP.dataDownloadTooltip,
             fileFormatTooltip: TOOLTIP.fileFormatTooltip,
+            stationTooltip: TOOLTIP.stationTooltip,
+            cURLTooltip: TOOLTIP.cURLTooltip,
+            WFSTooltip: TOOLTIP.WFSTooltip,
             steps: [
                 'Location Parameters',
                 'Filter Results',
@@ -275,6 +278,39 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.querySelector('#dataProfilesBasic').dispatchEvent(new Event('change'));
                 document.querySelector('#csv').checked = true;
                 document.querySelector('#csv').dispatchEvent(new Event('change'));
+                this.step = 0;
+                this.showStepParameters()
+              },
+              onAdvancedStartOver(){
+                $('#params')[0].reset();
+                $('#countrycode').val(null).trigger('change');
+                $('#statecode').val(null).trigger('change');
+                $('#countycode').val(null).trigger('change');
+                $('#within').val(null).trigger('change');
+                $('#lat').val(null).trigger('change');
+                $('#long').val(null).trigger('change');
+                $('#north').val(null).trigger('change');
+                $('#south').val(null).trigger('change');
+                $('#east').val(null).trigger('change');
+                $('#west').val(null).trigger('change');
+                $('#siteType').val(null).trigger('change');
+                $('#organization').val(null).trigger('change');
+                $('#siteid').val(null).trigger('change');
+                $('#huc').val(null).trigger('change');
+                $('#sampleMedia').val(null).trigger('change');
+                $('#characteristicType').val(null).trigger('change');
+                $('#characteristicName').val(null).trigger('change');
+                $('#project-code').val(null).trigger('change');
+                $('#pCode').val(null).trigger('change');
+                $('#assemblage').val(null).trigger('change');
+                $('#subject-taxonomic-name').val(null).trigger('change');
+                $('#startDateHi').val(null).trigger('change');
+                $('#startDateLo').val(null).trigger('change');
+                $('#min-activities-div').val(null).trigger('change');
+                $('#minresults-div').val(null).trigger('change');
+                $('#dataSource').val(null).trigger('change');
+                $('#download-data-div').val(null).trigger('change');
+                $('#fileFormat').val(null).trigger('change');
                 this.step = 0;
                 this.showStepParameters()
               },

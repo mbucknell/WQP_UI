@@ -8,13 +8,17 @@ $black: #000;
 @import "layout.scss";
 @import "../../node_modules/uswds/dist/scss/uswds";
 
-body,
-html {
+body {
+  background-color: #bbc8f5; //USWDS indigo-cool-20
+}
 
+#forms {
+  background-color: white;
+  padding-top: 20px;
 }
 
 #main-header {
-  background-color: #253f60;
+  background-color: #253F60;
   padding-bottom: 5px;
 }
 
@@ -153,7 +157,6 @@ html {
 
 // Home Page form intro
 #formIntro {
-  margin-top: 20px;
   margin-bottom: 20px;
   background-color: #e6e6e6; //uswds gray 10
   box-sizing: border-box;
@@ -192,6 +195,14 @@ html {
       }
     }
   }
+}
+
+.usa-footer__primary-section {
+  background-color: #3d4551 !important; //USWDS gray-cool-70
+}
+
+#primary-footer a:link, #primary-footer a:visited {
+  color: white;
 }
 
 #close-announcement img {
@@ -352,15 +363,15 @@ html {
 }
 
 a:link {
-  color: grey;
+  color: #224a58; //USWDS blue-cool-70
 }
 
 a:visited {
-  color: grey;
+  color: #374274; //USWDS indigo-cool-70
 }
 
-#main-button {
-  float: left;
+.usa-link {
+  color: #224a58 !important; //USWDS blue-cool-70
 }
 
 #basic-main-button, #main-button {
@@ -372,7 +383,7 @@ a:visited {
 }
 
 .advancedLink {
-  color:#005ea2; 
+  color:#224a58; //USWDS blue-cool-70 
   text-decoration:underline; 
   cursor: pointer;
 }
@@ -549,7 +560,16 @@ a:visited {
   padding-top: 10px;
 }
 
-#datesLabel {
-  font-size: 14px; 
+#datesLabel { 
   padding:0px 10px 10px 0px;
+}
+
+#datesLabel, #datesLabelAdv {
+  font-size: 14px;
+  font-weight: normal !important;
+}
+
+#sites-map {
+  height: 600px;
+  width: 100%;
 }

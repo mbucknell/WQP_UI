@@ -89,7 +89,7 @@ export default {
      */
 	
     getFormUrl: function(resultType, queryParams) {
-        var result = Config.DOWNLOAD_URLS[resultType];
+        var result = Config.QUERY_URLS[resultType];
         if (queryParams) {
             result = result + '?' + queryParams;
         }

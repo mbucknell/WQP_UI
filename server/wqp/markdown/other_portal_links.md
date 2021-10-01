@@ -22,6 +22,10 @@ These are other sources of water quality data that the Water Quality Portal team
 
 ![Central and Northern California Coastal Ocean Observing System (CeNCOOS) Logo](/assets/img/other_portal_links_image6.png)
 
+[**Delaware Water Quality Portal**](http://demac.udel.edu/waterquality/)
+
+![Delaware Water Quality Portal Logo](/assets/img/other_portal_links_image17.png)
+
 [**Gulf of Mexico Coastal Ocean Observing System (GCOOS)**](https://data.gcoos.org/)
 
 ![Gulf of Mexico Coastal Ocean Observing System (GCOOS) Logo](/assets/img/other_portal_links_image7.png)
