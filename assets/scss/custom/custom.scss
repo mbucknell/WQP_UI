@@ -20,8 +20,14 @@ body {
 
 #main-header {
   background-color: #253F60;
-  padding-bottom: 5px;
 }
+
+@media (max-width: 1010px){
+	.usa-navbar {
+		justify-content: space-between;
+	}
+}
+
 
 .custom-nav-branding {
   display: flex;
@@ -31,6 +37,11 @@ body {
   img {
     width: 140px;
     height: auto;
+
+	@media (max-width: 1010px) {
+		width: auto !important;
+		height: 44px !important;
+	}
   }
 
   em {
@@ -45,10 +56,25 @@ body {
 
     a {
       text-decoration: none;
-      color: black;
+      color: white;
     }
   }
+
+  .usa-nav__link{
+	  color: white;
+  }
+
 }
+
+@media (min-width: 1010px){
+	.usa-nav__primary>.usa-nav__primary-item>a,
+	.usa-nav__link,
+	.usa-nav__primary button{
+		color: #fff;
+	}
+}
+
+
 
 #coverage-map-container {
   position: relative;
@@ -277,11 +303,6 @@ body {
 .menu-buttons {
   float: left;
   margin-top: 25px;
-}
-
-// Header styles
-.headerText {
-  color: white;
 }
 
 // Setting this on the usa-accordion__content usa-prose prevents clipping

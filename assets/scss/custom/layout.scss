@@ -8,12 +8,18 @@
 	box-sizing: border-box;
 	background-color: white;
 	padding: 35px 0;
+	max-width: 1300px;
+	margin: 0 auto;
 
 	.page-center-content{
 		margin: 0 auto;
-		max-width: 960px;
+		max-width: 1080px;
 		width: 95%;
 		display: block;
+
+		&.no-sidebar{
+			max-width: 880px;
+		}
 	}
 }
 
@@ -25,24 +31,35 @@
 	padding: 35px 0;
 
 	.sidebar{
-		width: 350px;
-		min-width: 350px;
+		width: 320px;
+		min-width: 320px;
 		box-sizing: border-box;
 		padding: 20px 0 20px 20px;
-		// position: sticky;
-		// top: 0;
+		margin-right: 20px;
+
+		// Shrink at <1000
+		@media (max-width: 1010px) {
+			width: 200px;
+			min-width: 200px;
+			margin-right: 10px;
+
+			ul li{
+				font-size: 85%;
+			}
+		}
+		// Hide sidebar on mobile
+		@media (max-width: 768px) {
+			display: none;
+		}
 	}
 
 	.page-sidebar-content{
-		flex-grow: 3;
 		display: block;
-		width: 95%;
-		max-width: 760px;
-		margin: s0 auto;
+		max-width: 840px;
 		background-color: white;
 		position: relative;
-		padding: 0 0 0 40px;
 		box-sizing: border-box;
+		padding: 0 30px;
 	}
 
 }
@@ -98,11 +115,4 @@
 	padding-top: 15px;
 	padding-left: 1.25rem;
 	padding-right: 1.25rem;
-}
-
-// TODO
-// Add sticky sidebar nav on guide pages?
-.sticky-sidebar{
-	position: sticky;
-	top: 0;
 }
