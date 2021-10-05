@@ -1,0 +1,111 @@
+<template>
+</template>
+
+<script>
+import queryService from '../queryService';
+import { getQueryString, getCurlString } from '../utils';
+import store from '../store/store.js'
+
+/*
+ * Initializes the windows which show the various API calls
+ * @param {Object} options
+ *      @prop {NodeList} container - The container containing the show button and the query windows.
+ *      @prop {Function} getQueryParamArray - Returns the current query parameter array
+ *      @prop {Function} getResultType - Returns the result type value the user selected in the form
+ *      @returns {Array of Objects with name and value properties}
+ */
+
+export default {
+  name: "ShowAPIView",
+  props: ['container', 'getQueryParamArray', 'getResultType'],
+  methods: {
+    initialize() {
+        this.showAPIViewVisible = false;
+        let apiQueryDiv = this.container.querySelector('#api-queries-div');
+        let apiQueryTitle = this.container.querySelector('#query-div b');
+        let apiQueryText = this.container.querySelector('#query-div textarea');
+        let curlText = this.container.querySelector('#curl-query-div textarea');
+        let wfsText = this.container.querySelector('#getfeature-query-div textarea');
+
+        const showServiceCallsHandler = () => {
+            let resultType = this.getResultType();
+            let queryParamArray = this.getQueryParamArray(this.container.closest("form"));
+            const queryParamsWithoutCSRFToken = queryParamArray.filter( param => param.name !== 'csrf_token' );
+
+            let apiQueryString = queryService.getFormUrl(resultType, getQueryString(queryParamsWithoutCSRFToken));
+            let curlString = getCurlString(resultType, queryParamsWithoutCSRFToken);
+
+            apiQueryDiv.style.display = "block";
+            apiQueryTitle.innerHTML = resultType.replace(/([A-Z])/g, ' $1');
+            apiQueryText.innerHTML = apiQueryString;
+            curlText.innerHTML = curlString;
+            
+            if(queryParamsWithoutCSRFToken.filter( param => param.name.includes('dataProfile'))){
+                let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter( param => param.name !== 'dataProfile' );
+                wfsText.innerHTML = L.WQPSitesLayer.getWfsGetFeatureUrl(queryWithoutDataProfileArray);
+            }else{
+                wfsText.innerHTML = L.WQPSitesLayer.getWfsGetFeatureUrl(queryParamsWithoutCSRFToken);
+            }
+        };
+
+        // Update the service calls when the
+            this.showAPIViewVisible = true;
+            showServiceCallsHandler();
+
+        this.container.closest('form').onchange = () => {
+            if (this.showAPIViewVisible) {
+                showServiceCallsHandler();
+            }
+        };
+        document.querySelector('#advanced-tab').onclick = () => {
+            this.showAPIViewVisible;
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        }
+        document.querySelector('.advancedLink').onclick = () => {
+            this.showAPIViewVisible;
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        }
+
+        this.setUpWatchers();
+    },
+    setUpWatchers() {
+        store.watch(() => store.state.countrySelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.stateSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.countySelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.sitetypeSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.siteIDSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.projIDSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.orgIDSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.chargroupSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.sampleMediaSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.charSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.assemblageSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+        store.watch(() => store.state.taxSelectedState, () => {
+            this.container.closest('form').dispatchEvent(new Event('change'));
+        });
+    }
+  },
+}
+</script>

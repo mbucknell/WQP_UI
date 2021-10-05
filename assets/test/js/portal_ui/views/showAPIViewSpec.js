@@ -1,25 +1,30 @@
-import ShowAPIView from '../../../../js/views/showAPIView';
-
+import ShowAPIView from '../../../../js/views/ShowAPIView.vue';
+import { shallowMount } from '@vue/test-utils';
 
 describe('Tests for ShowAPIViewSpec', function() {
-    let $testDiv;
+    let testDiv;
+    let testForm;
 
     beforeEach(function() {
-        $('body').append('<div id="test-div">' +
-            '<button type="button"  id="show-queries-button"></button>' +
-                '<div id="query-div"><textarea></textarea></div>' +
+        document.body.innerHTML = '<form><div id="test-div">' +
+                '<div id="api-queries-div">' +
+                '<div id="query-div"><b></b><textarea></textarea></div>' +
                 '<div id="curl-query-div"><textarea></textarea></div>' +
                 '<div id="getfeature-query-div"><textarea></textarea></div>' +
-                '</div>'
-        );
-        $testDiv = $('#test-div');
+                '</div>' +
+                '<input id="advanced-tab"></input>' +
+                '<input class="advancedLink"></input>' +
+                '</div></form>'
+
+        testDiv = document.querySelector('#test-div');
+        testForm = document.querySelector('form');
     });
 
     afterEach(function() {
-        $testDiv.remove();
+        testDiv.remove();
     });
 
-    it('expect that clicking on the show-queries-button fills in the text areas appropriately.', function() {
+    it('expect that changing the form fills in the text areas appropriately.', function() {
         let testView;
         let mockGetQueryParamArray;
         let mockGetResultType;
@@ -33,20 +38,22 @@ describe('Tests for ShowAPIViewSpec', function() {
 
         mockGetResultType = jasmine.createSpy('mockGetResultType').and.returnValue('Station');
 
-        testView = new ShowAPIView({
-            $container : $testDiv,
-            getQueryParamArray : mockGetQueryParamArray,
-            getResultType: mockGetResultType
+        testView = shallowMount(ShowAPIView, {
+            propsData: {
+                container : testDiv,
+                getQueryParamArray : mockGetQueryParamArray,
+                getResultType: mockGetResultType
+            }
         });
 
-        testView.initialize();
-        $('#show-queries-button').trigger('click');
-        expect($('#query-div textarea').html()).toContain('Station?Testparam1=value1&amp;Testparam2=value2');
-        expect($('#curl-query-div textarea').html()).toContain('{"Testparam1":"value1","Testparam2":"value2"}');
-        expect($('#getfeature-query-div textarea').html()).toContain('SEARCHPARAMS=' + encodeURIComponent('Testparam1:value1;Testparam2:value2'));
+        testView.vm.initialize();
+        testForm.dispatchEvent(new Event('change'));
+        expect(document.querySelector('#query-div textarea').innerHTML).toContain('Station?Testparam1=value1&amp;Testparam2=value2');
+        expect(document.querySelector('#curl-query-div textarea').innerHTML).toContain('{"Testparam1":"value1","Testparam2":"value2"}');
+        expect(document.querySelector('#getfeature-query-div textarea').innerHTML).toContain('SEARCHPARAMS=' + encodeURIComponent('Testparam1:value1;Testparam2:value2'));
     });
 
-    it('expect that clicking on the show-queries-button will show dataProfile parameter when appropriate.', function() {
+    it('expect that changing the form will show dataProfile parameter when appropriate.', function() {
         let testView;
         let mockGetQueryParamArray;
         let mockGetResultType;
@@ -61,21 +68,24 @@ describe('Tests for ShowAPIViewSpec', function() {
 
         mockGetResultType = jasmine.createSpy('mockGetResultType').and.returnValue('Result');
 
-        testView = new ShowAPIView({
-            $container : $testDiv,
-            getQueryParamArray : mockGetQueryParamArray,
-            getResultType: mockGetResultType
+        testView = shallowMount(ShowAPIView, {
+            propsData: {
+                container : testDiv,
+                getQueryParamArray : mockGetQueryParamArray,
+                getResultType: mockGetResultType
+            }
         });
-        testView.initialize();
-        $('#show-queries-button').trigger('click');
 
-        expect($('#query-div textarea').html()).toContain('Result?dataProfile=narrow&amp;Testparam1=value1&amp;Testparam2=value2');
-        expect($('#curl-query-div textarea').html()).toContain('Result?mimeType=fakeMimeType&amp;zip=fakeZipValue');
-        expect($('#curl-query-div textarea').html()).toContain('{"dataProfile":"narrow","Testparam1":"value1","Testparam2":"value2"}');
-        expect($('#getfeature-query-div textarea').html()).toContain('SEARCHPARAMS=' + encodeURIComponent('Testparam1:value1;Testparam2:value2'));
+        testView.vm.initialize();
+        testForm.dispatchEvent(new Event('change'));
+
+        expect(document.querySelector('#query-div textarea').innerHTML).toContain('Result?dataProfile=narrow&amp;Testparam1=value1&amp;Testparam2=value2');
+        expect(document.querySelector('#curl-query-div textarea').innerHTML).toContain('Result?mimeType=fakeMimeType&amp;zip=fakeZipValue');
+        expect(document.querySelector('#curl-query-div textarea').innerHTML).toContain('{"dataProfile":"narrow","Testparam1":"value1","Testparam2":"value2"}');
+        expect(document.querySelector('#getfeature-query-div textarea').innerHTML).toContain('SEARCHPARAMS=' + encodeURIComponent('Testparam1:value1;Testparam2:value2'));
     });
 
-    it('expect that clicking on the show-queries-button will not show the csrf_token parameter in any service call.', function() {
+    it('expect that changing the form will not show the csrf_token parameter in any service call.', function() {
         let testView;
         let mockGetQueryParamArray;
         let mockGetResultType;
@@ -91,17 +101,20 @@ describe('Tests for ShowAPIViewSpec', function() {
 
         mockGetResultType = jasmine.createSpy('mockGetResultType').and.returnValue('Result');
 
-        testView = new ShowAPIView({
-            $container : $testDiv,
-            getQueryParamArray : mockGetQueryParamArray,
-            getResultType: mockGetResultType
+        testView = shallowMount(ShowAPIView, {
+            propsData: {
+                container : testDiv,
+                getQueryParamArray : mockGetQueryParamArray,
+                getResultType: mockGetResultType
+            }
         });
-        testView.initialize();
-        $('#show-queries-button').trigger('click');
 
-        expect($('#query-div textarea').html()).not.toContain('csrf_token=fakeCSRFToken');
-        expect($('#curl-query-div textarea').html()).not.toContain('csrf_token=fakeCSRFToken');
-        expect($('#getfeature-query-div textarea').html()).not.toContain('csrf_token=fakeCSRFToken');
+        testView.vm.initialize();
+        testForm.dispatchEvent(new Event('change'));
+
+        expect(document.querySelector('#query-div textarea').innerHTML).not.toContain('csrf_token=fakeCSRFToken');
+        expect(document.querySelector('#curl-query-div textarea').innerHTML).not.toContain('csrf_token=fakeCSRFToken');
+        expect(document.querySelector('#getfeature-query-div textarea').innerHTML).not.toContain('csrf_token=fakeCSRFToken');
     });
 });
 

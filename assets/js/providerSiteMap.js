@@ -1,5 +1,5 @@
-import createWQPMap from './generalMapping';
-
+import GeneralMapping from './GeneralMapping.vue';
+import Vue from 'vue';
 
 /**
  * Create a map showing the location of a specific WQP site.
@@ -9,6 +9,10 @@ import createWQPMap from './generalMapping';
  * @param {object} options An object containing mapDivId (div containing the map) and mapZoom (zoom level) attributes
  * @returns {L.map|*}
  */
+
+let generalMappingClass = Vue.extend(GeneralMapping);
+let generalMapping = new generalMappingClass();
+
 export default function siteMap(latitude, longitude, options) {
     var mapDivId = options.mapDivId;
     var zoom = options.mapZoom;
@@ -16,7 +20,7 @@ export default function siteMap(latitude, longitude, options) {
     var hydroLayerEndpoint = Config.HYDRO_LAYER_ENDPOINT;
     var flowlineEndpoint = Config.NHDPLUS_FLOWLINE_ENDPOINT;
     var layername = Config.NHDPLUS_FLOWLINE_LAYER_NAME;
-    map = createWQPMap(mapDivId, 'Esri.WorldGrayCanvas');
+    map = generalMapping.createWQPMap(mapDivId, 'Esri.WorldGrayCanvas');
 
     var esriHydroLayer = L.esri.tiledMapLayer({
         url: hydroLayerEndpoint

@@ -6,11 +6,10 @@ $black: #000;
 
 // Import all other custom scss files
 @import "layout.scss";
-
 @import "../../node_modules/uswds/dist/scss/uswds";
 
 body {
-  background-color: #bbc8f5; //USWDS indigo-cool-20
+  background-color: white;
 }
 
 #forms {
@@ -143,14 +142,14 @@ body {
       border-radius: 5px;
       padding: 5px;
 
-      .usa-radio label{
-        margin: 12px 5px 5px 5px;
-      }
-
-      #nldi-selector-title {
+	  #nldi-selector-title {
         font-weight: bold;
         font-size: 14px;
         margin: 5px 5px 5px 12px;
+      }
+
+      .usa-radio label{
+        margin: 12px 5px 5px 5px;
       }
     }
 
@@ -158,6 +157,7 @@ body {
       display: inline-flex; 
       justify-content: center;
     }
+
 
     // Reset easy button
     .easy-button-button {
@@ -194,6 +194,7 @@ body {
     margin: 25px 0 0 0;
 
     .usa-card__body.links-only {
+
       a {
         font-size: 15px;
         line-height: 16px;
@@ -281,6 +282,7 @@ body {
   width: 45%;
   float: right;
 }
+
 #endDate {
   width: 45%;
   float: right;
@@ -309,11 +311,14 @@ body {
 #locationaccordion {
   overflow: visible;
   margin-bottom: 5px;
+  box-sizing: border-box;
 }
+
 #filteraccordion {
   overflow: visible;
   margin-bottom: 5px;
 }
+
 #downloadaccordion {
   overflow: visible;
 }
@@ -447,36 +452,29 @@ a:visited {
   background-color: white;
 }
 
-//Select2
-//matching select2 style to usa-input style
-.select2-container--focus {
-  outline: 0.25rem solid #2491ff !important;
-  outline-offset: 0 !important;
+//vue multiselect
+//matching multiselect style to usa-input style
+.multiselect__tags, .multiselect__input {
+  font-size: 1.06rem !important;
 }
 
-.select2-search__field {
-  font-family: inherit !important;
-  font-size: inherit !important;
-  min-height: 32px;
-  height: auto !important;
-  padding: 0.5rem !important;
-  width: 100% !important;
-}
-
-.select2-selection__choice {
-  white-space: normal !important;
-  margin-right: 5px !important;
-}
-
-.select2-selection {
-  font-size: inherit !important;
+.multiselect__tags {
+  border-width: 1px !important;
   border-color: #565c65 !important;
   border-style: solid !important;
   border-radius: 0 !important;
 }
 
-.select2-selection--multiple {
-  box-shadow: none !important;
+.multiselect__input:focus {
+  outline: none !important;
+}
+
+.multiselect:focus-within {
+  outline: .25rem solid #2491ff !important;
+}
+
+.multiselect__tag, .multiselect__option--highlight, .multiselect__option--selected.multiselect__option--highlight {
+  background: #005ea2 !important;
 }
 
 //USWDS

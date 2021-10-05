@@ -60,7 +60,6 @@ const fipsMap = {
     '74': {name: 'U.S. Minor Outlying Islands', postalCode: 'UM'},
     '78': {name: 'Virgin Islands of the U.S.', postalCode: 'VI'}
 };
-
 export const getPostalCode = function (fips/* String */) {
     if (fipsMap[fips]) {
         return fipsMap[fips].postalCode;
@@ -76,6 +75,7 @@ export const getName = function (fips /* string */) {
         return '';
     }
 };
+
 
 export const getFromPostalCode = function (postalCode /* String */) {
     for (var fips in fipsMap) {

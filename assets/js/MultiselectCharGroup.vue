@@ -1,0 +1,47 @@
+<template>
+    <multiselect v-model="chargroupValue" @input="updateSelected" name="charGroup" tag-placeholder="All Characteristic Groups" placeholder="All Characteristic Groups" aria-label="Input box for characteristic groups parameter" label="text" track-by="id" select-label="" :max-height="200" :options="chargroupOptions" :multiple="true" :taggable="true">
+      <span slot="noOptions">Type to search</span>
+      <span slot="noResult">No results found</span>
+    </multiselect>
+</template>
+
+<script>
+import Vue from 'vue';
+import Multiselect from 'vue-multiselect';
+
+export default {
+  name: "MultiselectCharGroup",
+  components: {
+    "multiselect": Multiselect.Multiselect
+  },
+  data () {
+    return {
+      chargroupValue: [],
+      chargroupOptions: [],
+    }
+  },
+  methods: {
+    updateSelected(value) {
+      this.chargroupValue = value;
+      this.$store.commit("getChargroupState", this.chargroupValue);
+    },
+    updateOptions(value) {
+      this.chargroupOptions = value;
+    },
+  },
+  watch: {
+    "$store.state.chargroupSelectedState": {
+      deep: true,
+      handler(){
+        this.updateSelected(this.$store.state.chargroupSelectedState);
+      }
+    },
+    "$store.state.chargroupOptionsState": {
+      deep: true,
+      handler(){
+        this.updateOptions(this.$store.state.chargroupOptionsState);
+      }
+    },
+  }
+}
+</script>

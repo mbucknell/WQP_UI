@@ -1,5 +1,5 @@
-import createWQPMap from './generalMapping';
-
+import GeneralMapping from './GeneralMapping.vue';
+import Vue from 'vue';
 
 /**
  * Create a leaflet map for all the sites in an organization that
@@ -8,6 +8,9 @@ import createWQPMap from './generalMapping';
  *
  * @param {object} options An object containing mapDivId (div containing the map) and mapZoom (zoom level) attributes
  */
+ let generalMappingClass = Vue.extend(GeneralMapping);
+ let generalMapping = new generalMappingClass();
+
 export default function sitesMap(options) {
     var siteData = Config.sitesData;
     var localBaseUrl = Config.localBaseUrl;
@@ -15,7 +18,7 @@ export default function sitesMap(options) {
     var zoom = options.mapZoom;
     var map;
 
-    map = createWQPMap(mapDivId, 'Esri.WorldTopoMap');
+    map = generalMapping.createWQPMap(mapDivId, 'Esri.WorldTopoMap');
     map.setView([35.9908385, -78.9005222], zoom);
 
     var getValue = function (x) {

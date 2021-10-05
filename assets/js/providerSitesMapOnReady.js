@@ -1,6 +1,6 @@
 import sitesMap from './providerSitesMap';
 
 
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
     sitesMap({mapDivId: 'sites-map', mapZoom: 3});
 });

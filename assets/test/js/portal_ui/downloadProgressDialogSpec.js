@@ -1,10 +1,12 @@
-import DownloadProgressDialog from '../../../js/downloadProgressDialog';
-import providers from '../../../js/providers';
+import DownloadProgressDialog from '../../../js/DownloadProgressDialog.vue';
+import { shallowMount } from '@vue/test-utils';
+import Providers from '../../../js/Providers.vue';
 
 
 describe('Tests for DownloadProgressDialog', function () {
-    var thisDialog;
     var continueSpy;
+    let wrapper;
+    let providers;
 
     beforeEach(function () {
         let modalDiv = document.createElement('div');
@@ -17,7 +19,13 @@ describe('Tests for DownloadProgressDialog', function () {
                 '<ul class="usa-button-group" id="downloadButtons"></ul>'+
             '</div>'
 
-        thisDialog = new DownloadProgressDialog(document.getElementById('download-status-modal'), "advanced");
+        wrapper = shallowMount(DownloadProgressDialog, {
+            propsData: {
+              el: document.getElementById('download-status-modal'),
+              formType: "advanced"
+            }
+        });
+        providers = shallowMount(Providers);
         continueSpy = jasmine.createSpy('continueSpy');
     });
     afterEach(function () {
@@ -25,13 +33,13 @@ describe('Tests for DownloadProgressDialog', function () {
     });
 
     it('Expects the dialog to be visible with appropriate content and header when show is called', function () {
-        thisDialog.show('map');
+        wrapper.vm.show('map');
         expect(document.getElementById('download-status-modal').hidden).toBe(false);
         expect(document.getElementById('download-modal-heading').innerHTML).toContain('Map Sites');
         expect(document.getElementById('download-modal-description').innerHTML).toContain('Please wait');
         expect(document.getElementById('downloadButtons').innerHTML).toEqual('');
 
-        thisDialog.show('download');
+        wrapper.vm.show('download');
         expect(document.getElementById('download-status-modal').hidden).toBe(false);
         expect(document.getElementById('download-modal-heading').innerHTML).toContain('Download');
         expect(document.getElementById('download-modal-description').innerHTML).toContain('Please wait');
@@ -41,8 +49,8 @@ describe('Tests for DownloadProgressDialog', function () {
     describe('Tests for updateProgress when dialog is for map', function () {
         var counts;
         beforeEach(function () {
-            spyOn(providers, 'getIds').and.returnValue(['DS1', 'DS2']);
-            thisDialog.show('map');
+            spyOn(providers.vm, 'getIds').and.returnValue(['DS1', 'DS2']);
+            wrapper.vm.show('map');
 
             counts = {
                 DS1: {
@@ -68,7 +76,7 @@ describe('Tests for DownloadProgressDialog', function () {
 
         it('Expects when totalCounts exceed limit that download is canceled', function () {
             counts.total.sites = '250,001';
-            thisDialog.updateProgress(counts, 'Station', 'xml', continueSpy);
+            wrapper.vm.updateProgress(counts, 'Station', 'xml', continueSpy);
 
             expect(document.getElementById('download-modal-description').innerHTML).toContain('query is returning more than 250,000 sites');
             expect(document.getElementById('downloadButtons').innerHTML).toEqual('<li class="usa-button-group__item"><button type="button" class="usa-button" id="progressOkBtn" data-close-modal="">Ok</button></li>');
@@ -83,7 +91,7 @@ describe('Tests for DownloadProgressDialog', function () {
 
         it('Expects when totalCounts is under limit, that the status message is updated to allow the action', function () {
             counts.total.sites = '249,999';
-            thisDialog.updateProgress(counts, 'Station', 'xml', continueSpy);
+            wrapper.vm.updateProgress(counts, 'Station', 'xml', continueSpy);
 
             expect(document.getElementById('download-modal-description').innerHTML).toContain('map the sites');
             expect(document.getElementById('progressOkBtn')).toBe(null);
@@ -94,8 +102,8 @@ describe('Tests for DownloadProgressDialog', function () {
             expect(document.getElementById('download-status-modal').hidden).toBe(true);
             expect(continueSpy).not.toHaveBeenCalled();
 
-            thisDialog.show('map');
-            thisDialog.updateProgress(counts, 'Station', 'xml', continueSpy);
+            wrapper.vm.show('map');
+            wrapper.vm.updateProgress(counts, 'Station', 'xml', continueSpy);
 
             document.getElementById('continueButton').dispatchEvent(e);
             expect(continueSpy).toHaveBeenCalledWith('249,999');
@@ -106,8 +114,8 @@ describe('Tests for DownloadProgressDialog', function () {
     describe('Tests for updateProgress when dialog is for download', function () {
         var counts;
         beforeEach(function () {
-            spyOn(providers, 'getIds').and.returnValue(['DS1', 'DS2']);
-            thisDialog.show('download');
+            spyOn(providers.vm, 'getIds').and.returnValue(['DS1', 'DS2']);
+            wrapper.vm.show('download');
 
             counts = {
                 DS1: {
@@ -138,7 +146,7 @@ describe('Tests for DownloadProgressDialog', function () {
                 activities : '0',
                 activitymetrics: '0'
             };
-            thisDialog.updateProgress(counts, 'Station', 'csv', continueSpy);
+            wrapper.vm.updateProgress(counts, 'Station', 'csv', continueSpy);
 
             expect(document.getElementById('download-modal-description').innerHTML).toContain('download the data');
             expect(document.getElementById('progressOkBtn')).toBe(null);
@@ -149,8 +157,8 @@ describe('Tests for DownloadProgressDialog', function () {
             expect(document.getElementById('download-status-modal').hidden).toBe(true);
             expect(continueSpy).toHaveBeenCalledWith('250,001');
 
-            thisDialog.show('download', continueSpy);
-            thisDialog.updateProgress(counts, 'Result', 'tsv', continueSpy);
+            wrapper.vm.show('download', continueSpy);
+            wrapper.vm.updateProgress(counts, 'Result', 'tsv', continueSpy);
 
             expect(document.getElementById('download-modal-description').innerHTML).toContain('download the data');
             expect(document.getElementById('progressOkBtn')).toBe(null);
@@ -169,7 +177,7 @@ describe('Tests for DownloadProgressDialog', function () {
                 activities : '0',
                 activitymetrics: '0'
             };
-            thisDialog.updateProgress(counts, 'Station', 'xlsx', continueSpy);
+            wrapper.vm.updateProgress(counts, 'Station', 'xlsx', continueSpy);
 
             expect(document.getElementById('download-modal-description').innerHTML).toContain('download the data');
             expect(document.getElementById('progressOkBtn')).toBe(null);
@@ -188,7 +196,7 @@ describe('Tests for DownloadProgressDialog', function () {
                 activities : '0',
                 activitymetrics: '0'
             };
-            thisDialog.updateProgress(counts, 'Result', 'xlsx', continueSpy);
+            wrapper.vm.updateProgress(counts, 'Result', 'xlsx', continueSpy);
 
             expect(document.getElementById('download-modal-description').innerHTML).toContain('more than 1,048,575');
             expect(document.getElementById('downloadButtons').innerHTML).toEqual('<li class="usa-button-group__item"><button type="button" class="usa-button" id="progressOkBtn" data-close-modal="">Ok</button></li>');
@@ -203,8 +211,8 @@ describe('Tests for DownloadProgressDialog', function () {
     });
 
     it('Expects a call to cancelProgress to show the message and an ok button', function () {
-        thisDialog.show('download');
-        thisDialog.cancelProgress('Cancel message');
+        wrapper.vm.show('download');
+        wrapper.vm.cancelProgress('Cancel message');
         expect(document.getElementById('download-modal-description').innerHTML).toContain('Cancel message');
         expect(document.getElementById('downloadButtons').innerHTML).toEqual('<li class="usa-button-group__item"><button type="button" class="usa-button" id="progressOkBtn" data-close-modal="">Ok</button></li>');
         expect(document.getElementById('closeDownloadModal')).toBe(null);
