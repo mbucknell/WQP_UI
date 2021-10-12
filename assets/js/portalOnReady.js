@@ -137,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
             stepTwo: false,
             stepThree: false,
             providers: [],
+            showIntro: false
         },
         mounted: function() {
 
@@ -162,9 +163,17 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(function(){
               self.initialize()
             })
+
+            // show or hide intro
+            const localStorageSetting = localStorage.getItem("showIntro");
+            if (localStorageSetting !== "false") {
+              this.showIntro = true;
+            }
         },
         methods: {
             initialize() {
+                
+                
                 // Handler for closing site announcement
                 const announcement = document.getElementById("siteAnnouncement")
                 const announcementcloseButton = document.getElementById("close-announcement")
@@ -641,6 +650,13 @@ document.addEventListener("DOMContentLoaded", function() {
                   document.querySelector('#startDateHiBasic').value = end;
                   document.querySelector('#startDateHiBasic').dispatchEvent(new Event('change'));
                 });
+              },
+              setLocalStorage($event) {
+                if ($event.target.checked) {
+                  localStorage.setItem("showIntro", "false");
+                } else {
+                  localStorage.setItem("showIntro", "true");
+                }
               }
         }
     });
