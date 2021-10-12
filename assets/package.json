@@ -107,8 +107,5 @@
     "vue": "^2.6.14",
     "vue-multiselect": "^2.1.6",
     "vuex": "^3.6.2"
-  },
-  "optionalDependencies": {
-    "fsevents": "^1.2.13"
   }
 }
