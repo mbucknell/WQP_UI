@@ -1,26 +1,38 @@
-import NldiNavPopupView from '../../../../js/views/nldiNavPopupView';
-import * as nldiModel from '../../../../js/nldiModel';
-
+import NldiNavPopupView from '../../../../js/views/NldiNavPopupView.vue';
+import NldiModel from '../../../../js/NldiModel.vue';
+import { shallowMount } from '@vue/test-utils';
 
 describe('nldiNavViewPopupView', function() {
-    var $testDiv;
+    var testDiv;
     var testMap;
     var navHandlerSpy;
+    let nldiModel;
+    let nldiNavPopup;
 
     beforeEach(function() {
-        $('body').append('<div id=test-div style="height: 30px; width: 30px;"></div>');
-        $testDiv = $('#test-div');
+        document.body.innerHTML = '<div id=test-div style="height: 30px; width: 30px;"></div>';
+        testDiv = document.querySelector('#test-div');
         testMap = L.map('test-div', {
             center: [43.0, -100.0],
             zoom: 4
         });
 
         navHandlerSpy = jasmine.createSpy('navHandlerSpy');
-        new NldiNavPopupView(testMap, {}, L.latLng(43.0, -100.0), navHandlerSpy);
+
+        nldiModel = shallowMount(NldiModel);
+        nldiNavPopup = shallowMount(NldiNavPopupView, {
+            propsData: {
+                onMap: testMap, 
+                feature: {},
+                atLatLng: L.latLng(43.0, -100.0), 
+                navHandler: navHandlerSpy,
+            }
+        });
+        nldiNavPopup.vm.initialize();
     });
 
     afterEach(function() {
-        $testDiv.remove();
+        testDiv.remove();
     });
 
     it('Expects that when updating the navigation type, the nldiModel is updated and the Navigate button is enabled', function() {
@@ -34,7 +46,7 @@ describe('nldiNavViewPopupView', function() {
         select.selectedOptions[0].value = 'UM';
         select.dispatchEvent(e);
 
-        expect(nldiModel.getData().navigation.id).toEqual('UM');
+        expect(nldiModel.vm.getData().navigation.id).toEqual('UM');
         expect(button.disabled).toBe(false);
     });
 
@@ -44,7 +56,7 @@ describe('nldiNavViewPopupView', function() {
         distance.value = '100';
         distance.dispatchEvent(e);
 
-        expect(nldiModel.getData().distance).toEqual('100');
+        expect(nldiModel.vm.getData().distance).toEqual('100');
     });
 
     it('Expects that clicking the button causes the navHandler to be executed', function() {

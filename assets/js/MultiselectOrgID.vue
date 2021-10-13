@@ -1,8 +1,13 @@
 <template>
-    <multiselect v-model="orgIDValue" @input="updateSelected" tag-placeholder="All Organization IDs" name="organization" placeholder="All Organization IDs" aria-label="Input box for organization ID parameter" label="text" track-by="id" select-label="" :max-height="200" :options="orgIDOptions" :multiple="true" :taggable="true">
+  <div>
+    <select :multiple="true" class="hidden-input" name="organization">
+      <option v-for="option in orgID" :value="option" selected></option>
+    </select>
+    <multiselect v-model="orgIDValue" @input="updateSelected" tag-placeholder="All Organization IDs" placeholder="All Organization IDs" aria-label="Input box for organization ID parameter" label="text" track-by="id" select-label="" :max-height="200" :options="orgIDOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
+  </div>
 </template>
 
 <script>
@@ -18,11 +23,21 @@ export default {
     return {
       orgIDValue: [],
       orgIDOptions: [],
+      orgID: [],
     }
   },
   methods: {
     updateSelected(value) {
       this.orgIDValue = value;
+      let self = this;
+      this.orgID = [];
+      if(this.orgIDValue[0] !== undefined){
+        this.orgIDValue.forEach(function(value){
+          self.orgID.push(value.id);
+        })
+      }else{
+        this.orgID = [];
+      }
       this.$store.commit("getOrgIDState", value);
     },
     updateOptions(value) {

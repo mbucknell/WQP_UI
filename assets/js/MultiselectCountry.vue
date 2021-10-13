@@ -1,8 +1,13 @@
 <template>
-    <multiselect v-model="countryValue" name="countrycode" @input="updateSelected" tag-placeholder="All Countries" placeholder="All Countries" aria-label="Input box for country parameter" label="text" track-by="id" select-label="" :max-height="200" :options="countryOptions" :multiple="true" :taggable="true">
+  <div>
+    <select :multiple="true" class="hidden-input" name="countrycode">
+      <option v-for="option in country" :value="option" selected></option>
+    </select>
+    <multiselect v-model="countryValue" @input="updateSelected" tag-placeholder="All Countries" placeholder="All Countries" aria-label="Input box for country parameter" label="text" track-by="id" select-label="" :max-height="200" :options="countryOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
+  </div>
 </template>
 
 <script>
@@ -20,11 +25,21 @@ export default {
     return {
       countryValue: [],
       countryOptions: [],
+      country: [],
     }
   },
   methods: {
     updateSelected(value) {
       this.countryValue = value;
+      let self = this;
+      this.country = [];
+      if(this.countryValue[0] !== undefined){
+        this.countryValue.forEach(function(value){
+          self.country.push(value.id);
+        })
+      }else{
+        this.country = [];
+      }
       this.$store.commit("getCountryState", value);
     },
     updateOptions(value) {

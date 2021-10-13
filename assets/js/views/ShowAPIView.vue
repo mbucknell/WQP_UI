@@ -31,12 +31,22 @@ export default {
             let resultType = this.getResultType();
             let queryParamArray = this.getQueryParamArray(this.container.closest("form"));
             const queryParamsWithoutCSRFToken = queryParamArray.filter( param => param.name !== 'csrf_token' );
-
-            let apiQueryString = queryService.getFormUrl(resultType, getQueryString(queryParamsWithoutCSRFToken));
-            let curlString = getCurlString(resultType, queryParamsWithoutCSRFToken);
+            let apiQueryString;
+            let curlString;
+            if (resultType !== null){
+                apiQueryString = queryService.getFormUrl(resultType, getQueryString(queryParamsWithoutCSRFToken));
+                curlString = getCurlString(resultType, queryParamsWithoutCSRFToken);
+            }else{
+                apiQueryString = queryService.getFormUrl("Station", getQueryString(queryParamsWithoutCSRFToken));
+                curlString = getCurlString("Station", queryParamsWithoutCSRFToken);
+            }
 
             apiQueryDiv.style.display = "block";
-            apiQueryTitle.innerHTML = resultType.replace(/([A-Z])/g, ' $1');
+            if(resultType !== null){
+                apiQueryTitle.innerHTML = resultType.replace(/([A-Z])/g, ' $1');
+            }else{
+                apiQueryTitle.innerHTML = "Station";
+            }
             apiQueryText.innerHTML = apiQueryString;
             curlText.innerHTML = curlString;
             

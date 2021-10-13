@@ -127,7 +127,11 @@ export default {
         });
     },
     getResultType() {
-        return document.querySelector('input.result-type:checked').value;
+        if(document.querySelector('input.result-type:checked') !== null){
+            return document.querySelector('input.result-type:checked').value;
+        }else{
+            return null;
+        }
     },
     getMimeType() {
         return this.container.querySelector('input[name="mimeType"]:checked').value;
