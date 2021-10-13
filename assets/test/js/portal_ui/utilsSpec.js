@@ -75,27 +75,27 @@ describe('Test PORTAl.UTILS package', function () {
         beforeEach(function () {
             let buttonHtml = '<button id="show-hide-toggle" title="Show content">' +
                 '<img src="img/expand.png" alt="show" /></button>';
-            $('body').append('<div id="test-div">' + buttonHtml + '<div id="content-div" style="display:none;">Here\'s the content</div></div>');
+            document.body.innerHTML = '<div id="test-div">' + buttonHtml + '<div id="content-div" style="display:none;">Here\'s the content</div></div>';
         });
 
         afterEach(function () {
-            $('#test-div').remove();
+            document.querySelector('#test-div').remove();
         });
 
         it('Expects when toggleShowHideSections is called content is hidden', function () {
-            let isVisible = toggleShowHideSections($('#show-hide-toggle'), $('#content-div'));
+            let isVisible = toggleShowHideSections(document.querySelector('#show-hide-toggle'), document.querySelector('#content-div'));
             expect(isVisible).toBe(true);
-            expect($('#show-hide-toggle').attr('title')).toContain('Hide');
-            expect($('#show-hide-toggle img').attr('alt')).toEqual('hide');
+            expect(document.querySelector('#show-hide-toggle').getAttribute('title')).toContain('Hide');
+            expect(document.querySelector('#show-hide-toggle img').getAttribute('alt')).toEqual('hide');
         });
 
         it('Expects when toggleShowHideSections is called twice, the content is shown', function () {
-            let isVisible = toggleShowHideSections($('#show-hide-toggle'), $('#content-div'));
-            isVisible = toggleShowHideSections($('#show-hide-toggle'), $('#content-div'));
+            let isVisible = toggleShowHideSections(document.querySelector('#show-hide-toggle'), document.querySelector('#content-div'));
+            isVisible = toggleShowHideSections(document.querySelector('#show-hide-toggle'), document.querySelector('#content-div'));
 
             expect(isVisible).toBe(false);
-            expect($('#show-hide-toggle').attr('title')).toContain('Show');
-            expect($('#show-hide-toggle img').attr('alt')).toEqual('show');
+            expect(document.querySelector('#show-hide-toggle').getAttribute('title')).toContain('Show');
+            expect(document.querySelector('#show-hide-toggle img').getAttribute('alt')).toEqual('show');
         });
     });
 
@@ -135,28 +135,28 @@ describe('Test PORTAl.UTILS package', function () {
 
     describe('initializeTextInput', () => {
 
-        let $testInput;
+        let testInput;
         beforeEach(() => {
-            $('body').append('<input type="text" id="test-id" name="testname" />');
-            $testInput = $('#test-id');
+            document.body.innerHTML = '<input type="text" id="test-id" name="testname" />';
+            testInput = document.querySelector('#test-id');
         });
 
         afterEach(() => {
-            $testInput.remove();
+            testInput.remove();
         });
 
         it('does not set the value if the anchor part does not contain testname', () => {
             window.location.hash = '#name1=val1';
-            initializeInput($testInput);
+            initializeInput(testInput);
 
-            expect($testInput.val()).toEqual('');
+            expect(testInput.value).toEqual('');
         });
 
         it('sets the value if the anchor part does contain testname', () => {
             window.location.hash = '#name1=val1&testname=val2';
-            initializeInput($testInput);
+            initializeInput(testInput);
 
-            expect($testInput.val()).toEqual('val2');
+            expect(testInput.value).toEqual('val2');
         });
     });
 

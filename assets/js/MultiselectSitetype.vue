@@ -1,8 +1,13 @@
 <template>
-    <multiselect v-model="sitetypeValue" @input="updateSelected" name="siteType" tag-placeholder="All Site Types" placeholder="All Site Types" aria-label="Input box for site type parameter" label="text" track-by="id" select-label="" :max-height="200" :options="sitetypeOptions" :multiple="true" :taggable="true">
+  <div>
+    <select :multiple="true" class="hidden-input" name="siteType">
+      <option v-for="option in sitetype" :value="option" selected></option>
+    </select>
+    <multiselect v-model="sitetypeValue" @input="updateSelected" tag-placeholder="All Site Types" placeholder="All Site Types" aria-label="Input box for site type parameter" label="text" track-by="id" select-label="" :max-height="200" :options="sitetypeOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
+  </div>
 </template>
 
 <script>
@@ -18,11 +23,21 @@ export default {
     return {
       sitetypeValue: [],
       sitetypeOptions: [],
+      sitetype: [],
     }
   },
   methods: {
     updateSelected(value) {
       this.sitetypeValue = value;
+      let self = this;
+      this.sitetype = [];
+      if(this.sitetypeValue[0] !== undefined){
+        this.sitetypeValue.forEach(function(value){
+          self.sitetype.push(value.id);
+        })
+      }else{
+        this.sitetype = [];
+      }
       this.$store.commit("getSitetypeState", value);
     },
     updateOptions(value) {

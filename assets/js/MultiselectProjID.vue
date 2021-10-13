@@ -1,8 +1,13 @@
 <template>
-    <multiselect v-model="projIDValue" @input="updateSelected" name="project" open-direction="bottom" label="text" track-by="id" placeholder="All Project IDs" aria-label="Input box for project ID parameter" select-label="" :options="projIDOptions" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :max-height="200" :hide-selected="true" @search-change="onchange">
+ <div>
+    <select :multiple="true" class="hidden-input" name="project">
+      <option v-for="option in projID" :value="option" selected></option>
+    </select>
+    <multiselect v-model="projIDValue" @input="updateSelected" open-direction="bottom" label="text" track-by="id" placeholder="All Project IDs" aria-label="Input box for project ID parameter" select-label="" :options="projIDOptions" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :max-height="200" :hide-selected="true" @search-change="onchange">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
+  </div>
 </template>
 
 <script>
@@ -27,11 +32,21 @@ export default {
       isLoading: false,
       filters: [],
       filterString: '',
+      projID: [],
     }
   },
   methods: {
     updateSelected(value) {
       this.projIDValue = value;
+      let self = this;
+      this.projID = [];
+      if(this.projIDValue[0] !== undefined){
+        this.projIDValue.forEach(function(value){
+          self.projID.push(value.id);
+        })
+      }else{
+        this.projID = [];
+      }
       this.$store.commit("getProjIDState", value);
     },
     updateOptions(value) {

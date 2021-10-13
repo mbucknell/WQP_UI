@@ -1,8 +1,13 @@
 <template>
-    <multiselect v-model="taxValue" @input="updateSelected" name="subjectTaxonomicName" label="text" track-by="id" placeholder="All Taxonomic Names" aria-label="Second of two input boxes for biological sampling parameters. Input box for taxonomic name parameter." select-label="" :options="taxOptions" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :options-limit="200" :max-height="200" :show-no-results="false" :hide-selected="true" @search-change="onchange">
+  <div>
+    <select :multiple="true" class="hidden-input" name="subjectTaxonomicName">
+      <option v-for="option in tax" :value="option" selected></option>
+    </select>
+    <multiselect v-model="taxValue" @input="updateSelected" label="text" track-by="id" placeholder="All Taxonomic Names" aria-label="Second of two input boxes for biological sampling parameters. Input box for taxonomic name parameter." select-label="" :options="taxOptions" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :options-limit="200" :max-height="200" :show-no-results="false" :hide-selected="true" @search-change="onchange">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
+  </div>
 </template>
 
 <script>
@@ -23,12 +28,22 @@ export default {
     return {
       taxValue: [],
       taxOptions: [],
-      isLoading: false
+      isLoading: false,
+      tax: [],
     }
   },
   methods: {
     updateSelected(value) {
       this.taxValue = value;
+      let self = this;
+      this.tax = [];
+      if(this.taxValue[0] !== undefined){
+        this.taxValue.forEach(function(value){
+          self.tax.push(value.id);
+        })
+      }else{
+        this.tax = [];
+      }
       this.$store.commit("getTaxState", value);
     },
     updateOptions(value) {

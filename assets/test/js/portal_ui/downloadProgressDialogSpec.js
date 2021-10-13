@@ -19,13 +19,14 @@ describe('Tests for DownloadProgressDialog', function () {
                 '<ul class="usa-button-group" id="downloadButtons"></ul>'+
             '</div>'
 
+        providers = shallowMount(Providers);
         wrapper = shallowMount(DownloadProgressDialog, {
             propsData: {
               el: document.getElementById('download-status-modal'),
-              formType: "advanced"
+              formType: "advanced",
+              providers: providers.vm
             }
         });
-        providers = shallowMount(Providers);
         continueSpy = jasmine.createSpy('continueSpy');
     });
     afterEach(function () {

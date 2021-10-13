@@ -1,8 +1,13 @@
 <template>
-    <multiselect v-model="siteIDValue" @input="updateSelected" name="siteid" label="text" track-by="id" open-direction="bottom" placeholder="All Site IDs" aria-label="Input box for site ID parameter" select-label="" :options="siteIDOptions" :multiple="true" :searchable="true" :loading="isLoading" :clear-on-select="false" :internal-search="false" :close-on-select="false" :max-height="200" :hide-selected="true" @search-change="onchange">
+  <div>
+    <select :multiple="true" class="hidden-input" name="siteid">
+      <option v-for="option in siteID" :value="option" selected></option>
+    </select>
+    <multiselect v-model="siteIDValue" @input="updateSelected" label="text" track-by="id" open-direction="bottom" placeholder="All Site IDs" aria-label="Input box for site ID parameter" select-label="" :options="siteIDOptions" :multiple="true" :searchable="true" :loading="isLoading" :clear-on-select="false" :internal-search="false" :close-on-select="false" :max-height="200" :hide-selected="true" @search-change="onchange">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
+  </div>
 </template>
 
 <script>
@@ -26,11 +31,21 @@ export default {
       isLoading: false,
       filters: [],
       filterString: '',
+      siteID: [],
     }
   },
   methods: {
     updateSelected(value) {
       this.siteIDValue = value;
+      let self = this;
+      this.siteID = [];
+      if(this.siteIDValue[0] !== undefined){
+        this.siteIDValue.forEach(function(value){
+          self.siteID.push(value.id);
+        })
+      }else{
+        this.siteID = [];
+      }
       this.$store.commit("getSiteIDState", value);
     },
     updateOptions(value) {

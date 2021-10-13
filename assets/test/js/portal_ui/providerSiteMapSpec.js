@@ -3,16 +3,16 @@ import siteMap from '../../../js/providerSiteMap';
 
 describe ('Tests for providerSiteMap', function() {
     var mapDiv;
-    var $testDiv;
+    var testDiv;
     var setViewSpy, basemapAddSpy, hydroLayerAddToSpy, wmsAddToSpy;
 
     beforeEach(function() {
         Config.site = {LatitudeMeasure: 43.06, LongitudeMeasure: -89.4};
         Config.HYDRO_LAYER_ENDPOINT = 'http://hydrology.esri.com/arcgis/rest/services/WorldHydroReferenceOverlay/MapServer';
         Config.NHDPLUS_FLOWLINE_ENDPOINT = 'https://cida.usgs.gov/nwc/geoserver/gwc/service/wms';
-        $('body').prepend('<div id="test-div"><div id="map-div"></div></div>');
+        document.body.innerHTML = '<div id="test-div"><div id="map-div"></div></div>';
         mapDiv = 'map-div';
-        $testDiv = $('#test-div');
+        testDiv = document.querySelector('#test-div');
         setViewSpy = jasmine.createSpy('setView');
         basemapAddSpy = jasmine.createSpy('basemapAddTo');
         hydroLayerAddToSpy = jasmine.createSpy('hydroLayerAddTo');
@@ -35,7 +35,7 @@ describe ('Tests for providerSiteMap', function() {
     });
 
     afterEach(function() {
-        $testDiv.remove();
+        testDiv.remove();
     });
 
     it('Expects map object to be created.', function() {

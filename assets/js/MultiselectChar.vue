@@ -1,8 +1,13 @@
 <template>
-    <multiselect v-model="charValue" @input="updateSelected" name="characteristicName" label="text" track-by="id" placeholder="All Characteristics" aria-label="Input box for characteristics parameter" select-label="" :options="charOptions" :max-height="200" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :show-no-results="false" :hide-selected="true" @search-change="onchange">
+  <div>
+    <select :multiple="true" class="hidden-input" name="characteristicName">
+      <option v-for="option in char" :value="option" selected></option>
+    </select>
+    <multiselect v-model="charValue" @input="updateSelected" label="text" track-by="id" placeholder="All Characteristics" aria-label="Input box for characteristics parameter" select-label="" :options="charOptions" :max-height="200" :multiple="true" :searchable="true" :loading="isLoading" :internal-search="false" :clear-on-select="false" :close-on-select="false" :show-no-results="false" :hide-selected="true" @search-change="onchange">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
+  </div>
 </template>
 
 <script>
@@ -24,11 +29,21 @@ export default {
       charValue: [],
       charOptions: [],
       isLoading: false,
+      char: [],
     }
   },
   methods: {
     updateSelected(value) {
       this.charValue = value;
+      let self = this;
+      this.char = [];
+      if(this.charValue[0] !== undefined){
+        this.charValue.forEach(function(value){
+          self.char.push(value.id);
+        })
+      }else{
+        this.char = [];
+      }
       this.$store.commit("getCharState", value);
     },
     updateOptions(value) {

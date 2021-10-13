@@ -1,41 +1,45 @@
-import {showIdentifyPopup} from '../../../js/identifyDialog';
+import IdentifyDialog from '../../../js/IdentifyDialog.vue';
+import { shallowMount } from '@vue/test-utils';
 
 
 describe('Test identifyDialog', function () {
-    let map, popup, $testDiv, $siteid, $north, $south, $west, $east;
+    let map, popup, testDiv, siteid, north, south, west, east;
+    let identifyDialog;
 
     beforeEach(() => {
-        $('body').append('<div id="test-div"></div>');
-        $testDiv = $('#test-div');
-        $testDiv.append('<div id="map"></div>');
-        $testDiv.append('<select id="siteid" name="siteid"></select>');
-        $testDiv.append('<input type="text" id="north" />');
-        $testDiv.append('<input type="text" id="south" />');
-        $testDiv.append('<input type="text" id="west" />');
-        $testDiv.append('<input type="text" id="east" />');
+        document.body.innerHTML = '<div id="test-div"></div>';
+        testDiv = document.querySelector('#test-div');
+        testDiv.innerHTML = '<div id="map"></div>' +
+            '<select id="siteid" name="siteid"></select>' +
+            '<input type="text" id="north" />' +
+            '<input type="text" id="south" />' +
+            '<input type="text" id="west" />' +
+            '<input type="text" id="east" />'
         map = L.map('map', {
             center: [43, -100],
             zoom: 3
         });
 
         popup = L.popup();
-        $siteid = $('#siteid');
-        $north = $('#north');
-        $south = $('#south');
-        $west = $('#west');
-        $east = $('#east');
+        siteid = document.querySelector('#siteid');
+        north = document.querySelector('#north');
+        south = document.querySelector('#south');
+        west = document.querySelector('#west');
+        east = document.querySelector('#east');
+        
+        identifyDialog = shallowMount(IdentifyDialog);
 
-        $siteid.select2();
+        // siteid.select2();
     });
 
     afterEach(() => {
-        $siteid.select2('destroy');
+        // siteid.select2('destroy');
         map.remove();
-        $testDiv.remove();
+        testDiv.remove();
     });
 
     it('Does not show the dialog if no features are passed', () => {
-        showIdentifyPopup({
+        identifyDialog.vm.showIdentifyPopup({
             map: map,
             popup: popup,
             atLatLng: [43, -100],
@@ -49,7 +53,7 @@ describe('Test identifyDialog', function () {
 
     it('Shows the dialog if features are passed', () => {
         /* eslint no-use-before-define: 0 */
-        showIdentifyPopup({
+        identifyDialog.vm.showIdentifyPopup({
             map: map,
             popup: popup,
             atLatLng: [43, -100],
@@ -61,47 +65,47 @@ describe('Test identifyDialog', function () {
 
     it('Clicking the populate button with one feature adds the site id to the siteid select and does not fill in the bbox inputs', () => {
         /* eslint no-use-before-define: 0 */
-        showIdentifyPopup({
+        identifyDialog.vm.showIdentifyPopup({
             map: map,
             popup: popup,
             atLatLng: [43, -100],
             features: TEST_ONE_FEATURE
         });
-        $('#identify-populate-button').trigger('click');
+        document.querySelector('#identify-populate-button').dispatchEvent(new Event('click'));
 
-        expect($siteid.val()).toEqual('WIDNR_WQX-10037636');
-        expect($north.val()).toEqual('');
-        expect($south.val()).toEqual('');
-        expect($west.val()).toEqual('');
-        expect($east.val()).toEqual('');
+        expect(siteid.value).toEqual('WIDNR_WQX-10037636');
+        expect(north.value).toEqual('');
+        expect(south.value).toEqual('');
+        expect(west.value).toEqual('');
+        expect(east.value).toEqual('');
     });
 
     it('Clicking the populate button with one feature adds the site id to the siteid select and does not fill in the bbox inputs', () => {
         /* eslint no-use-before-define: 0 */
-        showIdentifyPopup({
+        identifyDialog.vm.showIdentifyPopup({
             map: map,
             popup,
             atLatLng: [43, -100],
             features: TEST_FIFTY_FEATURES
         });
-        $('#identify-populate-button').trigger('click');
+        document.querySelector('#identify-populate-button').dispatchEvent(new Event ('click'));
 
-        expect($siteid.val()).toEqual(null);
-        expect($north.val()).toEqual('43.29278');
-        expect($south.val()).toEqual('43.179714');
-        expect($west.val()).toEqual('-89.8247');
-        expect($east.val()).toEqual('-89.6956778');
+        expect(siteid.value).toEqual('');
+        expect(north.value).toEqual('43.29278');
+        expect(south.value).toEqual('43.179714');
+        expect(west.value).toEqual('-89.8247');
+        expect(east.value).toEqual('-89.6956778');
     });
 
     it('A second call to showIdentifyDialog with no features closes the popup', () => {
         /* eslint no-use-before-define: 0 */
-        showIdentifyPopup({
+        identifyDialog.vm.showIdentifyPopup({
             map: map,
             popup: popup,
             atLatLng: [43, -100],
             features: TEST_ONE_FEATURE
         });
-        showIdentifyPopup({
+        identifyDialog.vm.showIdentifyPopup({
             map: map,
             popup: popup,
             atLatLng: [43, -100],

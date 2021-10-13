@@ -1,8 +1,13 @@
 <template>
-    <multiselect v-model="sampleMediaValue" @input="onchange" name="sampleMedia" tag-placeholder="All Sample Media" placeholder="All Sample Media" aria-label="Input box for sample media parameter" label="text" track-by="id" select-label="" :max-height="200" :options="sampleMediaOptions" :multiple="true" :taggable="true">
+  <div>
+    <select :multiple="true" class="hidden-input" name="sampleMedia">
+      <option v-for="option in sampleMedia" :value="option" selected></option>
+    </select>
+    <multiselect v-model="sampleMediaValue" @input="onchange" tag-placeholder="All Sample Media" placeholder="All Sample Media" aria-label="Input box for sample media parameter" label="text" track-by="id" select-label="" :max-height="200" :options="sampleMediaOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
+  </div>
 </template>
 
 <script>
@@ -18,11 +23,21 @@ export default {
     return {
       sampleMediaValue: [],
       sampleMediaOptions: [],
+      sampleMedia: [],
     }
   },
   methods: {
     updateSelected(value) {
       this.sampleMediaValue = value;
+      let self = this;
+      this.sampleMedia = [];
+      if(this.sampleMediaValue[0] !== undefined){
+        this.sampleMediaValue.forEach(function(value){
+          self.sampleMedia.push(value.id);
+        })
+      }else{
+        this.sampleMedia = [];
+      }
     },
     updateOptions(value) {
       this.sampleMediaOptions = value;

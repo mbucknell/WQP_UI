@@ -186,13 +186,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 let downloadProgressDialog = new downloadProgressClass({
                   propsData:{
                     el: document.getElementById('download-status-modal'), 
-                    formType: 'advanced'
+                    formType: 'advanced',
+                    providers: this.providers
                   }
                 });
                 let downloadProgressDialogBasic = new downloadProgressClass({
                   propsData:{
                     el: document.getElementById('download-status-modal-basic'), 
-                    formType: 'basic'
+                    formType: 'basic',
+                    providers: this.providers
                   }
                 });
                 let downloadFormClass = Vue.extend(DownloadFormView);

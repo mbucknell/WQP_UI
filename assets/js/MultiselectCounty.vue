@@ -1,8 +1,13 @@
 <template>
-    <multiselect v-model="countyValue" name="countycode" @input="updateSelected" tag-placeholder="All Counties" placeholder="All Counties" aria-label="Input box for county parameter" label="text" track-by="id" select-label="" :max-height="200" :options="countyOptions" :multiple="true" :taggable="true">
+  <div>
+    <select :multiple="true" class="hidden-input" name="countycode">
+      <option v-for="option in county" :value="option" selected></option>
+    </select>
+    <multiselect v-model="countyValue" @input="updateSelected" tag-placeholder="All Counties" placeholder="All Counties" aria-label="Input box for county parameter" label="text" track-by="id" select-label="" :max-height="200" :options="countyOptions" :multiple="true" :taggable="true">
       <span slot="noOptions">Type to search</span>
       <span slot="noResult">No results found</span>
     </multiselect>
+  </div>
 </template>
 
 <script>
@@ -18,11 +23,21 @@ export default {
     return {
       countyValue: [],
       countyOptions: [],
+      county: [],
     }
   },
   methods: {
     updateSelected(value) {
       this.countyValue = value;
+      let self = this;
+      this.county = [];
+      if(this.countyValue[0] !== undefined){
+        this.countyValue.forEach(function(value){
+          self.county.push(value.id);
+        })
+      }else{
+        this.county = [];
+      }
       this.$store.commit("getCountyState", this.countyValue);
     },
     updateOptions(value) {
