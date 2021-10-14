@@ -3,6 +3,8 @@
 {% block title %}Water Quality Portal Data Sites for {{ organization }}{% endblock %}
 
 {% block page_content %}
+<div class="page-center">
+    <div class="page-center-content">
     <a href="{{ url_for('portal_ui.home-canonical') }}">WQP Home</a> >
     <a href="{{ url_for('portal_ui.uri_base') }}">Providers</a> >
     <a href="{{ url_for('portal_ui.uri_provider',provider_id=provider) }}">{{ provider }}</a> >
@@ -21,6 +23,8 @@
             - {{ site['properties']['MonitoringLocationIdentifier'] }}
             ({{ site['properties']['ResolvedMonitoringLocationTypeName'] }})</a><br/>
     {% endfor %}
+        </div>
+    </div>
 {% endblock %}
 
 {% block body_page_script %}
