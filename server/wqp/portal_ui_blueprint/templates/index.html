@@ -12,7 +12,7 @@
 <!-- Basic Form -->
 <div class="page-center">
   <div id="forms" class="page-center-content">
-    <div id="formIntro">
+    <div id="formIntro" v-if="showIntro">
       <div>
         <div class="usa-alert__body new-wqp-body">
           <h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
@@ -40,7 +40,7 @@
         <!-- Don't show again checkbox -->
         <div class="footer-flex">
           <div class="usa-checkbox">
-            <input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again">
+            <input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again" v-on:click="setLocalStorage($event)">
             <label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
           </div>
         </div>
