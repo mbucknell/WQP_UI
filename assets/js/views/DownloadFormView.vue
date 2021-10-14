@@ -450,7 +450,7 @@ export default {
                     const value = el.value;
                     const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
                     const name = el.getAttribute('name');
-                    if (valueIsNotEmpty && name && el.className !== 'multiselect__input') {
+                    if (valueIsNotEmpty && name && el.className != 'multiselect__input' && el.className != 'hidden-input') {
                         if ((valueIsNotEmpty &&  el.className === 'datasources usa-checkbox__input') && (el.checked === true)) {
                             providersArray.push(value)
                         } else if (el.className !== 'datasources usa-checkbox__input') {
@@ -468,16 +468,16 @@ export default {
                             multiple: el.dataset.multiple ? true : false
                         })
                     }
-                    else if(el.className === 'multiselect__input'){
+                    else if(el.className === 'hidden-input'){
                         stores.forEach(function(state){
-                            if (state.name === el.name){
+                            if (el.name === state.name){
                                 state.value.forEach(function(stateValue){
                                     multiselectArray.push(stateValue.id);
                                 });
                                 
                                 if(multiselectArray.length !== 0){
                                     result.push({
-                                        name: el.name,
+                                        name: state.name,
                                         value: multiselectArray,
                                         multiple: el.dataset.multiple ? true : false
                                     })

@@ -1,13 +1,14 @@
-import { initTooltip } from '../../../js/uswdsComponents/uswdsTooltip';
+import {initTooltip} from '../../../js/uswdsComponents/uswdsTooltip';
 
 describe('Creates a tooltip', function() {
-    var testDiv = document.createElement('div');
-    $(testDiv).attr('class', 'test-div')
 
     it('Creates a tooltip widget', () => {
         let tooltipItem;
-        initTooltip($(testDiv));
+        var testDiv = document.createElement('div');
+        testDiv.className = 'usa-tooltip';
+        document.body.append(testDiv);
+        initTooltip(document.querySelectorAll('.usa-tooltip'));
         tooltipItem = testDiv.className;
-        expect(tooltipItem).toContain('usa-tooltip');
+        expect(tooltipItem).toContain('usa-tooltip__trigger');
     });
 });

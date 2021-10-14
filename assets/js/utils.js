@@ -90,16 +90,18 @@ export const setEnabled = function(els, isEnabled /* Boolean */) {
  * @return {Boolean} - true if contentDivEl is now visible, false otherwise.
  */
 export const toggleShowHideSections = function(button, contentDiv) {
-    var buttonImg = button.querySelectorAll('img');
+    var buttonImg = button.querySelector('img');
     if (buttonImg.getAttribute('alt') === 'show') {
-        button.getAttribute('title', button.getAttribute('title').replace('Show', 'Hide'));
-        buttonImg.getAttribute('alt', 'hide').getAttribute('src', COLLAPSE_IMG);
-        contentDiv.slideDown();
+        button.setAttribute('title', button.getAttribute('title').replace('Show', 'Hide'));
+        buttonImg.setAttribute('alt', 'hide')
+        buttonImg.setAttribute('src', COLLAPSE_IMG);
+        contentDiv.style.display = 'block';
         return true;
     } else {
-        button.getAttribute('title', button.getAttribute('title').replace('Hide', 'Show'));
-        buttonImg.getAttribute('alt', 'show').getAttribute('src', EXPAND_IMG);
-        contentDiv.slideUp();
+        button.setAttribute('title', button.getAttribute('title').replace('Hide', 'Show'));
+        buttonImg.setAttribute('alt', 'show')
+        buttonImg.setAttribute('src', EXPAND_IMG);
+        contentDiv.style.display = 'none';
         return false;
     }
 };

@@ -6,7 +6,6 @@ import map from 'lodash/map';
 
 import countsHbTemplate from './hbTemplates/counts.hbs';
 import Vue from 'vue';
-import Providers from './Providers.vue';
 
 // constants for the two different download statuses
 const DIALOG = {
@@ -41,15 +40,9 @@ const RESULT_TYPE_TO_TOTAL_COUNT_PROPERTY_MAP = {
     'BiologicalHabitatMetric': 'biologicalHabitatMetrics'
 };
 
-let providersClass = Vue.extend(Providers);
-let providers = new providersClass();
-
 export default {
   name: "DownloadProgressDialog",
-  props: ['el', 'formType'],
-  components:{
-      Providers
-  },
+  props: ['el', 'formType', 'providers'],
   methods: {
     getFormElements(){
         let elements;
@@ -92,6 +85,7 @@ export default {
     updateProgress(counts, resultType, fileFormat, continueFnc) {
         let elements = this.getFormElements();
         var totalCount = counts.total[RESULT_TYPE_TO_TOTAL_COUNT_PROPERTY_MAP[resultType]];
+        let self = this;
 
         var getCountMessage = function () {
             // Return a string showing the site counts, formatted to be shown in html.
@@ -107,7 +101,7 @@ export default {
                 isOrganization: resultType === 'Organization',
                 isBiologicalHabitatMetric: resultType === 'BiologicalHabitatMetric'
             };
-            context.providers = map(providers.getIds(), function (provider) {
+            context.providers = map(self.providers.getIds(), function (provider) {
                 return {
                     id: provider,
                     counts: counts[provider]

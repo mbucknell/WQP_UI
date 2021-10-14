@@ -156,9 +156,11 @@ export default {
         return fetchComplete;
     },
     resetContainer() {
-        let inputs = this.container.querySelector('input[name], select[name], textarea[name], button[name]');
-        inputs.value = '';
-        inputs.dispatchEvent(new Event('change'));
+        let inputs = this.container.querySelectorAll('input[name], select[name], textarea[name], button[name]');
+        inputs.forEach(function(input){
+            input.value = '';
+            input.dispatchEvent(new Event('change'));
+        })
     }
   }
 }
