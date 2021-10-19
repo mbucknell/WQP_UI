@@ -1,33 +1,56 @@
-<!-- * [Submitting a Web Services Request](/server/wqp/markdownTextFiles/webservices_documentation.md#submitting-a-web-services-request)
-* [Web Service Request Examples](/server/wqp/markdownTextFiles/webservices_documentation.md#web-service-request-examples)
-* [Looking Up Domain Values through Web Services](/server/wqp/markdownTextFiles/webservices_documentation.md#looking-up-domain-values-through-web-services) -->
+<!-- * [Introduction](#introduction)
+* [What Are Web Services?](#what-are-web-services?)
+* [Accessing Data Programmatically Using Web Services](#accessing-data-programmatically-using-web-services)
+* [How to Generate Web Services Requests](#how-to-generate-web-services-requests)
+* [Using Open Geospatial Consortium (OGC) Services to map Water Quality Portal sites based on Water Quality Portal Parameters](#using-open-geospatial-consortium-services-to-map-water-quality-portal-sites-based-on-water-quality-portal-parameters) -->
 
-The Water Quality Data Portal (WQP) provides easy access to data stored in three large water quality databases through form-based queries or standalone web services. The form interface and the web services offer equivalent input parameters and output formats. Submit a web service request to bypass the WQP form interface. For more information on the WQP input parameters and data retrievals, see the [User Guide](http://www.waterqualitydata.us/portal_userguide.jsp).  
+## Introduction 
+The Water Quality Data Portal (WQP) provides easy access to data stored in three large water quality databases (WQX, NWIS, STEWARDS) through a web-based form interface as well as standalone web services. Both the form interface and the web services use the same input parameters (filters) and produce the same output formats. The web service enables programmatic access to WQP data and metadata without manually interacting with the form interface. 
 
-### **Using a web service client**
+You can use the WQP web services to quickly and easily access data and metadata available on the Water Quality Portal. URL queries are constructed in a standard format and outputs are delivered in JSON format.
 
-The WQP has language-specific web service tools that integrate easily with scripting languages. The application will do the heavy lifting to get the data into a familiar data format.
+For more information on the WQP input parameters (filters) and data downloads, see the WQP [User Guide](http://www.waterqualitydata.us/portal_userguide.jsp).  
 
-* R - The *dataRetrevial* package is a powerful tool that facilitates downloading data from the WQP and from a number of USGS NWIS services: 
-    * [GitHub](https://github.com/USGS-R/dataRetrieval)
-    * [Tutorial](https://owi.usgs.gov/R/dataRetrieval.html)
-    * [CRAN](https://cran.r-project.org/web/packages/dataRetrieval/index.html)
-* Python - pyWQP on [GitHub](https://github.com/USGS-CIDA/pyWQP). This client has limited support at this time.
+## What Are Web Services?
 
-### **Submitting a Web Services Request**
+APIs (Application Programming Interface) and Web Services are tools that enable communication between two networked devices or pieces of software using  standardized methods. They are implemented in almost all of our mobile device applications that we use on a daily basis. They allow data from one system to be easily used by a second system without requiring the second system to locally store the data, which is especially beneficial when we are dealing with *big* data sets. In fact, common software packages including Excel and R are starting to come pre-packaged with the ability to use these services.
 
-Queries on WQP web services use a RESTlike (REpresentational State Transfer) technique. This method retrieves the *same* data as the WQP form. Query basics are outlined in the following series of tables. Most non-alphanumeric characters (such as punctuation) must be ["**url-encoded**"](https://www.tutorialspoint.com/html/html_url_encoding.htm), (*for example*: space is "%20").
+While APIs and Web Services provide similar functions, the types of communication they allow differs: 
 
-Parameters must be appended to a base URL. Base URL construction depends on the type of information requested:
+  * An API allows two applications to communicate by creating shared rules and conventions. These can be used with a network connection, but there are also APIs that do not involve a network connection. 
+  
+  * A web service is a *type* of API that allows one computer to communicate data to another computer in a standardized way. While all web services are APIs, not all API's are web services. 
 
-* [Base URL for downloading sites](https://www.waterqualitydata.us/data/Station/search?)
-* [Base URL for downloading results](https://www.waterqualitydata.us/data/Result/search?)
-* [Base URL for downloading activity data](https://www.waterqualitydata.us/data/Activity/search?)
-* [Base URL for downloading activitymetric data](https://www.waterqualitydata.us/data/ActivityMetric/search?)
+The WQP web services are implemented using the 'https' protocol using REST, which provides a flexible and scalable approach for constructing standardized URL statements.
 
-Construct a RESTlike web service query by concatenating the base URL with the desired parameters and arguments, ***Table 1***.  At least one parameter-argument pair must be specified. Separate multiple parameter-argument pairs with an *ampersand* ("&"). If no *mime type* is specified, the retrieval will default to **WQX-XML format**. See the [User Guide](http://www.waterqualitydata.us/portal_userguide.jsp) for a list of elements included in the result retrievals.
+Click [here](https://github.com/project-open-data/project-open-data.github.io/blob/master/api-basics.md) to learn more about the basics of APIs, or check out this [Github page](https://github.com/18F/API-All-the-X/tree/master/pages) for details about how APIs are implemented within the USGS and across the federal government.
 
-***Table 1.* URL-encoded retrieval parameters and arguments for WQP web services (parameter names are insensitive only to the leading capital letter)**
+### Accessing Data Programmatically Through Web Services
+
+Web services provide a public resource which users can also enhance with their own custom scripts.
+
+One resource created by the USGS is an R-based software package called *dataRetrieval*, which makes it easier for R users to use the WQP web services. *dataRetrieval* does the heavy lifting to download data and convert it into a familiar and usable format. *dataRetrevial* can download data from the WQP and from a number of USGS NWIS services. To learn more about *dataRetrieval*, please check out these resources:
+
+  * [CRAN](https://cran.r-project.org/web/packages/dataRetrieval/index.html) - Download current release
+  * [GitHub](https://github.com/USGS-R/dataRetrieval) - Download most up-to-date source code (may contain bugs)
+  * [Tutorial](https://waterdata.usgs.gov/blog/dataretrieval/) - Learn how to use *dataRetrieval*
+  
+## How to Generate Web Services Requests
+
+You can retrieve the *same* data using Web Services as you can with the WQP User Interface (advanced form). Query basics are outlined in the following series of tables. Most non-alphanumeric characters (such as punctuation) must be ["**url-encoded**"](https://www.tutorialspoint.com/html/html_url_encoding.htm), (*for example*: space is "%20").
+
+Constructing a Request:
+
+Every request starts with a base URL: the base URL will vary depending on the type of information requested:
+
+* Base URL for downloading site data and associated metadata: `https://www.waterqualitydata.us/data/Station/search?`
+* Base URL for downloading results: `https://www.waterqualitydata.us/data/Result/search?`
+* Base URL for downloading activity data: `https://www.waterqualitydata.us/data/Activity/search?`
+* Base URL for downloading activity metric data: `https://www.waterqualitydata.us/data/ActivityMetric/search?`
+
+Construct a query by concatenating the base URL with the desired parameters and arguments,as shown in ***Table 1***.  At least one parameter-argument pair must be specified. Separate multiple parameter-argument pairs with an *ampersand* ("&"). For downloads, if no file format (*mime type*) is specified, the retrieval will default to **WQX-XML format**. See the [WQP User Guide](http://www.waterqualitydata.us/portal_userguide.jsp) for a list of elements included in the result retrievals. 
+
+***Table 1.* URL-encoded retrieval parameters and arguments for WQP web services (parameter names are case-insensitive only to the leading capital letter)**
 <details markdown="1">
   <summary>Expand Table</summary>
 
@@ -59,36 +82,32 @@ Construct a RESTlike web service query by concatenating the base URL with the de
 |                     | *kml*                                                                                                                                                                                                                                                                                                                                                                                                                                            | Output format is KML compatible with Google Earth. This option is not available for the results service.                                                                                                                                                                                                                                                                                                                                            |   |
 |                     | *kmz*                                                                                                                                                                                                                                                                                                                                                                                                                                            | Output format is kmz, a compressed form of kml compatible with Google Earth. This option is not available for the results service.                                                                                                                                                                                                                                                                                                                  |   |
 | Zip                 | *yes*                                                                                                                                                                                                                                                                                                                                                                                                                                            | Include the parameter to stream compressed data. Compression often greatly increases throughput, thus expediting the request. Kml files will be returned in the kml-specific zip format, .kmz.                                                                                                                                                                                                                                                      |   |
-| providers           | *WQX\|NWIS\|STEWARDS ([allowable values](https://www.waterqualitydata.us/portal_userguide/#WQPUserGuide-Domain_Value)).*                                                                                                                                                                                                                                                                                                                                                                           | By default, requests are submitted to all the data providers. However, a particular provider may be specified using this parameter.                                                                                                                                                                                                                                                                                                                 |   |
+| providers           | *EPA\|NWIS\|STEWARDS ([allowable values](https://www.waterqualitydata.us/portal_userguide/#WQPUserGuide-Domain_Value)).*                                                                                                                                                                                                                                                                                                                                                                           | By default, requests are submitted to all the data providers. However, a particular provider may be specified using this parameter.                                                                                                                                                                                                                                                                                                                 |   |
 | sorted              | *yes\|no*                                                                                                                                                                                                                                                                                                                                                                                                                                        | By default, tabular data are sorted by organization, monitoringLocationID, and (for results) activityID. However, sorting increases response time significantly, sometimes by orders of magnitude. If you are doing your own sorting after download, set sorted=no. For large downloads (over 5 million rows) sorting is disabled by default to ensure reasonable response times. XML requests are always sorted to accommodate the WQX data schema. |   |
 | dataProfile         | *biological*                                                                                                                                                                                                                                                                                                                                                                                                                                     | Only affects results endpoint at this time. The biological dataProfile returns an extended set of columns that further describe biological data.                                                                                                                                                                                                                                                                                                     |   |
-| **DEPRECATED COMMANDS** |                                                                                                                                                                                                                                                                                                                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                     |   |
-| command.avoid       | *WQX\|NWIS*                                                                                                                                                                                                                                                                                                                                                                                                                                   | Deprecated! By default, requests are submitted to all the data providers. This deprecated command is replaced by "providers". To support legacy applications, command.avoid=NWIS maps to providers=EPA, and command.avoid=EPA maps to providers=NWIS.                                                                                                                                                                                          |   |
-| mimeType            | *xls*                                                                                                                                                                                                                                                                                                                                                                                                                                            | Deprecated in favor of xlsx. The xls format had a limit of 63,000 rows, not practical for most wqp downloads.                                                                                                                                                                                                                                                                                                                                       |   |
-
 </details>
 
-### **Web Service Request Examples**
+### Example Web Service Requests
 
-**All examples include \<remove this string> to avoid spurious web service calls from web crawler robots.**
+To try out the following examples of REST web service requests, copy and paste into a web browser.
 
 >*Example:* REST web service request to retrieve sites from *Oklahoma County, Oklahoma*, where *Atrazine* was measured in *XML* format, *zipped*:
-
-`https://www.water<remove this string>qualitydata.us/data/Station/search?countycode=US%3A40%3A109&characteristicName=Atrazine&mimeType=xml&zip=yes`
+`https://www.waterqualitydata.us/data/Station/search?countycode=US%3A40%3A109&characteristicName=Atrazine&mimeType=xml&zip=yes`
 
 >*Example:* REST web service request to retrieve sites contained within a *bounding box* where *Caffeine* was measured in *KML* format, *zipped*:
+`https://www.waterqualitydata.us/data/Station/search?characteristicName=Caffeine&mimeType=kml&bBox=-92.8,44.2,-88.9,46.0&zip=yes` 
 
-`https://www.water<remove this string>qualitydata.us/data/Station/search?characteristicName=Caffeine&mimeType=kml&bBox=-92.8,44.2,-88.9,46.0&zip=yes` 
+>*Example:* REST web service request to retrieve stream sites located in the state of Wyoming (USA) where parameters of the characteristicType *Nutrient* were measured, in *GeoJSON* format:
+`https://www.waterqualitydata.us/data/Station/search?countrycode=US&statecode=US%3A56&siteType=Stream&characteristicType=Nutrient&mimeType=geojson` 
 
 >*Example:* REST web service request to retrieve *Caffeine* sample results from sites contained within a *bounding box* and *collected on, or after, 10-01-2006* in *MS-Excel* format, *zipped*:
+`https://www.waterqualitydata.us/data/Result/search?characteristicName=Caffeine&bBox=-92.8,44.2,-88.9,46.0&startDateLo=10-01-2006&mimeType=xlsx&zip=yes` 
 
-`https://www.water<remove this string>qualitydata.us/data/Result/search?characteristicName=Caffeine&bBox=-92.8,44.2,-88.9,46.0&startDateLo=10-01-2006&mimeType=xlsx&zip=yes` 
+### Queries Using POST
 
-#### **Using POST instead of GET**
+In certain situations when very long requests are submitted - for example, when querying data for a large list of sites - GET requests can fail due to limits in the allowable length of the request. These requests can instead be completed using http POST. POST requests should be submitted with a JSON-formatted payload.
 
-Water Quality Portal services can be accessed using an http POST, with a JSON payload, instead of an http GET. This is particularly helpful when submitting large lists of sites.
-
-An example *JSON* submittal looks like this:
+Here's an example *JSON* object, including an organization ID and three site ID's:
 
 ```
 {
@@ -97,88 +116,45 @@ An example *JSON* submittal looks like this:
 }
 ```
 
-An example *curl* with that data looks like this:
+An example using *curl* with these data looks like this:
 
 ```
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/zip' -d '{"organization":["WIDNR_WQX"],"siteid":["WIDNR_WQX-133003","WIDNR_WQX-133398","WIDNR_WQX-133486"]} \ 
  ' 'https://www.waterqualitydata.us/data/Station/search?mimeType=csv&zip=yes'
- ```
-
-If there are any problems, they are returned in the response via the warning header(s). See [RFC 2616 Section 14](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.46) for the format of the warning header. 
-
-#### **Web Service Request Pre-Validation**
-
-A REST web service request may not be valid for all data providers. Perform a validation before submitting a request to ensure that all parameters are valid before making an expensive request for actual data. *For example*, the WQP mini-portal form performs a validation and pops up a prompt to the user if problems are found.
-
-A validation service for sites and results requests is invoked by using the exact same RESTlike URL as an actual request, but uses a *HTTP HEAD* method rather than the usual *GET* or *POST*. See the W3C specification [RFC 2616 Section 9](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) for an explanation of HTTP methods. The exact way to invoke a URL via a HEAD request depends on your programming language, but an example is provided for *JavaScript*:
-
-```
-function makeRequest(url) {
-  	var http = new XMLHttpRequest();
-  	http.open('HEAD', url, false);
-  	http.send();
-  	var warningHeader = http.getResponseHeader("Warning");
-  	alert(warningHeader);
-}
 ```
 
-Another option is using *command line*. For example, a HEAD request can be issued as:
+The --header argument lists metadata for the web service and ensures that the correct information is received and returned. If there are any problems with the request, they are returned in the response via the warning header(s). See [RFC 2616 Section 14](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.46) for the format of the warning header. 
+### Using Open Geospatial Consortium Services to map Water Quality Portal sites based on Water Quality Portal Parameters
 
-```
-curl -I 'https://www.water<remove this string>qualitydata.us/data/Result/search?bBox=-92.8,44.2,-88.9,46.0&startDateLo=10-01-2011 &mimeType=csv&characteristicName=Dissolved%20oxygen%20(DO)' 
-```
+The Water Quality Portal has an endpoint for generating OGC-Compliant Geospatial web services. At this time, [Web Mapping Service (WMS)](http://docs.geoserver.org/stable/en/user/services/wms/reference.html) version 1.1.1 and [Web Feature Service (WFS)](http://docs.geoserver.org/stable/en/user/services/wfs/reference.html) version 1.1.1 are supported. The service is a customized version of the WMS and WFS services provided by [Geoserver](http://www.geoserver.org/). To get started, check out the Geoserver WMS Reference and WFS Reference. 
 
-If there are any problems, they are returned in the response via the warning header(s). See [RFC 2616 Section 14](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.46) for the format of the warning header. 
-
-**NOTE**: The same warning header(s) and count headers are returned on the GET request. It is important to issue the command with 'debug' or 'verbose' diagnostic option turned on, and then inspect the header to ensure the service is performing as expected. *For example:*
-
-```
-wget -d -O - 'https://www.water<remove this string>qualitydata.us/data/Result/search?&bBox=-92.8,44.2,-88.9,46.0 &startDateLo=10-01-2011&mimeType=csv&characteristicName=Dissolved%20oxygen%20(DO)'
-```
-
-*or*
-
-```
-curl -v  'https://www.water<remove this string>qualitydata.us/data/Result/search?&bBox=-92.8,44.2,-88.9,46.0 &startDateLo=10-01-2011&mimeType=csv&characteristicName=Dissolved%20oxygen%20(DO)'
-```
-
-Either statement returns the following (indicating no NWIS results are returned):
-
-```
-Total-Site-Count: 170
-EPA-Site-Count: 170
-Warning: 299 NWIS "[characteristicName]The value of characteristicName=Dissolved 
-                     oxygen (DO) is not in the list of enumerated values"
-```
-
-#### **Using OGC Services to map Water Quality Portal sites based on Water Quality Portal Parameters**
-
-The Water Quality Portal has an endpoint for generating OGC-Compliant Geospatial web services. At this time, [Web Mapping Service (WMS)](http://docs.geoserver.org/stable/en/user/services/wms/reference.html) version 1.1.1 and [Web Feature Service (WFS)](http://docs.geoserver.org/stable/en/user/services/wfs/reference.html) version 1.1.1 are supported. The service is a customized version of the WMS and WFS services provided by [Geoserver](http://www.geoserver.org/). The base URL for the WMS and WFS Services is: 
-
+The base URL for both the WMS and WFS services is:
 `https://www.waterqualitydata.us/ogcservices/{wms|wfs}`
 
 Use web mapping tools, such as *Leaflet* or *Openlayers*, to easily connect to these web map services. GIS tools such as *ArcGIS* and *QGIS* also connect to these web maps services.
 
-WFS and WMS services require an additional parameter: "SearchParams" (a URL-encoded version of the WQP search parameters). The service supports calls up to up to 250,000 sites. Calls that return large numbers of sites will take longer to load for the first time, as a cache is populated; all subsequent responses will be much quicker. The cache is cleared after new data is loaded to the portal (once a day, at night).
+WFS and WMS services require an additional parameter, called "SearchParams", which is a URL-encoded version of the WQP search parameters. The service supports calls up to up to 250,000 sites. Calls that return large numbers of sites will take longer to load for the first time, as a cache is populated; subsequent responses will be much quicker. The cache is cleared after new data are loaded to the portal (once a day, at night).
 
 At this time, we support WMS GetMap, WMS GetFeatureInfo, and WMS GetLegendGraphic.
 
 **WMS Getmap** 
-* For detailed information on constructing a WMS getmap request, please refer to the [GetMap documentation at the Geoserver site](http://docs.geoserver.org/stable/en/user/services/wms/reference.html#getmap).  
-* Here is an example GetMap Request for stream sites that have samples for *atrazine*:
 
+* For detailed information on constructing a WMS getmap request, refer to the [GetMap documentation at the Geoserver site](http://docs.geoserver.org/stable/en/user/services/wms/reference.html#getmap).  
+* Here is an example GetMap Request for stream sites that have samples for *atrazine*:
 `https://www.waterqualitydata.us/ogcservices/wms?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=wqp_sites&STYLES=wqp_sources&FORMAT=image%2Fpng&TRANSPARENT=true&HEIGHT=256&WIDTH=256&SEARCHPARAMS=countrycode%3AUS%3BcharacteristicName%3AAtrazine&SRS=EPSG%3A3857&BBOX=-15028131.257091932,-7.081154551613622e-10,-10018754.171394622,5009377.085697313`
 
-#### **Looking Up Domain Values through Web Services**
+### **Looking Up Domain Values Through Web Services**
 
-The domains for retrieval parameter arguments may vary over time, as new data are added. The domain of values for the parameter arguments may be retrieved with a REST query. Use the domain-value base URL concatenated with the parameter name and arguments as shown in ***Table 2***.
+The allowable values for each query variable (referred to as *domain values*) may change over time as new values are added. There is a web service request that allows you to look up which values are allowed for a query parameter. 
+
+A list of parameter names and arguments to use for these web service requests is shown in ***Table 2***.
 
 Base URL for looking up domain values: `https://www.waterqualitydata.us/Codes/{endpointName}?{parameter}`
 
-There needs to be at least one argument in the web service call. If you want all domain values, you can just specify the mimetype: e.g. mimeType=json.
+You must provide at least one argument in the web service call. If you want all domain values, you can just specify the *mimetype* (e.g. mimeType=json).
 
 ***Table 2.* Domain values web service parameters and arguments**
-<details markdown="1">
+<details markdown=1>
   <summary>Expand Table</summary>
 
 |                                 {endpointName}                                | REST parameter |                    Argument                   |                                                                       Discussion                                                                       |                                               Example                                               |
