@@ -56,18 +56,31 @@ def get_markdown(md_path):
 	with open(md_path, 'r') as f:
 		text = f.read()
 		html = md.convert(text)
+		
+
 
 		# Create sidebar from md.toc
         # Remove final div in the feed
-		soup = BeautifulSoup(md.toc, 'html.parser')
+		sidebarTOC = BeautifulSoup(md.toc, 'html.parser')
 
-		feed_div = soup.find('div', class_='toc')
+		feed_div = sidebarTOC.find('div', class_='toc')
 		child_divs = feed_div.find('ul')
 		links = str(child_divs).replace('<li>', '<li class=\'usa-sidenav__item\'>')
 		final = links.replace('<ul>', '<ul class=\'usa-sidenav\'>', 1)
 		table_of_contents = final.replace('<ul>', '<ul class=\'usa-sidenav__sublist\'>')
 
-		content={'body': html, 'toc': table_of_contents}
+		# Create page body
+		body = BeautifulSoup(html, 'html.parser')
+
+		for img in body.findAll('img'):
+			# If debug, add localhost to display images
+			if(app.config['DEBUG']):
+				img['src'] = 'http://localhost:9000'+img['src']
+			else:
+				img['src'] = '/wqp/static'+img['src']
+
+		content={'body': body, 'toc': table_of_contents}
+		
 		return content
 
 
