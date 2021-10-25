@@ -72,12 +72,9 @@ def get_markdown(md_path):
 		# Create page body
 		body = BeautifulSoup(html, 'html.parser')
 
+		# For every image, add static root to src
 		for img in body.findAll('img'):
-			# If debug, add localhost to display images
-			if(app.config['DEBUG']):
-				img['src'] = 'http://localhost:9000'+img['src']
-			else:
-				img['src'] = '/wqp/static'+img['src']
+			img['src'] = app.config['STATIC_ROOT']+img['src']
 
 		content={'body': body, 'toc': table_of_contents}
 		
