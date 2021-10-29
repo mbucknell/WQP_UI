@@ -74,7 +74,13 @@ def get_markdown(md_path):
 
 		# For every image, add static root to src
 		for img in body.findAll('img'):
-			img['src'] = app.config['STATIC_ROOT']+img['src']
+			root_path = app.config['STATIC_ROOT']
+
+			if root_path.endswith('/'):
+				img['src'] = app.config['STATIC_ROOT']+img['src']
+			else: 
+				img['src'] = app.config['STATIC_ROOT']+'/'+img['src']
+
 
 		content={'body': body, 'toc': table_of_contents}
 		
