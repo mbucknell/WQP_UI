@@ -140,7 +140,6 @@ document.addEventListener("DOMContentLoaded", function() {
             showIntro: false
         },
         mounted: function() {
-
             // Create tooltips
             this.$nextTick(function() {
               // DOM is now updated

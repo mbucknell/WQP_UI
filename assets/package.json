@@ -85,7 +85,7 @@
     "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
-    "axios": "0.21.1",
+    "axios": "0.24.0",
     "bootstrap": "3.4.1",
     "esri-leaflet": "^3.0.3",
     "font-awesome": "4.7.0",
@@ -93,8 +93,8 @@
     "leaflet": "^1.7.1",
     "leaflet-draw": "1.0.4",
     "leaflet-easybutton": "2.4.0",
-    "leaflet-providers": "^1.12.0",
-    "leaflet.markercluster": "1.5.1",
+    "leaflet-providers": "^1.13.0",
+    "leaflet.markercluster": "1.5.3",
     "lodash": "4.17.21",
     "loglevel": "1.7.1",
     "nanobar": "0.4.2",

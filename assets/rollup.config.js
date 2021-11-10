@@ -44,11 +44,14 @@ const getBundleConfig = function (src, dest) {
             buble({
                 objectAssign: 'Object.assign',
                 transforms: {
-                    dangerousForOf: true
+                    asyncAwait: false,
+                    forOf: false,
+                    generator: false
                 }
             }),
             replace({
-              'process.env.NODE_ENV': JSON.stringify(ENV)
+                preventAssignment: true,
+                'process.env.NODE_ENV': JSON.stringify(ENV)
             }),
             ENV === 'production' && uglify({
                 compress: {
