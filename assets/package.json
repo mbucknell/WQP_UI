@@ -84,7 +84,6 @@
     "rollup-plugin-vue": "5.1.9",
     "sass": "^1.43.4",
     "sinon": "^9.2.4",
-    "uglifycss": "^0.0.29",
     "vue-template-compiler": "^2.6.14"
   },
   "dependencies": {
