@@ -1,12 +1,10 @@
 $theme-font-path: './fonts';
 $theme-image-path: './img';
 
-// Variables
-$black: #000;
-
 // Import all other custom scss files
+@import "uswds";
+
 @import "layout.scss";
-@import "../../node_modules/uswds/dist/scss/uswds";
 
 body {
   background-color: white;
