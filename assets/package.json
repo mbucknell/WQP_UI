@@ -90,10 +90,10 @@
     "esri-leaflet": "^3.0.3",
     "font-awesome": "4.7.0",
     "jquery": "3.5.1",
-    "leaflet": "^1.7.1",
+    "leaflet": "1.7.1",
     "leaflet-draw": "1.0.4",
     "leaflet-easybutton": "2.4.0",
-    "leaflet-providers": "^1.13.0",
+    "leaflet-providers": "1.13.0",
     "leaflet.markercluster": "1.5.3",
     "lodash": "4.17.21",
     "loglevel": "1.7.1",
@@ -102,8 +102,8 @@
     "select2": "4.0.13",
     "select2-bootstrap-theme": "0.1.0-beta.10",
     "uswds": "2.11.2",
-    "vue": "^2.6.14",
-    "vue-multiselect": "^2.1.6",
-    "vuex": "^3.6.2"
+    "vue": "2.6.14",
+    "vue-multiselect": "2.1.6",
+    "vuex": "3.6.2"
   }
 }
