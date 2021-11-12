@@ -9,7 +9,7 @@ var handlebars = require('rollup-plugin-handlebars-plus');
 const json = require('@rollup/plugin-json');
 const resolve = require('@rollup/plugin-node-resolve');
 const replace = require('@rollup/plugin-replace');
-const { uglify } = require('rollup-plugin-uglify');
+const {terser} = require('rollup-plugin-terser');
 const alias = require('@rollup/plugin-alias');
 const vuePlugin = require('rollup-plugin-vue');
 
@@ -24,11 +24,10 @@ const getBundleConfig = function (src, dest) {
                 entries: [{
                     find: 'vue',
                     replacement: require.resolve('vue/dist/vue.esm.js')
-                }, 
+                }
             ]
             }),
             resolve.nodeResolve({
-                mainFields: ['module'],
                 browser: true
             }),
             json(),
@@ -53,12 +52,11 @@ const getBundleConfig = function (src, dest) {
                 preventAssignment: true,
                 'process.env.NODE_ENV': JSON.stringify(ENV)
             }),
-            ENV === 'production' && uglify({
+            ENV === 'production' && terser({
                 compress: {
-                    dead_code: true,
                     drop_console: true
                 }
-            }),
+            })
         ],
         output: {
             name: 'wqp_bundle',
@@ -74,5 +72,5 @@ module.exports = [
     getBundleConfig('js/bundles/portal.js', 'dist/scripts/portal.js'),
     getBundleConfig('js/bundles/coverage.js', 'dist/scripts/coverage.js'),
     getBundleConfig('js/bundles/site_map.js', 'dist/scripts/site_map.js'),
-    getBundleConfig('js/bundles/sites_map.js', 'dist/scripts/sites_map.js'),
+    getBundleConfig('js/bundles/sites_map.js', 'dist/scripts/sites_map.js')
 ];
