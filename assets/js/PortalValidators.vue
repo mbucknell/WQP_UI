@@ -4,25 +4,8 @@
 <script>
 
 export default {
-  name: "PortalValidators",
+  name: 'PortalValidators',
   methods: {
-    siteIdValidator(value) {
-        var dashIndex;
-        if (value) {
-            dashIndex = value.indexOf('-');
-            if (dashIndex === -1 || dashIndex === 0 || dashIndex === value.length - 1) {
-                return {
-                    isValid: false,
-                    errorMessage: 'Format is AGENCY-STATION. NWIS sites should use "USGS" as the AGENCY.'
-                };
-            } else {
-                return {isValid: true};
-            }
-        } else {
-            return {isValid: true};
-        }
-    },
-
     realNumberValidator(value) {
         if (value) {
             if (isNaN(value)) {
@@ -58,5 +41,5 @@ export default {
         return result;
     }
   }
-}
+};
 </script>

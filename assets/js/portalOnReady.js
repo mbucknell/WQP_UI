@@ -143,8 +143,8 @@ document.addEventListener("DOMContentLoaded", function() {
               elemNodeList.forEach(elem => {
                 elem.className = 'usa-tooltip';
                 elem.setAttribute('data-position', 'right');
-              })
-              initTooltip(elemNodeList)
+              });
+              initTooltip(elemNodeList);
           });
           
           let self = this;
@@ -153,11 +153,8 @@ document.addEventListener("DOMContentLoaded", function() {
           providerClass.fetch()
             .then(function(){
               self.providers = providerClass;
-              self.initialize()
-            })
-            .catch(function(){
-              self.initialize()
-            })
+              self.initialize();
+            });
 
             // show or hide intro
             const localStorageSetting = localStorage.getItem("showIntro");
@@ -185,7 +182,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 let form = document.querySelector('#params');
-                let basicform = document.querySelector('#paramsBasic');
 
                 // Create sub views
                 let downloadProgressClass = Vue.extend(DownloadProgressDialog);
@@ -244,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                   this.step = 0;
                 }
-                this.showStepParameters()
+                this.showStepParameters();
               },
               onPrev() {
                 if (this.step > 0) {

@@ -1,4 +1,3 @@
-import each from 'lodash/each';
 import has from 'lodash/has';
 import omit from 'lodash/omit';
 import log from 'loglevel';
