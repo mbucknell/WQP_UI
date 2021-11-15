@@ -16,7 +16,7 @@ import SiteParameterInputView from './SiteParameterInputView.vue';
 import CachedCodesModel from '../CachedCodesModel.vue';
 import CodesWithKeysModel from '../CodesWithKeysModel.vue';
 import queryService from '../queryService';
-import { toggleShowHideSections, getQueryString, getAnchorQueryValues } from '../utils';
+import {getQueryString} from '../utils';
 import store from '../store/store.js';
 
 let downloadFormControllerClass = Vue.extend(DownloadFormController);
@@ -192,16 +192,6 @@ export default {
             this.form.querySelector('#nldi-map').style.display = "none";
         }
 
-
-////////////NOT CURRENTLY USED???///////////////////////////////////////////////////////////////////
-        // Add Click handler for form show/hide/button
-        // this.form.querySelector('.panel-heading .show-hide-toggle').onclick(function (el) {
-        //     toggleShowHideSections(el, el.parents('.panel').querySelector('.panel-body'));
-        // });
-
-        // this.form.querySelector('.subpanel-heading .show-hide-toggle').onclick(function (el) {
-        //     toggleShowHideSections(el, el.parents('.subpanel').querySelector('.subpanel-body'));
-        // });
 
         // Initialize the share window and button event handler
         const shareContainer = this.form.querySelector('.share-container');

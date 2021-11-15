@@ -2,6 +2,9 @@
 </template>
 
 <script>
+/* TODO: This vue component does not work. I am leaving it in because we may
+want to add back in input validation
+ */
 //
 // @params spec has the following properties
 //      inputEl - Inputs whose value needs to be validated

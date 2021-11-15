@@ -67,7 +67,6 @@ export default {
                 {
                     model : this.sampleMediaModel
                 },
-                {},
                 initSampleMedia,
                 this.providers
             );
@@ -78,7 +77,6 @@ export default {
                 {
                     model : this.sampleMediaModel
                 },
-                {},
                 initSampleMediaBasic,
                 this.providers
             );
@@ -91,7 +89,6 @@ export default {
                 {
                     model : this.characteristicTypeModel
                 },
-                {},
                 initChargroup,
                 this.providers
             );
@@ -102,7 +99,6 @@ export default {
                 {
                     model : this.characteristicTypeModel
                 },
-                {},
                 initChargroupBasic,
                 this.providers
             );

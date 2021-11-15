@@ -1,4 +1,4 @@
-import { getQueryString, toggleShowHideSections, getQueryParamJson, getAnchorQueryValues,
+import { getQueryString, getQueryParamJson, getAnchorQueryValues,
     initializeInput, getCurlString } from '../../../js/utils';
 
 
@@ -69,34 +69,6 @@ describe('Test PORTAl.UTILS package', function () {
             expect(result.huc).toEqual(['0701*', '0702*']);
         });
 
-    });
-
-    describe('Test toggleShowHideSections', function () {
-        beforeEach(function () {
-            let buttonHtml = '<button id="show-hide-toggle" title="Show content">' +
-                '<img src="img/expand.png" alt="show" /></button>';
-            document.body.innerHTML = '<div id="test-div">' + buttonHtml + '<div id="content-div" style="display:none;">Here\'s the content</div></div>';
-        });
-
-        afterEach(function () {
-            document.querySelector('#test-div').remove();
-        });
-
-        it('Expects when toggleShowHideSections is called content is hidden', function () {
-            let isVisible = toggleShowHideSections(document.querySelector('#show-hide-toggle'), document.querySelector('#content-div'));
-            expect(isVisible).toBe(true);
-            expect(document.querySelector('#show-hide-toggle').getAttribute('title')).toContain('Hide');
-            expect(document.querySelector('#show-hide-toggle img').getAttribute('alt')).toEqual('hide');
-        });
-
-        it('Expects when toggleShowHideSections is called twice, the content is shown', function () {
-            let isVisible = toggleShowHideSections(document.querySelector('#show-hide-toggle'), document.querySelector('#content-div'));
-            isVisible = toggleShowHideSections(document.querySelector('#show-hide-toggle'), document.querySelector('#content-div'));
-
-            expect(isVisible).toBe(false);
-            expect(document.querySelector('#show-hide-toggle').getAttribute('title')).toContain('Show');
-            expect(document.querySelector('#show-hide-toggle img').getAttribute('alt')).toEqual('show');
-        });
     });
 
     describe('getAnchorQueryValue', () =>  {

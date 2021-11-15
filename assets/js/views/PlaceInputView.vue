@@ -2,8 +2,6 @@
 </template>
 
 <script>
-import includes from 'lodash/includes';
-import filter from 'lodash/filter';
 import has from 'lodash/has';
 import last from 'lodash/last';
 import union from 'lodash/union';
@@ -33,12 +31,8 @@ let portalViews = new portalViewClass();
  */
 
 export default {
-  name: "PlaceInputView",
-  props: ['container', 'countyModel', 'stateModel', 'countryModel', "providers"],
-  components:{
-      InputValidationView,
-      PortalViews,
-  },
+  name: 'PlaceInputView',
+  props: ['container', 'countyModel', 'stateModel', 'countryModel', 'providers'],
   methods: {
       initializeCountrySelect(select, model, initValues=[]) {
         var isMatch = function (searchTerm, lookup) {
@@ -51,13 +45,6 @@ export default {
                 return true;
             }
         };
-        var templateSelection = function(selectData) {
-            if (has(selectData, 'id')) {
-                return selectData.id;
-            } else {
-                return null;
-            }
-        };
 
         var spec = {
             model: model,
@@ -68,9 +55,7 @@ export default {
             "getCountryState", 
             "getCountryOptionsState",
             select,
-            spec, {
-            templateSelection: templateSelection
-            },
+            spec,
             initValues,
             this.providers
         );
@@ -95,18 +80,16 @@ export default {
             }
         };
 
-        var spec = {
+        const spec = {
             model: model,
             isMatch: isMatch
         };
 
         portalViews.codeSelect(
-            "getCountryState",
-            "getCountryOptionsState",
+            'getCountryState',
+            'getCountryOptionsState',
             select,
-            spec, {
-            templateSelection: templateSelection
-            },
+            spec,
             initValues,
             this.providers
         );
@@ -131,31 +114,11 @@ export default {
             getKeys: getCountryKeys
         };
 
-        var templateSelection = function(selectData) {
-            var codes;
-            var result;
-            if (has(selectData, 'id')) {
-                codes = selectData.id.split(':');
-
-                if (codes[0] === USA) {
-                    result = codes[0] + ':' + getPostalCode(codes[1]);
-                } else {
-                    result = selectData.id;
-                }
-            } else {
-                result = null;
-            }
-            return result;
-        };
-
         portalViews.cascadedCodeSelect(
             "getStateState",
             "getStateOptionsState",
             select,
             spec,
-            {
-                templateSelection: templateSelection
-            },
             initValues,
             this.providers
         );
@@ -180,31 +143,12 @@ export default {
             getKeys: getCountryKeys
         };
 
-        var templateSelection = function(selectData) {
-            var codes;
-            var result;
-            if (has(selectData, 'id')) {
-                codes = selectData.id.split(':');
-
-                if (codes[0] === USA) {
-                    result = codes[0] + ':' + getPostalCode(codes[1]);
-                } else {
-                    result = selectData.id;
-                }
-            } else {
-                result = null;
-            }
-            return result;
-        };
 
         portalViews.cascadedCodeSelect(
             "getStateState",
             "getStateOptionsState",
             select,
             spec,
-            {
-                templateSelection: templateSelection
-            },
             initValues,
             this.providers
         );
@@ -227,32 +171,11 @@ export default {
             getKeys: getStateKeys
         };
 
-        var templateSelection = function(selectData) {
-            var codes;
-            var result;
-
-            if (has(selectData, 'id')) {
-                codes = selectData.id.split(':');
-
-                if (codes[0] === 'US') {
-                    result = codes[0] + ':' + getPostalCode(codes[1]) + ':' + codes[2];
-                } else {
-                    result = selectData.id;
-                }
-            } else {
-                result = null;
-            }
-            return result;
-        };
-
         portalViews.cascadedCodeSelect(
             "getCountyState",
             "getCountyOptionsState",
             select,
             countySpec,
-            {
-                templateSelection: templateSelection
-            },
             initValues,
             this.providers
         );
@@ -275,38 +198,17 @@ export default {
             getKeys: getStateKeys
         };
 
-        var templateSelection = function(selectData) {
-            var codes;
-            var result;
-
-            if (has(selectData, 'id')) {
-                codes = selectData.id.split(':');
-
-                if (codes[0] === 'US') {
-                    result = codes[0] + ':' + getPostalCode(codes[1]) + ':' + codes[2];
-                } else {
-                    result = selectData.id;
-                }
-            } else {
-                result = null;
-            }
-            return result;
-        };
-
         portalViews.cascadedCodeSelect(
             "getCountyState",
             "getCountyOptionsState",
             select,
             countySpec,
-            {
-                templateSelection: templateSelection
-            },
             initValues,
             this.providers
         );
     },
     /*
-     * Initialize the select2's and add event handlers
+     * Initialize the select and add event handlers
      * @return promise
      *      @resolve - When all models have been fetched successfully
      *      @reject - If any of the fetches failed.
@@ -394,13 +296,12 @@ export default {
                 fetchCounties = this.countyModel.fetch(union([USA], initCountries));
             }
             fetchCounties.then((result) => {
-                store.commit("getCountyOptionsState", map(result, (data) => {
+                store.commit('getCountyOptionsState', map(result, (data) => {
                     return {
                         id: data.id,
                         text: data.desc + ' (' + self.providers.formatAvailableProviders(data.providers) + ')'
                     };
-                })
-                );
+                }));
             });
         });
 
@@ -442,8 +343,7 @@ export default {
                     };
                 }
                 return result;
-            },
-            event : 'select2:opening'
+            }
         });
         
         let inputValidationViewAdv = new inputValidationClass();
@@ -463,8 +363,7 @@ export default {
                     };
                 }
                 return result;
-            },
-            event : 'select2:opening'
+            }
         });
         
         return fetchComplete;
@@ -475,5 +374,5 @@ export default {
         inputs.dispatchEvent(new Event('change'));
     }
   }
-}
+};
 </script>

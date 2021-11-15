@@ -4,10 +4,6 @@ import reject from 'lodash/reject';
 import omit from 'lodash/omit';
 import pick from 'lodash/pick';
 
-const COLLAPSE_IMG = Config.STATIC_ENDPOINT + 'img/collapse.png';
-const EXPAND_IMG = Config.STATIC_ENDPOINT + 'img/expand.png';
-
-
 /*
  * Returns a query string suitable for use as a URL query string with parameters on the ignoreList
  * removed.
@@ -83,29 +79,6 @@ export const setEnabled = function(els, isEnabled /* Boolean */) {
         label.classList.add('disabled');
     }
 };
-
-/*
- * @param button - The show/hide toggle button element
- * @param {Jquery element} $contentDiv - The content div that is controlled by buttonEl.
- * @return {Boolean} - true if contentDivEl is now visible, false otherwise.
- */
-export const toggleShowHideSections = function(button, contentDiv) {
-    var buttonImg = button.querySelector('img');
-    if (buttonImg.getAttribute('alt') === 'show') {
-        button.setAttribute('title', button.getAttribute('title').replace('Show', 'Hide'));
-        buttonImg.setAttribute('alt', 'hide')
-        buttonImg.setAttribute('src', COLLAPSE_IMG);
-        contentDiv.style.display = 'block';
-        return true;
-    } else {
-        button.setAttribute('title', button.getAttribute('title').replace('Hide', 'Show'));
-        buttonImg.setAttribute('alt', 'show')
-        buttonImg.setAttribute('src', EXPAND_IMG);
-        contentDiv.style.display = 'none';
-        return false;
-    }
-};
-
 
 /*
  * Cookie utils
@@ -195,17 +168,3 @@ export const getCurlString = function(resultType, queryParamArray) {
 
     return `${curlLeadingString}'${curlDataParamsString} '${urlBase}?${params}'`;
 };
-
-export const dataProfileUsed = {
-    'Station': false,
-    'Project': false,
-    'ProjectMonitoringLocationWeighting': false,
-    'Result': true,
-    'Activity': false,
-    'ActivityMetric': false,
-    'ResultDetectionQuantitationLimit': false,
-    'biologicalHabitatMetric': false,
-    'default': false
-};
-
-

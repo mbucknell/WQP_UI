@@ -38,6 +38,7 @@ env:
 
 requirements: env
 	@echo 'Installing requirements.txt'
+	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt -r requirements-dev.txt
 
 instance/config.py:
