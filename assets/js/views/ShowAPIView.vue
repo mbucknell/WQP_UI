@@ -3,8 +3,9 @@
 
 <script>
 import queryService from '../queryService';
+import {getWfsGetFeatureUrl} from '../leafletUtils';
 import { getQueryString, getCurlString } from '../utils';
-import store from '../store/store.js'
+import store from '../store/store.js';
 
 /*
  * Initializes the windows which show the various API calls
@@ -41,20 +42,20 @@ export default {
                 curlString = getCurlString("Station", queryParamsWithoutCSRFToken);
             }
 
-            apiQueryDiv.style.display = "block";
+            apiQueryDiv.style.display = 'block';
             if(resultType !== null){
                 apiQueryTitle.innerHTML = resultType.replace(/([A-Z])/g, ' $1');
             }else{
-                apiQueryTitle.innerHTML = "Station";
+                apiQueryTitle.innerHTML = 'Station';
             }
             apiQueryText.innerHTML = apiQueryString;
             curlText.innerHTML = curlString;
             
-            if(queryParamsWithoutCSRFToken.filter( param => param.name.includes('dataProfile'))){
-                let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter( param => param.name !== 'dataProfile' );
-                wfsText.innerHTML = L.WQPSitesLayer.getWfsGetFeatureUrl(queryWithoutDataProfileArray);
-            }else{
-                wfsText.innerHTML = L.WQPSitesLayer.getWfsGetFeatureUrl(queryParamsWithoutCSRFToken);
+            if (queryParamsWithoutCSRFToken.filter(param => param.name.includes('dataProfile'))){
+                let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter(param => param.name !== 'dataProfile');
+                wfsText.innerHTML = getWfsGetFeatureUrl(queryWithoutDataProfileArray);
+            } else {
+                wfsText.innerHTML =getWfsGetFeatureUrl(queryParamsWithoutCSRFToken);
             }
         };
 

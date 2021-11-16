@@ -66,9 +66,6 @@ export default {
                     model : model,
                     formatData : formatData,
                     isMatch : isMatch
-                }, {
-                    minimumInputLength: 2,
-                    closeOnSelect : false
                 },
                 getAnchorQueryValues(select.getAttribute('name')),
                 self.providers
@@ -94,7 +91,6 @@ export default {
                 {
                     model : this.siteTypeModel
                 },
-                {},
                 initSitetype,
                 this.providers
             );
@@ -105,7 +101,6 @@ export default {
                 {
                     model : this.siteTypeModel
                 },
-                {},
                 initSitetypeBasic,
                 this.providers
             );

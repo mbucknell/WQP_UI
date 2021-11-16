@@ -4,42 +4,12 @@ import { shallowMount } from '@vue/test-utils';
 describe('Tests for portalValidators', function () {
     'use strict';
 
-    describe('Tests for validators.siteIdValidator', function () {
-        let wrapper;
-
-        beforeEach(() => {
-            wrapper = shallowMount(PortalValidators);
-        })
-
-        it('Expects null value to return isValid true', function () {
-            expect(wrapper.vm.siteIdValidator('')).toEqual({isValid: true});
-        });
-        it('Expects value with format x-y to be valid', function () {
-            expect(wrapper.vm.siteIdValidator('XX-YYY')).toEqual({isValid: true});
-        });
-        it('Expects value without a dash to be invalid', function () {
-            var valid = wrapper.vm.siteIdValidator('XXYYY');
-            expect(valid.isValid).toBe(false);
-            expect(valid.errorMessage).toBeDefined();
-        });
-        it('Expects value starting with a dash to be invalid', function () {
-            var valid = wrapper.vm.siteIdValidator('-XXYYY');
-            expect(valid.isValid).toBe(false);
-            expect(valid.errorMessage).toBeDefined();
-        });
-        it('Expects value ending with a dash to be invalid', function () {
-            var valid = wrapper.vm.siteIdValidator('XXYYY-');
-            expect(valid.isValid).toBe(false);
-            expect(valid.errorMessage).toBeDefined();
-        });
-    });
-
     describe('Tests for validators.realNumberValidator', function () {
         let wrapper;
 
         beforeEach(() => {
             wrapper = shallowMount(PortalValidators);
-        })
+        });
 
         it('Expects a null value to be valid', function () {
             expect(wrapper.vm.realNumberValidator('')).toEqual({isValid: true});

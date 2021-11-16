@@ -25,8 +25,8 @@ export default {
     return {
       countryValue: [],
       countryOptions: [],
-      country: [],
-    }
+      country: []
+    };
   },
   methods: {
     updateSelected(value) {
@@ -36,31 +36,31 @@ export default {
       if(this.countryValue[0] !== undefined){
         this.countryValue.forEach(function(value){
           self.country.push(value.id);
-        })
-      }else{
+        });
+      } else {
         this.country = [];
       }
-      this.$store.commit("getCountryState", value);
+      this.$store.commit('getCountryState', value);
     },
     updateOptions(value) {
       this.countryOptions = value;
-    },
+    }
   },
   watch: {
-    "$store.state.countryOptionsState": {
+    '$store.state.countryOptionsState': {
       deep: true,
       handler(){
         this.updateOptions(this.$store.state.countryOptionsState);
       }
     },
-    "$store.state.countrySelectedState": {
+    '$store.state.countrySelectedState': {
       deep: true,
       handler(){
         this.updateSelected(this.$store.state.countrySelectedState);
       }
-    },
+    }
   }
-}
+};
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

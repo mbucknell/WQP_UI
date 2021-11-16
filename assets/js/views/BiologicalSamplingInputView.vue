@@ -34,13 +34,12 @@ export default {
 
         fetchAssemblageModel.then(() => {
             portalViews.codeSelect(
-                "getAssemblageState",
-                "getAssemblageOptionsState",
+                'getAssemblageState',
+                'getAssemblageOptionsState',
                 assemblage,
                 {
                     model : this.assemblageModel
                 },
-                {},
                 initValues,
                 this.providers
             );
@@ -54,5 +53,5 @@ export default {
         inputs.dispatchEvent(new Event('change'));
     }
   }
-}
+};
 </script>
