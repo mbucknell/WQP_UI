@@ -45,7 +45,8 @@ const getBundleConfig = function (src, dest) {
                 transforms: {
                     asyncAwait: false,
                     forOf: false,
-                    generator: false
+                    generator: false,
+                    templateString: false
                 }
             }),
             replace({
