@@ -1,0 +1,66 @@
+<div id="footer-row-div">
+    <footer class="usa-footer">
+        <div class="usa-footer__primary-section" id="primary-footer">
+            <nav class="usa-footer__nav" aria-label="Footer navigation">
+                <ul class="grid-row grid-gap">
+                    <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                        <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.wqp_description') }}">What is
+                            the WQP?</a>
+                    </li>
+                    <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                        <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.orgs') }}">Contributing orgs</a>
+                    </li>
+                    <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                        <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.apps_using_portal') }}">Apps
+                            using the WQP</a>
+                    </li>
+                    <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                        <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.other_portal_links') }}">Other
+                            Water Quality Portals</a>
+                    </li>
+                    <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                        <a class="usa-footer__primary-link" href="{{ url_for('portal_ui.uri_base') }}">Explore WQP
+                            sites</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="usa-footer__secondary-section">
+            <div class="grid-container">
+                <div class="grid-row grid-gap">
+                    <div class="usa-footer__logo grid-row mobile-lg:grid-col-4 mobile-lg:grid-gap-1">
+                        <div class="mobile-lg:grid-col-auto">
+                            <!-- <img class="usa-footer__logo-img" src="img/uswds/USGS_logo.gif" alt=""> -->
+                            <a href="http://usgs.gov"><img alt="USGS Science for a changing world"
+                                                           src="{{ 'img/USGS_logo.gif' | asset_url }}"/></a>
+                        </div>
+                        <div class="mobile-lg:grid-col-auto">
+                            <!-- <img class="usa-footer__logo-img" src="img/uswds/USGS_logo.gif" alt=""> -->
+                            <a href="http://epa.gov"><img alt="EPA"
+                                                          src="{{ 'img/EPA_logo.gif' | asset_url }}"/></a>
+                        </div>
+                    </div>
+                    <div id="etlSection" class="mobile-lg:grid-col-4">
+                        <div><b>NWIS (USGS)</b> Last Content Change: <span id="usgsETL"></span></div>
+                        <div><b>STEWARDS (ARS)</b> Last Content Change: <span id="arsETL"></span></div>
+                        <div><b>WQX (EPA)</b> Last Content Change: <span id="epaETL"></span></div>
+                    </div>
+                    <div class="usa-footer__contact-links mobile-lg:grid-col-4">
+                        <h3 class="usa-footer__contact-heading">Agency Contact Center</h3>
+                        <address class="usa-footer__address">
+                            <div class="usa-footer__contact-info grid-row grid-gap">
+                                <div class="grid-col-auto">
+                                    <a href="tel:1-800-424-9067">1-800-424-9067</a>
+                                </div>
+                                <div class="grid-col-auto">
+                                    <a href="mailto:WQX@epa.gov">WQX@epa.gov</a>
+                                </div>
+                            </div>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

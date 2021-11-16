@@ -18,6 +18,10 @@ test:
 	@echo 'Running assets tests...'
 	npm run test:firefox
 
+lint:
+	@echo 'Running asset linting...'
+	npm run lint
+
 watch:
 	npm run watch
 
