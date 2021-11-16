@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+
 {% block meta_tags %}
 <meta name="google-site-verification" content="U1sI4UZAdEVS_0seZnE7MC97P1Ho6Hecg3wumfV5KoA" />
 <meta name="msvalidate.01" content="E86159A5D7A52A1AF52A3024B0ECC27F" />
 {% endblock %}
+
 {% block title %}Water Quality Data Home{% endblock %}
 
 {% block nav_bar %}{% endblock %}
 
 {% block page_content %}
-
 <!-- Basic Form -->
 <div class="page-center">
   <div id="forms" class="page-center-content">
@@ -899,13 +900,8 @@
   </div>
   </div>
 </div>
-
-
 {% endblock %}
 
 {% block body_page_script %}
-{% include "partials/hide_non_usgs_epa_logos.html" %}
-
-<script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
-
+  <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
 {% endblock %}

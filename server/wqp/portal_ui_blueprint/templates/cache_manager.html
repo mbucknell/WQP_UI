@@ -7,7 +7,8 @@
 
 {% block google_analytics_script %}{% endblock %}
 
-{% block page_style %}
+{% block custom_style %}
+    {{ super() }}
     <style>
         .progress_area {
             width: 100%;

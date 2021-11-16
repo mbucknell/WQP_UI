@@ -12,7 +12,9 @@ help:
 	@echo  '  clean - Remove all build artifacts'
 	@echo  '  cleanenv - Remove all environment artifacts'
 
-.PHONY: help env test clean cleanenv coverage
+.PHONY: help env test clean cleanenv coverage lint
+
+.IGNORE: lint test
 
 MAKEPID:= $(shell echo $$PPID)
 
@@ -31,3 +33,6 @@ cleanenv:
 build: devenv
 	cd assets && make build
 	cd server && make build
+lint:
+	cd assets && make lint
+	cd server && make lint

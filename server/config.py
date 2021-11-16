@@ -35,7 +35,7 @@ SEARCH_QUERY_ENDPOINT = os.environ.get('SEARCH_QUERY_ENDPOINT', 'https://www.wat
 PUBLIC_SRSNAMES_ENDPOINT = os.environ.get('PUBLIC_SRSNAMES_ENDPOINT')
 
 HYDRO_LAYER_ENDPOINT = 'https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer'
-NHDPLUS_FLOWLINE_ENDPOINT = 'https://cida.usgs.gov/nwc/geoserver/gwc/service/wms'
+NHDPLUS_FLOWLINE_ENDPOINT = 'https://labs.waterdata.usgs.gov/geoserver/wms'
 NHDPLUS_FLOWLINE_LAYER_NAME = 'nhdplus:nhdflowline_network'
 
 # Points to the endpoint which returns flow lines and sites for a comid
