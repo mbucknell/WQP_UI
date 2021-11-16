@@ -344,11 +344,11 @@ export default {
         let formType;
         let buttonSelector;
         let downloadProgressDialog;
-        if (form.id == "params"){
+        if (form.id == "params") {
             formType = "advanced";
             buttonSelector = "#main-button";
             downloadProgressDialog = this.downloadProgressDialog;
-        }else{
+        } else {
             formType = "basic";
             buttonSelector = "#basic-main-button";
             downloadProgressDialog = this.downloadProgressDialogBasic;
