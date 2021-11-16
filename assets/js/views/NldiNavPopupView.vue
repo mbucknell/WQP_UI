@@ -55,6 +55,6 @@ export default {
         });
         navButton.onclick = this.navHandler;
       }
-  },
-}
+  }
+};
 </script>
