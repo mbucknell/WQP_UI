@@ -22,9 +22,9 @@ body {
 }
 
 @media (max-width: 1010px){
-	.usa-navbar {
-		justify-content: space-between;
-	}
+    .usa-navbar {
+        justify-content: space-between;
+    }
 }
 
 
@@ -37,10 +37,10 @@ body {
     width: 140px;
     height: auto;
 
-	@media (max-width: 1010px) {
-		width: auto !important;
-		height: 44px !important;
-	}
+    @media (max-width: 1010px) {
+        width: auto !important;
+        height: 44px !important;
+    }
   }
 
   em {
@@ -60,17 +60,17 @@ body {
   }
 
   .usa-nav__link{
-	  color: white;
+      color: white;
   }
 
 }
 
 @media (min-width: 1010px){
-	.usa-nav__primary>.usa-nav__primary-item>a,
-	.usa-nav__link,
-	.usa-nav__primary button{
-		color: #fff;
-	}
+    .usa-nav__primary>.usa-nav__primary-item>a,
+    .usa-nav__link,
+    .usa-nav__primary button{
+        color: #fff;
+    }
 }
 
 
@@ -142,7 +142,7 @@ body {
       border-radius: 5px;
       padding: 5px;
 
-	  #nldi-selector-title {
+      #nldi-selector-title {
         font-weight: bold;
         font-size: 14px;
         margin: 5px 5px 5px 12px;
@@ -224,11 +224,13 @@ body {
 }
 
 .usa-footer__primary-section {
-  background-color: #3d4551 !important; //USWDS gray-cool-70
+  //background-color: #3d4551 !important; //USWDS
+  @include u-bg('gray-cool-70');
 }
 
 #primary-footer a:link, #primary-footer a:visited {
-  color: white;
+  //color: white;
+  @include u-color('gray-1');
 }
 
 #close-announcement img {
@@ -263,11 +265,17 @@ body {
 
 // basic form styles
 .smallInput {
-  width: 60px;
-  min-height: 32px;
-  border: 1px solid #565c65;
-  border-radius: 0;
-  padding: 0.5rem;
+  //width: 60px;
+  @include u-width(8);
+  //min-height: 32px;
+  @include u-minh(4);
+  //border: 1px solid #565c65;
+  @include u-border(1px);
+  @include u-border('gray-cool-60');
+  //border-radius: 0;
+  @include u-radius(0);
+  //pading: 0.5rem;
+  @include u-padding(1);
 }
 
 .formSection {
@@ -299,7 +307,8 @@ body {
 
 .required-field::after {
   content: "*";
-  color: red;
+  //color: red;
+  @include u-color('red-50v')
 }
 
 .menu-buttons {
@@ -339,11 +348,13 @@ body {
 }
 
 .usa-tooltip__body {
-  background-color: #253f60 !important;
+  //background-color: #253f60 !important;
+  @include u-bg('blue-70')
 }
 
 .usa-tooltip__body--bottom:after {
-  border-bottom-color: #253f60 !important;
+  //border-bottom-color: #253f60 !important;
+  @include u-border-bottom('blue-70');
 }
 
 .usa-tooltip__body--top:after {
@@ -601,5 +612,5 @@ a:visited {
 
 // ETL section in footer
 #etlSection {
-	font-size: 13.5px
+    font-size: 13.5px
 }
