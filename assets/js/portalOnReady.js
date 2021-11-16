@@ -1,9 +1,7 @@
 import log from 'loglevel';
 import { TOOLTIP } from './tooltipDefinitions';
-import ArcGisOnlineHelpView from './views/ArcGisOnlineHelpView.vue';
 import DownloadFormView from './views/DownloadFormView.vue';
 import ShowAPIView from './views/ShowAPIView.vue';
-import SiteMapView from './views/SiteMapView.vue';
 import DownloadProgressDialog from './DownloadProgressDialog.vue';
 import { initTooltip } from './uswdsComponents/uswdsTooltip';
 import Vue from 'vue';
@@ -37,8 +35,6 @@ document.addEventListener("DOMContentLoaded", function() {
         components: {
           "date-validator": DateValidator,
           "download-progress-dialog": DownloadProgressDialog,
-          ArcGisOnlineHelpView,
-          SiteMapView,
           ShowAPIView,
           "Multiselectcountry": MultiselectCountry,
           "Multiselectstate": MultiselectState,
@@ -147,8 +143,8 @@ document.addEventListener("DOMContentLoaded", function() {
               elemNodeList.forEach(elem => {
                 elem.className = 'usa-tooltip';
                 elem.setAttribute('data-position', 'right');
-              })
-              initTooltip(elemNodeList)
+              });
+              initTooltip(elemNodeList);
           });
           
           let self = this;
@@ -157,11 +153,8 @@ document.addEventListener("DOMContentLoaded", function() {
           providerClass.fetch()
             .then(function(){
               self.providers = providerClass;
-              self.initialize()
-            })
-            .catch(function(){
-              self.initialize()
-            })
+              self.initialize();
+            });
 
             // show or hide intro
             const localStorageSetting = localStorage.getItem("showIntro");
@@ -189,7 +182,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 let form = document.querySelector('#params');
-                let basicform = document.querySelector('#paramsBasic');
 
                 // Create sub views
                 let downloadProgressClass = Vue.extend(DownloadProgressDialog);
@@ -216,13 +208,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     providers: this.providers
                   }
                 });
-                let siteMapClass = Vue.extend(SiteMapView);
-                let siteMapView = new siteMapClass({
-                    container: document.querySelector('#mapping-div'),
-                    downloadProgressDialog: downloadProgressDialog,
-                    downloadFormView: downloadFormView,
-                    providers: this.providers
-                });
+
                 let showAPIClass = Vue.extend(ShowAPIView);
                 let showAPIView = new showAPIClass({
                   propsData: {
@@ -231,22 +217,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     getResultType: downloadFormView.getResultType.bind(downloadFormView)
                   }
                 });
-            /////////////NOT CURRENTLY BEING USED?? #MAPPING-DIV COMMENTED OUT IN INDEX.HTML/////////////////////////
-                // let arcGisOnlineHelpClass = Vue.extend(ArcGisOnlineHelpView);
-                // let arcGisOnlineHelpView = new arcGisOnlineHelpClass({
-                //   propsData:{
-                //     button: document.querySelector('#show-arcgis-online-help'),
-                //     dialog: document.querySelector('#arcgis-online-modal'),
-                //     siteMapViewContainer: document.querySelector('#mapping-div'),
-                //     getQueryParamArray: downloadFormView.getQueryParamArray.bind(downloadFormView)
-                //   }
-                // });
 
                 //Initialize subviews
                 let initDownloadForm = downloadFormView.initialize();
-                // siteMapView.initialize();
                 showAPIView.initialize();
-                // arcGisOnlineHelpView.initialize();
 
                 // TODO wqp-1723
                 initDownloadForm.catch(function (jqxhr) {
@@ -266,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                   this.step = 0;
                 }
-                this.showStepParameters()
+                this.showStepParameters();
               },
               onPrev() {
                 if (this.step > 0) {

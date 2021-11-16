@@ -14,7 +14,10 @@
   "plugins": [
     "jasmine"
   ],
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/recommended"
+  ],
   "rules": {
     "comma-dangle": [2,"never"],
     "linebreak-style": ["error", "unix"],
@@ -27,16 +30,7 @@
     "semi": ["error", "always"]
   },
   "globals": {
-    "console": true,
-    "document": true,
     "process": true,
-    "window": true,
-    "XMLHttpRequest": true,
-    "PORTAL": true,
-    "SITES": true,
-    "COVERAGE": true,
-    "NLDI": true,
-    "WQP": true,
     "L": true,
     "$": true,
     "Config": true,
