@@ -9,16 +9,19 @@ $black: #000;
 @import "uswds";
 
 body {
-  background-color: white;
+  //background-color: white;
+  @include u-bg('gray-1');
 }
 
 #forms {
-  background-color: white;
+  //background-color: white;
+  @include u-bg('gray-1');
   padding-top: 20px;
 }
 
 #main-header {
-  background-color: #253F60;
+  //background-color: #253F60;
+  @include u-bg('blue-70');
 }
 
 @media (max-width: 1010px){
@@ -65,11 +68,12 @@ body {
 
 }
 
-@media (min-width: 1010px){
+@media (min-width: 1010px) {
     .usa-nav__primary>.usa-nav__primary-item>a,
     .usa-nav__link,
-    .usa-nav__primary button{
-        color: #fff;
+    .usa-nav__primary button {
+      //color: #fff;
+      @include u-color('gray-1');
     }
 }
 
@@ -184,7 +188,8 @@ body {
 // Home Page form intro
 #formIntro {
   margin-bottom: 20px;
-  background-color: #e6e6e6; //uswds gray 10
+  //background-color: #e6e6e6;
+  @include u-bg('gray-10');
   box-sizing: border-box;
   padding: 20px 20px 0 20px;
   border-radius: 4px;
