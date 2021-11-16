@@ -4,7 +4,6 @@ Views
 
 from io import BytesIO
 import pickle
-from urllib.parse import urljoin
 
 import arrow
 from flask import render_template, request, make_response, redirect, url_for, abort, Response, jsonify, Blueprint, \
@@ -14,7 +13,7 @@ import redis
 from .. import app, session, csrf
 from ..utils import get_markdown, geoserver_proxy_request, retrieve_providers, retrieve_organizations, \
     get_site_key, retrieve_organization, retrieve_sites_geojson, retrieve_site, retrieve_county, \
-    generate_redis_db_number, create_request_resp_log_msg, create_redis_log_msg, invalid_usgs_view
+    generate_redis_db_number, create_request_resp_log_msg, create_redis_log_msg
 from ..tasks import load_sites_into_cache_async
 
 
@@ -30,174 +29,81 @@ cache_timeout = app.config['CACHE_TIMEOUT']
 proxy_cert_verification = app.config.get('PROXY_CERT_VERIFY', False)
 
 
-@portal_ui.route('/index.jsp')
 @portal_ui.route('/index/')
+@portal_ui.route('/portal/')
 @portal_ui.route('/', endpoint='home-canonical')
-@invalid_usgs_view
 def home():
-    if request.path == '/index.jsp' or request.path == '/index/':
+    if '/index/' in request.path  or '/portal/' in request.path:
         return redirect(url_for('portal_ui.home-canonical')), 301
     return render_template('index.html')
 
 
-@portal_ui.route('/contact_us.jsp')
-@portal_ui.route('/contact_us/', endpoint='contact_us-canonical')
-@invalid_usgs_view
+@portal_ui.route('/contact_us/')
 def contact_us():
-    if request.path == '/contact_us.jsp':
-        return redirect(url_for('portal_ui.contact_us-canonical')), 301
     return render_template('contact_us.html')
 
 
-@portal_ui.route('/index.jsp')
-@portal_ui.route('/index/', endpoint='index-canonical')
-def portal():
-    if request.path == '/portal.jsp':
-        return redirect(url_for('portal_ui.index-canonical')), 301
-    return render_template('index.html')
-
-
-@portal_ui.route('/portal_userguide.jsp')
-@portal_ui.route('/portal_userguide/', endpoint='portal_userguide-canonical')
+@portal_ui.route('/portal_userguide/')
 def portal_userguide():
-    if request.path == '/portal_userguide.jsp':
-        return redirect(url_for('portal_ui.portal_userguide-canonical')), 301
     md_path = "wqp/markdown/portal_userguide.md"
     return render_template('portal_userguide.html', md_content=get_markdown(md_path))
 
 
-@portal_ui.route('/webservices_documentation.jsp')
-@portal_ui.route('/webservices_documentation/', endpoint='webservices_documentation-canonical')
-@invalid_usgs_view
+@portal_ui.route('/webservices_documentation/')
 def webservices_documentation():
-    if request.path == '/webservices_documentation.jsp':
-        return redirect(url_for('portal_ui.webservices_documentation-canonical')), 301
     md_path = "wqp/markdown/webservices_documentation.md"
     return render_template('webservices_documentation.html', md_content=get_markdown(md_path))
 
 
-@portal_ui.route('/faqs.jsp')
-@portal_ui.route('/faqs/', endpoint='faqs-canonical')
-@invalid_usgs_view
+@portal_ui.route('/faqs/')
 def faqs():
-    if request.path == '/faqs.jsp':
-        return redirect(url_for('portal_ui.faqs-canonical')), 301
     md_path = "wqp/markdown/faqs.md"
     return render_template('faqs.html', md_content=get_markdown(md_path))
 
 
-
-@portal_ui.route('/upload_data.jsp')
-@portal_ui.route('/upload_data/', endpoint='upload_data-canonical')
-@invalid_usgs_view
+@portal_ui.route('/upload_data/')
 def upload_data():
-    if request.path == '/upload_data.jsp':
-        return redirect(url_for('portal_ui.upload_data-canonical')), 301
     md_path = "wqp/markdown/upload_data.md"
     return render_template('upload_data.html', md_content=get_markdown(md_path))
 
 
-@portal_ui.route('/coverage.jsp')
-@portal_ui.route('/coverage/', endpoint='coverage-canonical')
-@invalid_usgs_view
-def coverage():
-    if request.path == '/coverage.jsp':
-        return redirect(url_for('portal_ui.coverage-canonical')), 301
-    return render_template('coverage.html')
-
-
-@portal_ui.route('/wqp_description.jsp')
-@portal_ui.route('/wqp_description/', endpoint='wqp_description-canonical')
-@invalid_usgs_view
+@portal_ui.route('/wqp_description/')
 def wqp_description():
-    if request.path == '/wqp_description.jsp':
-        return redirect(url_for('portal_ui.wqp_description-canonical')), 301
     md_path = "wqp/markdown/wqp_description.md"
     return render_template('wqp_description.html', md_content=get_markdown(md_path))
 
 
-@portal_ui.route('/orgs.jsp')
-@portal_ui.route('/orgs/', endpoint='orgs-canonical')
-@invalid_usgs_view
+@portal_ui.route('/orgs/')
 def orgs():
-    if request.path == '/orgs.jsp':
-        return redirect(url_for('portal_ui.orgs-canonical')), 301
     md_path = "wqp/markdown/orgs.md"
     return render_template('orgs.html', md_content=get_markdown(md_path))
 
 
-@portal_ui.route('/apps_using_portal.jsp')
-@portal_ui.route('/apps_using_portal/', endpoint='apps_using_portal-canonical')
-@invalid_usgs_view
+@portal_ui.route('/apps_using_portal/')
 def apps_using_portal():
-    if request.path == '/apps_using_portal.jsp':
-        return redirect(url_for('portal_ui.apps_using_portal-canonical')), 301
     md_path = "wqp/markdown/apps_using_portal.md"
     return render_template('apps_using_portal.html', md_content=get_markdown(md_path))
 
 
-@portal_ui.route('/publications.jsp')
-@portal_ui.route('/publications/', endpoint='publications-canonical')
-@invalid_usgs_view
+@portal_ui.route('/publications/')
 def publications():
-    if request.path == '/publications.jsp':
-        return redirect(url_for('portal_ui.publications-canonical')), 301
     md_path = "wqp/markdown/publications.md"
-    return render_template('publications.html', md_content=get_markdown(md_path))
+    return render_template('publications.html')
 
 
-@portal_ui.route('/other_portal_links.jsp')
-@portal_ui.route('/other_portal_links/', endpoint='other_portal_links-canonical')
-@invalid_usgs_view
+@portal_ui.route('/other_portal_links/')
 def other_portal_links():
-    if request.path == '/other_portal_links.jsp':
-        return redirect(url_for('portal_ui.other_portal_links-canonical')), 301
     md_path = "wqp/markdown/other_portal_links.md"
     return render_template('other_portal_links.html', md_content=get_markdown(md_path))
 
 
-@portal_ui.route('/public_srsnames.jsp')
-@portal_ui.route('/public_srsnames/', endpoint='public_srsnames-canonical')
+@portal_ui.route('/public_srsnames/')
 def public_srsnames():
-    if request.path == '/public_srsnames.jsp':
-        return redirect(url_for('portal_ui.public_srsnames-canonical')), 301
-
     resp = session.get(app.config['PUBLIC_SRSNAMES_ENDPOINT'] + '?mimeType=json')
     msg = create_request_resp_log_msg(resp)
     app.logger.info(msg)
 
     return render_template('public_srsnames.html', status_code=resp.status_code, content=resp.json())
-
-
-# Exempting this from CSRF because it is intended for use with WQP internal.
-# We may want to revisit if/when internal is resurrected
-@csrf.exempt
-@portal_ui.route('/wqp_download/<op>', methods=['POST'])
-def wqp_download_proxy(op):
-    '''
-    Proxies the download request and adds the authorization header if an access_token is present.
-    :param String op: The kind of download to request
-    :return Response:
-    '''
-    target_url = app.config['SEARCH_QUERY_ENDPOINT'] + op + '/search'
-    headers = {}
-    access_token = request.cookies.get('access_token')
-    if access_token:
-        headers['Authorization'] = 'Bearer {0}'.format(access_token)
-    resp = session.post(target_url, data=request.form, headers=headers, verify=proxy_cert_verification)
-    if resp.status_code == 200:  # pylint: disable=R1705
-
-        try:
-            filename = resp.headers['Content-Disposition'].split('filename=')[1]
-        except (IndexError, KeyError):
-            filename = 'default_file'
-
-        return send_file(BytesIO(resp.content),
-                         mimetype=resp.headers['Content-Type'],
-                         as_attachment=True,
-                         attachment_filename=filename)
-    else:
-        return make_response(resp.content, resp.status_code, resp.headers.items())
 
 @portal_ui.route('/wqp_geoserver/<op>', methods=['GET', 'POST'])
 def wqp_geoserverproxy(op):
@@ -231,13 +137,13 @@ def kml():
 def images(image_file):
     return app.send_static_file('img/'+image_file)
 
+
 @portal_ui.route('/markdown/<md_file>')
 def markdowns(md_file):
     return app.send_static_file('markdown/'+md_file)
 
 
 @portal_ui.route('/provider/', endpoint='uri_base')
-@invalid_usgs_view
 def uri_base():
     providers = retrieve_providers()
     if not providers:
@@ -246,7 +152,6 @@ def uri_base():
 
 
 @portal_ui.route('/provider/<provider_id>/', endpoint='uri_provider')
-@invalid_usgs_view
 def uri_provider(provider_id):
     organizations = retrieve_organizations(provider_id)
     if organizations is None:
@@ -257,7 +162,6 @@ def uri_provider(provider_id):
 
 
 @portal_ui.route('/provider/<provider_id>/<organization_id>/', endpoint='uri_organization')
-@invalid_usgs_view
 def uri_organization(provider_id, organization_id):
     #Check for the information in redis first
     rendered_template = None
@@ -297,7 +201,6 @@ def uri_organization(provider_id, organization_id):
 
 
 @portal_ui.route('/provider/<provider_id>/<organization_id>/<path:site_id>/', endpoint='uri_site')
-@invalid_usgs_view
 def uris(provider_id, organization_id, site_id):
     site_data = None
     if redis_config:

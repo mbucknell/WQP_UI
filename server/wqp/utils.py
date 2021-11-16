@@ -1,19 +1,15 @@
 
-from functools import wraps
 from ntpath import basename
 import os
 import tarfile
 import time
 
 from bs4 import BeautifulSoup
-import feedparser
-from flask import request, make_response, abort
+from flask import request, make_response
 import markdown
 from markdown.extensions.toc import TocExtension
-from markdown.extensions.tables import TableExtension
 
 from . import app, session
-
 
 
 def create_request_resp_log_msg(response):
@@ -46,45 +42,44 @@ def create_redis_log_msg(redis_host, redis_port, db_number):
     msg = 'Connecting to Redis database {0} on {1}:{2}.'.format(db_number, redis_host, redis_port)
     return msg
 
+
 def get_markdown(md_path):
-	"""
+    """
     Load text from static markdown files
     :param md_path: the path of associated markdown file
     :return: the markdown converted to HTML
     """
-	md = markdown.Markdown(extensions=[TocExtension(baselevel=1),'markdown.extensions.tables', 'markdown.extensions.md_in_html'], output_format="html5")
-	with open(md_path, 'r') as f:
-		text = f.read()
-		html = md.convert(text)
-		
+    md = markdown.Markdown(
+        extensions=[TocExtension(baselevel=1), 'markdown.extensions.tables', 'markdown.extensions.md_in_html'],
+        output_format="html5"
+    )
+    with open(md_path, 'r') as f:
+        text = f.read()
+        html = md.convert(text)
 
-
-		# Create sidebar from md.toc
+        # Create sidebar from md.toc
         # Remove final div in the feed
-		sidebarTOC = BeautifulSoup(md.toc, 'html.parser')
+        sidebar_toc = BeautifulSoup(md.toc, 'html.parser')
 
-		feed_div = sidebarTOC.find('div', class_='toc')
-		child_divs = feed_div.find('ul')
-		links = str(child_divs).replace('<li>', '<li class=\'usa-sidenav__item\'>')
-		final = links.replace('<ul>', '<ul class=\'usa-sidenav\'>', 1)
-		table_of_contents = final.replace('<ul>', '<ul class=\'usa-sidenav__sublist\'>')
+        feed_div = sidebar_toc.find('div', class_='toc')
+        child_divs = feed_div.find('ul')
+        links = str(child_divs).replace('<li>', '<li class=\'usa-sidenav__item\'>')
+        final = links.replace('<ul>', '<ul class=\'usa-sidenav\'>', 1)
+        table_of_contents = final.replace('<ul>', '<ul class=\'usa-sidenav__sublist\'>')
 
-		# Create page body
-		body = BeautifulSoup(html, 'html.parser')
+        # Create page body
+        body = BeautifulSoup(html, 'html.parser')
 
-		# For every image, add static root to src
-		for img in body.findAll('img'):
-			root_path = app.config['STATIC_ROOT']
+        # For every image, add static root to src
+        for img in body.findAll('img'):
+            root_path = app.config['STATIC_ROOT']
 
-			if root_path.endswith('/'):
-				img['src'] = app.config['STATIC_ROOT']+img['src']
-			else: 
-				img['src'] = app.config['STATIC_ROOT']+'/'+img['src']
+            if root_path.endswith('/'):
+                img['src'] = app.config['STATIC_ROOT'] + img['src']
+            else:
+                img['src'] = app.config['STATIC_ROOT'] + '/' + img['src']
 
-
-		content={'body': body, 'toc': table_of_contents}
-		
-		return content
+        return {'body': body, 'toc': table_of_contents}
 
 
 def geoserver_proxy_request(target_url, cert_verification):
@@ -114,7 +109,6 @@ def geoserver_proxy_request(target_url, cert_verification):
 
 def retrieve_lookups(code_uri, params=None):
     """
-
     :param code_uri: string - The part of the url that identifies what kind of information to lookup. Should start with a slash
     :param params: dict - Any query parameters other than the mimeType that should be sent with the lookup
     :return: list of dictionaries representing the json object returned by the code lookup. Return None if
@@ -135,7 +129,6 @@ def retrieve_lookups(code_uri, params=None):
 
 def retrieve_providers():
     """
-
     :return: list of strings - one string for each provider. Return None if the information can't be retrieved
     """
     provider_lookups = retrieve_lookups('/providers')
@@ -152,7 +145,6 @@ def retrieve_providers():
 
 def retrieve_organization(provider, org_id):
     """
-
     :param org_id: string identifying a WQP organization value
     :return: dictionary containing id and name properties if such an org exists, an empty
         dictionary if no such org exists or None if no information can be retrieved.
@@ -178,7 +170,6 @@ def retrieve_organization(provider, org_id):
 
 def retrieve_organizations(provider):
     """
-
     :param provider: string - retrieve organizations belonging to provider
     :return: list of dictionaries or None. Each dictionary contains id and name keys representing an organization.
         None is returned if no information can be retrieved.
@@ -201,7 +192,6 @@ def retrieve_organizations(provider):
 
 def retrieve_county(country, state, county):
     """
-
     :param country: string - two letter country abbreviation
     :param state string - states fips code
     :param county: - county fips code
@@ -230,7 +220,6 @@ def retrieve_county(country, state, county):
 
 def retrieve_sites_geojson(provider, org_id):
     """
-
     :param provider: string
     :param org_id: string
     :return: python object representing the geojson object containing the sites which are in the provider and org_id.
@@ -261,7 +250,6 @@ def retrieve_sites_geojson(provider, org_id):
 
 def retrieve_site(provider_id, organization_id, site_id):
     """
-
     :param provider_id: string
     :param organization_id: string
     :param site_id: string
@@ -298,7 +286,6 @@ def retrieve_site(provider_id, organization_id, site_id):
 
 def generate_redis_db_number(provider):
     """
-
     :param provider: a WQP data provider
     :return: a database number to assign for redis to allow for cache clearing
     """
@@ -317,7 +304,6 @@ def generate_redis_db_number(provider):
 
 def tsv_dict_generator(tsv_iter_lines):
     """
-
     :param tsv_iter_lines: Generator which yields a line for each data line in a tsv.
     :yield: list of dictionaries. If a line's column count does not match the header, an empty dictionary is
         returned. Otherwise the dictionary representing the line is returned using the headers as keys
@@ -338,28 +324,10 @@ def tsv_dict_generator(tsv_iter_lines):
 
 def get_site_key(provider_id, organization_id, site_id):
     """
-
-    :param site: dictionary representing a WQP site.
     :return: String - Key that can be used to uniquely identify a site
     """
 
     return '_'.join(['sites', provider_id, organization_id, site_id])
-
-
-def invalid_usgs_view(func):
-    """
-    If the theme is usgs return a function which will return a 404 response, otherwise return the passed in func
-    :param func:
-    :return: function
-    """
-    @wraps(func)
-
-    def decorated_function(*args, **kwargs):
-        if app.config['UI_THEME'] == 'usgs':
-            abort(404)
-        return func(*args, **kwargs)
-
-    return decorated_function
 
 
 def list_directory_contents(directory):
@@ -410,5 +378,3 @@ def delete_old_files(files):
         days_since_last_mod = float((current_time-last_mod)) / 86400
         if days_since_last_mod > app.config.get('LOG_RETENTION', 30):
             os.remove(f)
-
-

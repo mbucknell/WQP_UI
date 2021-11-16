@@ -5,7 +5,7 @@
 {% block page_content %}
 <div class="page-center">
     <div class="page-center-content">
-    <a href="{{ url_for('portal_ui.home-canonical') }}">WQP Home</a> >
+    <a href="{{ url_for('portal_ui.home') }}">WQP Home</a> >
     <a href="{{ url_for('portal_ui.uri_base') }}">Providers</a> >
     <a href="{{ url_for('portal_ui.uri_provider',provider_id=provider) }}">{{ provider }}</a> >
     <a href="{{ url_for('portal_ui.uri_organization',provider_id=provider, organization_id=organization) }}">{{ organization }}</a>

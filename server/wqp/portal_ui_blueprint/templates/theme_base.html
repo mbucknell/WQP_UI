@@ -58,9 +58,7 @@
             Config.NHDPLUS_FLOWLINE_ENDPOINT = '{{ config.NHDPLUS_FLOWLINE_ENDPOINT }}';
             Config.NHDPLUS_FLOWLINE_LAYER_NAME = '{{ config.NHDPLUS_FLOWLINE_LAYER_NAME }}';
             Config.STATIC_ENDPOINT = '{{ config.STATIC_ROOT }}';
-            Config.IS_PROD = location.hostname == 'www.waterqualitydata.us';
             Config.GA_TRACKING_CODE = '{{ config.GA_TRACKING_CODE }}';
-            Config.NAWQA_ONLY_PROJECTS = '{{ config.NAWQA_ONLY_PROJECTS }}';
         </script>
         {% block google_analytics_script %}
             <script type="text/javascript">
