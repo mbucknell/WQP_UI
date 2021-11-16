@@ -1,6 +1,10 @@
-{% extends "base.html" %} {% block title %}WQP Contact Us{% endblock %} {% block
-page_header_title %}Water Quality Portal Questions/Comments{% endblock %} {%
-block page_content %}
+{% extends "base.html" %}
+
+{% block title %}WQP Contact Us{% endblock %}
+
+{% block page_header_title %}Water Quality Portal Questions/Comments{% endblock %}
+
+{% block page_content %}
 <div class="page-center">
 	<div class="page-center-content">
 	<p>
@@ -103,8 +107,9 @@ block page_content %}
 	</div>
 	</div>
 </div>
-{% endblock %} {% block body_page_script %} {% include
-"partials/hide_non_usgs_epa_logos.html" %}
+{% endblock %}
+
+{% block body_page_script %}
 <script type="text/javascript">
   $(document).ready(function () {
     var appName = navigator.appName;

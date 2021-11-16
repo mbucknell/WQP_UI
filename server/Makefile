@@ -48,3 +48,7 @@ instance/config.py:
 cleanenv: clean
 	@echo 'Cleaning server environment...'
 	rm -rf env
+
+lint:
+	@echo 'Linting python code'
+	env/bin/pylint wqp

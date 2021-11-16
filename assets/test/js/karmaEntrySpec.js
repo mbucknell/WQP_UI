@@ -15,6 +15,5 @@ import './portal_ui/LeafletMixins/singleClickEventMixinSpec';
 import './portal_ui/views/boundingBoxInputViewSpec';
 import './portal_ui/views/dataDetailsViewSpec';
 import './portal_ui/views/inputValidationViewSpec';
-import './portal_ui/views/nldiNavViewPopupViewSpec';
 import './portal_ui/views/pointLocationInputViewSpec';
 import './portal_ui/views/showAPIViewSpec';

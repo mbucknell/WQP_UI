@@ -74,41 +74,6 @@ body {
 }
 
 
-
-#coverage-map-container {
-  position: relative;
-  height: 320px;
-  display: inline-block;
-
-  @media (min-width: 768px) {
-    height: 550px;
-  }
-
-  #coverage-map-area,
-  .map-loading-indicator {
-    position: relative;
-    width: 600px;
-    height: 400px;
-    top: 0px;
-  }
-
-  #coverage-map-area {
-    cursor: pointer;
-    z-index: 0;
-  }
-
-  .map-loading-indicator {
-    display: none;
-    text-align: center;
-    z-index: 50;
-  }
-}
-
-#map-options {
-  width: 20%;
-  display: inline-block;
-}
-
 #nldi-map-container {
   display: none;
   #nldi-help-div {
@@ -590,7 +555,7 @@ a:visited {
   font-weight: normal !important;
 }
 
-#sites-map {
+#sites-map, #site-map {
   height: 600px;
   width: 100%;
 }
