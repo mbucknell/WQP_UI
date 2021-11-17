@@ -29,6 +29,7 @@ COPY --from=assets /assets/dist/ /assets
 # instance/config.py module.
 ENV NO_INSTANCE_CONFIG=1
 ENV ASSET_MANIFEST_PATH=/assets/rev-manifest.json
+ENV CONTAINER_RUN=1
 
 USER $USER
 

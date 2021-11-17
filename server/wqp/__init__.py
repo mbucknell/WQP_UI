@@ -117,4 +117,13 @@ from . import filters  # pylint: disable=C0413
 app.register_blueprint(portal_ui, url_prefix='/wqp')
 app.register_blueprint(wqx, url_prefix='/portal/schemas')
 
-app.wsgi_app = WhiteNoise(app.wsgi_app, root='/assets', prefix='wqp/static/')
+if os.getenv('CONTAINER_RUN'):
+    app.wsgi_app = WhiteNoise(app.wsgi_app, root='/assets', prefix=app.config.get('STATIC_ROOT'))
+else:
+    app.wsgi_app = \
+        WhiteNoise(app.wsgi_app,
+                   root=os.path.join(os.path.dirname(app.config.get('PROJECT_HOME')), 'assets', 'dist', ''),
+                   autorefresh=True,
+                   prefix=app.config.get('STATIC_ROOT'))
+
+

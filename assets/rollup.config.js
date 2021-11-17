@@ -9,7 +9,6 @@ const handlebars = require('rollup-plugin-handlebars-plus');
 const json = require('@rollup/plugin-json');
 const resolve = require('@rollup/plugin-node-resolve');
 const replace = require('@rollup/plugin-replace');
-const {terser} = require('rollup-plugin-terser');
 const alias = require('@rollup/plugin-alias');
 const vuePlugin = require('rollup-plugin-vue');
 
@@ -52,11 +51,6 @@ const getBundleConfig = function (src, dest) {
             replace({
                 preventAssignment: true,
                 'process.env.NODE_ENV': JSON.stringify(ENV)
-            }),
-            ENV === 'production' && terser({
-                compress: {
-                    drop_console: true
-                }
             })
         ],
         output: {

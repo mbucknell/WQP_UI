@@ -95,8 +95,11 @@
               </p>
               <div id="placeBasic">
                 <div class="formSection">
-                  <label class="usa-label" for="countrycodeBasic">Country </label><div class="tooltip" class="control-label"
-                                for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                  <label class="usa-label" for="countrycodeBasic">Country </label>
+                  <div class="tooltip" class="control-label"
+                       for="control-label" :title="countryTooltip">
+                      <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
+                  </div>
                   <div>
                     <Multiselectcountry id="countrycodeBasic" style="width: 50%;" name="countrycode"></Multiselectcountry>
                   </div>
