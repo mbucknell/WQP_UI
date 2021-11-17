@@ -7,7 +7,6 @@ import includes from 'lodash/includes';
 import log from 'loglevel';
 
 import axios from 'axios';
-import { getHeaders } from './utils';
 
 export default {
   name: "Providers",
@@ -33,7 +32,6 @@ export default {
         let self = this;
 
         axios.get(URL, {
-            headers: getHeaders(),
             params : {
                 mimeType: 'json'
             }
