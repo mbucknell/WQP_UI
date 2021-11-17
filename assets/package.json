@@ -7,10 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mkdir -p dist/scripts && run-p build:vendorjs && karma start",
-    "test:firefox": "mkdir -p dist/scripts && run-p build:vendorjs && karma start --browsers Firefox",
-    "test:chrome": "mkdir -p dist/scripts && run-p build:vendorjs && karma start --browsers ChromeHeadless",
-    "test:watch": "mkdir -p dist/scripts && run-p build:vendorjs && karma start --debug --no-single-run --browsers Chrome",
+    "test": "mkdir -p dist/scripts && run-p copy:vendorjs && karma start",
+    "test:firefox": "mkdir -p dist/scripts && run-p copy:vendorjs && karma start --browsers Firefox",
+    "test:chrome": "mkdir -p dist/scripts && run-p copy:vendorjs && karma start --browsers ChromeHeadless",
+    "test:watch": "mkdir -p dist/scripts && run-p copy:vendorjs && karma start --debug --no-single-run --browsers Chrome",
     "build": "run-p build:* && npm run hash-assets",
     "build:css": "run-p buildcss:*",
     "buildcss:custom": "sass --load-path node_modules/uswds/src/stylesheets scss/custom/custom.scss dist/custom.css && postcss dist/custom.css --map -o dist/custom.css",
