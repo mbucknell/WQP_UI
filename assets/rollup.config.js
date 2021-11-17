@@ -51,7 +51,7 @@ const getBundleConfig = function (src, dest) {
             }),
             replace({
                 preventAssignment: true,
-                'process.env.NODE_ENV': JSON.stringify(env) // Setting to production breaks the build
+                'process.env.NODE_ENV': JSON.stringify(env)
             }),
             env === 'production' && terser({
                 compress: {
