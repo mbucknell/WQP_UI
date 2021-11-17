@@ -68,40 +68,43 @@
 }
 
 
-.markdown-page{
-
-    table{
+.markdown-page {
+    // Probably use USWDS table to remove these issues
+    table {
         border-collapse: collapse;
     }
 
     table td,
-    table th{
+    table th {
         text-align: left !important;
         font-size: 14px;
         box-sizing: border-box;
         padding: 5px;
         border: none;
+        // Investigate - not sure how to do this
         border-bottom: 1px solid rgba(0,0,0,0.15);
     }
 
-    table th{
+    table th {
         font-size: 16px;
         padding: 10px 3px 10px 3px;
+        //Investigate -- can USWDS do rgba
         background-color: rgba(0,0,0,0.1);
     }
 
-    table tr:nth-child(even){
+    table tr:nth-child(even) {
+        //Investigate -- can USWDS do rgba
         background-color: rgba(0,0,0,0.07);
     }
 
-    blockquote{
+    blockquote {
+        // Investigate - not sure where this is used
         border-left: 3px solid grey;
         box-sizing: border-box;
         padding-left: 15px;
         font-size: 90%;
         opacity: 0.7;
     }
-
 }
 
 

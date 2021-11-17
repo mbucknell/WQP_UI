@@ -1,30 +1,31 @@
 $theme-font-path: './fonts';
 $theme-image-path: './img';
 
-// Variables
-$black: #000;
 
 // Import all other custom scss files
 @import "layout.scss";
 @import "uswds";
 
 body {
-  background-color: white;
+  //background-color: white;
+  @include u-bg('gray-1');
 }
 
 #forms {
-  background-color: white;
+  //background-color: white;
+  @include u-bg('gray-1');
   padding-top: 20px;
 }
 
 #main-header {
-  background-color: #253F60;
+  //background-color: #253F60;
+  @include u-bg('blue-70');
 }
 
 @media (max-width: 1010px){
-	.usa-navbar {
-		justify-content: space-between;
-	}
+    .usa-navbar {
+        justify-content: space-between;
+    }
 }
 
 
@@ -37,10 +38,10 @@ body {
     width: 140px;
     height: auto;
 
-	@media (max-width: 1010px) {
-		width: auto !important;
-		height: 44px !important;
-	}
+    @media (max-width: 1010px) {
+        width: auto !important;
+        height: 44px !important;
+    }
   }
 
   em {
@@ -55,24 +56,34 @@ body {
 
     a {
       text-decoration: none;
-      color: white;
+      //color: white;
+      @include u-color('gray-1');
     }
   }
 
-  .usa-nav__link{
-	  color: white;
+  .usa-accordion__button {
+    @include u-color('yellow-50');
   }
 
+  .usa-nav__link {
+    //color: white;
+    @include u-color('gray-1');
+
+    .usa-current {
+      //color: white;
+      @include u-color('red-50');
+    }
+  }
 }
 
-@media (min-width: 1010px){
-	.usa-nav__primary>.usa-nav__primary-item>a,
-	.usa-nav__link,
-	.usa-nav__primary button{
-		color: #fff;
-	}
+@media (min-width: 1010px) {
+    .usa-nav__primary>.usa-nav__primary-item>a,
+    .usa-nav__link,
+    .usa-nav__primary button {
+      //color: #fff;
+      @include u-color('gray-1');
+    }
 }
-
 
 #nldi-map-container {
   display: none;
@@ -87,7 +98,7 @@ body {
     .leaflet-popup-pane {
       .feature-source-info ul {
         list-style: none;
-        padding-left: 0px;
+        padding-left: 0;
       }
       .navigation-selection-div {
         label {
@@ -101,32 +112,33 @@ body {
       }
     }
 
+    // Investigate -- can't find in project
     .leaflet-nldi-feature-source-control-div {
-      background-color: #fff;
+      //background-color: #fff;
+      @include u-bg('gray-1');
       border: 2px solid rgba(0,0,0,0.2);
       border-radius: 5px;
       padding: 5px;
 
-	  #nldi-selector-title {
+      #nldi-selector-title {
         font-weight: bold;
         font-size: 14px;
         margin: 5px 5px 5px 12px;
       }
 
-      .usa-radio label{
+      .usa-radio label {
         margin: 12px 5px 5px 5px;
       }
     }
 
     .easy-button-button .button-state {
-      display: inline-flex; 
+      display: inline-flex;
       justify-content: center;
     }
 
-
     // Reset easy button
     .easy-button-button {
-      width: 70px;    
+      width: 70px;
     }
   }
 }
@@ -149,7 +161,8 @@ body {
 // Home Page form intro
 #formIntro {
   margin-bottom: 20px;
-  background-color: #e6e6e6; //uswds gray 10
+  //background-color: #e6e6e6;
+  @include u-bg('gray-10');
   box-sizing: border-box;
   padding: 20px 20px 0 20px;
   border-radius: 4px;
@@ -189,15 +202,17 @@ body {
 }
 
 .usa-footer__primary-section {
-  background-color: #3d4551 !important; //USWDS gray-cool-70
+  //background-color: #3d4551 !important; //USWDS
+  @include u-bg('gray-cool-70');
 }
 
 #primary-footer a:link, #primary-footer a:visited {
-  color: white;
+  //color: white;
+  @include u-color('gray-1');
 }
 
 #close-announcement img {
-  height: 10px; 
+  height: 10px;
   width: auto;
 }
 
@@ -228,11 +243,17 @@ body {
 
 // basic form styles
 .smallInput {
-  width: 60px;
-  min-height: 32px;
-  border: 1px solid #565c65;
-  border-radius: 0;
-  padding: 0.5rem;
+  //width: 60px;
+  @include u-width(8);
+  //min-height: 32px;
+  @include u-minh(4);
+  //border: 1px solid #565c65;
+  @include u-border(1px);
+  @include u-border('gray-cool-60');
+  //border-radius: 0;
+  @include u-radius(0);
+  //pading: 0.5rem;
+  @include u-padding(1);
 }
 
 .formSection {
@@ -264,7 +285,8 @@ body {
 
 .required-field::after {
   content: "*";
-  color: red;
+  //color: red;
+  @include u-color('red-50v')
 }
 
 .menu-buttons {
@@ -304,23 +326,29 @@ body {
 }
 
 .usa-tooltip__body {
-  background-color: #253f60 !important;
+  //background-color: #253f60 !important;
+  @include u-bg('blue-70')
 }
 
 .usa-tooltip__body--bottom:after {
-  border-bottom-color: #253f60 !important;
+  //border-bottom-color: #253f60 !important;
+  @include u-border-bottom('blue-70');
 }
 
+// Investigate -- not sure where the next three are in the UI
 .usa-tooltip__body--top:after {
-  border-top-color: #253f60 !important;
+  //border-top-color: #253f60 !important;
+  @include u-border-top('blue-70');
 }
 
 .usa-tooltip__body--left:after {
-  border-left-color: #253f60 !important;
+  //border-left-color: #253f60 !important;
+  @include u-border-left('blue-70');
 }
 
 .usa-tooltip__body--right:after {
-  border-right-color: #253f60 !important;
+  //border-right-color: #253f60 !important;
+  @include u-border-right('blue-70');
 }
 
 .usa-label {
@@ -345,32 +373,41 @@ body {
 }
 
 #query-box-muted {
-  color: #757575;
+  //color: #757575;
+  @include u-color('gray-60')
 }
 
+// Investigate why is link used instead of usa-link
 a:link {
-  color: #224a58; //USWDS blue-cool-70
+  //color: #224a58;
+  @include u-color('blue-cool-70');
 }
 
 a:visited {
-  color: #374274; //USWDS indigo-cool-70
+  //color: #374274; //USWDS indigo-cool-70
+  @include u-color('indigo-cool-70');
 }
 
 .usa-link {
-  color: #224a58 !important; //USWDS blue-cool-70
+  //color: #224a58 !important;
+  @include u-color('blue-cool-70');
 }
 
+// Investigate why this is needed - text should default to white
 #basic-main-button, #main-button {
-  color: white;
+  //color: white;
+  @include u-color('gray-1');
 }
 
 #place {
   padding-top: 20px;
 }
 
+// Investigate why this is needed - seems like usa-link should work
 .advancedLink {
-  color:#224a58; //USWDS blue-cool-70 
-  text-decoration:underline; 
+  //color:#224a58; //USWDS blue-cool-70
+  @include u-color('blue-cool-70');
+  text-decoration:underline;
   cursor: pointer;
 }
 
@@ -387,7 +424,7 @@ a:visited {
 }
 
 #startDate {
-  width:45%; 
+  width:45%;
   float: left;
 }
 
@@ -396,7 +433,7 @@ a:visited {
 }
 
 #point-location-basic {
-  padding-left: 0px;
+  padding-left: 0;
   padding-bottom: 10px;
 }
 
@@ -405,7 +442,7 @@ a:visited {
 }
 
 #point-location-basic-within {
-  text-align: right; 
+  text-align: right;
   padding-right: 10px;
 }
 
@@ -424,10 +461,14 @@ a:visited {
 }
 
 .multiselect__tags {
-  border-width: 1px !important;
-  border-color: #565c65 !important;
-  border-style: solid !important;
-  border-radius: 0 !important;
+  //border-width: 1px !important;
+  @include u-border-width('1px');
+  //border-color: #565c65 !important;
+  @include u-border-color('gray-cool-60');
+  //border-style: solid !important;
+    @include u-border('solid');
+  //border-radius: 0 !important;
+  @include u-radius(0);
 }
 
 .multiselect__input:focus {
@@ -435,21 +476,26 @@ a:visited {
 }
 
 .multiselect:focus-within {
-  outline: .25rem solid #2491ff !important;
+  //outline: .25rem solid #2491ff !important;
+  @include u-outline-color('blue-40v');
+  @include u-outline('05');
 }
 
 .multiselect__tag, .multiselect__option--highlight, .multiselect__option--selected.multiselect__option--highlight {
   background: #005ea2 !important;
+  // Investigate - won't work with out !important
+  //@include u-bg('blue-60v');
 }
 
 //USWDS
 //matching a few elements of USWDS to select2
 ::placeholder {
-  color: #a0a1a0;
+  // color: #a0a1a0;
+  @include u-color('gray-warm-30');
 }
 
 .usa-input {
-  margin-top: 0rem !important;
+  margin-top: 0 !important;
 }
 
 //for toggling between basic and advanced forms
@@ -460,7 +506,7 @@ a:visited {
 .tabs {
   font-size: 0;
   padding: 20px;
-  padding-top: 0px;
+  padding-top: 0;
 }
 
 .tabs:after {
@@ -492,8 +538,12 @@ a:visited {
 }
 
 .tabs .tab-label {
-  background: white;
-  border: 3px solid #757575;
+  // Investigate not sure what this does
+  //background: white;
+  @include u-bg('gray-1');
+  //border: 3px solid #757575;
+  @include u-border('05');
+  @include u-border-color(gray-50);
   display: inline-block;
   font-size: 16px;
   font-size: 1rem;
@@ -501,7 +551,8 @@ a:visited {
   position: relative;
   vertical-align: bottom;
   font-weight: bold;
-  color: #757575;
+  //color: #757575;
+  @include u-color('gray-50');
   border-radius: 0.25rem;
   cursor: pointer;
 }
@@ -511,7 +562,8 @@ a:visited {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: block;
-  background: white;
+  //background: white;
+  @include u-bg('gray-1');
   border: none;
   float: left;
   font-size: 16px;
@@ -522,8 +574,11 @@ a:visited {
 
 .tabs .tab [type="radio"]:checked + .tab-label {
   z-index: 1;
-  color: #005ea2;
-  border: 3px solid #005ea2;
+  //color: #005ea2;
+  @include u-color('blue-60v');
+  //border: 3px solid #005ea2;
+  @include u-border('05');
+  @include u-border-color('blue-60v');
 }
 
 .tabs .tab [type="radio"]:checked ~ .tab-panel {
@@ -533,21 +588,26 @@ a:visited {
 .tabs .tab #basic-tab + .tab-label {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border-right: 1.5px solid #005ea2;
+  //border-right: 1.5px solid #005ea2;
+  @include u-border-right(2px);
+  //@include u-border-color(): 1.5px solid lime;
 }
 
 .tabs .tab #advanced-tab + .tab-label {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  // Investigate -this isn't working
   border-left: 1.5px solid #005ea2;
+  //@include u-border-color('gray-50');
+  //@include u-border-left('05');
 }
 
 #start-date-select-basic {
   padding-top: 10px;
 }
 
-#datesLabel { 
-  padding:0px 10px 10px 0px;
+#datesLabel {
+  padding:0 10px 10px 0;
 }
 
 #datesLabel, #datesLabelAdv {
@@ -566,5 +626,5 @@ a:visited {
 
 // ETL section in footer
 #etlSection {
-	font-size: 13.5px
+    font-size: 13.5px
 }
