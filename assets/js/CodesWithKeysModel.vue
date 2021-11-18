@@ -9,7 +9,6 @@ import has from 'lodash/has';
 import map from 'lodash/map';
 import log from 'loglevel';
 
-import { getHeaders } from './utils';
 import axios from 'axios';
 
 /*
@@ -30,8 +29,7 @@ export default {
   name: "CodesWithKeysModel",
   data(){
       return {
-          cachedData: [],
-          HEADERS: getHeaders(),
+          cachedData: []
       }
   }, 
   props: ['codes', 'keyParameter', 'parseKey'],
@@ -55,7 +53,6 @@ export default {
         let self = this;
 
         axios.get(URL + '?' + this.keyParameter + '=' + keys.join(';'), {
-            headers: this.HEADERS,
             params : {
                 mimeType: 'json'
             }

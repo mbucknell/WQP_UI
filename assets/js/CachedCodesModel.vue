@@ -2,14 +2,11 @@
 </template>
 
 <script>
-import filter from 'lodash/filter';
 import find from 'lodash/find';
-import flatten from 'lodash/flatten';
 import has from 'lodash/has';
 import map from 'lodash/map';
 import log from 'loglevel';
 
-import { getHeaders } from './utils';
 import axios from 'axios';
 
 /*
@@ -25,8 +22,7 @@ export default {
   name: "CachedCodesModel",
   data(){
       return {
-          cachedData: [],
-          HEADERS: getHeaders(),
+          cachedData: []
       }
   }, 
   props: ['codes'],
@@ -47,7 +43,6 @@ export default {
         let self = this;
 
         axios.get(URL, {
-            headers: this.HEADERS,
             params : {
                 mimeType: 'json'
             }

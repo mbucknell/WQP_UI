@@ -4,7 +4,7 @@ import log from 'loglevel';
 import numeral from 'numeral';
 import axios from 'axios';
 
-import { getHeaders, getQueryParamJson } from './utils';
+import { getQueryParamJson } from './utils';
 
 
 // Export an object so we can mock the functions in the test suite.
@@ -35,8 +35,7 @@ export default {
             var result = numeral(countString).format('0,0');
             return result === '0' ? '0' : result;
         };
-        axios.post(Config.QUERY_URLS[resultType] + '/count?mimeType=json', countQueryJson, {
-            headers: getHeaders()})
+        axios.post(Config.QUERY_URLS[resultType] + '/count?mimeType=json', countQueryJson, {})
         .then(function (response) {
             let data = response.data;
             var result = {

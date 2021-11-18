@@ -9,11 +9,11 @@ const handlebars = require('rollup-plugin-handlebars-plus');
 const json = require('@rollup/plugin-json');
 const resolve = require('@rollup/plugin-node-resolve');
 const replace = require('@rollup/plugin-replace');
-const {terser} = require('rollup-plugin-terser');
 const alias = require('@rollup/plugin-alias');
 const vuePlugin = require('rollup-plugin-vue');
+const {terser} = require('rollup-plugin-terser');
 
-const ENV = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'development';
 
 const getBundleConfig = function (src, dest) {
     return {
@@ -35,7 +35,7 @@ const getBundleConfig = function (src, dest) {
             handlebars({
                 handlebars: {
                     options: {
-                        sourceMap: ENV !== 'production' ? 'inline' : false
+                        sourceMap: env !== 'production' ? 'inline' : false
                     }
                 },
                 templateExtension: '.hbs'
@@ -51,21 +51,20 @@ const getBundleConfig = function (src, dest) {
             }),
             replace({
                 preventAssignment: true,
-                'process.env.NODE_ENV': JSON.stringify(ENV)
+                'process.env.NODE_ENV': JSON.stringify(env)
             }),
-            ENV === 'production' && terser({
+            env === 'production' && terser({
                 compress: {
                     drop_console: true
                 }
             })
         ],
         output: {
-            name: 'wqp_bundle',
             file: dest,
             format: 'iife',
-            sourcemap: ENV !== 'production' ? 'inline' : false
+            sourcemap: env !== 'production'
         },
-        treeshake: ENV === 'production'
+        treeshake: false //env === 'production'
     };
 };
 

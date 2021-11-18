@@ -105,19 +105,6 @@ export const Cookie = {
     }
 };
 
-
-/*
- * @return {Object} containing the headers that should be used for service calls to WQP services.
- */
-export const getHeaders = function() {
-    var accessToken = Cookie.getByName('access_token');
-    var headers = {};
-    if (accessToken) {
-        headers.Authorization = 'Bearer ' + accessToken;
-    }
-    return headers;
-};
-
 /*
  * @param {String} param
  * @return {Array} containing the values of the query parameter that is currently in the anchor part of the url
