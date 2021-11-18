@@ -1,117 +1,117 @@
 // custom/layout.scss
 // custom layout CSS properties
-
+@import "uswds";
 
 // Center page, max width
-.page-center{
-	display: block;
-	box-sizing: border-box;
-	background-color: white;
-	padding: 35px 0;
-	max-width: 1300px;
-	margin: 0 auto;
+.page-center {
+    display: block;
+    box-sizing: border-box;
+    //background-color: white;
+    @include u-bg('gray-1');
+    padding: 35px 0;
+    max-width: 1300px;
+    margin: 0 auto;
 
-	.page-center-content{
-		margin: 0 auto;
-		max-width: 1080px;
-		width: 95%;
-		display: block;
+    .page-center-content {
+        margin: 0 auto;
+        max-width: 1080px;
+        width: 95%;
+        display: block;
 
-		&.no-sidebar{
-			max-width: 880px;
-		}
-	}
+        &.no-sidebar {
+            max-width: 880px;
+        }
+    }
 }
 
 // Sidebar, center rest of page
-.page-sidebar{
-	display: flex;
-	background-color: white;
-	box-sizing: border-box;
-	padding: 35px 0;
+.page-sidebar {
+    display: flex;
+    //background-color: white;
+    @include u-bg('gray-1');
+    box-sizing: border-box;
+    padding: 35px 0;
 
-	.sidebar{
-		width: 320px;
-		min-width: 320px;
-		box-sizing: border-box;
-		padding: 20px 0 20px 20px;
-		margin-right: 20px;
+    .sidebar{
+        width: 320px;
+        min-width: 320px;
+        box-sizing: border-box;
+        padding: 20px 0 20px 20px;
+        margin-right: 20px;
 
-		// Shrink at <1000
-		@media (max-width: 1010px) {
-			width: 200px;
-			min-width: 200px;
-			margin-right: 10px;
+        // Shrink at <1000
+        @media (max-width: 1010px) {
+            width: 200px;
+            min-width: 200px;
+            margin-right: 10px;
 
-			ul li{
-				font-size: 85%;
-			}
-		}
-		// Hide sidebar on mobile
-		@media (max-width: 768px) {
-			display: none;
-		}
-	}
+            ul li{
+                font-size: 85%;
+            }
+        }
+        // Hide sidebar on mobile
+        @media (max-width: 768px) {
+            display: none;
+        }
+    }
 
-	.page-sidebar-content{
-		display: block;
-		max-width: 840px;
-		background-color: white;
-		position: relative;
-		box-sizing: border-box;
-		padding: 0 30px;
-	}
-
+    .page-sidebar-content {
+        display: block;
+        max-width: 840px;
+        @include u-bg('gray-1');
+        position: relative;
+        box-sizing: border-box;
+        padding: 0 30px;
+    }
 }
 
 
-.markdown-page{
+.markdown-page {
+    table {
+        border-collapse: collapse;
+    }
 
-	table{
-		border-collapse: collapse;
-	}
+    table td,
+    table th {
+        text-align: left !important;
+        font-size: 14px;
+        box-sizing: border-box;
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid rgba(color('gray-90'),0.15);
+        @include u-border-bottom('1px');
+    }
 
-	table td,
-	table th{
-		text-align: left !important;
-		font-size: 14px;
-		box-sizing: border-box;
-		padding: 5px;
-		border: none;
-		border-bottom: 1px solid rgba(0,0,0,0.15);
-	}
+    table th {
+        font-size: 16px;
+        padding: 10px 3px 10px 3px;
+        background-color: rgba(color('gray-90'),0.1);
+    }
 
-	table th{
-		font-size: 16px;
-		padding: 10px 3px 10px 3px;
-		background-color: rgba(0,0,0,0.1);
-	}
+    table tr:nth-child(even) {
+        background-color: rgba(color('gray-90'),0.07);
+    }
 
-	table tr:nth-child(even){
-		background-color: rgba(0,0,0,0.07);
-	}
-
-	blockquote{
-		border-left: 3px solid grey;
-		box-sizing: border-box;
-		padding-left: 15px;
-		font-size: 90%;
-		opacity: 0.7;
-	}
-	
+    blockquote {
+        @include u-border-left('2px');
+        @include u-border-color('gray-50');
+        box-sizing: border-box;
+        padding-left: 15px;
+        font-size: 90%;
+        opacity: 0.7;
+    }
 }
-
 
 .announcement-body {
-	display: block;
-	width: 95%;
-	max-width: 960px;
-	margin: 0 auto;
-	box-sizing: border-box;
+    display: block;
+    width: 95%;
+    max-width: 960px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 #formIntroFooter {
-	padding-top: 15px;
-	padding-left: 1.25rem;
-	padding-right: 1.25rem;
+    padding-top: 15px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
 }
