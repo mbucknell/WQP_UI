@@ -7,11 +7,15 @@ $theme-image-path: './img';
 @import 'layout.scss';
 @import '../partials/_header.scss';
 @import '../partials/_nldi';
-@import 'new_layout';
-@import 'portal_form';
+@import '../partials/portal-form';
 
 body {
   @include u-bg('gray-1');
+
+  #main-content {
+    @include grid-container;
+
+  }
 
   #forms {
     @include u-padding-top('205');

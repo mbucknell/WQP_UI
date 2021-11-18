@@ -97,11 +97,10 @@
       @include u-color('gray-60')
     }
     #current-url-textarea {
-      width: 100%;
       @include u-margin-bottom('105');
     }
 
-    .share-container {
+    .share-container, #query-box-text {
       width: 100%;
       @include u-padding-top('105');
     }
