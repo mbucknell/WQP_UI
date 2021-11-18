@@ -5,4 +5,24 @@
       width: 50%;
     }
   }
+  #point-location-basic {
+    @include grid-row;
+    @include grid-gap(md);
+    .point-location-input-div {
+      @include grid-col(12);
+      @include at-media('desktop') {
+        @include grid-col(1);
+      }
+    }
+    #useMyLocationBasic {
+      @include u-display('flex');
+      @include u-flex('column');
+      @include u-flex('justify-end');
+    }
+    #point-location-basic-label {
+    @include u-display('flex');
+      @include u-flex('column');
+      @include u-flex('justify-center');
+    }
+  }
 }
