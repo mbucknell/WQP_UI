@@ -94,8 +94,9 @@
                 <div id="announcement">{{ config.ANNOUNCEMENT_BANNER|safe }}</div>
             {% endif %}
 
-			{% block page_content %}{% endblock %}
-
+            <main id="main-content">
+			    {% block page_content %}{% endblock %}
+            </main>
             <div id="footer-content">
                 {% include "partials/footer.html" %}
             </div>

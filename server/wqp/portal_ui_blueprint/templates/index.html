@@ -11,8 +11,7 @@
 
 {% block page_content %}
 <!-- Basic Form -->
-<div class="page-center">
-  <div id="forms" class="page-center-content">
+  <div id="forms">
     <div id="formIntro" v-if="showIntro">
       <div>
         <div class="usa-alert__body new-wqp-body">
@@ -54,8 +53,8 @@
       <div class="tab-panel">
         <div class="tab-content">
           <div id="basicForm">
-            <form role="form" id="paramsBasic" name="paramsBasic" autocomplete="off" method="post" action="
-            {{ config.SEARCH_QUERY_ENDPOINT }}Station/search">
+            <form role="form" id="params-basic" autocomplete="off" method="post"
+                  action="{{ config.SEARCH_QUERY_ENDPOINT }}Station/search">
             <h3 class="site-preview-heading">Download Water Quality Data</h3>
             <div class="usa-step-indicator" aria-label="progress">
               <ol v-if="steps" class="usa-step-indicator__segments" :class="{            
@@ -101,52 +100,59 @@
                       <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
                   </div>
                   <div>
-                    <Multiselectcountry id="countrycodeBasic" style="width: 50%;" name="countrycode"></Multiselectcountry>
+                    <Multiselectcountry class="wqp-multiselect" id="countrycodeBasic" name="countrycode"></Multiselectcountry>
                   </div>
                 </div>
                 <div class="formSection">
                   <label class="usa-label" for="statecodeBasic">State </label><div class="tooltip" class="control-label"
                                 for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                   <div>
-                    <Multiselectstate id="statecodeBasic" style="width: 50%;" name="statecode"></Multiselectstate>
+                    <Multiselectstate class="wqp-multiselect" id="statecodeBasic" name="statecode"></Multiselectstate>
                   </div>
                 </div>
                 <div class="formSection">
                   <label class="usa-label" for="countycodeBasic">County </label><div class="tooltip" class="control-label"
                                   for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                   <div>
-                    <Multiselectcounty id="countycodeBasic" style="width: 50%;" name="countycode"></Multiselectcounty>
+                    <Multiselectcounty class="wqp-multiselect" id="countycodeBasic" name="countycode"></Multiselectcounty>
                   </div>
                 </div>
                 <div class="formSection">
-                  <label class="usa-label" for="point-location-basic">Point Location </label><div class="tooltip"
-                                  :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                  <label class="usa-label" for="point-location-basic">
+                    Point Location
+                  </label>
+                  <div class="tooltip" :title="pointLocationTooltip">
+                    <span class="tooltipIcon">
+                      <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div class="grid-container" id="point-location-basic">
-                <div class="grid-row">
-                  <div class="tablet:grid-col-1"></div>
-                  <div class="tablet:grid-col-1">Miles of</div>
-                  <div class="tablet:grid-col-1">Lat</div>
-                  <div class="tablet:grid-col-1">Long</div>
-                </div>
-                <div class="grid-row" id="point-location-basic-input">
-                  <div class="tablet:grid-col-1" id="point-location-basic-within">Within</div>
-                  <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="within"
-                    id="withinBasic" aria-label="First of three input boxes for point location parameter. Input box for number of miles from point."></input></div>
-                  <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="lat"
-                    placeholder="0" size="7" id="latBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
-                  <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="long"
-                    placeholder="0" id="longBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
-                  <div class="tablet:grid-col-4"><div id="useMyLocationBasic"></div><!-- <button id="useMyLocationBasic"
-                    class="usa-button usa-button--outline" type="button">Use my location</button> --></div>
+                <div id="point-location-basic" class="grid-row">
+                  <div>Within</div>
+                  <div class="point-location-input-div">
+                    <div>Miles of</div>
+                    <input class="usa-input" type="text" name="within"
+                      id="withinBasic" aria-label="miles from point"/>
+                  </div>
+                  <div class="point-location-input-div">
+                    <div>Lat</div>
+                    <input class="usa-input" type="text" name="lat"
+                      placeholder="0" size="7" id="latBasic" aria-label="Point latitude"/>
+                  </div>
+                  <div class="point-location-input-div">
+                    <div>Long</div>
+                    <input class="usa-input" type="text" name="long"
+                      placeholder="0" id="longBasic" aria-label="Point longitude"/>
+                  </div>
+                  <div id="useMyLocationBasic"></div><!-- <button id="useMyLocationBasic"
+                    class="usa-button usa-button--outline" type="button">Use my location</button> -->
                 </div>
               </div>
               <div class="formSection">
                 <label class="usa-label" for="siteTypeBasic">Site Type </label>
                               <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <div>
-                  <Multiselectsitetype id="siteTypeBasic" name="siteTypeBasic" style="width: 50%"></Multiselectsitetype>
+                  <Multiselectsitetype class="wqp-multiselect" id="siteTypeBasic" name="siteTypeBasic"></Multiselectsitetype>
                 </div>
               </div>
               <div class="menu-buttons">
@@ -212,14 +218,14 @@
                 <label class="usa-label" for="sampleMediaBasic">Sample Media </label>
                                   <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <div>
-                  <Multiselectsamplemedia id="sampleMediaBasic" name="sampleMedia" style="width: 50%"></Multiselectsamplemedia>
+                  <Multiselectsamplemedia class="wqp-multiselect" id="sampleMediaBasic" name="sampleMedia" ></Multiselectsamplemedia>
                 </div>
               </div>
               <div class="formSection">
                 <label class="usa-label" for="charGroupBasic">Characteristic Group </label>
                                   <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <div>
-                  <Multiselectchargroup id="charGroupBasic" name="charGroup" style="width: 50%"></Multiselectchargroup>
+                  <Multiselectchargroup class="wqp-multiselect" id="charGroupBasic" name="charGroup" ></Multiselectchargroup>
                 </div>
               </div>
               <div>
@@ -361,10 +367,17 @@
                       <div class="grid-row grid-gap">
                         <div class="tablet:grid-col-3">
                           <div class="form-group">
-                            <label class="usa-label" for="countrycode">Country </label><div class="tooltip" class="control-label"
-                              for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                            <label class="usa-label" for="countrycode">
+                              Country
+                            </label>
+                            <div class="tooltip" class="control-label"
+                              for="control-label" :title="countryTooltip">
+                              <span class="tooltipIcon">
+                                <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
+                              </span>
+                            </div>
                             <div>
-                              <Multiselectcountry id="countrycode" name="countrycode"></Multiselectcountry>
+                              <Multiselectcountry class="wqp-multiselect" id="countrycode" name="countrycode"></Multiselectcountry>
                             </div>
                           </div>
                           <br>
@@ -372,14 +385,14 @@
                             <label class="usa-label" for="statecode">State </label><div class="tooltip" class="control-label"
                               for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                             <div>
-                              <Multiselectstate id="statecode" name="statecode"></Multiselectstate>
+                              <Multiselectstate class="wqp-multiselect" id="statecode" name="statecode"></Multiselectstate>
                             </div>
                             <br>
                             <div class="form-group">
                               <label class="usa-label" for="countycode">County </label><div class="tooltip" class="control-label"
                                 for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                               <div>
-                                <Multiselectcounty id="countycode" name="countycode"></Multiselectcounty>
+                                <Multiselectcounty class="wqp-multiselect" id="countycode" name="countycode"></Multiselectcounty>
                               </div>
                             </div>
                           </div>
@@ -462,7 +475,7 @@
                               <label class="usa-label" for="siteType">Site Type </label>
                               <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                               <div>
-                                <Multiselectsitetype id="siteType" name="siteType" style="width: 100%"></Multiselectsitetype>
+                                <Multiselectsitetype class="wqp-multiselect" id="siteType" name="siteType"></Multiselectsitetype>
                               </div>
                             </div>
                             <br>
@@ -471,7 +484,7 @@
                               <div class="tooltip" :title="orgIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                               </div>
                               <div>
-                                <Multiselectorg id="organization" name="organization" style="width: 100%"></Multiselectorg>
+                                <Multiselectorg class="wqp-multiselect" id="organization" name="organization"></Multiselectorg>
                               </div>
                             </div>
                             <br>
@@ -480,7 +493,7 @@
                               <div class="tooltip" :title="siteIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                               </div>
                               <div>
-                                <Multiselectsiteid id="siteid" name="siteid" style="width: 100%"></Multiselectsiteid>
+                                <Multiselectsiteid class="wqp-multiselect" id="siteid" name="siteid"></Multiselectsiteid>
                               </div>
                             </div>
                             <br>
@@ -535,28 +548,28 @@
                                   <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                   </div>
                                   <div>
-                                    <Multiselectsamplemedia id="sampleMedia" name="sampleMedia" style="width: 100%"></Multiselectsamplemedia>
+                                    <Multiselectsamplemedia class="wqp-multiselect" id="sampleMedia" name="sampleMedia"></Multiselectsamplemedia>
                                   </div>
                                   <br>
                                   <label class="usa-label" for="characteristicType">Characteristic Group </label>
                                   <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                   </div>
                                   <div>
-                                      <Multiselectchargroup id="characteristicType" name="charGroup" style="width: 100%"></Multiselectchargroup>
+                                      <Multiselectchargroup class="wqp-multiselect" id="characteristicType" name="charGroup"></Multiselectchargroup>
                                   </div>
                                   <br>
                                   <label class="usa-label" for="characteristicName">Characteristics </label>
                                   <div class="tooltip" :title="characteristicsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                   </div>
                                   <div>
-                                    <Multiselectchar :providers="providers" id="characteristicName" name="characteristicName" style="width: 100%"></Multiselectchar>
+                                    <Multiselectchar class="wqp-multiselect" :providers="providers" id="characteristicName" name="characteristicName"></Multiselectchar>
                                   </div>
                                   <br>
                                   <label class="usa-label" for="project-code">Project ID </label>
                                   <div class="tooltip" :title="projectIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                   </div>
                                   <div>
-                                    <Multiselectprojid :providers="providers" id="project-code" name="project" style="width: 100%"></Multiselectprojid>
+                                    <Multiselectprojid class="wqp-multiselect" :providers="providers" id="project-code" name="project"></Multiselectprojid>
                                   </div>
                                 </div>
                                 <div class="tablet:grid-col-4">
@@ -579,7 +592,7 @@
                                       <div class="tooltip" :title="assemblageTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                                       </div>
                                       <div>
-                                        <Multiselectassemblage id="assemblage" name="assemblage" style="width: 100%"></Multiselectassemblage>
+                                        <Multiselectassemblage class="wqp-multiselect"id="assemblage" name="assemblage"></Multiselectassemblage>
                                       </div>
                                       <br>
                                       <div class="form-group">
@@ -587,7 +600,7 @@
                                             Name </label><div class="tooltip" for="control-label"
                                           :title="taxNameTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                                         <div>
-                                          <Multiselecttax :providers="providers" id="subject-taxonomic-name" name="subjectTaxonomicName" style="width: 100%"></Multiselecttax>
+                                          <Multiselecttax class="wqp-multiselect" :providers="providers" id="subject-taxonomic-name" name="subjectTaxonomicName" ></Multiselecttax>
                                         </div>
                                       </div>
                                     </div>
@@ -902,7 +915,6 @@
   </div>
   </div>
   </div>
-</div>
 {% endblock %}
 
 {% block body_page_script %}

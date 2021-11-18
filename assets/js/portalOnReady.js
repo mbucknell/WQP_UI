@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.showStepParameters()
               },
               onStartOver(){
-                document.querySelector('#paramsBasic').reset();
+                document.querySelector('#params-basic').reset();
                 store.commit("getCountryState", []);
                 store.commit("getStateState", []);
                 store.commit("getCountyState", []);

@@ -1,0 +1,8 @@
+
+#params-basic {
+  .wqp-multiselect {
+    @include at-media('tablet') {
+      width: 50%;
+    }
+  }
+}

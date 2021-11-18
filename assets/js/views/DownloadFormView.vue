@@ -42,7 +42,7 @@ export default {
   props: ['form', 'downloadProgressDialog', 'downloadProgressDialogBasic', "providers"],
   data () {
     return {
-      selectedForm: document.querySelector('#paramsBasic')
+      selectedForm: document.querySelector('#params-basic')
     }
   },
   components: {
@@ -200,7 +200,7 @@ export default {
         
         let self = this;
         document.querySelector('#basic-tab').addEventListener('click', function(){
-            let formtype = document.querySelector('#paramsBasic');
+            let formtype = document.querySelector('#params-basic');
             self.updateSelected(formtype);
         });
 
@@ -211,7 +211,7 @@ export default {
 
         this.setUpWatchers();
 
-        let basicForm = document.querySelector('#paramsBasic');
+        let basicForm = document.querySelector('#params-basic');
 
         // Set up change event handler for form inputs to update the hash part of the url
         let inputs = this.form.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {

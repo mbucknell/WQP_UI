@@ -5,8 +5,11 @@ $theme-image-path: './img';
 $black: #000;
 
 // Import all other custom scss files
-@import "layout.scss";
-@import "uswds";
+@import 'layout.scss';
+@import 'uswds';
+@import 'new_layout';
+@import 'portal_form';
+
 
 body {
   background-color: white;
@@ -227,13 +230,7 @@ body {
 }
 
 // basic form styles
-.smallInput {
-  width: 60px;
-  min-height: 32px;
-  border: 1px solid #565c65;
-  border-radius: 0;
-  padding: 0.5rem;
-}
+
 
 .formSection {
   padding: 10px;
@@ -395,11 +392,6 @@ a:visited {
   margin-bottom: 10px;
 }
 
-#point-location-basic {
-  padding-left: 0px;
-  padding-bottom: 10px;
-}
-
 #point-location-basic-input {
   padding-top: 10px;
 }
@@ -459,8 +451,6 @@ a:visited {
 
 .tabs {
   font-size: 0;
-  padding: 20px;
-  padding-top: 0px;
 }
 
 .tabs:after {
