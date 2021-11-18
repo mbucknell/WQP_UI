@@ -3,7 +3,7 @@
 @import "uswds";
 
 // Center page, max width
-.page-center{
+.page-center {
     display: block;
     box-sizing: border-box;
     //background-color: white;
@@ -12,20 +12,20 @@
     max-width: 1300px;
     margin: 0 auto;
 
-    .page-center-content{
+    .page-center-content {
         margin: 0 auto;
         max-width: 1080px;
         width: 95%;
         display: block;
 
-        &.no-sidebar{
+        &.no-sidebar {
             max-width: 880px;
         }
     }
 }
 
 // Sidebar, center rest of page
-.page-sidebar{
+.page-sidebar {
     display: flex;
     //background-color: white;
     @include u-bg('gray-1');
@@ -55,16 +55,14 @@
         }
     }
 
-    .page-sidebar-content{
+    .page-sidebar-content {
         display: block;
         max-width: 840px;
-        //background-color: white;
         @include u-bg('gray-1');
         position: relative;
         box-sizing: border-box;
         padding: 0 30px;
     }
-
 }
 
 
@@ -83,6 +81,8 @@
         border: none;
         // Investigate - not sure how to do this
         border-bottom: 1px solid rgba(0,0,0,0.15);
+        @include u-border-bottom('1px');
+
     }
 
     table th {
@@ -98,8 +98,8 @@
     }
 
     blockquote {
-        // Investigate - not sure where this is used
-        border-left: 3px solid grey;
+        @include u-border-left('2px');
+        @include u-border-color('gray-50');
         box-sizing: border-box;
         padding-left: 15px;
         font-size: 90%;

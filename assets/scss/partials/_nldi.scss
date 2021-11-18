@@ -1,0 +1,56 @@
+#nldi-map-container {
+  display: none;
+  #nldi-help-div {
+    font-style: italic;
+  }
+  #nldi-map {
+    height: 500px;
+    width: 100%;
+    cursor: pointer;
+
+    .leaflet-popup-pane {
+      .feature-source-info ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      .navigation-selection-div {
+        label {
+          font-size: 14px;
+          font-weight: bold;
+        }
+        .navigate-button-div {
+          margin-top: 5px;
+          text-align: center;
+        }
+      }
+    }
+
+    // Investigate -- can't find in project
+    .leaflet-nldi-feature-source-control-div {
+      @include u-bg('gray-1');
+      border: 2px solid rgba(0,0,0,0.2);
+      border-radius: 5px;
+      padding: 5px;
+
+      #nldi-selector-title {
+        font-weight: bold;
+        font-size: 14px;
+        margin: 5px 5px 5px 12px;
+      }
+
+      .usa-radio label {
+        margin: 12px 5px 5px 5px;
+      }
+    }
+
+    .easy-button-button .button-state {
+      display: inline-flex;
+      justify-content: center;
+    }
+
+    // Reset easy button
+    .easy-button-button {
+      width: 70px;
+    }
+  }
+}

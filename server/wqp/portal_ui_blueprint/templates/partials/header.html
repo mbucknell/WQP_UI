@@ -1,6 +1,5 @@
 <!-- USWDS Government Website Banner -->
 <a class="usa-skipnav" href="#main-content">Skip to main content</a>
-
 <section class="usa-banner" aria-label="Official government website">
     <div class="usa-accordion">
         <header class="usa-banner__header">
@@ -58,11 +57,9 @@
     </div>
 </section>
 
-
 <!-- Main App Header -->
 <div class="usa-overlay"></div>
-
-<header class="usa-header usa-header--basic" id="main-header" role="banner">
+<header class="usa-header usa-header--basic" id="main-header">
     <div class="usa-nav-container">
         <div class="usa-navbar">
             <div class="custom-nav-branding">
@@ -76,7 +73,7 @@
         </div>
 
         <!-- Add .usa-current on active usa-nav__link element  -->
-        <nav aria-label="Primary navigation" class="usa-nav">
+        <nav id="main-menus" aria-label="Primary navigation" class="usa-nav">
             <button class="usa-nav__close"><img src="{{ 'img/close.svg' | asset_url }}" role="img" alt="close"></button>
             <ul class="usa-nav__primary usa-accordion">
 
@@ -85,8 +82,12 @@
                 </li>
 
                 <li class="usa-nav__primary-item">
-                    <button class="usa-accordion__button usa-nav__link" aria-expanded="false"
-                            aria-controls="basic-nav-section-one"><span>Explore WQP Sites</span></button>
+                    <div class="header-menu-item">
+                        <button class="usa-accordion__button usa-nav__link" aria-expanded="false"
+                                aria-controls="basic-nav-section-one">
+                            <span>Explore WQP Sites</span>
+                        </button>
+                    </div>
                     <ul id="basic-nav-section-one" class="usa-nav__submenu">
                         <li class="usa-nav__submenu-item">
                             <a href="{{ url_for('portal_ui.uri_provider', provider_id = 'NWIS') }}">NWIS</a>
@@ -100,10 +101,11 @@
                     </ul>
                 </li>
 
-
                 <li class="usa-nav__primary-item">
                     <button class="usa-accordion__button usa-nav__link" aria-expanded="false"
-                            aria-controls="basic-nav-section-two"><span>Help & About</span></button>
+                            aria-controls="basic-nav-section-two">
+                        <span>Help & About</span>
+                    </button>
                     <ul id="basic-nav-section-two" class="usa-nav__submenu">
                         <li class="usa-nav__submenu-item">
                             <a href="{{ url_for('portal_ui.wqp_description') }}">What is the WQP?</a>
@@ -137,10 +139,12 @@
                         </li>
                     </ul>
                 </li>
+
             </ul>
         </nav>
     </div>
 </header>
+
 <div id="siteAnnouncement">
     <div class="usa-alert usa-alert--info usa-alert--no-icon">
         <div class="usa-alert__body announcement-body">
@@ -158,7 +162,6 @@
         >
             <img src="{{ 'img/close.svg' | asset_url }}" alt="info" onclick="closeAnnouncement();"
                  id="announcementImg"/>
-            </svg>
         </button>
     </div>
 </div>
