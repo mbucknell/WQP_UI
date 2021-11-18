@@ -1,5 +1,36 @@
+.wqp-multiselect {
+  .multiselect__tags {
+    @include u-border-width('1px');
+    @include u-border-color('gray-cool-60');
+    @include u-border('solid');
+    @include u-radius(0);
+    @include u-font('body', 'xs');
+  }
+
+  .multiselect__input:focus {
+    outline: none !important;
+  }
+
+  .multiselect:focus-within {
+    @include u-outline-color('blue-40v');
+    @include u-outline('05');
+  }
+
+  .multiselect__tag, .multiselect__option--highlight, .multiselect__option--selected.multiselect__option--highlight {
+    @include u-bg('blue-60v', !important);
+  }
+}
+
+#datesLabel, #datesLabelAdv {
+  font-size: 14px;
+  font-weight: normal !important;
+}
+
 
 #params-basic {
+  .formSection {
+    @include u-padding-y('105');
+  }
   .wqp-multiselect {
     @include at-media('tablet') {
       width: 50%;
@@ -20,9 +51,60 @@
       @include u-flex('justify-end');
     }
     #point-location-basic-label {
-    @include u-display('flex');
+      @include u-display('flex');
       @include u-flex('column');
       @include u-flex('justify-center');
     }
+  }
+  .menu-buttons {
+    @include u-margin-y(2);
+  }
+
+  .basicSortDataCheckbox {
+    @include u-margin-y('105');
+  }
+}
+
+#params {
+  .wqp-textarea {
+    @include u-height(8);
+    width: 100%;
+  }
+
+  .advanced-section {
+    @include u-padding-top('205');
+  }
+
+  #download-box-input-div {
+    @include grid-row;
+    @include grid-gap;
+    #data-type-parameters-div {
+      @include at-media('tablet') {
+        @include grid-col(3);
+      }
+    }
+    #download-data-kind-box {
+      @include at-media('tablet') {
+        @include grid-col(9);
+      }
+    }
+
+    #query-box-bold {
+      font-weight: bold;
+    }
+
+    #query-box-muted {
+      @include u-color('gray-60')
+    }
+    #current-url-textarea {
+      width: 100%;
+      @include u-margin-bottom('105');
+    }
+
+    .share-container {
+      width: 100%;
+      @include u-padding-top('105');
+    }
+
   }
 }
