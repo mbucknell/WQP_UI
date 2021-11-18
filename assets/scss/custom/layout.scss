@@ -67,7 +67,6 @@
 
 
 .markdown-page {
-    // Probably use USWDS table to remove these issues
     table {
         border-collapse: collapse;
     }
@@ -79,22 +78,18 @@
         box-sizing: border-box;
         padding: 5px;
         border: none;
-        // Investigate - not sure how to do this
-        border-bottom: 1px solid rgba(0,0,0,0.15);
+        border-bottom: 1px solid rgba(color('gray-90'),0.15);
         @include u-border-bottom('1px');
-
     }
 
     table th {
         font-size: 16px;
         padding: 10px 3px 10px 3px;
-        //Investigate -- can USWDS do rgba
-        background-color: rgba(0,0,0,0.1);
+        background-color: rgba(color('gray-90'),0.1);
     }
 
     table tr:nth-child(even) {
-        //Investigate -- can USWDS do rgba
-        background-color: rgba(0,0,0,0.07);
+        background-color: rgba(color('gray-90'),0.07);
     }
 
     blockquote {
