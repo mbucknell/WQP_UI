@@ -94,7 +94,7 @@
     <div id="announcement">{{ config.ANNOUNCEMENT_BANNER|safe }}</div>
     {% endif %}
 
-    <main id="main-content">
+    <main id="main-content" {% if use_grid_container %} class="grid-container"{% endif %}>
         {% block page_content %}{% endblock %}
     </main>
     <div id="footer-content">
