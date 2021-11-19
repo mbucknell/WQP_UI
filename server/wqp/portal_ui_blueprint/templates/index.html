@@ -11,8 +11,7 @@
 
 {% block page_content %}
 <!-- Basic Form -->
-<div class="page-center">
-  <div id="forms" class="page-center-content">
+  <div id="forms">
     <div id="formIntro" v-if="showIntro">
       <div>
         <div class="usa-alert__body new-wqp-body">
@@ -30,14 +29,10 @@
           </p>
         </div>
       </div>
-    
       <div id="formIntroFooter">
-    
         <div class="footer-flex">
           <button class="usa-button usa-button--outline" id="closeIntroButton" v-on:click="closeIntro">Close intro</button>
         </div>
-    
-    
         <!-- Don't show again checkbox -->
         <div class="footer-flex">
           <div class="usa-checkbox">
@@ -47,15 +42,15 @@
         </div>
       </div>
     </div>
-  <div class="tabs" aria-label="Two tabs to allow user to toggle between basic and advanced forms.">
+    <div class="tabs" aria-label="Two tabs to allow user to toggle between basic and advanced forms.">
     <div class="tab" aria-label="Tab for basic form. First of two tabs to allow user to toggle between basic and advanced forms.">
       <input type="radio" id="basic-tab" name="toggle-tabs" v-model="toggleForm" value="true">
       <label for="basic-tab" class="tab-label" v-on:click="syncAtoBForm()">Basic</label>
       <div class="tab-panel">
         <div class="tab-content">
           <div id="basic-form">
-            <form role="form" id="paramsBasic" name="paramsBasic" autocomplete="off" method="post" action="
-            {{ config.SEARCH_QUERY_ENDPOINT }}Station/search">
+            <form role="form" id="params-basic" autocomplete="off" method="post"
+                  action="{{ config.SEARCH_QUERY_ENDPOINT }}Station/search">
             <h3 class="site-preview-heading">Download Water Quality Data</h3>
             <div class="usa-step-indicator" aria-label="progress">
               <ol v-if="steps" class="usa-step-indicator__segments" :class="{            
@@ -101,52 +96,59 @@
                       <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
                   </div>
                   <div>
-                    <Multiselectcountry id="countrycodeBasic" style="width: 50%;" name="countrycode"></Multiselectcountry>
+                    <Multiselectcountry class="wqp-multiselect" id="countrycodeBasic" name="countrycode"></Multiselectcountry>
                   </div>
                 </div>
                 <div class="formSection">
                   <label class="usa-label" for="statecodeBasic">State </label><div class="tooltip" class="control-label"
                                 for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                   <div>
-                    <Multiselectstate id="statecodeBasic" style="width: 50%;" name="statecode"></Multiselectstate>
+                    <Multiselectstate class="wqp-multiselect" id="statecodeBasic" name="statecode"></Multiselectstate>
                   </div>
                 </div>
                 <div class="formSection">
                   <label class="usa-label" for="countycodeBasic">County </label><div class="tooltip" class="control-label"
                                   for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                   <div>
-                    <Multiselectcounty id="countycodeBasic" style="width: 50%;" name="countycode"></Multiselectcounty>
+                    <Multiselectcounty class="wqp-multiselect" id="countycodeBasic" name="countycode"></Multiselectcounty>
                   </div>
                 </div>
                 <div class="formSection">
-                  <label class="usa-label" for="point-location-basic">Point Location </label><div class="tooltip"
-                                  :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-                </div>
-              </div>
-              <div class="grid-container" id="point-location-basic">
-                <div class="grid-row">
-                  <div class="tablet:grid-col-1"></div>
-                  <div class="tablet:grid-col-1">Miles of</div>
-                  <div class="tablet:grid-col-1">Lat</div>
-                  <div class="tablet:grid-col-1">Long</div>
-                </div>
-                <div class="grid-row" id="point-location-basic-input">
-                  <div class="tablet:grid-col-1" id="point-location-basic-within">Within</div>
-                  <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="within"
-                    id="withinBasic" aria-label="First of three input boxes for point location parameter. Input box for number of miles from point."></input></div>
-                  <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="lat"
-                    placeholder="0" size="7" id="latBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
-                  <div class="tablet:grid-col-1"><input class="smallInput" type="text" name="long"
-                    placeholder="0" id="longBasic" aria-label="Third of three input boxes for point location parameter. Input box for longitude."></input></div>
-                  <div class="tablet:grid-col-4"><div id="useMyLocationBasic"></div><!-- <button id="useMyLocationBasic"
-                    class="usa-button usa-button--outline" type="button">Use my location</button> --></div>
+                  <label class="usa-label" for="point-location-basic">
+                    Point Location
+                  </label>
+                  <div class="tooltip" :title="pointLocationTooltip">
+                    <span class="tooltipIcon">
+                      <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
+                    </span>
+                  </div>
+                  <div id="point-location-basic">
+                    <div id="point-location-basic-label">Within</div>
+                    <div class="point-location-input-div">
+                      <div>Miles of</div>
+                      <input class="usa-input" type="text" name="within"
+                        id="withinBasic" aria-label="miles from point"/>
+                    </div>
+                    <div class="point-location-input-div">
+                      <div>Lat</div>
+                      <input class="usa-input" type="text" name="lat"
+                        placeholder="0" id="latBasic" aria-label="Point latitude"/>
+                    </div>
+                    <div class="point-location-input-div">
+                      <div>Long</div>
+                      <input class="usa-input" type="text" name="long"
+                        placeholder="0" id="longBasic" aria-label="Point longitude"/>
+                    </div>
+                    <div id="useMyLocationBasic"></div><!-- <button id="useMyLocationBasic"
+                      class="usa-button usa-button--outline" type="button">Use my location</button> -->
+                  </div>
                 </div>
               </div>
               <div class="formSection">
                 <label class="usa-label" for="siteTypeBasic">Site Type </label>
                               <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <div>
-                  <Multiselectsitetype id="siteTypeBasic" name="siteTypeBasic" style="width: 50%"></Multiselectsitetype>
+                  <Multiselectsitetype class="wqp-multiselect" id="siteTypeBasic" name="siteTypeBasic"></Multiselectsitetype>
                 </div>
               </div>
               <div class="menu-buttons">
@@ -212,17 +214,17 @@
                 <label class="usa-label" for="sampleMediaBasic">Sample Media </label>
                                   <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <div>
-                  <Multiselectsamplemedia id="sampleMediaBasic" name="sampleMedia" style="width: 50%"></Multiselectsamplemedia>
+                  <Multiselectsamplemedia class="wqp-multiselect" id="sampleMediaBasic" name="sampleMedia" ></Multiselectsamplemedia>
                 </div>
               </div>
               <div class="formSection">
                 <label class="usa-label" for="charGroupBasic">Characteristic Group </label>
                                   <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 <div>
-                  <Multiselectchargroup id="charGroupBasic" name="charGroup" style="width: 50%"></Multiselectchargroup>
+                  <Multiselectchargroup class="wqp-multiselect" id="charGroupBasic" name="charGroup" ></Multiselectchargroup>
                 </div>
               </div>
-              <div>
+              <div class="menu-buttons">
                 <button class="usa-button usa-button--outline reset-filters" type="button">Clear search</button>
                 <button class="usa-button" v-on:click="onPrev()" type="button">Previous</button>
                 <button class="usa-button" v-on:click="onNext()" type="button">Next</button>
@@ -319,22 +321,16 @@
                   </div>
                   <button class="usa-button usa-modal__close" aria-label="Close this window"
                     data-close-modal>
-
                       <img src="{{ 'img/usa-icons/close.svg' | asset_url }}" alt="close"></img>
-
                   </button>
                 </div>
               </div>
               </div>
             </div>
-          
-          
           </form>
         </div>
-        
         </div>
       </div>
-    
 
     <div class="tab" aria-label="Tab for advanced form. Two of two tabs to allow user to toggle between basic and advanced forms.">
       <input type="radio" id="advanced-tab" name="toggle-tabs" v-model="toggleForm" value="false">
@@ -346,310 +342,303 @@
                               {{ config.SEARCH_QUERY_ENDPOINT }}Station/search
                               ">
               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-              <div id="place">
-                <div class="grid-col">
-                  <div class="usa-accordion">
-                    <h4 class="usa-accordion__heading">
-                      <button class="usa-accordion__button" aria-expanded="true" aria-controls="locationaccordion">
-                        Select Location Parameters
-                      </button>
-                    </h4>
-                    <div id="locationaccordion" class="usa-accordion__content usa-prose">
-                      <div>Specify location parameters to describe the spatial extent of the desired dataset.
-                      </div>
-                      <br>
-                      <div class="grid-row grid-gap">
-                        <div class="tablet:grid-col-3">
+              <div id="place" class="advanced-section">
+                <div class="usa-accordion">
+                  <h4 class="usa-accordion__heading">
+                    <button class="usa-accordion__button" aria-expanded="true" aria-controls="locationaccordion">
+                      Select Location Parameters
+                    </button>
+                  </h4>
+                  <div id="locationaccordion" class="usa-accordion__content usa-prose">
+                    <div>Specify location parameters to describe the spatial extent of the desired dataset.
+                    </div>
+                    <div class="advanced-form-input-section">
+                      <div class="advanced-location-column">
+                        <div class="form-group">
+                          <label class="usa-label" for="countrycode">
+                            Country
+                          </label>
+                          <div class="tooltip" class="control-label"
+                            for="control-label" :title="countryTooltip">
+                            <span class="tooltipIcon">
+                              <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
+                            </span>
+                          </div>
+                          <div>
+                            <Multiselectcountry class="wqp-multiselect" id="countrycode" name="countrycode"></Multiselectcountry>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                          <label class="usa-label" for="statecode">State </label><div class="tooltip" class="control-label"
+                            for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                          <div>
+                            <Multiselectstate class="wqp-multiselect" id="statecode" name="statecode"></Multiselectstate>
+                          </div>
+                          <br>
                           <div class="form-group">
-                            <label class="usa-label" for="countrycode">Country </label><div class="tooltip" class="control-label"
-                              for="control-label" :title="countryTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                            <label class="usa-label" for="countycode">County </label><div class="tooltip" class="control-label"
+                              for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                             <div>
-                              <Multiselectcountry id="countrycode" name="countrycode"></Multiselectcountry>
+                              <Multiselectcounty class="wqp-multiselect" id="countycode" name="countycode"></Multiselectcounty>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="advanced-location-column">
+                        <div id="point-location">
+                          <div>
+                            <label class="usa-label" for="pointLocation">Point Location </label><div class="tooltip"
+                              :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                          </div>
+                          <div id="pointLocation">
+                            <div class="form-group">
+                              <label class="control-label" for="within">Within</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" name="within" size="16" id="within"
+                                  aria-label="First of three input boxes for point location parameter. Input box for number of miles from point." />
+                              </div>
+                            </div>
+                            <div id="miles-label">miles of</div>
+                            <div class="form-group">
+                              <label class="control-label" for="lat">Latitude</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" name="lat" size="16" id="lat" placeholder="0"
+                                  aria-label="Second of three input boxes for point location parameter. Input box for latitude." />
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="long">Longitude</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" name="long" size="16" id="long" placeholder="0"
+                                  aria-label="Third of three input boxes for point location parameter. Input box for longitude." />
+                              </div>
+                            </div>
+                            <div id="useMyLocation"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="advanced-location-column">
+                        <div id="bounding-box">
+                          <div>
+                            <label class="usa-label" for="boundingBox">Bounding Box </label><div class="tooltip"
+                              :title="boundingBoxTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                          </div>
+                          <div id="boundingBox">
+                            <div class="form-group">
+                              <label class="control-label" for="north">North:</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" size="16" id="north" placeholder="90"
+                                  aria-label="First of four input boxes for bounding box parameter. Input box for north latitude." />
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="south">South:</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" size="16" id="south" placeholder="-90"
+                                  aria-label="Second of four input boxes for bounding box parameter. Input box for south latitude." />
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="east">East:</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" size="16" id="east" placeholder="180"
+                                  aria-label="Third of four input boxes for bounding box parameter. Input box for east longitude." />
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label" for="west">West:</label>
+                              <div>
+                                <input class="form-control usa-input" type="text" size="16" id="west" placeholder="-180"
+                                  aria-label="Fourth of four input boxes for bounding box parameter. Input box for west longitude." />
+                              </div>
+                            </div>
+                          </div>
+                          <input type="hidden" name="bBox" />
+                        </div>
+                      </div>
+                      <div class="advanced-location-column">
+                        <div id="site-params">
+                          <div class="form-group">
+                            <label class="usa-label" for="siteType">Site Type </label>
+                            <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                            <div>
+                              <Multiselectsitetype class="wqp-multiselect" id="siteType" name="siteType"></Multiselectsitetype>
                             </div>
                           </div>
                           <br>
                           <div class="form-group">
-                            <label class="usa-label" for="statecode">State </label><div class="tooltip" class="control-label"
-                              for="control-label" :title="stateTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                            <label class="usa-label" for="organization">Organization ID </label>
+                            <div class="tooltip" :title="orgIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                            </div>
                             <div>
-                              <Multiselectstate id="statecode" name="statecode"></Multiselectstate>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                              <label class="usa-label" for="countycode">County </label><div class="tooltip" class="control-label"
-                                for="control-label" :title="countyTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-                              <div>
-                                <Multiselectcounty id="countycode" name="countycode"></Multiselectcounty>
-                              </div>
+                              <Multiselectorg class="wqp-multiselect" id="organization" name="organization"></Multiselectorg>
                             </div>
                           </div>
-                        </div>
-                        <div class="tablet:grid-col-3">
-                          <div id="point-location">
+                          <br>
+                          <div class="form-group">
+                            <label class="usa-label" for="siteid">Site ID </label>
+                            <div class="tooltip" :title="siteIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                            </div>
                             <div>
-                              <label class="usa-label" for="pointLocation">Point Location </label><div class="tooltip"
-                                :title="pointLocationTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-                            </div>
-                            <div id="pointLocation">
-                              <div class="form-group">
-                                <label class="control-label" for="within">Within</label>
-                                <div>
-                                  <input class="form-control usa-input" type="text" name="within" size="16" id="within"
-                                    aria-label="First of three input boxes for point location parameter. Input box for number of miles from point." />
-                                </div>
-                              </div>
-                              <div id="miles-label">miles of</div>
-                              <div class="form-group">
-                                <label class="control-label" for="lat">Latitude</label>
-                                <div>
-                                  <input class="form-control usa-input" type="text" name="lat" size="16" id="lat" placeholder="0"
-                                    aria-label="Second of three input boxes for point location parameter. Input box for latitude." />
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label" for="long">Longitude</label>
-                                <div>
-                                  <input class="form-control usa-input" type="text" name="long" size="16" id="long" placeholder="0"
-                                    aria-label="Third of three input boxes for point location parameter. Input box for longitude." />
-                                </div>
-                              </div>
-                              <div id="useMyLocation"></div>
+                              <Multiselectsiteid class="wqp-multiselect" id="siteid" name="siteid"></Multiselectsiteid>
                             </div>
                           </div>
-                        </div>
-                        <div class="tablet:grid-col-3">
-                          <div id="bounding-box">
+                          <br>
+                          <div class="form-group">
+                            <label class="usa-label" for="huc">HUC </label>
+                            <div class="tooltip" :title="hucTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                            </div>
                             <div>
-                              <label class="usa-label" for="boundingBox">Bounding Box </label><div class="tooltip"
-                                :title="boundingBoxTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-                            </div>
-                            <div id="boundingBox">
-                              <div class="form-group">
-                                <label class="control-label" for="north">North:</label>
-                                <div>
-                                  <input class="form-control usa-input" type="text" size="16" id="north" placeholder="90"
-                                    aria-label="First of four input boxes for bounding box parameter. Input box for north latitude." />
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label" for="south">South:</label>
-                                <div>
-                                  <input class="form-control usa-input" type="text" size="16" id="south" placeholder="-90"
-                                    aria-label="Second of four input boxes for bounding box parameter. Input box for south latitude." />
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label" for="east">East:</label>
-                                <div>
-                                  <input class="form-control usa-input" type="text" size="16" id="east" placeholder="180"
-                                    aria-label="Third of four input boxes for bounding box parameter. Input box for east longitude." />
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label" for="west">West:</label>
-                                <div>
-                                  <input class="form-control usa-input" type="text" size="16" id="west" placeholder="-180"
-                                    aria-label="Fourth of four input boxes for bounding box parameter. Input box for west longitude." />
-                                </div>
-                              </div>
-                            </div>
-                            <input type="hidden" name="bBox" />
-                          </div>
-                        </div>
-                        <div class="tablet:grid-col-3">
-                          <div id="site-params">
-                            <div class="form-group">
-                              <label class="usa-label" for="siteType">Site Type </label>
-                              <div class="tooltip" :title="siteTypeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-                              <div>
-                                <Multiselectsitetype id="siteType" name="siteType" style="width: 100%"></Multiselectsitetype>
-                              </div>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                              <label class="usa-label" for="organization">Organization ID </label>
-                              <div class="tooltip" :title="orgIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                              </div>
-                              <div>
-                                <Multiselectorg id="organization" name="organization" style="width: 100%"></Multiselectorg>
-                              </div>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                              <label class="usa-label" for="siteid">Site ID </label>
-                              <div class="tooltip" :title="siteIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                              </div>
-                              <div>
-                                <Multiselectsiteid id="siteid" name="siteid" style="width: 100%"></Multiselectsiteid>
-                              </div>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                              <label class="usa-label" for="huc">HUC </label>
-                              <div class="tooltip" :title="hucTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                              </div>
-                              <div>
-                                <input class="form-control usa-input" type="text" name="huc" id="huc" data-multiple="true"
-                                  placeholder="All HUCs" size="16" aria-label="Input box for HUC parameter" />
-                              </div>
+                              <input class="form-control usa-input" type="text" name="huc" id="huc" data-multiple="true"
+                                placeholder="All HUCs" size="16" aria-label="Input box for HUC parameter" />
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div id="nldi-container">
-                        <button type="button" id="showNldiMap" class="usa-button usa-button--outline">Show upstream downstream mapper
-                        </button>
-                        <div id="nldiMapInfo">
-                          <p>Upstream/Downstream information can be used to help you determine where to collect water quality data based on the flow of water. Select a feature source, and optionally search for a location. Then, click a feature to select upstream/downstream navigation and enter a desired distance. These search criteria will be populated in your query.
-                          </p>
-                        </div>
-                      </div>
-                      <div id="nldi-param-container">
-                          <input id="nldi-url" type="hidden" name="nldiurl" />
-                      </div>
-                      <div id="nldi-map-container">
-                        <div id="nldi-map"></div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div id="siteSamplingParams">
-                <div class="grid-col">
-                  <div class="usa-accordion">
-                    <h4 class="usa-accordion__heading">
-                      <button class="usa-accordion__button" aria-expanded="true" aria-controls="filteraccordion">
-                        Filter Results
+                    <div id="nldi-container">
+                      <button type="button" id="showNldiMap" class="usa-button usa-button--outline">Show upstream downstream mapper
                       </button>
-                    </h4>
-                    <div id="filteraccordion" class="usa-accordion__content usa-prose">
-                      <div>Specify data source, date range, and sampling filters to apply to the desired dataset.</div>
-                      <br>
-                      <div id="sampling-params" class="panel panel-default">
-                        <div class="panel-body">
-                          <div id="sampling" class="subpanel" name="sampling">
-                            <div class="subpanel-body">
-                              <div class="grid-row grid-gap">
-                                <div class="tablet:grid-col-4">
-                                  <label class="usa-label" for="sampleMedia">Sample Media </label>
-                                  <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                  </div>
-                                  <div>
-                                    <Multiselectsamplemedia id="sampleMedia" name="sampleMedia" style="width: 100%"></Multiselectsamplemedia>
-                                  </div>
-                                  <br>
-                                  <label class="usa-label" for="characteristicType">Characteristic Group </label>
-                                  <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                  </div>
-                                  <div>
-                                      <Multiselectchargroup id="characteristicType" name="charGroup" style="width: 100%"></Multiselectchargroup>
-                                  </div>
-                                  <br>
-                                  <label class="usa-label" for="characteristicName">Characteristics </label>
-                                  <div class="tooltip" :title="characteristicsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                  </div>
-                                  <div>
-                                    <Multiselectchar :providers="providers" id="characteristicName" name="characteristicName" style="width: 100%"></Multiselectchar>
-                                  </div>
-                                  <br>
-                                  <label class="usa-label" for="project-code">Project ID </label>
-                                  <div class="tooltip" :title="projectIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                  </div>
-                                  <div>
-                                    <Multiselectprojid :providers="providers" id="project-code" name="project" style="width: 100%"></Multiselectprojid>
-                                  </div>
-                                </div>
-                                <div class="tablet:grid-col-4">
-                                  <label class="usa-label" for="pCode">Parameter Code
-                                    <span class="smallText">(NWIS ONLY) </span></label>
-                                  <div class="tooltip" id="pcode-div" :title="paramCodeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                  </div>
-                                  <div>
-                                    <input class="form-control usa-input" type="text" size="23"
-                                      placeholder="All Parameter Codes" name="pCode" id="pCode" data-multiple="true"
-                                      aria-label="Input box for parameter code parameter" />
-                                  </div>
-                                  <br>
-                                  <div id="biological" class="subpanel">
-                                    <div class="subpanel-heading">
-                                      <label class="usa-label" for="biological">Biological Parameters</label>
-                                    </div>
-                                    <div class="subpanel-body">
-                                      <label class="usa-label" for="assemblage">Assemblage </label>
-                                      <div class="tooltip" :title="assemblageTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                      </div>
-                                      <div>
-                                        <Multiselectassemblage id="assemblage" name="assemblage" style="width: 100%"></Multiselectassemblage>
-                                      </div>
-                                      <br>
-                                      <div class="form-group">
-                                        <label class="usa-label" for="subject-taxonomic-name">Taxonomic
-                                            Name </label><div class="tooltip" for="control-label"
-                                          :title="taxNameTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-                                        <div>
-                                          <Multiselecttax :providers="providers" id="subject-taxonomic-name" name="subjectTaxonomicName" style="width: 100%"></Multiselecttax>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="tablet:grid-col-4">
-                                  <div id="date-row">
-                                    <div id="start-date-select">
-                                      <label class="usa-label" for="date-row">Date Range </label>
-                                      <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                      </div>
-                                      <div>
-                                        <label id="datesLabelAdv" class="usa-label">Dates should be entered as mm-dd-yyyy, mm-yyyy, or yyyy</label>
-                                        <div>
-                                          <label>from: </label><input class="form-control usa-input" type="text" id="startDateLo"
-                                            name="startDateLo" placeholder="mm-dd-yyyy" size="18"
-                                            aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div id="end-date-select">
-                                      <div>
-                                        <div>
-                                          <label class="control-label" for="startDateHi">to: </label> <input
-                                            class="form-control usa-input" type="text" id="startDateHi" name="startDateHi"
-                                            placeholder="mm-dd-yyyy" size="20"
-                                            aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <br>
-                                  <div id="min-activities-parameters-div">
-                                    <label class="usa-label" forid="min-activities-div">Minimum Sampling Activities Per Site </label>
-                                    <div class="tooltip" id="min-activities-div" :title="minSamplingTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                    </div>
-                                    <div>
-                                      <input class="form-control usa-input" type="number" min="1" name="minactivities"
-                                        id="min-activities" placeholder="1" size="25"
-                                        aria-label="Input box for minimum sampling activities per site parameter" />
-                                    </div>
-                                  </div>
-                                  <br>
-                                  <label class="usa-label" forid="minresults-div">Minimum Results Per Site </label>
-                                  <div class="tooltip" id="minresults-div" :title="minimumResultsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                  </div>
-                                  <div>
-                                    <input class="form-control usa-input" type="number" min="1" name="minresults" id="minresults"
-                                      placeholder="1" size="25"
-                                      aria-label="Input box for minimum results per site parameter" />
-                                  </div>
-                                </div>
+                      <div id="nldiMapInfo">
+                        <p>Upstream/Downstream information can be used to help you determine where to collect water quality data based on the flow of water. Select a feature source, and optionally search for a location. Then, click a feature to select upstream/downstream navigation and enter a desired distance. These search criteria will be populated in your query.
+                        </p>
+                      </div>
+                    </div>
+                    <div id="nldi-param-container">
+                        <input id="nldi-url" type="hidden" name="nldiurl" />
+                    </div>
+                    <div id="nldi-map-container">
+                      <div id="nldi-map"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="siteSamplingParams" class="advanced-section">
+                <div class="usa-accordion">
+                  <h4 class="usa-accordion__heading">
+                    <button class="usa-accordion__button" aria-expanded="true" aria-controls="filteraccordion">
+                      Filter Results
+                    </button>
+                  </h4>
+                  <div id="filteraccordion" class="usa-accordion__content usa-prose">
+                    <div>Specify data source, date range, and sampling filters to apply to the desired dataset.</div>
+                    <div id="sampling" class="advanced-form-input-section">
+                      <div class="advanced-filter-column">
+                        <label class="usa-label" for="sampleMedia">Sample Media </label>
+                        <div class="tooltip" :title="sampleMediaTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                        </div>
+                        <div>
+                          <Multiselectsamplemedia class="wqp-multiselect" id="sampleMedia" name="sampleMedia"></Multiselectsamplemedia>
+                        </div>
+                        <br>
+                        <label class="usa-label" for="characteristicType">Characteristic Group </label>
+                        <div class="tooltip" :title="charGroupTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                        </div>
+                        <div>
+                            <Multiselectchargroup class="wqp-multiselect" id="characteristicType" name="charGroup"></Multiselectchargroup>
+                        </div>
+                        <br>
+                        <label class="usa-label" for="characteristicName">Characteristics </label>
+                        <div class="tooltip" :title="characteristicsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                        </div>
+                        <div>
+                          <Multiselectchar class="wqp-multiselect" :providers="providers" id="characteristicName" name="characteristicName"></Multiselectchar>
+                        </div>
+                        <br>
+                        <label class="usa-label" for="project-code">Project ID </label>
+                        <div class="tooltip" :title="projectIDTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                        </div>
+                        <div>
+                          <Multiselectprojid class="wqp-multiselect" :providers="providers" id="project-code" name="project"></Multiselectprojid>
+                        </div>
+                      </div>
+                      <div class="advanced-filter-column">
+                        <label class="usa-label" for="pCode">Parameter Code
+                          <span class="smallText">(NWIS ONLY) </span></label>
+                        <div class="tooltip" id="pcode-div" :title="paramCodeTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                        </div>
+                        <div>
+                          <input class="form-control usa-input" type="text" size="23"
+                            placeholder="All Parameter Codes" name="pCode" id="pCode" data-multiple="true"
+                            aria-label="Input box for parameter code parameter" />
+                        </div>
+                        <br>
+                        <div id="biological" class="subpanel">
+                          <div class="subpanel-heading">
+                            <label class="usa-label" for="biological">Biological Parameters</label>
+                          </div>
+                          <div class="subpanel-body">
+                            <label class="usa-label" for="assemblage">Assemblage </label>
+                            <div class="tooltip" :title="assemblageTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                            </div>
+                            <div>
+                              <Multiselectassemblage class="wqp-multiselect"id="assemblage" name="assemblage"></Multiselectassemblage>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                              <label class="usa-label" for="subject-taxonomic-name">Taxonomic
+                                  Name </label><div class="tooltip" for="control-label"
+                                :title="taxNameTooltip"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                              <div>
+                                <Multiselecttax class="wqp-multiselect" :providers="providers" id="subject-taxonomic-name" name="subjectTaxonomicName" ></Multiselecttax>
                               </div>
                             </div>
                           </div>
+                        </div>
+                      </div>
+                      <div class="advanced-filter-column">
+                        <div id="date-row">
+                          <div id="start-date-select">
+                            <label class="usa-label" for="date-row">Date Range </label>
+                            <div class="tooltip" :title="dateRangeTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                            </div>
+                            <div>
+                              <label id="datesLabelAdv" class="usa-label">Dates should be entered as mm-dd-yyyy, mm-yyyy, or yyyy</label>
+                              <div>
+                                <label>from: </label><input class="form-control usa-input" type="text" id="startDateLo"
+                                  name="startDateLo" placeholder="mm-dd-yyyy" size="18"
+                                  aria-label="First of two input boxes for date range parameter. Input box for start date parameter." />
+                              </div>
+                            </div>
+                          </div>
+                          <div id="end-date-select">
+                            <div>
+                              <div>
+                                <label class="control-label" for="startDateHi">to: </label> <input
+                                  class="form-control usa-input" type="text" id="startDateHi" name="startDateHi"
+                                  placeholder="mm-dd-yyyy" size="20"
+                                  aria-label="Second of two input boxes for date range parameter. Input box for end date parameter." />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <div id="min-activities-parameters-div">
+                          <label class="usa-label" forid="min-activities-div">Minimum Sampling Activities Per Site </label>
+                          <div class="tooltip" id="min-activities-div" :title="minSamplingTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                          </div>
+                          <div>
+                            <input class="form-control usa-input" type="number" min="1" name="minactivities"
+                              id="min-activities" placeholder="1" size="25"
+                              aria-label="Input box for minimum sampling activities per site parameter" />
+                          </div>
+                        </div>
+                        <br>
+                        <label class="usa-label" forid="minresults-div">Minimum Results Per Site </label>
+                        <div class="tooltip" id="minresults-div" :title="minimumResultsTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                        </div>
+                        <div>
+                          <input class="form-control usa-input" type="number" min="1" name="minresults" id="minresults"
+                            placeholder="1" size="25"
+                            aria-label="Input box for minimum results per site parameter" />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="grid-col">
+              <div class="advanced-section">
                 <div class="usa-accordion">
                   <h4 class="usa-accordion__heading">
                     <button class="usa-accordion__button" aria-expanded="true" aria-controls="downloadaccordion">
@@ -657,236 +646,223 @@
                     </button>
                   </h4>
                   <div id="downloadaccordion" class="usa-accordion__content usa-prose">
-                    <div>Specify a data type and file format to download.</div>
-                    <br>
-                    <div>
-                      <div id="download-box" class="grid-row grid-gap">
-                        <div id="download-box-input-div" class="grid-row grid-gap download-box-input-div">
-                          <div id="data-type-parameters-div" class="tablet:grid-col-3">
-                            <div class="panel-body">
-                              <div class="form-group">
-                                <label class="usa-label" for="dataSource">Data Source </label>
-                                <div class="tooltip" :title="databasesTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                    <div id="download-box-input-div" class="download-box-input-div">
+                      <div id="data-type-parameters-div" >
+                        <div class="form-group">
+                          <label class="usa-label" for="dataSource">Data Source </label>
+                          <div class="tooltip" :title="databasesTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                          </div>
+                          <fieldset class="usa-fieldset" id="dataSource">
+                            <div class="usa-checkbox">
+                              <input class="datasources usa-checkbox__input" id="nwis" type="checkbox"
+                                name="providers" value="NWIS" checked />
+                              <label class="usa-checkbox__label" for="nwis">NWIS (USGS)</label>
+                            </div>
+                            <div class="usa-checkbox">
+                              <input class="datasources usa-checkbox__input" id="stewards" type="checkbox"
+                                name="providers" value="STEWARDS" checked />
+                              <label class="usa-checkbox__label" for="stewards">STEWARDS (ARS)</label>
+                            </div>
+                            <div class="usa-checkbox">
+                              <input class="datasources usa-checkbox__input" id="storet" type="checkbox"
+                                name="providers" value="STORET" checked />
+                              <label class="usa-checkbox__label" for="storet">WQX (EPA)</label>
+                            </div>
+                          </fieldset>
+                        </div>
+                        <br>
+                        <div id="download-tabular-data">
+                          <label class="usa-label" for="fileFormat">File Format </label>
+                          <div class="tooltip" :title="fileFormatTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                          </div>
+                          <fieldset class="usa-fieldset" id="fileFormat">
+                            <div class="usa-radio">
+                              <input class="usa-radio__input" id="csvAdv" type="radio" name="mimeType" value="csv"
+                                checked="checked" />
+                              <label class="usa-radio__label" for="csvAdv">Comma-Separated</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="usa-radio__input" id="tsvAdv" type="radio" name="mimeType" value="tsv" />
+                              <label class="usa-radio__label" for="tsvAdv">Tab-Separated</label>
+                            </div>
+                            <div class="usa-radio">
+                              <input class="usa-radio__input" id="xlsxAdv" type="radio" name="mimeType" value="xlsx" />
+                              <label class="usa-radio__label" for="xlsxAdv">MS Excel 2007+</label>
+                            </div>
+                          </fieldset>
+                        </div>
+                        <div id="download-sorted-data-div">
+                          <input type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter" />
+                          <label class="usa-label" for="download-sorted-data-div">Sort Data </label>
+                          <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                          </div>
+                        </div>
+                        <input type="hidden" name="zip" id="zip" value="yes" />
+                        <input type="hidden" name="sorted" id="hidden-sorted" value="no" />
+                      </div>
+                      <div id="download-data-kind-box" >
+                        <label class="usa-label" for="download-data-div">Data Profiles </label>
+                        <div class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                        </div>
+                        <fieldset class="usa-fieldset" id="dataprofiles">
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="organization-data" type="radio"
+                              value="Organization" />
+                            <label class="usa-radio__label" for="organization-data">Organization Data</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input checked="checked" type="radio" class="result-type usa-radio__input" id="sites"
+                              value="Station" />
+                            <label class="usa-radio__label" for="sites">Site Data Only</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="projects" type="radio"  value="Project" />
+                            <label class="usa-radio__label" for="projects">Project Data</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="proj-mon-weight" type="radio"
+                              value="ProjectMonitoringLocationWeighting" />
+                            <label class="usa-radio__label" for="proj-mon-weight">Project Monitoring Location
+                              Weighting
+                              Data</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="samples" type="radio"  value="Result"  />
+                            <label class="usa-radio__label" for="samples">Sample Results (physical/chemical
+                              metadata)</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="biosamples" type="radio"  value="Result"  />
+                            <label class="usa-radio__label" for="biosamples">Sample Results (biological
+                              metadata)</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="narrowsamples"  type="radio"
+                              value="Result" />
+                            <label class="usa-radio__label" for="narrowsamples">Sample Results (narrow)</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="activity-input" type="radio"
+                              value="Activity" />
+                            <label class="usa-radio__label" for="activity-input">Sampling Activity</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="activitymetric-input" type="radio"
+                              value="ActivityMetric" />
+                            <label class="usa-radio__label" for="activitymetric-input">Sampling Activity
+                              Metrics</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="resultdetection" type="radio"
+                              value="ResultDetectionQuantitationLimit" />
+                            <label class="usa-radio__label" for="resultdetection">Result Detection Quantitation Limit
+                              Data</label>
+                          </div>
+                          <div class="usa-radio">
+                            <input class="result-type usa-radio__input" id="biologicalHabitatMetric" type="radio"
+                              value="BiologicalHabitatMetric" />
+                            <label class="usa-radio__label" for="biologicalHabitatMetric">Biological Habitat
+                              Metrics</label>
+                          </div>
+                        </fieldset>
+                      </div>
+                      <div class="share-container">
+                        <div id="query-box-text">
+                          <div id="query-box-bold">
+                            Query URL
+                          </div>
+                          <div id="query-box-muted">
+                            Copy and share the URL of this query.
+                          </div>
+                          <textarea class="wqp-textarea" id="current-url-textarea" readonly rows="3"
+                            aria-label="Current URL based on input search parameters"></textarea>
+                        </div>
+                        <div id="show-queries-div">
+                          <div class="usa-modal usa-modal--lg" id="arcgis-online-modal"
+                            aria-labelledby="modal-2-heading" aria-describedby="modal-2-description">
+                            <div class="usa-modal__content">
+                              <div class="usa-modal__main">
+                                <h2 class="usa-modal__heading" id="modal-2-heading">
+                                  Are you sure you want to continue?
+                                </h2>
+                                <div class="usa-prose">
+                                  <p id="modal-2-description">You have unsaved changes that will be lost.</p>
                                 </div>
-                                <fieldset class="usa-fieldset" id="dataSource">
-                                  <div class="usa-checkbox">
-                                    <input class="datasources usa-checkbox__input" id="nwis" type="checkbox"
-                                      name="providers" value="NWIS" checked />
-                                    <label class="usa-checkbox__label" for="nwis">NWIS (USGS)</label>
-                                  </div>
-                                  <div class="usa-checkbox">
-                                    <input class="datasources usa-checkbox__input" id="stewards" type="checkbox"
-                                      name="providers" value="STEWARDS" checked />
-                                    <label class="usa-checkbox__label" for="stewards">STEWARDS (ARS)</label>
-                                  </div>
-                                  <div class="usa-checkbox">
-                                    <input class="datasources usa-checkbox__input" id="storet" type="checkbox"
-                                      name="providers" value="STORET" checked />
-                                    <label class="usa-checkbox__label" for="storet">WQX (EPA)</label>
-                                  </div>
-                                </fieldset>
-                              </div>
-                              <br>
-                              <div id="download-tabular-data">
-                                <label class="usa-label" for="fileFormat">File Format </label>
-                                <div class="tooltip" :title="fileFormatTooltip" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                </div>
-                                <fieldset class="usa-fieldset" id="fileFormat">
-                                  <div class="usa-radio">
-                                    <input class="usa-radio__input" id="csvAdv" type="radio" name="mimeType" value="csv"
-                                      checked="checked" />
-                                    <label class="usa-radio__label" for="csvAdv">Comma-Separated</label>
-                                  </div>
-                                  <div class="usa-radio">
-                                    <input class="usa-radio__input" id="tsvAdv" type="radio" name="mimeType" value="tsv" />
-                                    <label class="usa-radio__label" for="tsvAdv">Tab-Separated</label>
-                                  </div>
-                                  <div class="usa-radio">
-                                    <input class="usa-radio__input" id="xlsxAdv" type="radio" name="mimeType" value="xlsx" />
-                                    <label class="usa-radio__label" for="xlsxAdv">MS Excel 2007+</label>
-                                  </div>
-                                </fieldset>
-                              </div>
-                              <br>
-                              <div id="download-sorted-data-div">
-                                <input type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter" />
-                                <label class="usa-label" for="download-sorted-data-div">Sort Data </label>
-                                <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                                <div class="usa-modal__footer">
+                                  <ul class="usa-button-group">
+                                    <li class="usa-button-group__item">
+                                      <button type="button" class="usa-button" data-close-modal>Continue without
+                                        saving</button>
+                                    </li>
+                                    <li class="usa-button-group__item">
+                                      <button type="button"
+                                        class="usa-button usa-button--unstyled padding-105 text-center"
+                                        data-close-modal>Go back</button>
+                                    </li>
+                                  </ul>
                                 </div>
                               </div>
-                              <input type="hidden" name="zip" id="zip" value="yes" />
-                              <input type="hidden" name="sorted" id="hidden-sorted" value="no" />
+                              <button class="usa-button usa-modal__close" aria-label="Close this window"
+                                data-close-modal>
+
+                                <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+                                  <use xlink:href="{{ 'img/sprite.svg#close' | asset_url }}"></use>
+                                </svg>
+
+                              </button>
                             </div>
                           </div>
-                          <div id="download-data-kind-box" class="tablet:grid-col-9">
-                            <label class="usa-label" for="download-data-div">Data Profiles </label>
-                            <div class="tooltip" id="download-data-div" :title="dataDownloadTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                          <div id="api-queries-div">
+                            <div class="show-query-text" id="query-div">
+                              <b></b>
+                              <div class="tooltip" :title="stationTooltip" class="control-label" for="control-label">
+                                <span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
+                              </div>
+                              <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
+                                aria-label="Current data download URL based on input search parameters"></textarea>
                             </div>
-                            <fieldset class="usa-fieldset" id="dataprofiles">
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="organization-data" type="radio"  
-                                  value="Organization" />
-                                <label class="usa-radio__label" for="organization-data">Organization Data</label>
+                            <div class="show-query-text" id="curl-query-div">
+                              <b>cURL</b>
+                              <div class="tooltip" :title="cURLTooltip" class="control-label" for="control-label">
+                                <span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                               </div>
-                              <div class="usa-radio">
-                                <input checked="checked" type="radio" class="result-type usa-radio__input" id="sites" 
-                                  value="Station" />
-                                <label class="usa-radio__label" for="sites">Site Data Only</label>
+                              <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
+                                aria-label="Current cURL based on input search parameters"></textarea>
+                            </div>
+                            <div class="show-query-text" id="getfeature-query-div">
+                              <b>WFS GetFeature</b>
+                              <div class="tooltip" :title="WFSTooltip" class="control-label" for="control-label">
+                                <span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
                               </div>
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="projects" type="radio"  value="Project" />
-                                <label class="usa-radio__label" for="projects">Project Data</label>
-                              </div>
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="proj-mon-weight" type="radio" 
-                                  value="ProjectMonitoringLocationWeighting" />
-                                <label class="usa-radio__label" for="proj-mon-weight">Project Monitoring Location
-                                  Weighting
-                                  Data</label>
-                              </div>
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="samples" type="radio"  value="Result"  />
-                                <label class="usa-radio__label" for="samples">Sample Results (physical/chemical
-                                  metadata)</label>
-                              </div>
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="biosamples" type="radio"  value="Result"  />
-                                <label class="usa-radio__label" for="biosamples">Sample Results (biological
-                                  metadata)</label>
-                              </div>
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="narrowsamples"  type="radio" 
-                                  value="Result" />
-                                <label class="usa-radio__label" for="narrowsamples">Sample Results (narrow)</label>
-                              </div>
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="activity-input" type="radio" 
-                                  value="Activity" />
-                                <label class="usa-radio__label" for="activity-input">Sampling Activity</label>
-                              </div>
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="activitymetric-input" type="radio" 
-                                  value="ActivityMetric" />
-                                <label class="usa-radio__label" for="activitymetric-input">Sampling Activity
-                                  Metrics</label>
-                              </div>
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="resultdetection" type="radio" 
-                                  value="ResultDetectionQuantitationLimit" />
-                                <label class="usa-radio__label" for="resultdetection">Result Detection Quantitation Limit
-                                  Data</label>
-                              </div>
-                              <div class="usa-radio">
-                                <input class="result-type usa-radio__input" id="biologicalHabitatMetric" type="radio" 
-                                  value="BiologicalHabitatMetric" />
-                                <label class="usa-radio__label" for="biologicalHabitatMetric">Biological Habitat
-                                  Metrics</label>
-                              </div>
-                            </fieldset>
+                              <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
+                                aria-label="Current WFS GetFeature URL based on input search parameters"></textarea>
+                            </div>
                           </div>
-                          <div id="map-and-query-div" class="tablet:grid-col-12">
-                            <div id="form-action">
-                              <div class="share-container">
-                                <div id="query-box-text">
-                                  <div id="query-box-bold">
-                                    Query URL
-                                  </div>
-                                  <div id="query-box-muted">
-                                    Copy and share the URL of this query.
-                                  </div>
-                                </div>
-                                <textarea class="wqp-textarea" class="usa-textarea" id="current-url-textarea" readonly rows="3"
-                                  aria-label="Current URL based on input search parameters"></textarea>
+                        </div>
+                        <button class="usa-button usa-button--outline" v-on:click="onAdvancedStartOver()" id="advancedStartOver" type="button">Clear search</button>
+                        <a href="#download-status-modal" id="main-button" class="usa-button main-button" type="submit"
+                          aria-controls="download-status-modal" data-open-modal>
+                          Download
+                        </a>
+                        <div class="usa-modal" id="download-status-modal" aria-labelledby="download-modal-heading"
+                          aria-describedby="download-modal-description">
+                          <div class="usa-modal__content">
+                            <div class="usa-modal__main">
+                              <h2 class="usa-modal__heading" id="download-modal-heading">
+                                Download Status
+                              </h2>
+                              <div class="usa-prose">
+                                <p id="download-modal-description"></p>
+                              </div>
+                              <div class="usa-modal__footer">
+                                <ul class="usa-button-group" id="downloadButtons">
+                                </ul>
                               </div>
                             </div>
-                            <div id="show-queries-div" class="grid-col">
-                              <!-- <a href="#arcgis-online-modal" class="usa-button usa-button--outline" id="show-arcgis-online-help" type="button" aria-controls="arcgis-online-modal" data-open-modal>
-                      Show ArcGIS Online Parameters
-                    </a> -->
-                              <div class="usa-modal usa-modal--lg" id="arcgis-online-modal"
-                                aria-labelledby="modal-2-heading" aria-describedby="modal-2-description">
-                                <div class="usa-modal__content">
-                                  <div class="usa-modal__main">
-                                    <h2 class="usa-modal__heading" id="modal-2-heading">
-                                      Are you sure you want to continue?
-                                    </h2>
-                                    <div class="usa-prose">
-                                      <p id="modal-2-description">You have unsaved changes that will be lost.</p>
-                                    </div>
-                                    <div class="usa-modal__footer">
-                                      <ul class="usa-button-group">
-                                        <li class="usa-button-group__item">
-                                          <button type="button" class="usa-button" data-close-modal>Continue without
-                                            saving</button>
-                                        </li>
-                                        <li class="usa-button-group__item">
-                                          <button type="button"
-                                            class="usa-button usa-button--unstyled padding-105 text-center"
-                                            data-close-modal>Go back</button>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                  <button class="usa-button usa-modal__close" aria-label="Close this window"
-                                    data-close-modal>
-
-                                    <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
-                                      <use xlink:href="{{ 'img/sprite.svg#close' | asset_url }}"></use> 
-                                    </svg>
-
-                                  </button>
-                                </div>
-                              </div>
-
-                              <div id="api-queries-div">
-                                <div class="show-query-text" id="query-div">
-                                  <b></b><div class="tooltip" :title="stationTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                  </div>
-                                  <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
-                                    aria-label="Current data download URL based on input search parameters"></textarea>
-                                </div>
-                                <div class="show-query-text" id="curl-query-div">
-                                  <b>cURL</b><div class="tooltip" :title="cURLTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                  </div>
-                                  <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
-                                    aria-label="Current cURL based on input search parameters"></textarea>
-                                </div>
-                                <div class="show-query-text" id="getfeature-query-div">
-                                  <b>WFS GetFeature</b><div class="tooltip" :title="WFSTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span>
-                                  </div>
-                                  <textarea class="wqp-textarea" class="usa-textarea" readonly="readonly" rows="6"
-                                    aria-label="Current WFS GetFeature URL based on input search parameters"></textarea>
-                                </div>
-                              </div>
-                            </div>
-                            <button class="usa-button usa-button--outline" v-on:click="onAdvancedStartOver()" id="advancedStartOver" type="button">Clear search</button>
-                            <a href="#download-status-modal" id="main-button" class="usa-button main-button" type="submit"
-                              aria-controls="download-status-modal" data-open-modal>
-                              Download
-                            </a>
-                            <div class="usa-modal" id="download-status-modal" aria-labelledby="download-modal-heading"
-                              aria-describedby="download-modal-description">
-                              <div class="usa-modal__content">
-                                <div class="usa-modal__main">
-                                  <h2 class="usa-modal__heading" id="download-modal-heading">
-                                    Download Status
-                                  </h2>
-                                  <div class="usa-prose">
-                                    <p id="download-modal-description"></p>
-                                  </div>
-                                  <div class="usa-modal__footer">
-                                    <ul class="usa-button-group" id="downloadButtons">
-                                    </ul>
-                                  </div>
-                                </div>
-                                <button class="usa-button usa-modal__close" aria-label="Close this window"
-                                  data-close-modal>
-
-                                    <img src="{{ 'img/usa-icons/close.svg' | asset_url }}" alt="close"></img>
-
-                                </button>
-                              </div>
-                            </div>
+                            <button class="usa-button usa-modal__close" aria-label="Close this window"
+                              data-close-modal>
+                                <img src="{{ 'img/usa-icons/close.svg' | asset_url }}" alt="close"></img>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -902,7 +878,6 @@
   </div>
   </div>
   </div>
-</div>
 {% endblock %}
 
 {% block body_page_script %}
