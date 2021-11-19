@@ -19,10 +19,6 @@
   .multiselect__tag, .multiselect__option--highlight, .multiselect__option--selected.multiselect__option--highlight {
     @include u-bg('blue-60v');
   }
-
-  .multiselect__content-wrapper {
-    z-index: 1;
-  }
 }
 
 #datesLabel, #datesLabelAdv {
@@ -81,10 +77,6 @@
 
   #useMyLocation {
     @include u-margin-top('105');
-  }
-
-  .advanced-section {
-    @include u-padding-top('205');
   }
 
   .advanced-form-input-section {
