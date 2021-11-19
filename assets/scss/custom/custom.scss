@@ -4,9 +4,10 @@ $theme-image-path: './img';
 
 // Import all other custom scss files
 @import 'uswds';
+
 @import 'layout.scss';
-@import '../partials/_header.scss';
-@import '../partials/_nldi';
+@import '../partials/header';
+@import '../partials/nldi';
 @import '../partials/portal-form';
 
 body {
@@ -14,7 +15,6 @@ body {
 
   #main-content {
     @include grid-container;
-
   }
 
   #forms {

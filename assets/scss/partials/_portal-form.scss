@@ -71,8 +71,42 @@
     width: 100%;
   }
 
+  .usa-input {
+    @include u-margin-top(0);
+  }
+
+  #useMyLocation {
+    @include u-margin-top('105');
+  }
+
   .advanced-section {
     @include u-padding-top('205');
+  }
+
+  .advanced-form-input-section {
+    @include grid-row;
+    @include grid-gap;
+    @include u-margin-top('105');
+  }
+  .advanced-location-column {
+    @include grid-col(12);
+    @include at-media('tablet') {
+      @include grid-col(3);
+    }
+  }
+  .advanced-filter-column {
+    @include grid-col(12);
+    @include at-media('tablet') {
+      @include grid-col(4);
+    }
+  }
+
+  #download-sorted-data-div {
+    @include u-margin-top('205');
+  }
+
+  #show-queries-div {
+    @include u-margin-bottom('205');
   }
 
   #download-box-input-div {
