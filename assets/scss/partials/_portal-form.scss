@@ -79,6 +79,10 @@
     @include u-margin-top('105');
   }
 
+  .advanced-section {
+    @include u-padding-top('205');
+  }
+
   .advanced-form-input-section {
     @include grid-row;
     @include grid-gap;
