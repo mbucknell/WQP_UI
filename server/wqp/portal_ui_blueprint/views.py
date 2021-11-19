@@ -35,12 +35,13 @@ proxy_cert_verification = app.config.get('PROXY_CERT_VERIFY', False)
 def home():
     if '/index/' in request.path  or '/portal/' in request.path:
         return redirect(url_for('portal_ui.home-canonical')), 301
-    return render_template('index.html')
+    return render_template('index.html', use_grid_container=True)
 
 
 @portal_ui.route('/contact_us/')
 def contact_us():
-    return render_template('contact_us.html')
+    return render_template('contact_us.html',
+                           use_grid_container=True)
 
 
 @portal_ui.route('/portal_userguide/')
@@ -64,37 +65,49 @@ def faqs():
 @portal_ui.route('/upload_data/')
 def upload_data():
     md_path = "wqp/markdown/upload_data.md"
-    return render_template('upload_data.html', md_content=get_markdown(md_path))
+    return render_template('upload_data.html',
+                           md_content=get_markdown(md_path),
+                           use_grid_container=True);
 
 
 @portal_ui.route('/wqp_description/')
 def wqp_description():
     md_path = "wqp/markdown/wqp_description.md"
-    return render_template('wqp_description.html', md_content=get_markdown(md_path))
+    return render_template('wqp_description.html',
+                           md_content=get_markdown(md_path),
+                           use_grid_container=True)
 
 
 @portal_ui.route('/orgs/')
 def orgs():
     md_path = "wqp/markdown/orgs.md"
-    return render_template('orgs.html', md_content=get_markdown(md_path))
+    return render_template('orgs.html',
+                           md_content=get_markdown(md_path),
+                           use_grid_container=True)
 
 
 @portal_ui.route('/apps_using_portal/')
 def apps_using_portal():
     md_path = "wqp/markdown/apps_using_portal.md"
-    return render_template('apps_using_portal.html', md_content=get_markdown(md_path))
+    return render_template('apps_using_portal.html',
+                           md_content=get_markdown(md_path),
+                           use_grid_container=True)
 
 
 @portal_ui.route('/publications/')
 def publications():
     md_path = "wqp/markdown/publications.md"
-    return render_template('publications.html')
+    return render_template('publications.html',
+                           md_content=get_markdown(md_path),
+                           use_grid_container=True)
 
 
 @portal_ui.route('/other_portal_links/')
 def other_portal_links():
     md_path = "wqp/markdown/other_portal_links.md"
-    return render_template('other_portal_links.html', md_content=get_markdown(md_path))
+    return render_template('other_portal_links.html',
+                           md_content=get_markdown(md_path),
+                           use_grid_container=True)
 
 
 @portal_ui.route('/public_srsnames/')
@@ -148,7 +161,8 @@ def uri_base():
     providers = retrieve_providers()
     if not providers:
         abort(500)
-    return render_template('provider_base.html', providers=sorted(providers))
+    return render_template('provider_base.html', providers=sorted(providers),
+                           use_grid_container=True)
 
 
 @portal_ui.route('/provider/<provider_id>/', endpoint='uri_provider')
@@ -158,7 +172,8 @@ def uri_provider(provider_id):
         abort(500)
     elif not organizations:
         abort(404)
-    return render_template('provider_page.html', provider=provider_id, organizations=organizations)
+    return render_template('provider_page.html', provider=provider_id, organizations=organizations,
+                           use_grid_container=True)
 
 
 @portal_ui.route('/provider/<provider_id>/<organization_id>/', endpoint='uri_organization')
@@ -192,7 +207,8 @@ def uri_organization(provider_id, organization_id):
                                                      provider=provider_id,
                                                      organization=organization_id,
                                                      sites_geojson=sites,
-                                                     total_site_count=len(sites['features']))
+                                                     total_site_count=len(sites['features']),
+                                                     use_grid_container=True)
 
         if redis_config:
             redis_session.set(redis_key, pickle.dumps(rendered_template, protocol=2))
@@ -250,6 +266,7 @@ def uris(provider_id, organization_id, site_id):
                            provider=provider_id,
                            organization=organization_id,
                            site_id=site_id,
+                            use_grid_container=True,
                            cache_timeout=cache_timeout)  # Why are we using this here and nowhere else
 
 

@@ -73,5 +73,7 @@
   }
   .announcement-body {
     @include u-padding-bottom('105');
+    @include u-maxw('desktop');
+    margin: 0 auto;
   }
 }

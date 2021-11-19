@@ -8,7 +8,7 @@
   }
 
   .multiselect__input:focus {
-    outline: none !important;
+    outline: none;
   }
 
   .multiselect:focus-within {
@@ -17,7 +17,7 @@
   }
 
   .multiselect__tag, .multiselect__option--highlight, .multiselect__option--selected.multiselect__option--highlight {
-    @include u-bg('blue-60v', !important);
+    @include u-bg('blue-60v');
   }
 }
 

@@ -7,15 +7,8 @@
 {% block page_header_title %}Applications using the Water Quality Portal{% endblock %}
 
 {% block page_content %}
-<div class="page-sidebar markdown-page">
-
-	<nav aria-label="Secondary navigation," class="sidebar">
-		{{ md_content.toc|safe }}
-	</nav>
-	
-	<div class="page-sidebar-content">
-		<h1>Applications using the Water Quality Portal</h1>
-		{{ md_content.body|safe }}
-	</div>
+<div class="markdown-page">
+	<h1>Applications using the Water Quality Portal</h1>
+	{{ md_content.body|safe }}
 </div>
 {% endblock %}
