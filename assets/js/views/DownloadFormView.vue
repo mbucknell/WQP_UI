@@ -39,7 +39,24 @@ let portalViews = new portalViewClass();
  */
 export default {
   name: "DownloadFormView",
-  props: ['form', 'downloadProgressDialog', 'downloadProgressDialogBasic', "providers"],
+  props: {
+    form: {
+      type: HTMLFormElement,
+      required: true
+    },
+    downloadProgressDialog: {
+      type: Object,
+      required: true
+    },
+    downloadProgressDialogBasic: {
+      type: Object,
+      required: true
+    },
+    providers: {
+      type: Object,
+      required: true
+    },
+  },
   data () {
     return {
       selectedForm: document.querySelector('#paramsBasic')
@@ -157,7 +174,7 @@ export default {
             propsData: {
                 container : this.form.querySelector('.download-box-input-div'),
                 updateResultTypeAction : (resultType) => {
-                    this.form.getAttribute('action', queryService.getFormUrl(resultType));
+                    this.form.setAttribute('action', queryService.getFormUrl(resultType));
                 }
             }
         });
@@ -481,9 +498,9 @@ export default {
         return result;
     },
 
-    getResultType() {
-        return this.dataDetailsView.getResultType();
-    }
+    // getResultType() {
+    //     return this.dataDetailsView.getResultType();
+    // }
   },
 }
 </script>

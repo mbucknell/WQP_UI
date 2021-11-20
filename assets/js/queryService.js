@@ -87,10 +87,13 @@ export default {
      */
 	
     getFormUrl: function(resultType, queryParams) {
+        console.log('getFormUrl resultType', resultType)
+        console.log('getFormUrl queryParams', queryParams)
         var result = Config.QUERY_URLS[resultType];
         if (queryParams) {
             result = result + '?' + queryParams;
         }
+        console.log('getFormUrl result', result)
         return result;
     }
 };
