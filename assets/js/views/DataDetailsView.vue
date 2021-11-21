@@ -54,11 +54,11 @@ export default {
             mimeTypeInitValues.push(getAnchorQueryValues(radiobox.getAttribute('name')));
         });
 
-        mimeTypeInitValues.forEach(function(item){
+        mimeTypeInitValues.forEach(function(item) {
             if (item.length) {
                 document.querySelector(`input[value="${item[0]}"]`).checked = true;
             }
-        })
+        });
 
         mimeTypeRadioboxes.forEach(function(radiobox){
             radiobox.onclick = () => {

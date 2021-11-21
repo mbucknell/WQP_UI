@@ -83,6 +83,7 @@ export default {
         }
     },
     updateProgress(counts, resultType, fileFormat, continueFnc) {
+      console.log(`in update progress with resultType ${resultType}, fileFormat ${fileFormat}`)
         let elements = this.getFormElements();
         var totalCount = counts.total[RESULT_TYPE_TO_TOTAL_COUNT_PROPERTY_MAP[resultType]];
         let self = this;

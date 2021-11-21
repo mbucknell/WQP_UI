@@ -174,7 +174,12 @@ export default {
             propsData: {
                 container : this.form.querySelector('.download-box-input-div'),
                 updateResultTypeAction : (resultType) => {
-                    this.form.setAttribute('action', queryService.getFormUrl(resultType));
+                  const basicForm = document.querySelector('#paramsBasic');
+                  const advancedForm = document.querySelector('#params');
+                  console.log('ran updateResultTypeAction with resultType ', resultType)
+                    // this.form.setAttribute('action', queryService.getFormUrl(resultType));
+                    advancedForm.setAttribute('action', queryService.getFormUrl(resultType));
+                    basicForm.setAttribute('action', queryService.getFormUrl(resultType));
                 }
             }
         });
@@ -361,7 +366,7 @@ export default {
         let formType;
         let buttonSelector;
         let downloadProgressDialog;
-        if (form.id == "params") {
+        if (form.id === "params") {
             formType = "advanced";
             buttonSelector = "#main-button";
             downloadProgressDialog = this.downloadProgressDialog;
@@ -376,9 +381,9 @@ export default {
             const resultType = this.dataDetailsView.getResultType();
             const queryParamArray = this.getQueryParamArray(form);
             const queryString = decodeURIComponent(getQueryString(queryParamArray));
-
+console.log('queryString ', queryString)
             let self = this;
-
+console.log('form ', form)
             const startDownload = (totalCount) => {
                 window._gaq.push([
                     '_trackEvent',
@@ -386,7 +391,6 @@ export default {
                     self.dataDetailsView.getResultType() + 'Download',
                     queryString,
                     parseInt(totalCount)]);
-
                 form.submit();
             };
 
