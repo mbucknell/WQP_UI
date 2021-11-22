@@ -46,13 +46,13 @@ export default {
   methods: {
     getFormElements(){
         let elements;
-        if (this.formType == "advanced"){
+        if (this.formType === "advanced") {
             elements = {'StatusModal': document.getElementById('download-status-modal'), 
                 'DownloadButtons': document.getElementById('downloadButtons'),
                 'Description': document.getElementById('download-modal-description'),
                 'Heading': document.getElementById('download-modal-heading')};
         }
-        else{
+        else {
             elements = {'StatusModal': document.getElementById('download-status-modal-basic'),
             'DownloadButtons': document.getElementById('downloadButtonsBasic'),
             'Description': document.getElementById('download-modal-basic-description'),

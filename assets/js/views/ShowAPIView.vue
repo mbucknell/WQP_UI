@@ -18,7 +18,20 @@ import store from '../store/store.js';
 
 export default {
   name: "ShowAPIView",
-  props: ['container', 'getQueryParamArray', 'getResultType'],
+  props: {
+    container: {
+      type: HTMLDivElement,
+      required: true
+    },
+    getQueryParamArray: {
+      type: Function,
+      required: true
+    },
+    getResultType: {
+      type: Function,
+      requried: true
+    }
+  },
   methods: {
     initialize() {
         this.showAPIViewVisible = false;
@@ -34,18 +47,18 @@ export default {
             const queryParamsWithoutCSRFToken = queryParamArray.filter( param => param.name !== 'csrf_token' );
             let apiQueryString;
             let curlString;
-            if (resultType !== null){
+            if (resultType !== null) {
                 apiQueryString = queryService.getFormUrl(resultType, getQueryString(queryParamsWithoutCSRFToken));
                 curlString = getCurlString(resultType, queryParamsWithoutCSRFToken);
-            }else{
+            } else {
                 apiQueryString = queryService.getFormUrl("Station", getQueryString(queryParamsWithoutCSRFToken));
                 curlString = getCurlString("Station", queryParamsWithoutCSRFToken);
             }
 
             apiQueryDiv.style.display = 'block';
-            if(resultType !== null){
+            if(resultType !== null) {
                 apiQueryTitle.innerHTML = resultType.replace(/([A-Z])/g, ' $1');
-            }else{
+            } else {
                 apiQueryTitle.innerHTML = 'Station';
             }
             apiQueryText.innerHTML = apiQueryString;

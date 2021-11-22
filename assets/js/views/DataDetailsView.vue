@@ -4,7 +4,6 @@
 <script>
 import { setEnabled, initializeInput, getAnchorQueryValues } from '../utils';
 
-
 /*
  * Manages the data detail inputs view
  * @param {Object} options
@@ -19,7 +18,16 @@ import { setEnabled, initializeInput, getAnchorQueryValues } from '../utils';
 
 export default {
   name: "DataDetailsView",
-  props: ['container', 'updateResultTypeAction'],
+  props: {
+    container: {
+      type: HTMLDivElement,
+      required: true
+    },
+    updateResultTypeAction: {
+      type: Function,
+      required: true
+    }
+  },
   methods: {
         /*
      * Initializes the widgets and sets up the DOM event handlers.
@@ -45,11 +53,11 @@ export default {
             mimeTypeInitValues.push(getAnchorQueryValues(radiobox.getAttribute('name')));
         });
 
-        mimeTypeInitValues.forEach(function(item){
+        mimeTypeInitValues.forEach(function(item) {
             if (item.length) {
                 document.querySelector(`input[value="${item[0]}"]`).checked = true;
             }
-        })
+        });
 
         mimeTypeRadioboxes.forEach(function(radiobox){
             radiobox.onclick = () => {
@@ -94,7 +102,6 @@ export default {
 
                 self.updateResultTypeAction(resultType);
             };
-
         })
 
         sorted.onchange = function () {
@@ -127,9 +134,9 @@ export default {
         });
     },
     getResultType() {
-        if(document.querySelector('input.result-type:checked') !== null){
+        if (document.querySelector('input.result-type:checked') !== null) {
             return document.querySelector('input.result-type:checked').value;
-        }else{
+        } else {
             return null;
         }
     },

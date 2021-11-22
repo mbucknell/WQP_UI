@@ -129,5 +129,5 @@ export default new Vuex.Store({
     assemblageOptionsState: (state) => state.assemblageOptionsState,
     taxSelectedState: (state) => state.taxSelectedState,
     taxOptionsState: (state) => state.taxOptionsState
-  },
+  }
 })
