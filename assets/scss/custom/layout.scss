@@ -1,67 +1,23 @@
-// custom/layout.scss
-// custom layout CSS properties
-@import "uswds";
-
-// Center page, max width
-.page-center {
-    display: block;
-    box-sizing: border-box;
-    //background-color: white;
-    @include u-bg('gray-1');
-    padding: 35px 0;
-    max-width: 1300px;
-    margin: 0 auto;
-
-    .page-center-content {
-        margin: 0 auto;
-        max-width: 1080px;
-        width: 95%;
-        display: block;
-
-        &.no-sidebar {
-            max-width: 880px;
-        }
-    }
-}
 
 // Sidebar, center rest of page
 .page-sidebar {
-    display: flex;
-    //background-color: white;
-    @include u-bg('gray-1');
-    box-sizing: border-box;
-    padding: 35px 0;
+    @include grid-row;
+    @include grid-gap('lg');
+    @include u-margin-x('105');
 
     .sidebar{
-        width: 320px;
-        min-width: 320px;
-        box-sizing: border-box;
-        padding: 20px 0 20px 20px;
-        margin-right: 20px;
-
-        // Shrink at <1000
-        @media (max-width: 1010px) {
-            width: 200px;
-            min-width: 200px;
-            margin-right: 10px;
-
-            ul li{
-                font-size: 85%;
-            }
-        }
-        // Hide sidebar on mobile
-        @media (max-width: 768px) {
-            display: none;
+        display:none;
+        @include at-media('tablet') {
+            display:block;
+            @include grid-col(3);
         }
     }
 
     .page-sidebar-content {
-        display: block;
-        max-width: 840px;
-        @include u-bg('gray-1');
-        position: relative;
-        box-sizing: border-box;
-        padding: 0 30px;
+        @include grid-col(12);
+        @include at-media('tablet') {
+            @include grid-col(7);
+        }
     }
 }
 
@@ -95,23 +51,7 @@
     blockquote {
         @include u-border-left('2px');
         @include u-border-color('gray-50');
-        box-sizing: border-box;
-        padding-left: 15px;
-        font-size: 90%;
-        opacity: 0.7;
+        @include u-padding-left(2);
+        @include u-color('gray-60');
     }
-}
-
-.announcement-body {
-    display: block;
-    width: 95%;
-    max-width: 960px;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-#formIntroFooter {
-    padding-top: 15px;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
 }

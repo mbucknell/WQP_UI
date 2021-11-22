@@ -47,7 +47,6 @@
     }
   }
 
-
   #main-menus {
     @include at-media('desktop') {
       .usa-nav__link {
@@ -62,5 +61,19 @@
         @include u-bg('gray-1');
       }
     }
+  }
+}
+
+#siteAnnouncement {
+  #close-announcement {
+    @include u-margin-right('105');
+    img {
+      @include u-height('105');
+    }
+  }
+  .announcement-body {
+    @include u-padding-bottom('105');
+    @include u-maxw('desktop');
+    margin: 0 auto;
   }
 }
