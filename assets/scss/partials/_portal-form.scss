@@ -1,3 +1,7 @@
+#nldi-container {
+  @include u-padding-top(1);
+}
+
 .wqp-multiselect {
   .multiselect__tags {
     @include u-border-width('1px');
@@ -49,6 +53,9 @@
       @include u-display('flex');
       @include u-flex('column');
       @include u-flex('justify-end');
+      @include at-media-max('desktop') {
+        @include u-margin-top(2);
+      }
     }
     #point-location-basic-label {
       @include u-display('flex');
@@ -138,6 +145,5 @@
       width: 100%;
       @include u-padding-top('105');
     }
-
   }
 }
