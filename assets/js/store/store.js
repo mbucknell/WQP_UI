@@ -5,7 +5,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    resultType: 'Station',
     countrySelectedState: [],
     countryOptionsState: [],
     stateSelectedState: [],
@@ -32,9 +31,6 @@ export default new Vuex.Store({
     taxOptionsState: {},
   },
   mutations: {
-    updateResultType(state, newResultType) {
-      state.resultType = newResultType;
-    },
     getCountryState(state, selected) {
       state.countrySelectedState = selected;
     },
@@ -109,7 +105,6 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    resultType: (state) => state.resultType,
     countrySelectedState: (state) => state.countrySelectedState,
     countryOptionsState: (state) => state.countryOptionsState,
     stateSelectedState: (state) => state.stateSelectedState,
@@ -134,5 +129,5 @@ export default new Vuex.Store({
     assemblageOptionsState: (state) => state.assemblageOptionsState,
     taxSelectedState: (state) => state.taxSelectedState,
     taxOptionsState: (state) => state.taxOptionsState
-  },
+  }
 })

@@ -46,13 +46,13 @@ export default {
   methods: {
     getFormElements(){
         let elements;
-        if (this.formType == "advanced"){
+        if (this.formType === "advanced") {
             elements = {'StatusModal': document.getElementById('download-status-modal'), 
                 'DownloadButtons': document.getElementById('downloadButtons'),
                 'Description': document.getElementById('download-modal-description'),
                 'Heading': document.getElementById('download-modal-heading')};
         }
-        else{
+        else {
             elements = {'StatusModal': document.getElementById('download-status-modal-basic'),
             'DownloadButtons': document.getElementById('downloadButtonsBasic'),
             'Description': document.getElementById('download-modal-basic-description'),
@@ -83,7 +83,6 @@ export default {
         }
     },
     updateProgress(counts, resultType, fileFormat, continueFnc) {
-      console.log(`in update progress with resultType ${resultType}, fileFormat ${fileFormat}`)g
         let elements = this.getFormElements();
         var totalCount = counts.total[RESULT_TYPE_TO_TOTAL_COUNT_PROPERTY_MAP[resultType]];
         let self = this;

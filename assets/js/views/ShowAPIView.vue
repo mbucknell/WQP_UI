@@ -26,6 +26,10 @@ export default {
     getQueryParamArray: {
       type: Function,
       required: true
+    },
+    getResultType: {
+      type: Function,
+      requried: true
     }
   },
   methods: {
@@ -38,8 +42,7 @@ export default {
         let wfsText = this.container.querySelector('#getfeature-query-div textarea');
 
         const showServiceCallsHandler = () => {
-          console.log('in showapi store resultType', store.state.resultType)
-            let resultType = store.state.resultType;
+            let resultType = this.getResultType();
             let queryParamArray = this.getQueryParamArray(this.container.closest("form"));
             const queryParamsWithoutCSRFToken = queryParamArray.filter( param => param.name !== 'csrf_token' );
             let apiQueryString;

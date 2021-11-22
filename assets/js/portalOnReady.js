@@ -214,8 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   propsData: {
                     container: document.querySelector('#show-queries-div'),
                     getQueryParamArray: downloadFormView.getQueryParamArray.bind(downloadFormView),
-                    // getResultType: downloadFormView.getResultType.bind(downloadFormView)
-                      getResultType: store.state.resultType
+                    getResultType: downloadFormView.getResultType.bind(downloadFormView)
                   }
                 });
 

@@ -3,7 +3,6 @@
 
 <script>
 import { setEnabled, initializeInput, getAnchorQueryValues } from '../utils';
-import store from '../store/store.js';
 
 /*
  * Manages the data detail inputs view
@@ -102,7 +101,6 @@ export default {
                 }
 
                 self.updateResultTypeAction(resultType);
-                store.commit('updateResultType', resultType);
             };
         })
 

@@ -55,7 +55,7 @@ export default {
     providers: {
       type: Object,
       required: true
-    },
+    }
   },
   data () {
     return {
@@ -174,12 +174,20 @@ export default {
             propsData: {
                 container : this.form.querySelector('.download-box-input-div'),
                 updateResultTypeAction : (resultType) => {
-                  const basicForm = document.querySelector('#paramsBasic');
+                  // Change the 'form action' on both the basic and advanced forms everytime the 'Data Profiles'
+                  // radio buttons are changed. This keeps the form action correctly selected when the basic form
+                  // 'id=params-basic' is selected. This is acceptable behavior because the 'form action' attribute
+                  // only accepts the URL and not the URL parameters. The URL parameters are only for the pre-download
+                  // query which reports the number of database entries that will be returned. The actual data download is
+                  // accomplished through the form action which sends the form data to a URL that changes depending on
+                  // the 'Data Profile' selected. For example, the default form action attribute value is
+                  // 'https://www.waterqualitydata.us/data/Station/search', if the user would change the radio buttons
+                  // for the 'Data Profiles' to 'Project' the form action attribute value would be
+                  // 'https://www.waterqualitydata.us/data/Project/search'.
+                  const basicForm = document.querySelector('#params-basic');
                   const advancedForm = document.querySelector('#params');
-                  console.log('ran updateResultTypeAction with resultType ', resultType)
-                    // this.form.setAttribute('action', queryService.getFormUrl(resultType));
-                    advancedForm.setAttribute('action', queryService.getFormUrl(resultType));
-                    basicForm.setAttribute('action', queryService.getFormUrl(resultType));
+                  basicForm.setAttribute('action', queryService.getFormUrl(resultType));
+                  advancedForm.setAttribute('action', queryService.getFormUrl(resultType));
                 }
             }
         });
@@ -381,9 +389,7 @@ export default {
             const resultType = this.dataDetailsView.getResultType();
             const queryParamArray = this.getQueryParamArray(form);
             const queryString = decodeURIComponent(getQueryString(queryParamArray));
-console.log('queryString ', queryString)
-            let self = this;
-console.log('form ', form)
+            const self = this;
             const startDownload = (totalCount) => {
                 window._gaq.push([
                     '_trackEvent',
@@ -502,9 +508,9 @@ console.log('form ', form)
         return result;
     },
 
-    // getResultType() {
-    //     return this.dataDetailsView.getResultType();
-    // }
-  },
+    getResultType() {
+        return this.dataDetailsView.getResultType();
+    }
+  }
 }
 </script>
