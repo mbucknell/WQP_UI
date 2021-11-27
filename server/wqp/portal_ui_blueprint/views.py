@@ -4,13 +4,16 @@ Views
 
 from io import BytesIO
 import pickle
+import pandas as pd
 
 import arrow
-from flask import render_template, request, make_response, redirect, url_for, abort, Response, jsonify, Blueprint, \
-    send_file
-import redis
+from flask import render_template, request, make_response, redirect, url_for, abort, Response, jsonify, Blueprint
 
-from .. import app, session, csrf
+import redis
+import requests
+import csv
+
+from .. import app, session
 from ..utils import get_markdown, geoserver_proxy_request, retrieve_providers, retrieve_organizations, \
     get_site_key, retrieve_organization, retrieve_sites_geojson, retrieve_site, retrieve_county, \
     generate_redis_db_number, create_request_resp_log_msg, create_redis_log_msg
@@ -218,6 +221,31 @@ def uri_organization(provider_id, organization_id):
 
 @portal_ui.route('/provider/<provider_id>/<organization_id>/<path:site_id>/', endpoint='uri_site')
 def uris(provider_id, organization_id, site_id):
+    SUMMARY_CSV_URL = f'https://www.waterqualitydata.us/data/summary/monitoringlocation/search/?siteid={site_id}&dataProfile=periodOfRecord&summaryYears=all&mimeType=csv&zip=no'
+
+    period_of_record_summary_data = pd.read_csv(
+        SUMMARY_CSV_URL
+    )
+    period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
+    grouped_characteristic_type = period_of_record_summary_data.groupby('CharacteristicType')
+
+    # for name,group in grouped_characteristic_type:
+    #     print(name)
+    #     print(group)
+
+    grouped_min_year = grouped_characteristic_type.min('YearSummarized').to_string()
+    grouped_max_year = grouped_characteristic_type.max('YearSummarized').to_string()
+    # grouped_min_year_dict = grouped_min_year
+    # grouped_max_year_dict = grouped_max_year.toDict()
+
+    # print('min loc', grouped_min_year.loc['Inorganics, Major, Metals']['YearSummarized'])
+    # print('max loc', grouped_max_year.loc['Inorganics, Major, Metals']['YearSummarized'])
+
+    print('min', grouped_min_year)
+    print('max', grouped_max_year)
+
+
+
     site_data = None
     if redis_config:
         redis_db_number = generate_redis_db_number(provider_id)
@@ -266,8 +294,10 @@ def uris(provider_id, organization_id, site_id):
                            provider=provider_id,
                            organization=organization_id,
                            site_id=site_id,
-                            use_grid_container=True,
-                           cache_timeout=cache_timeout)  # Why are we using this here and nowhere else
+                           monitoring_location_summary_data=grouped_min_year,
+                           use_grid_container=True,
+                           cache_timeout=cache_timeout # Why are we using this here and nowhere else
+                           )
 
 
 @portal_ui.route('/clear_cache/<provider_id>/')

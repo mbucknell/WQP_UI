@@ -84,7 +84,6 @@ def get_markdown(md_path):
 
 def geoserver_proxy_request(target_url, cert_verification):
     """
-
     :param target_url:
     :param cert_verification:
     :return:
@@ -119,7 +118,7 @@ def retrieve_lookups(code_uri, params=None):
     resp = session.get(app.config['CODES_ENDPOINT'] + code_uri, params=local_params)
     msg = create_request_resp_log_msg(resp)
     if resp.status_code == 200:
-        app.logger.debug(msg)
+        # app.logger.debug(msg)
         lookups = resp.json()
     else:
         app.logger.info(msg)
@@ -265,7 +264,7 @@ def retrieve_site(provider_id, organization_id, site_id):
                                'uripage': 'yes'})  # This is added to distinguish from normal web service queries
     msg = create_request_resp_log_msg(resp)
     if resp.status_code == 200 and resp.text:
-        app.logger.debug(msg)
+        # app.logger.debug(msg)
         resp_lines = resp.text.split('\n')
         if len(resp_lines) > 1:
             headers = resp_lines[0].split('\t')
