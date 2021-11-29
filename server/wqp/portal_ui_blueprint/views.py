@@ -221,28 +221,27 @@ def uri_organization(provider_id, organization_id):
 
 @portal_ui.route('/provider/<provider_id>/<organization_id>/<path:site_id>/', endpoint='uri_site')
 def uris(provider_id, organization_id, site_id):
-    SUMMARY_CSV_URL = f'https://www.waterqualitydata.us/data/summary/monitoringlocation/search/?siteid={site_id}&dataProfile=periodOfRecord&summaryYears=all&mimeType=csv&zip=no'
+    summary_csv_url = f'https://www.waterqualitydata.us/data/summary/monitoringlocation/search/?siteid={site_id}&dataProfile=periodOfRecord&summaryYears=all&mimeType=csv&zip=no'
 
     period_of_record_summary_data = pd.read_csv(
-        SUMMARY_CSV_URL
+        summary_csv_url
     )
     period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
+    period_of_record_summary_data['startYear'] = period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('min')
+    period_of_record_summary_data['endYear'] = period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('max')
     grouped_characteristic_type = period_of_record_summary_data.groupby('CharacteristicType')
+    grouped_min_year = grouped_characteristic_type.min('YearSummarized')
 
-    # for name,group in grouped_characteristic_type:
-    #     print(name)
-    #     print(group)
 
-    grouped_min_year = grouped_characteristic_type.min('YearSummarized').to_string()
-    grouped_max_year = grouped_characteristic_type.max('YearSummarized').to_string()
+    # grouped_max_year = grouped_characteristic_type.max('YearSummarized').to_string()
     # grouped_min_year_dict = grouped_min_year
     # grouped_max_year_dict = grouped_max_year.toDict()
 
     # print('min loc', grouped_min_year.loc['Inorganics, Major, Metals']['YearSummarized'])
     # print('max loc', grouped_max_year.loc['Inorganics, Major, Metals']['YearSummarized'])
 
-    print('min', grouped_min_year)
-    print('max', grouped_max_year)
+    # print('min', grouped_min_year)
+    # print('max', grouped_max_year)
 
 
 
@@ -294,7 +293,7 @@ def uris(provider_id, organization_id, site_id):
                            provider=provider_id,
                            organization=organization_id,
                            site_id=site_id,
-                           monitoring_location_summary_data=grouped_min_year,
+                           summary_data_with_start_year=grouped_min_year,
                            use_grid_container=True,
                            cache_timeout=cache_timeout # Why are we using this here and nowhere else
                            )

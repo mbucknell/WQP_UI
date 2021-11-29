@@ -74,54 +74,30 @@
             The upstream and downstream functionality is provided by the National Linked Data Index, part of the <a title="Link to ACWI Open Water Data Initiative page" href="http://acwi.gov/spatial/owdi/">Open Water Data Initiative</a>.
         </p>
         <div id="site-map"></div>
-        <div>test {{ monitoring_location_summary_data | safe }}</div>
-
-        <table class="usa-table usa-table--borderless usa-table--striped">
-            <caption>
-                Borderless table with horizontal stripes
-            </caption>
-            <thead>
-            <tr>
-                <th scope="col">Document title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Year</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">Declaration of Independence</th>
-                <td>
-                    Statement adopted by the Continental Congress declaring independence
-                    from the British Empire.
-                </td>
-                <td>1776</td>
-            </tr>
-            <tr>
-                <th scope="row">Bill of Rights</th>
-                <td>
-                    The first ten amendments of the U.S. Constitution guaranteeing rights
-                    and freedoms.
-                </td>
-                <td>1791</td>
-            </tr>
-            <tr>
-                <th scope="row">Declaration of Sentiments</th>
-                <td>
-                    A document written during the Seneca Falls Convention outlining the
-                    rights that American women should be entitled to as citizens.
-                </td>
-                <td>1848</td>
-            </tr>
-            <tr>
-                <th scope="row">Emancipation Proclamation</th>
-                <td>
-                    An executive order granting freedom to slaves in designated southern
-                    states.
-                </td>
-                <td>1863</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="characteristic-group-table-container">
+            <table class="usa-table usa-table--borderless usa-table--striped">
+                <caption>
+                    <h2>Date Range by Characteristic Group</h2>
+                </caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Characteristic Group</th>
+                        <th scope="col">Date Range<sup>&ast;</sup></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key,value in summary_data_with_start_year.iterrows() %}
+                        <tr>
+                            <th scope="row">{{ key }}</th>
+                            <td>
+                                {{ value['startYear'] }} - {{ value['endYear'] }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <span class="characteristic-group-table-footnote"><sup>&ast;</sup>Date ranges may contain gap years</span>
+        </div>
 
         <h2>Detailed Metadata</h2>
         <p>For the definitions of the metadata elements, please go to the Water Quality Portal <a href="{{ url_for('portal_ui.portal_userguide') }}">user guide</a> </p>
