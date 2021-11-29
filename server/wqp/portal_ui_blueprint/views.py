@@ -2,21 +2,18 @@
 Views
 '''
 
-from io import BytesIO
 import pickle
-import pandas as pd
 
 import arrow
 from flask import render_template, request, make_response, redirect, url_for, abort, Response, jsonify, Blueprint
 
 import redis
-import requests
-import csv
 
 from .. import app, session
 from ..utils import get_markdown, geoserver_proxy_request, retrieve_providers, retrieve_organizations, \
     get_site_key, retrieve_organization, retrieve_sites_geojson, retrieve_site, retrieve_county, \
-    generate_redis_db_number, create_request_resp_log_msg, create_redis_log_msg
+    generate_redis_db_number, create_request_resp_log_msg, create_redis_log_msg, \
+    get_site_summary_data_with_period_of_record
 from ..tasks import load_sites_into_cache_async
 
 
@@ -218,32 +215,9 @@ def uri_organization(provider_id, organization_id):
 
     return Response(rendered_site_template)
 
-
 @portal_ui.route('/provider/<provider_id>/<organization_id>/<path:site_id>/', endpoint='uri_site')
 def uris(provider_id, organization_id, site_id):
-    summary_csv_url = f'https://www.waterqualitydata.us/data/summary/monitoringlocation/search/?siteid={site_id}&dataProfile=periodOfRecord&summaryYears=all&mimeType=csv&zip=no'
-
-    period_of_record_summary_data = pd.read_csv(
-        summary_csv_url
-    )
-    period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
-    period_of_record_summary_data['startYear'] = period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('min')
-    period_of_record_summary_data['endYear'] = period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('max')
-    grouped_characteristic_type = period_of_record_summary_data.groupby('CharacteristicType')
-    grouped_min_year = grouped_characteristic_type.min('YearSummarized')
-
-
-    # grouped_max_year = grouped_characteristic_type.max('YearSummarized').to_string()
-    # grouped_min_year_dict = grouped_min_year
-    # grouped_max_year_dict = grouped_max_year.toDict()
-
-    # print('min loc', grouped_min_year.loc['Inorganics, Major, Metals']['YearSummarized'])
-    # print('max loc', grouped_max_year.loc['Inorganics, Major, Metals']['YearSummarized'])
-
-    # print('min', grouped_min_year)
-    # print('max', grouped_max_year)
-
-
+    summary_data = get_site_summary_data_with_period_of_record(site_id)
 
     site_data = None
     if redis_config:
@@ -293,7 +267,7 @@ def uris(provider_id, organization_id, site_id):
                            provider=provider_id,
                            organization=organization_id,
                            site_id=site_id,
-                           summary_data_with_start_year=grouped_min_year,
+                           summary_data_with_period_of_record=summary_data,
                            use_grid_container=True,
                            cache_timeout=cache_timeout # Why are we using this here and nowhere else
                            )

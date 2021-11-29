@@ -1,5 +1,6 @@
 
 from ntpath import basename
+import pandas as pd
 import os
 import tarfile
 import time
@@ -377,3 +378,23 @@ def delete_old_files(files):
         days_since_last_mod = float((current_time-last_mod)) / 86400
         if days_since_last_mod > app.config.get('LOG_RETENTION', 30):
             os.remove(f)
+
+
+def get_site_summary_data_with_period_of_record(site_id):
+    summary_csv_url = f'https://www.waterqualitydata.us/data/summary/monitoringlocation/search/?siteid={site_id}' \
+                      f'&dataProfile=periodOfRecord&summaryYears=all&mimeType=csv&zip=no'
+    period_of_record_summary_data = pd.read_csv(
+        summary_csv_url
+    )
+    # Data call returns mostly unneeded data, so start by keeping only the needed columns
+    period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
+    # Add new columns for the start and end years of the period of record by grabbing the minimum and maximum values
+    #  for each characteristic group from the YearSummarized. Note: Every 'year summarized' has its own row in the
+    # data. This adds the values for the 'startYear' and 'endYear' will be the same for every row in within a group
+    # of 'characteristicType' rows.
+    period_of_record_summary_data['startYear'] = \
+        period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('min')
+    period_of_record_summary_data['endYear'] = \
+        period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('max')
+    # Use the min function to keep only one row in each characteristic group
+    return  period_of_record_summary_data.groupby('CharacteristicType').min('YearSummarized')
