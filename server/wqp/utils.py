@@ -381,17 +381,18 @@ def delete_old_files(files):
 
 
 def get_site_summary_data_with_period_of_record(site_id):
-    summary_csv_url = f'https://www.waterqualitydata.us/data/summary/monitoringlocation/search/?siteid={site_id}' \
-                      f'&dataProfile=periodOfRecord&summaryYears=all&mimeType=csv&zip=no'
+    summary_csv_url = f"{app.config['SITE_SUMMARY_ENDPOINT']}?siteid={site_id}&dataProfile=periodOfRecord&" \
+                      f"summaryYears=all&mimeType=csv&zip=no"
+
     period_of_record_summary_data = pd.read_csv(
         summary_csv_url
     )
     # Data call returns mostly unneeded data, so start by keeping only the needed columns
     period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
     # Add new columns for the start and end years of the period of record by grabbing the minimum and maximum values
-    #  for each characteristic group from the YearSummarized. Note: Every 'year summarized' has its own row in the
-    # data. This adds the values for the 'startYear' and 'endYear' will be the same for every row in within a group
-    # of 'characteristicType' rows.
+    # for each characteristic group from the YearSummarized. Note: Every 'year summarized' has its own row in the
+    # data. The 'startYear' and 'endYear' values will be the same for every row in within a group
+    # of 'characteristicType' rows of the same type.
     period_of_record_summary_data['startYear'] = \
         period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('min')
     period_of_record_summary_data['endYear'] = \
