@@ -1,4 +1,5 @@
 from unittest import TestCase, mock
+import pandas as pd
 
 from requests import Response
 import requests_mock
@@ -6,7 +7,7 @@ import requests_mock
 from .. import app
 from ..utils import generate_redis_db_number, retrieve_lookups, retrieve_providers, retrieve_organization, \
     retrieve_organizations, retrieve_county, retrieve_sites_geojson, retrieve_site, tsv_dict_generator, get_site_key, \
-    create_redis_log_msg, create_request_resp_log_msg
+    create_redis_log_msg, create_request_resp_log_msg, get_site_summary_data_with_period_of_record
 
 
 class RedisDbNumberTestCase(TestCase):
@@ -436,3 +437,40 @@ class TestCreateRequestResponseLogMsg(TestCase):
         result = create_request_resp_log_msg(self.test_resp)
         expected = 'Status Code: 601, URL: https://fake.url.com, Response headers: blah'
         self.assertEqual(result, expected)
+
+
+class GetSiteSummaryDataWithPeriodOfRecordTestCase(TestCase):
+    panda_dataframe = pd.DataFrame({
+        'CharacteristicType': ['char1', 'char2', 'char3', 'char1', 'char2', 'char3', 'char1', 'char2', 'char3'],
+        'YearSummarized': [1800, 2000, 2010, 1866, 2007, 2012, 1868, 2008, 2021],
+        'wasteColumn': ['foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz']
+    })
+
+    def setUp(self):
+        self.summary_endpoint = 'mock://wqpfake.us/data/summary/monitoringlocation/search/'
+        app.config['SITE_SUMMARY_ENDPOINT'] = self.summary_endpoint
+
+
+    @mock.patch('wqp.utils.get_summary_with_pandas_package')
+    def test_uses_correct_url(self, mock_get_summary_with_pandas_package):
+        get_site_summary_data_with_period_of_record('USGS-123400')
+
+        mock_get_summary_with_pandas_package.assert_called_with(
+            'mock://wqpfake.us/data/summary/monitoringlocation/search/?'
+            'siteid=USGS-123400&dataProfile=periodOfRecord&summaryYears=all&mimeType=csv&zip=no'
+        )
+
+    @mock.patch('wqp.utils.get_summary_with_pandas_package')
+    def test_gets_start_and_end_years(self, get_summary_with_pandas_package, return_value=panda_dataframe):
+        value_with_start_and_end_years = pd.DataFrame({
+            'CharacteristicType': ['char1', 'char2', 'char3'],
+            'min': [1800, 2000, 2010],
+            'startYear': [1800, 2000, 2010],
+            'endYear': [1868, 2008, 2021]
+        })
+
+        self.assertEqual(get_site_summary_data_with_period_of_record('USGS-123400'), value_with_start_and_end_years)
+
+
+
+

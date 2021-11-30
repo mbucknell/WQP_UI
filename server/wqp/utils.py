@@ -380,13 +380,16 @@ def delete_old_files(files):
             os.remove(f)
 
 
+def get_summary_with_pandas_package(url):
+    return pd.read_csv(url)
+
+
 def get_site_summary_data_with_period_of_record(site_id):
     summary_csv_url = f"{app.config['SITE_SUMMARY_ENDPOINT']}?siteid={site_id}&dataProfile=periodOfRecord&" \
                       f"summaryYears=all&mimeType=csv&zip=no"
 
-    period_of_record_summary_data = pd.read_csv(
-        summary_csv_url
-    )
+    period_of_record_summary_data = get_summary_with_pandas_package(summary_csv_url)
+
     # Data call returns mostly unneeded data, so start by keeping only the needed columns
     period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
     # Add new columns for the start and end years of the period of record by grabbing the minimum and maximum values
