@@ -1,18 +1,18 @@
 DEBUG = True
-VERIFY_CERT = True or False
+VERIFY_CERT = False
 
 # Do not use the same key as any of the deployment servers
 SECRET_KEY = 'local_secret_key'
 
 # points to the geoserver endpoint you want to use.
-#WQP_MAP_GEOSERVER_ENDPOINT = 'http://url-to-geoserver'
+WQP_MAP_GEOSERVER_ENDPOINT = 'https://www.waterqualitydata.us/geoserver'
 SITES_MAP_GEOSERVER_ENDPOINT = 'https://www.waterqualitydata.us/ogcservices'
 
 #points to the sld endpoint you want to use.
 SLD_ENDPOINT = 'http://www.waterqualitydata.us/Summary'
 
 # points to the endpoint which returns flow lines and sites for a comid
-NLDI_SERVICES_ENDPOINT = 'https://cida.usgs.gov/nldi/'
+NLDI_SERVICES_ENDPOINT = 'https://labs.waterdata.usgs.gov/api/nldi/linked-data/'
 
 #points to the codes endpoint
 CODES_ENDPOINT = 'https://www.waterqualitydata.us/Codes'
@@ -52,4 +52,4 @@ UI_THEME = 'wqp' or 'usgs'
 
 #ASSET_MANIFEST_PATH = '/Users/dnaab/src/WQP_UI/assets/dist/rev-manifest.json'
 
-STATIC_ROOT = 'http://localhost:9000'
+# Uncomment if using separate static serverSTATIC_ROOT = 'http://localhost:9000'

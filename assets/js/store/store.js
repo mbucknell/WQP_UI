@@ -28,7 +28,7 @@ export default new Vuex.Store({
     assemblageSelectedState: [],
     assemblageOptionsState: [],
     taxSelectedState: [],
-    taxOptionsState: {},
+    taxOptionsState: {}
   },
   mutations: {
     getCountryState(state, selected) {

@@ -93,12 +93,11 @@ export default {
     },
     resetContainer() {
         let inputs = this.container.querySelectorAll('input[name], select[name], textarea[name], button[name]');
-        // inputs.value = '';
         inputs.forEach(function(input) {
             input.value = '';
             input.dispatchEvent(new Event('change'));
         });
     }
   }
-}
+};
 </script>
