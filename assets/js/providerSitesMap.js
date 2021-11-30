@@ -13,7 +13,7 @@ import Vue from 'vue';
 
 export default function sitesMap(options) {
     var siteData = Config.sitesData;
-    var localBaseUrl = Config.localBaseUrl;
+    const localBaseUrl = Config.EXPLORE_BASE_PAGE;
     var mapDivId = options.mapDivId;
     var zoom = options.mapZoom;
     var map;
@@ -41,8 +41,8 @@ export default function sitesMap(options) {
     var parsePath = function() {
         var pathname = window.location.pathname;
         var splitPath = pathname.split('/');
-        var providerName = splitPath[2];
-        var orgName = splitPath[3];
+        var providerName = splitPath[splitPath.length - 3];
+        var orgName = splitPath[splitPath.length - 2];
         return {providers: providerName, organization: orgName};
     };
 
@@ -54,7 +54,7 @@ export default function sitesMap(options) {
             + '<br>Station Name: ' + feature.properties.MonitoringLocationName
             + '<br>Station ID: ' + feature.properties.MonitoringLocationIdentifier
             + '<br>Station Type: ' + feature.properties.ResolvedMonitoringLocationTypeName
-            +'<br>Station Details:  <a href="' + localBaseUrl + '/provider/' + providers + '/' + organization + '/' + feature.properties.MonitoringLocationIdentifier + '/">Go to station page.</a>';
+            +'<br>Station Details:  <a href="' + localBaseUrl  + providers + '/' + organization + '/' + feature.properties.MonitoringLocationIdentifier + '/">Go to station page.</a>';
         layer.bindPopup(popupText);
     };
 
