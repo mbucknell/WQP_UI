@@ -9,7 +9,7 @@ import map from 'lodash/map';
 
 import Vue from 'vue';
 import InputValidationView from './InputValidationView.vue';
-import store from '../store/store.js'
+import store from '../store/store.js';
 import PortalViews from './PortalViews.vue';
 import { getPostalCode } from '../stateFIPS';
 import { getAnchorQueryValues} from '../utils';
@@ -18,17 +18,6 @@ const USA = 'US';
 
 let portalViewClass = Vue.extend(PortalViews);
 let portalViews = new portalViewClass();
-
-/*
- * Initializes and manages the Place inputs
- * @param {Object} options
- *      @prop {NodeList} container - div containing the place inputs.
- *      @prop {CachedCodes} countyModel
- *      @prop {CodesWithKeys} stateModel
- *      @prop {CodesWithKeys} countryModel
- * @returns {Object}
- *      @func initialize
- */
 
 export default {
   name: 'PlaceInputView',
@@ -52,8 +41,8 @@ export default {
         };
 
         portalViews.codeSelect(
-            "getCountryState", 
-            "getCountryOptionsState",
+            'getCountryState',
+            'getCountryOptionsState',
             select,
             spec,
             initValues,
@@ -62,21 +51,12 @@ export default {
 
     },
     initializeCountrySelectBasic(select, model, initValues=[]) {
-        var isMatch = function (searchTerm, lookup) {
-            var termMatcher;
-
+        const isMatch = function (searchTerm, lookup) {
             if (searchTerm) {
-                termMatcher = new RegExp(searchTerm, 'i');
+                const termMatcher = new RegExp(searchTerm, 'i');
                 return termMatcher.test(lookup.id) || termMatcher.test(lookup.desc);
             } else {
                 return true;
-            }
-        };
-        var templateSelection = function(selectData) {
-            if (has(selectData, 'id')) {
-                return selectData.id;
-            } else {
-                return null;
             }
         };
 
@@ -95,12 +75,10 @@ export default {
         );
     },
     initializeStateSelect(select, model, getCountryKeys, initValues=[]) {
-        var isMatch = function (searchTerm, lookup) {
-            var termMatcher;
-            var codes;
+        const isMatch = function (searchTerm, lookup) {
             if (searchTerm) {
-                termMatcher = new RegExp(searchTerm, 'i');
-                codes = lookup.id.split(':');
+                const termMatcher = new RegExp(searchTerm, 'i');
+                const codes = lookup.id.split(':');
                 return termMatcher.test(lookup.id) ||
                     termMatcher.test(lookup.desc) ||
                     termMatcher.test(getPostalCode(codes[1]));
@@ -115,8 +93,8 @@ export default {
         };
 
         portalViews.cascadedCodeSelect(
-            "getStateState",
-            "getStateOptionsState",
+            'getStateState',
+            'getStateOptionsState',
             select,
             spec,
             initValues,
@@ -125,11 +103,9 @@ export default {
     },
     initializeStateSelectBasic(select, model, getCountryKeys, initValues=[]) {
         var isMatch = function (searchTerm, lookup) {
-            var termMatcher;
-            var codes;
             if (searchTerm) {
-                termMatcher = new RegExp(searchTerm, 'i');
-                codes = lookup.id.split(':');
+                const termMatcher = new RegExp(searchTerm, 'i');
+                const codes = lookup.id.split(':');
                 return termMatcher.test(lookup.id) ||
                     termMatcher.test(lookup.desc) ||
                     termMatcher.test(getPostalCode(codes[1]));
@@ -145,8 +121,8 @@ export default {
 
 
         portalViews.cascadedCodeSelect(
-            "getStateState",
-            "getStateOptionsState",
+            'getStateState',
+            'getStateOptionsState',
             select,
             spec,
             initValues,
@@ -155,11 +131,9 @@ export default {
     },
     initializeCountySelect(select, model, getStateKeys, initValues) {
         var isMatch = function(searchTerm, lookup) {
-            var termMatcher;
-            var county;
             if (searchTerm) {
-                termMatcher = new RegExp(searchTerm, 'i');
-                county = last(lookup.desc.split(','));
+                const termMatcher = new RegExp(searchTerm, 'i');
+                const county = last(lookup.desc.split(','));
                 return termMatcher.test(county);
             } else {
                 return true;
@@ -172,8 +146,8 @@ export default {
         };
 
         portalViews.cascadedCodeSelect(
-            "getCountyState",
-            "getCountyOptionsState",
+            'getCountyState',
+            'getCountyOptionsState',
             select,
             countySpec,
             initValues,
@@ -181,12 +155,10 @@ export default {
         );
     },
     initializeCountySelectBasic(select, model, getStateKeys, initValues) {
-        var isMatch = function(searchTerm, lookup) {
-            var termMatcher;
-            var county;
+        const isMatch = function(searchTerm, lookup) {
             if (searchTerm) {
-                termMatcher = new RegExp(searchTerm, 'i');
-                county = last(lookup.desc.split(','));
+                const termMatcher = new RegExp(searchTerm, 'i');
+                const county = last(lookup.desc.split(','));
                 return termMatcher.test(county);
             } else {
                 return true;
@@ -199,8 +171,8 @@ export default {
         };
 
         portalViews.cascadedCodeSelect(
-            "getCountyState",
-            "getCountyOptionsState",
+            'getCountyState',
+            'getCountyOptionsState',
             select,
             countySpec,
             initValues,
@@ -263,7 +235,7 @@ export default {
                 fetchStates = this.stateModel.fetch(union([USA], initCountries));
             }
             fetchStates.then((result) => {
-                store.commit("getStateOptionsState", map(result, (data) => {
+                store.commit('getStateOptionsState', map(result, (data) => {
                     return {
                         id: data.id,
                         text: data.desc + ' (' + self.providers.formatAvailableProviders(data.providers) + ')'
@@ -369,9 +341,11 @@ export default {
         return fetchComplete;
     },
     resetContainer() {
-        let inputs = this.container.querySelector('input[name], select[name], textarea[name], button[name]');
-        inputs.value;
-        inputs.dispatchEvent(new Event('change'));
+        let inputs = this.container.querySelectorAll('input[name], select[name], textarea[name], button[name]');
+        inputs.forEach(function(input) {
+          input.value = '';
+          input.dispatchEvent(new Event('change'));
+        });
     }
   }
 };

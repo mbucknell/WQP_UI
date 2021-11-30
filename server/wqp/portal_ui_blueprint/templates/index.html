@@ -151,7 +151,7 @@
                 </div>
               </div>
               <div class="menu-buttons">
-                <button class="usa-button usa-button--outline reset-params" type="button">Clear search</button>
+                <button class="usa-button usa-button--outline clear-form" type="button">Clear search</button>
                 <button class="usa-button" v-on:click="onNext()" type="button">Next</button>
               </div>
             </div>
@@ -224,7 +224,7 @@
                 </div>
               </div>
               <div class="menu-buttons">
-                <button class="usa-button usa-button--outline reset-filters" type="button">Clear search</button>
+                <button class="usa-button usa-button--outline clear-form" type="button">Clear search</button>
                 <button class="usa-button" v-on:click="onPrev()" type="button">Previous</button>
                 <button class="usa-button" v-on:click="onNext()" type="button">Next</button>
               </div>
@@ -301,7 +301,7 @@
                 <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
                 </div>
               <div class="menu-buttons">
-                <button class="usa-button usa-button--outline" v-on:click="onStartOver()" id="startOver" type="button">Start over</button>
+                <button class="clear-form usa-button usa-button--outline" v-on:click="onStartOver()" id="startOver" type="button">Start over</button>
                 <button class="usa-button" v-on:click="onPrev()"  type="button">Previous</button>
                 <a class="usa-button main-button" id="basic-main-button" href="#download-status-modal-basic" type="submit" aria-controls="download-status-modal-basic" data-open-modal>Download</a>
                 <div class="usa-modal" id="download-status-modal-basic" aria-labelledby="download-status-modal-basic-heading"
@@ -838,7 +838,7 @@
                             </div>
                           </div>
                         </div>
-                        <button class="usa-button usa-button--outline" v-on:click="onAdvancedStartOver()" id="advancedStartOver" type="button">Clear search</button>
+                        <button class="clear-form usa-button usa-button--outline" v-on:click="onAdvancedStartOver()" id="advancedStartOver" type="button">Clear search</button>
                         <a href="#download-status-modal" id="main-button" class="usa-button main-button" type="submit"
                           aria-controls="download-status-modal" data-open-modal>
                           Download
