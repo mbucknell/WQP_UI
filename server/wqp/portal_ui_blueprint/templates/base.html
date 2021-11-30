@@ -57,6 +57,7 @@
         Config.NHDPLUS_FLOWLINE_LAYER_NAME = '{{ config.NHDPLUS_FLOWLINE_LAYER_NAME }}';
         Config.STATIC_ENDPOINT = '{{ config.STATIC_ROOT }}';
         Config.GA_TRACKING_CODE = '{{ config.GA_TRACKING_CODE }}';
+        Config.EXPLORE_BASE_PAGE = '{{ url_for("portal_ui.uri_base") }}'
     </script>
 
     {% block google_analytics_script %}
