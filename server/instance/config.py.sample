@@ -1,5 +1,5 @@
 DEBUG = True
-VERIFY_CERT = True or False
+VERIFY_CERT = False
 
 # Do not use the same key as any of the deployment servers
 SECRET_KEY = 'local_secret_key'
