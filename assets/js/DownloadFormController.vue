@@ -92,11 +92,12 @@ export default {
       validateDownloadForm(form, formType) {
         // Validate download form. If invalid show validate dialog with error message and return false.
         // Otherwise return true
-
+        // TODO: This code does not work in part because there is no #validate-download-dialog element.
+        // Also basic field validation is no longer occuring.
         var validateModalEl = document.querySelector('#validate-download-dialog');
         var showModal = function (message) {
             validateModalEl.querySelector('.modal-body').innerHTML = message;
-            validateModalEl.style.display = "block";
+            validateModalEl.style.display = 'block';
         };
 
         // Check to see if any input validation error messages exist
@@ -107,7 +108,7 @@ export default {
 
         var result;
         //  Advanced form validation
-        if(formType == "advanced"){
+        if (formType == "advanced") {
             result = this.validatePointLocation({
                 withinEl: form.querySelector('#within'),
                 latEl: form.querySelector('#lat'),
