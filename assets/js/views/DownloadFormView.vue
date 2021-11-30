@@ -1,5 +1,3 @@
-<template>
-</template>
 
 <script>
 import Vue from 'vue';
@@ -10,7 +8,6 @@ import DataDetailsView from './DataDetailsView.vue';
 import NldiView from './NldiView.vue';
 import PlaceInputView from './PlaceInputView.vue';
 import PointLocationInputView from './PointLocationInputView.vue';
-import PortalViews from './PortalViews.vue';
 import SamplingParameterInputView from './SamplingParameterInputView.vue';
 import SiteParameterInputView from './SiteParameterInputView.vue';
 import CachedCodesModel from '../CachedCodesModel.vue';
@@ -59,20 +56,6 @@ export default {
       selectedForm: document.querySelector('#params-basic')
     };
   },
-  components: {
-    DownloadFormController,
-    SamplingParameterInputView,
-    NldiView,
-    PlaceInputView,
-    BiologicalSamplingInputView,
-    BoundingBoxInputView,
-    SiteParameterInputView,
-    PointLocationInputView,
-    DataDetailsView,
-    CachedCodesModel,
-    CodesWithKeysModel,
-    PortalViews
-  },
   methods: {
     /*
      * @return {PlaceInputView}
@@ -90,7 +73,7 @@ export default {
 
       const countryModel = new cachedCodesClass({
         propsData: {
-          codes: 'countrycode',
+          codes: 'countrycode'
         }
       });
       const stateModel = new codesWithKeysClass({
@@ -205,7 +188,7 @@ export default {
       boundingBoxInputView.initialize();
 
       // Only create map for advanced form
-      if (Config.NLDI_ENABLED && this.form.getAttribute('id') == "params") {
+      if (Config.NLDI_ENABLED && this.form.getAttribute('id') === 'params') {
         let nldiClass = Vue.extend(NldiView);
         const nldiView = new nldiClass({
           propsData: {
@@ -214,9 +197,9 @@ export default {
           }
         });
         nldiView.initialize();
-      } else if (this.form.getAttribute('id') == "params") {
-        this.form.querySelector('#nldi-container').style.display = "none";
-        this.form.querySelector('#nldi-map').style.display = "none";
+      } else if (this.form.getAttribute('id') === 'params') {
+        this.form.querySelector('#nldi-container').style.display = 'none';
+        this.form.querySelector('#nldi-map').style.display = 'none';
       }
 
 
@@ -426,35 +409,37 @@ export default {
      */
     getQueryParamArray(currentForm) {
       let stores = [
-        {name: "countrycode", value: store.state.countrySelectedState},
-        {name: "statecode", value: store.state.stateSelectedState},
-        {name: "countycode", value: store.state.countySelectedState},
-        {name: "siteType", value: store.state.sitetypeSelectedState},
-        {name: "charGroup", value: store.state.chargroupSelectedState},
-        {name: "sampleMedia", value: store.state.sampleMediaSelectedState},
-        {name: "organization", value: store.state.orgIDSelectedState},
-        {name: "project", value: store.state.projIDSelectedState},
-        {name: "siteid", value: store.state.siteIDSelectedState},
-        {name: "characteristicName", value: store.state.charSelectedState},
-        {name: "assemblage", value: store.state.assemblageSelectedState},
-        {name: "subjectTaxonomicName", value: store.state.taxSelectedState}
+        {name: 'countrycode', value: store.state.countrySelectedState},
+        {name: 'statecode', value: store.state.stateSelectedState},
+        {name: 'countycode', value: store.state.countySelectedState},
+        {name: 'siteType', value: store.state.sitetypeSelectedState},
+        {name: 'charGroup', value: store.state.chargroupSelectedState},
+        {name: 'sampleMedia', value: store.state.sampleMediaSelectedState},
+        {name: 'organization', value: store.state.orgIDSelectedState},
+        {name: 'project', value: store.state.projIDSelectedState},
+        {name: 'siteid', value: store.state.siteIDSelectedState},
+        {name: 'characteristicName', value: store.state.charSelectedState},
+        {name: 'assemblage', value: store.state.assemblageSelectedState},
+        {name: 'subjectTaxonomicName', value: store.state.taxSelectedState}
       ];
 
       // Need to eliminate form parameters within the mapping-div
-      const formInputs = currentForm.querySelectorAll('input:not(#mapping-div input, #nldi-map input, input[name="dataProfile"]), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button');
+      const formInputs =
+          currentForm.querySelectorAll(
+              'input:not(#mapping-div input, #nldi-map input, input[name="dataProfile"]), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button)'
+          );
       let result = [];
       let providersArray = [];
-      var length = formInputs.length;
       formInputs.forEach(function (el, index) {
         let multiselectArray = [];
-        if (el.type != 'radio' || el.checked || (el.className === 'datasources usa-checkbox__input')) {
+        if (el.type != 'radio' || el.checked || el.className === 'datasources usa-checkbox__input') {
           if (el.name != 'dataProfile') {
             const value = el.value;
             const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
             const name = el.getAttribute('name');
             if (valueIsNotEmpty && name && el.className != 'multiselect__input' && el.className != 'hidden-input') {
-              if ((valueIsNotEmpty && el.className === 'datasources usa-checkbox__input') && (el.checked === true)) {
-                providersArray.push(value)
+              if (valueIsNotEmpty && el.className === 'datasources usa-checkbox__input' && el.checked === true) {
+                providersArray.push(value);
               } else if (el.className !== 'datasources usa-checkbox__input') {
                 result.push({
                   name: name,
@@ -463,12 +448,12 @@ export default {
                 });
               }
             }
-            if (index === (length - 1)) {
+            if (index === formInputs.length - 1) {
               result.push({
                 name: 'providers',
                 value: providersArray,
                 multiple: el.dataset.multiple ? true : false
-              })
+              });
             } else if (el.className === 'hidden-input') {
               stores.forEach(function (state) {
                 if (el.name === state.name) {
@@ -481,7 +466,7 @@ export default {
                       name: state.name,
                       value: multiselectArray,
                       multiple: el.dataset.multiple ? true : false
-                    })
+                    });
                   }
                 }
               });
@@ -496,5 +481,5 @@ export default {
       return this.dataDetailsView.getResultType();
     }
   }
-}
+};
 </script>
