@@ -69,7 +69,8 @@
 
         To download the metadata about this site along with water quality data, go to the <a href="{{ url_for('portal_ui.home') }}">Portal Page</a> and enter "{{ site['MonitoringLocationIdentifier'] }}" into the "Site ID" box under Site Parameters
 
-        <h2>Upstream and downstream stations</h2>
+        <h2  class="section-heading">What other monitoring locations are upstream or downstream from this one?</h2>
+        <div class="subheading">Upstream and downstream locations</div>
         <p> This map shows all Water Quality Portal stations that are 10 miles upstream (dashed dark blue) and 10 miles downstream (solid light blue) of this monitoring location (indicated by the large blue circle).
             The upstream and downstream functionality is provided by the National Linked Data Index, part of the <a title="Link to ACWI Open Water Data Initiative page" href="http://acwi.gov/spatial/owdi/">Open Water Data Initiative</a>.
         </p>
@@ -77,7 +78,8 @@
         <div class="characteristic-group-table-container">
             <table class="usa-table usa-table--borderless usa-table--striped">
                 <caption>
-                    <h2>Date Range by Characteristic Group</h2>
+                    <h2 class="section-heading">When were data collected at this location?</h2>
+                    <div class="subheading">Periods of record for data characteristic groups</div>
                 </caption>
                 <thead>
                     <tr>
@@ -99,7 +101,8 @@
             <span class="characteristic-group-table-footnote"><sup>&ast;</sup>Date ranges may contain gap years</span>
         </div>
 
-        <h2>Detailed Metadata</h2>
+        <h2 class="section-heading">What other information is available for this location?</h2>
+        <div class="subheading">Detailed Metadata</div>
         <p>For the definitions of the metadata elements, please go to the Water Quality Portal <a href="{{ url_for('portal_ui.portal_userguide') }}">user guide</a> </p>
         <table class="table table-striped">
             {% for key, value in site.items() %}

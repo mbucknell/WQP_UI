@@ -381,24 +381,46 @@ def delete_old_files(files):
 
 
 def get_summary_with_pandas_package(url):
+    """
+    Helper function, uses Pandas CVS function to open a CSV file and convert to a Pandas DataFrame
+    :param url: The URL of the CSV file to download
+    :return: Pandas Dataframe with contents of CSV file
+    """
     return pd.read_csv(url)
 
 
-def get_site_summary_data_with_period_of_record(site_id):
-    summary_csv_url = f"{app.config['SITE_SUMMARY_ENDPOINT']}?siteid={site_id}&dataProfile=periodOfRecord&" \
-                      f"summaryYears=all&mimeType=csv&zip=no"
-
-    period_of_record_summary_data = get_summary_with_pandas_package(summary_csv_url)
-
-    # Data call returns mostly unneeded data, so start by keeping only the needed columns
+def get_summary_dataframe(period_of_record_summary_data):
+    """
+    Function does the following -
+    1) The data call returns mostly unneeded data, so starts by keeping only the needed columns.
+    2) Adds new columns for the start and end years of the period of record by grabbing the minimum and maximum values
+        for each characteristic group from the YearSummarized. Note: Every 'year summarized' has its own row in the
+        data at this point. The 'startYear' and 'endYear' values will be the same for every row in within a group
+        of 'characteristicType' rows of the same type.
+    3) Uses the min function to keep only one row in each characteristic group.
+    4) Cleans up bu dropping the unneeded 'YearSummarized' column.
+    :param period_of_record_summary_data:
+    :return: Pandas Dataframe grouped by CharacteristicType with columns for start and end of period of record
+    """
     period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
-    # Add new columns for the start and end years of the period of record by grabbing the minimum and maximum values
-    # for each characteristic group from the YearSummarized. Note: Every 'year summarized' has its own row in the
-    # data. The 'startYear' and 'endYear' values will be the same for every row in within a group
-    # of 'characteristicType' rows of the same type.
     period_of_record_summary_data['startYear'] = \
         period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('min')
     period_of_record_summary_data['endYear'] = \
         period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('max')
-    # Use the min function to keep only one row in each characteristic group
-    return  period_of_record_summary_data.groupby('CharacteristicType').min('YearSummarized')
+    one_row_for_each_characteristic_group = \
+        period_of_record_summary_data.groupby('CharacteristicType').min('YearSummarized')
+
+    return one_row_for_each_characteristic_group.drop('YearSummarized', 1)
+
+
+def get_site_summary_data_with_period_of_record(site_id):
+    """
+    A coordinating function that gets a CSV file from Water Quality Portal, converts it to a Pandas Dataframe, removes
+    the extraneous data, finds the start and end of the period of record and returns the Dataframe
+    :param site_id: An identifier for the monitoring location
+    :return: Pandas Dataframe grouped by CharacteristicType with columns for start and end of period of record
+    """
+    summary_csv_url = f"{app.config['SITE_SUMMARY_ENDPOINT']}?siteid={site_id}&dataProfile=periodOfRecord&" \
+                      f"summaryYears=all&mimeType=csv&zip=no"
+    period_of_record_summary_data = get_summary_with_pandas_package(summary_csv_url)
+    return get_summary_dataframe(period_of_record_summary_data)

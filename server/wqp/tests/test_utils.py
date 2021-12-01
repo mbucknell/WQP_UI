@@ -7,7 +7,8 @@ import requests_mock
 from .. import app
 from ..utils import generate_redis_db_number, retrieve_lookups, retrieve_providers, retrieve_organization, \
     retrieve_organizations, retrieve_county, retrieve_sites_geojson, retrieve_site, tsv_dict_generator, get_site_key, \
-    create_redis_log_msg, create_request_resp_log_msg, get_site_summary_data_with_period_of_record
+    create_redis_log_msg, create_request_resp_log_msg, get_site_summary_data_with_period_of_record, \
+    get_summary_dataframe
 
 
 class RedisDbNumberTestCase(TestCase):
@@ -439,13 +440,7 @@ class TestCreateRequestResponseLogMsg(TestCase):
         self.assertEqual(result, expected)
 
 
-class GetSiteSummaryDataWithPeriodOfRecordTestCase(TestCase):
-    panda_dataframe = pd.DataFrame({
-        'CharacteristicType': ['char1', 'char2', 'char3', 'char1', 'char2', 'char3', 'char1', 'char2', 'char3'],
-        'YearSummarized': [1800, 2000, 2010, 1866, 2007, 2012, 1868, 2008, 2021],
-        'wasteColumn': ['foo', 'bar', 'baz', 'foo', 'bar', 'baz', 'foo', 'bar', 'baz']
-    })
-
+class TestGetSiteSummaryDataWithPeriodOfRecordTestCase(TestCase):
     def setUp(self):
         self.summary_endpoint = 'mock://wqpfake.us/data/summary/monitoringlocation/search/'
         app.config['SITE_SUMMARY_ENDPOINT'] = self.summary_endpoint
@@ -460,17 +455,33 @@ class GetSiteSummaryDataWithPeriodOfRecordTestCase(TestCase):
             'siteid=USGS-123400&dataProfile=periodOfRecord&summaryYears=all&mimeType=csv&zip=no'
         )
 
-    @mock.patch('wqp.utils.get_summary_with_pandas_package')
-    def test_gets_start_and_end_years(self, get_summary_with_pandas_package, return_value=panda_dataframe):
-        value_with_start_and_end_years = pd.DataFrame({
-            'CharacteristicType': ['char1', 'char2', 'char3'],
-            'min': [1800, 2000, 2010],
-            'startYear': [1800, 2000, 2010],
-            'endYear': [1868, 2008, 2021]
-        })
 
-        self.assertEqual(get_site_summary_data_with_period_of_record('USGS-123400'), value_with_start_and_end_years)
+class TestGetSummaryDataframe(TestCase):
+    def test_get_summary_dataframe(self):
+        starting_data = [
+            {'CharacteristicType': 'char1', 'YearSummarized': 1800, 'wasteColumn1': 'foo', 'wasteColumn2': 'bar'},
+            {'CharacteristicType': 'char2', 'YearSummarized': 1802, 'wasteColumn1': 'foo', 'wasteColumn2': 'bar'},
+            {'CharacteristicType': 'char3', 'YearSummarized': 1920, 'wasteColumn1': 'foo', 'wasteColumn2': 'bar'},
+            {'CharacteristicType': 'char1', 'YearSummarized': 1822, 'wasteColumn1': 'foo', 'wasteColumn2': 'bar'},
+            {'CharacteristicType': 'char2', 'YearSummarized': 1866, 'wasteColumn1': 'foo', 'wasteColumn2': 'bar'},
+            {'CharacteristicType': 'char3', 'YearSummarized': 1935, 'wasteColumn1': 'foo', 'wasteColumn2': 'bar'},
+            {'CharacteristicType': 'char1', 'YearSummarized': 2024, 'wasteColumn1': 'foo', 'wasteColumn2': 'bar'},
+            {'CharacteristicType': 'char2', 'YearSummarized': 2015, 'wasteColumn1': 'foo', 'wasteColumn2': 'bar'},
+            {'CharacteristicType': 'char3', 'YearSummarized': 2024, 'wasteColumn1': 'foo', 'wasteColumn2': 'bar'}
+        ]
 
+        starting_dataframe = pd.DataFrame(starting_data)
 
+        expected_data = [
+            {'startYear': 1800, 'endYear':2024},
+            {'startYear': 1802, 'endYear': 2015},
+            {'startYear': 1920, 'endYear': 2024},
+        ]
 
+        expected_dataframe = pd.DataFrame(
+            expected_data,
+            index=['char1', 'char2', 'char3']
+        )
+        expected_dataframe.index.name='CharacteristicType'
 
+        pd.testing.assert_frame_equal(get_summary_dataframe(starting_dataframe), expected_dataframe)
