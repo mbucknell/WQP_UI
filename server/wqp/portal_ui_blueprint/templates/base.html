@@ -103,7 +103,9 @@
     </div>
 </div>
 
-{% block body_page_script %}{% endblock %}
+{% block body_page_script %}
+    <script type="text/javascript" src="{{ 'scripts/actions.js' | asset_url }}"></script>
+{% endblock %}
 
 </body>
 </html>

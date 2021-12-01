@@ -1,1 +1,2 @@
 require('../getEtlLastUpdate');
+require('../pageActions');
