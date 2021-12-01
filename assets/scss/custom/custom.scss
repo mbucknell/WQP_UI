@@ -238,3 +238,7 @@ body {
 #etlSection {
     font-size: 13.5px
 }
+
+.beta-tag {
+  @include u-bg('accent-warm-dark')
+}
