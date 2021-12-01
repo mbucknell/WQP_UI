@@ -49,6 +49,29 @@ body {
       }
     }
   }
+  .characteristic-group-table-container {
+    @include u-padding-top(5);
+    @include u-padding-bottom(5);
+    .usa-table {
+      caption {
+        @include u-margin(0);
+      }
+      @include u-width('full');
+      @include u-margin-bottom(0);
+    }
+    .characteristic-group-table-footnote {
+      @include u-padding-top('05');
+      @include u-float('right');
+    }
+  }
+  .section-heading {
+    @include u-margin-bottom('05');
+  }
+  .subheading {
+    @include u-margin-top('05');
+    @include u-margin-bottom(1);
+    @include u-font-weight('bold');
+  }
 }
 
 .leaflet-control-container {

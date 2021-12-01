@@ -2,18 +2,18 @@
 Views
 '''
 
-from io import BytesIO
 import pickle
 
 import arrow
-from flask import render_template, request, make_response, redirect, url_for, abort, Response, jsonify, Blueprint, \
-    send_file
+from flask import render_template, request, make_response, redirect, url_for, abort, Response, jsonify, Blueprint
+
 import redis
 
-from .. import app, session, csrf
+from .. import app, session
 from ..utils import get_markdown, geoserver_proxy_request, retrieve_providers, retrieve_organizations, \
     get_site_key, retrieve_organization, retrieve_sites_geojson, retrieve_site, retrieve_county, \
-    generate_redis_db_number, create_request_resp_log_msg, create_redis_log_msg
+    generate_redis_db_number, create_request_resp_log_msg, create_redis_log_msg, \
+    get_site_summary_data_with_period_of_record
 from ..tasks import load_sites_into_cache_async
 
 
@@ -215,9 +215,10 @@ def uri_organization(provider_id, organization_id):
 
     return Response(rendered_site_template)
 
-
 @portal_ui.route('/provider/<provider_id>/<organization_id>/<path:site_id>/', endpoint='uri_site')
 def uris(provider_id, organization_id, site_id):
+    summary_data = get_site_summary_data_with_period_of_record(site_id)
+
     site_data = None
     if redis_config:
         redis_db_number = generate_redis_db_number(provider_id)
@@ -266,8 +267,10 @@ def uris(provider_id, organization_id, site_id):
                            provider=provider_id,
                            organization=organization_id,
                            site_id=site_id,
-                            use_grid_container=True,
-                           cache_timeout=cache_timeout)  # Why are we using this here and nowhere else
+                           summary_data_with_period_of_record=summary_data,
+                           use_grid_container=True,
+                           cache_timeout=cache_timeout # Why are we using this here and nowhere else
+                           )
 
 
 @portal_ui.route('/clear_cache/<provider_id>/')
