@@ -70,6 +70,7 @@ const getBundleConfig = function (src, dest) {
 
 module.exports = [
     getBundleConfig('js/bundles/portal.js', 'dist/scripts/portal.js'),
+    getBundleConfig('js/bundles/actions.js', 'dist/scripts/actions.js'),
     getBundleConfig('js/bundles/site_map.js', 'dist/scripts/site_map.js'),
     getBundleConfig('js/bundles/sites_map.js', 'dist/scripts/sites_map.js')
 ];
