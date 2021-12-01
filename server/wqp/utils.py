@@ -119,7 +119,7 @@ def retrieve_lookups(code_uri, params=None):
     resp = session.get(app.config['CODES_ENDPOINT'] + code_uri, params=local_params)
     msg = create_request_resp_log_msg(resp)
     if resp.status_code == 200:
-        # app.logger.debug(msg)
+        app.logger.debug(msg)
         lookups = resp.json()
     else:
         app.logger.info(msg)
@@ -265,7 +265,7 @@ def retrieve_site(provider_id, organization_id, site_id):
                                'uripage': 'yes'})  # This is added to distinguish from normal web service queries
     msg = create_request_resp_log_msg(resp)
     if resp.status_code == 200 and resp.text:
-        # app.logger.debug(msg)
+        app.logger.debug(msg)
         resp_lines = resp.text.split('\n')
         if len(resp_lines) > 1:
             headers = resp_lines[0].split('\t')
@@ -398,7 +398,7 @@ def get_summary_dataframe(period_of_record_summary_data):
         data at this point. The 'startYear' and 'endYear' values will be the same for every row in within a group
         of 'characteristicType' rows of the same type.
     3) Uses the min function to keep only one row in each characteristic group.
-    4) Cleans up bu dropping the unneeded 'YearSummarized' column.
+    4) Cleans up by dropping the unneeded 'YearSummarized' column.
     :param period_of_record_summary_data:
     :return: Pandas Dataframe grouped by CharacteristicType with columns for start and end of period of record
     """
