@@ -1,6 +1,3 @@
-<template>
-</template>
-
 <script>
 import log from 'loglevel';
 import partial from 'lodash/partial';
@@ -8,7 +5,7 @@ import partial from 'lodash/partial';
 import Vue from 'vue';
 import NldiNavPopupView from './NldiNavPopupView.vue';
 import NldiModel from '../NldiModel.vue';
-import { getAnchorQueryValues } from '../utils';
+import {getAnchorQueryValues} from '../utils';
 import axios from 'axios';
 
 let nldiClass = Vue.extend(NldiModel);
@@ -16,35 +13,45 @@ const nldiModel = new nldiClass();
 nldiModel.initialize();
 
 export default {
-  name: "NldiView",
-  props: ['mapDivId', 'input'],
-  components: {
-      NldiNavPopupView,
-      NldiModel
+  name: 'NldiView',
+  props: {
+    mapDivId: {
+      type: String,
+      required: true
+    },
+    input: { // This is the hidden input ID
+      type: String,
+      required: true
+    }
+  },
+  data: function() {
+    return {
+      inputElement: null
+    };
   },
   methods: {
     getRetrieveMessage() {
-        const nldiData = nldiModel.getData();
-        return '<p>Retrieving sites ' + nldiData.navigation.text.toLowerCase() + (nldiData.distance ? ' ' + nldiData.distance + ' km' : '') + '.</p>';
+      const nldiData = nldiModel.getData();
+      return '<p>Retrieving sites ' + nldiData.navigation.text.toLowerCase() + (nldiData.distance ? ' ' + nldiData.distance + ' km' : '') + '.</p>';
     },
     cleanUpMaps() {
-        if (this.nldiSiteCluster) {
-            this.nldiSiteCluster.clearLayers();
-            this.map.removeLayer(this.nldiSiteCluster);
-        }
-        if (this.nldiFlowlineLayers) {
-            this.map.removeLayer(this.nldiFlowlineLayers);
-        }
+      if (this.nldiSiteCluster) {
+        this.nldiSiteCluster.clearLayers();
+        this.map.removeLayer(this.nldiSiteCluster);
+      }
+      if (this.nldiFlowlineLayers) {
+        this.map.removeLayer(this.nldiFlowlineLayers);
+      }
 
-        this.updateNldiInput('');
+      this.updateNldiInput('');
     },
     updateNldiInput(url) {
-        // Only trigger a change if non-null url or if the input.val is being changed from an url to null
-        if (url || this.input.value) {
-            this.input.value = url
-            let e = new Event('change')
-            this.input.dispatchEvent(e);
-        }
+      // Only trigger a change if non-null url or if the input.val is being changed from an url to null
+      if (url || this.inputElement.value) {
+        this.inputElement.value = url;
+        let e = new Event('change');
+        this.inputElement.dispatchEvent(e);
+      }
     },
     /*
      * @param {L.Point} point - This is the containerPoint where we are looking for a feature from the pour point endpoint
@@ -53,84 +60,84 @@ export default {
      *      @reject - If unable to fetch the pour point
      */
     fetchFeatureId(point) {
-        const mapBounds = this.map.getBounds();
-        const nldiFeatureSource = nldiModel.getData().featureSource.getFeatureInfoSource;
-        return axios({
-            method: 'get',
-            url: nldiFeatureSource.endpoint,
-            params : {
-                version: '1.3.0',
-                request: 'GetFeatureInfo',
-                service: 'wms',
-                layers : nldiFeatureSource.layerName,
-                srs : 'EPSG:4326',
-                bbox : mapBounds.getSouth() + ',' + mapBounds.getWest() + ',' + mapBounds.getNorth() + ',' + mapBounds.getEast(),
-                width : this.map.getSize().x,
-                height : this.map.getSize().y,
-                'info_format' : 'application/json',
-                'query_layers' : nldiFeatureSource.layerName,
-                i : point.x,
-                j : point.y
-            }
-        });
+      const mapBounds = this.map.getBounds();
+      const nldiFeatureSource = nldiModel.getData().featureSource.getFeatureInfoSource;
+      return axios({
+        method: 'get',
+        url: nldiFeatureSource.endpoint,
+        params: {
+          version: '1.3.0',
+          request: 'GetFeatureInfo',
+          service: 'wms',
+          layers: nldiFeatureSource.layerName,
+          srs: 'EPSG:4326',
+          bbox: mapBounds.getSouth() + ',' + mapBounds.getWest() + ',' + mapBounds.getNorth() + ',' + mapBounds.getEast(),
+          width: this.map.getSize().x,
+          height: this.map.getSize().y,
+          'info_format': 'application/json',
+          'query_layers': nldiFeatureSource.layerName,
+          i: point.x,
+          j: point.y
+        }
+      });
     },
     /*
      * Retrieve the NLDI sites and flow lines for the current state of nldiModel and
      * display them on both the this.insetMap and map.
      */
     updateNldiSites() {
-        const nldiSiteUrl = nldiModel.getUrl('wqp');
-        const nldiFlowlinesUrl = nldiModel.getUrl();
-        let self = this;
-        let responsesArray = [];
-        const nldiSiteRequest = axios.get(nldiSiteUrl);
-        const nldiFlowlinesRequest = axios.get(nldiFlowlinesUrl);
+      const nldiSiteUrl = nldiModel.getUrl('wqp');
+      const nldiFlowlinesUrl = nldiModel.getUrl();
+      let self = this;
+      let responsesArray = [];
+      const nldiSiteRequest = axios.get(nldiSiteUrl);
+      const nldiFlowlinesRequest = axios.get(nldiFlowlinesUrl);
 
-        if (nldiSiteUrl) {
-            this.mapDiv.style.cursor = 'progress';
-            axios.all([nldiSiteRequest, nldiFlowlinesRequest])
-                .then(axios.spread((...responses) => {
-                    responsesArray.push(responses[0]);
-                    responsesArray.push(responses[1]);
-                }))
-                .then(function(){
-                    let flowlineBounds;
-                    const sitesGeojson = responsesArray[0].data;
-                    const flowlinesGeojson = responsesArray[1].data;
+      if (nldiSiteUrl) {
+        this.mapDiv.style.cursor = 'progress';
+        axios.all([nldiSiteRequest, nldiFlowlinesRequest])
+            .then(axios.spread((...responses) => {
+              responsesArray.push(responses[0]);
+              responsesArray.push(responses[1]);
+            }))
+            .then(function () {
+              let flowlineBounds;
+              const sitesGeojson = responsesArray[0].data;
+              const flowlinesGeojson = responsesArray[1].data;
 
-                    // These layers go into the siteCluster layer
-                    const nldiSiteLayers = self.siteLayer(sitesGeojson);
+              // These layers go into the siteCluster layer
+              const nldiSiteLayers = self.siteLayer(sitesGeojson);
 
-                    log.debug('NLDI service has retrieved ' + sitesGeojson.features.length + ' sites.');
-                    self.map.closePopup();
+              log.debug('NLDI service has retrieved ' + sitesGeojson.features.length + ' sites.');
+              self.map.closePopup();
 
-                    self.nldiFlowlineLayers = self.flowlineLayer(flowlinesGeojson);
-                    self.map.addLayer(self.nldiFlowlineLayers);
+              self.nldiFlowlineLayers = self.flowlineLayer(flowlinesGeojson);
+              self.map.addLayer(self.nldiFlowlineLayers);
 
-                    flowlineBounds = self.nldiFlowlineLayers.getBounds();
-                    self.map.fitBounds(flowlineBounds);
+              flowlineBounds = self.nldiFlowlineLayers.getBounds();
+              self.map.fitBounds(flowlineBounds);
 
-                    self.nldiSiteCluster = L.markerClusterGroup({
-                        maxClusterRadius : 40
-                    });
+              self.nldiSiteCluster = L.markerClusterGroup({
+                maxClusterRadius: 40
+              });
 
-                    self.nldiSiteCluster.addLayer(nldiSiteLayers);
-                    self.map.addLayer(self.nldiSiteCluster);
+              self.nldiSiteCluster.addLayer(nldiSiteLayers);
+              self.map.addLayer(self.nldiSiteCluster);
 
-                    self.updateNldiInput(nldiModel.getUrl('wqp'));
-                    // Update the api query urls
-                    document.querySelector('#params').dispatchEvent(new Event('change'));
-                })
-                .catch(function (error) {
-                    // handle error
-                    self.map.openPopup('Unable to retrieve NLDI information', self.map.getCenter());
-                    self.updateNldiInput('');
-                })
-                .then(function () {
-                    // always executed
-                    self.mapDiv.style.cursor = '';
-                })
-        }
+              self.updateNldiInput(nldiModel.getUrl('wqp'));
+              // Update the api query urls
+              document.querySelector('#params').dispatchEvent(new Event('change'));
+            })
+            .catch(function () {
+              // handle error
+              self.map.openPopup('Unable to retrieve NLDI information', self.map.getCenter());
+              self.updateNldiInput('');
+            })
+            .then(function () {
+              // always executed
+              self.mapDiv.style.cursor = '';
+            });
+      }
     },
     /*
      * Leaflet mouse event handler to find the sites associated with the feature source at the location in the event.
@@ -140,186 +147,192 @@ export default {
      * @param {L.MouseEvent} ev
      */
     findSitesHandler(ev) {
-        const featureIdProperty = nldiModel.getData().featureSource.getFeatureInfoSource.featureIdProperty;
+      const featureIdProperty = nldiModel.getData().featureSource.getFeatureInfoSource.featureIdProperty;
 
-        log.debug('Clicked at location: ' + ev.latlng.toString());
-        this.mapDiv.style.cursor = 'progress';
+      log.debug('Clicked at location: ' + ev.latlng.toString());
+      this.mapDiv.style.cursor = 'progress';
 
-        nldiModel.setData('featureId', '');
-        nldiModel.setData('navigation', undefined);
-        nldiModel.setData('distance', '');
-        this.cleanUpMaps();
-        this.map.closePopup();
+      nldiModel.setData('featureId', '');
+      nldiModel.setData('navigation', undefined);
+      nldiModel.setData('distance', '');
+      this.cleanUpMaps();
+      this.map.closePopup();
 
-        this.fetchFeatureId(ev.containerPoint.round())
-            .then((result) => {
-                let features = result.data.features;
-                const navHandler = () => {
-                    this.map.openPopup(this.getRetrieveMessage(), ev.latlng);
-                    this.updateNldiSites();
-                };
-           
-                if (features.length === 0) {
-                    this.map.openPopup('<p>No query point has been selected. Please click on a point to query from.</p>', ev.latlng);
+      this.fetchFeatureId(ev.containerPoint.round())
+          .then((result) => {
+            let features = result.data.features;
+            const navHandler = () => {
+              this.map.openPopup(this.getRetrieveMessage(), ev.latlng);
+              this.updateNldiSites();
+            };
 
-                } else if (features.length > 1) {
-                    this.map.openPopup('<p>More than one query point has been selected. Please zoom in and try again.</p>', ev.latlng);
-                } else {
-                    nldiModel.setData('featureId',
-                        features[0].properties[featureIdProperty]);
+            if (features.length === 0) {
+              this.map.openPopup('<p>No query point has been selected. Please click on a point to query from.</p>', ev.latlng);
 
-                    let nldiNavPopupClass = Vue.extend(NldiNavPopupView);
-                    let nldiPopup = new nldiNavPopupClass({
-                        propsData: {
-                            onMap: this.map, 
-                            feature: features[0], 
-                            atLatLng: ev.latlng, 
-                            navHandler: navHandler,
-                        }
-                    });
-                    nldiPopup.initialize();
+            } else if (features.length > 1) {
+              this.map.openPopup('<p>More than one query point has been selected. Please zoom in and try again.</p>', ev.latlng);
+            } else {
+              nldiModel.setData('featureId',
+                  features[0].properties[featureIdProperty]);
+
+              let nldiNavPopupClass = Vue.extend(NldiNavPopupView);
+              let nldiPopup = new nldiNavPopupClass({
+                propsData: {
+                  onMap: this.map,
+                  feature: features[0],
+                  atLatLng: ev.latlng,
+                  navHandler: navHandler
                 }
-            })
-            .catch((error) => {
-                this.map.openPopup('<p>Unable to retrieve points, service call failed</p>', ev.latlng);
-            })
-            .then(() => {
-                this.mapDiv.style.cursor = '';
-            });
+              });
+              nldiPopup.initialize();
+            }
+          })
+          .catch(() => {
+            this.map.openPopup('<p>Unable to retrieve points, service call failed</p>', ev.latlng);
+          })
+          .then(() => {
+            this.mapDiv.style.cursor = '';
+          });
     },
     /*
      * Show the full size map
      */
     showMap() {
-        if (this.mapDiv.parentElement.style.display =='none' || this.mapDiv.parentElement.style.display == ""){
-            this.mapDiv.parentElement.style.display = 'block';
-            this.map.invalidateSize();
-            document.getElementById("showNldiMap").innerText = "Hide upstream downstream mapper"
-        }
-        else{
-            this.hideMap();
-        }
-        this.map.closePopup();
+      if (this.mapDiv.parentElement.style.display === 'none' || this.mapDiv.parentElement.style.display === '') {
+        this.mapDiv.parentElement.style.display = 'block';
+        this.map.invalidateSize();
+        document.getElementById('showNldiMap').innerText = 'Hide upstream downstream mapper';
+      } else {
+        this.hideMap();
+      }
+      this.map.closePopup();
     },
     /*
      * Hide the map
      */
     hideMap() {
-            this.mapDiv.parentElement.style.display ='none'
-            document.getElementById("showNldiMap").innerText = "Show upstream downstream mapper"
+      this.mapDiv.parentElement.style.display = 'none';
+      document.getElementById('showNldiMap').innerText = 'Show upstream downstream mapper';
     },
     featureSourceChangeHandler(ev) {
-        this.cleanUpMaps();
-        this.map.closePopup();
-        nldiModel.setFeatureSource(ev.currentTarget.children[0].value);
+      this.cleanUpMaps();
+      this.map.closePopup();
+      nldiModel.setFeatureSource(ev.currentTarget.children[0].value);
     },
     clearHandler() {
-        nldiModel.reset();
-        this.cleanUpMaps();
-        this.map.closePopup();
-        // Update the api query urls
-        document.querySelector('#params').dispatchEvent(new Event('change'));
+      nldiModel.reset();
+      this.cleanUpMaps();
+      this.map.closePopup();
+      // Update the api query urls
+      document.querySelector('#params').dispatchEvent(new Event('change'));
     },
     /*
      * Initialize the map.
      */
     initialize() {
-        this.beforeInit();
-        const initValues = getAnchorQueryValues(this.input.getAttribute('name'));
+      this.beforeInit();
+      const initValues = getAnchorQueryValues(this.inputElement.getAttribute('name'));
 
-        const baseLayers = {
-            'World Gray' : L.esri.basemapLayer('Gray'),
-            'World Topo' : L.tileLayer.provider('Esri.WorldTopoMap'),
-            'World Street' : L.tileLayer.provider('Esri.WorldStreetMap'),
-            'World Relief' : L.tileLayer.provider('Esri.WorldShadedRelief'),
-            'World Imagery' : L.tileLayer.provider('Esri.WorldImagery')
-        };
-        const hydroLayer = L.esri.tiledMapLayer({
-            url : Config.HYDRO_LAYER_ENDPOINT
-        });
-        const nhdlPlusFlowlineLayer = L.tileLayer.wms(Config.NHDPLUS_FLOWLINE_ENDPOINT,
-            {
-                layers : Config.NHDPLUS_FLOWLINE_LAYER_NAME,
-                format : 'image/png',
-                transparent : true,
-                opacity : 0.5
-            }
-        );
+      const baseLayers = {
+        'World Gray': L.esri.basemapLayer('Gray'),
+        'World Topo': L.tileLayer.provider('Esri.WorldTopoMap'),
+        'World Street': L.tileLayer.provider('Esri.WorldStreetMap'),
+        'World Relief': L.tileLayer.provider('Esri.WorldShadedRelief'),
+        'World Imagery': L.tileLayer.provider('Esri.WorldImagery')
+      };
+      const hydroLayer = L.esri.tiledMapLayer({
+        url: Config.HYDRO_LAYER_ENDPOINT
+      });
+      const nhdlPlusFlowlineLayer = L.tileLayer.wms(Config.NHDPLUS_FLOWLINE_ENDPOINT,
+          {
+            layers: Config.NHDPLUS_FLOWLINE_LAYER_NAME,
+            format: 'image/png',
+            transparent: true,
+            opacity: 0.5
+          }
+      );
 
-        const featureSourceSelectControl = L.control.featureSourceSelectControl({
-            changeHandler : this.featureSourceChangeHandler.bind(this),
-            featureSourceOptions : nldiModel.getFeatureSource(),
-            initialFeatureSourceValue : nldiModel.getData().featureSource.id
-        });
+      const featureSourceSelectControl = L.control.featureSourceSelectControl({
+        changeHandler: this.featureSourceChangeHandler.bind(this),
+        featureSourceOptions: nldiModel.getFeatureSource(),
+        initialFeatureSourceValue: nldiModel.getData().featureSource.id
+      });
 
-        const undoImg = Config.STATIC_ENDPOINT;
+      const undoImg = Config.STATIC_ENDPOINT;
 
-        const searchControl = L.control.searchControl(Config.GEO_SEARCH_API_ENDPOINT);
-        const clearControl = L.easyButton('<img src="' + undoImg + 'img/usa-icons/undo.svg" alt="reset"/><div id="resetText">Reset</div>', this.clearHandler.bind(this), 'Clear the sites', {
-            position: 'topright'
-        });
+      const searchControl = L.control.searchControl(Config.GEO_SEARCH_API_ENDPOINT);
+      const clearControl = L.easyButton('<img src="' + undoImg + 'img/usa-icons/undo.svg" alt="reset"/><div id="resetText">Reset</div>', this.clearHandler.bind(this), 'Clear the sites', {
+        position: 'topright'
+      });
 
-        const MapWithSingleClickHandler = L.Map.extend({
-            includes : L.singleClickEventMixin()
-        });
+      const MapWithSingleClickHandler = L.Map.extend({
+        includes: L.singleClickEventMixin()
+      });
 
-        this.map = new MapWithSingleClickHandler(this.mapDivId, {
-            center: [37.0, -100.0],
-            zoom : 3,
-            layers : [baseLayers['World Topo'], hydroLayer, nhdlPlusFlowlineLayer],
-            zoomControl : false
-        });
-
-        this.map.addControl(searchControl);
-        this.map.addControl(featureSourceSelectControl);
-        this.map.addControl(L.control.layers(baseLayers, {
-            'NHDLPlus Flowline Network' : nhdlPlusFlowlineLayer,
-            'Hydro Reference' : hydroLayer
-        }, {position: 'topleft'}));
-        this.map.addControl(clearControl);
-        this.map.addControl(L.control.zoom());
-
-        this.map.addSingleClickHandler(this.findSitesHandler.bind(this));
-
-        if (initValues.length === 1) {
-            nldiModel.setDataFromUrl(initValues[0]);
-            this.updateNldiSites();
+      // Try to prevent return from bubbling up
+      document.querySelector(`#${this.mapDivId}`).addEventListener('keydown', function (event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
         }
+      });
+
+      this.map = new MapWithSingleClickHandler(this.mapDivId, {
+        center: [37.0, -100.0],
+        zoom: 3,
+        layers: [baseLayers['World Topo'], hydroLayer, nhdlPlusFlowlineLayer],
+        zoomControl: false
+      });
+
+      this.map.addControl(searchControl);
+      this.map.addControl(featureSourceSelectControl);
+      this.map.addControl(L.control.layers(baseLayers, {
+        'NHDLPlus Flowline Network': nhdlPlusFlowlineLayer,
+        'Hydro Reference': hydroLayer
+      }, {position: 'topleft'}));
+      this.map.addControl(clearControl);
+      this.map.addControl(L.control.zoom());
+
+      this.map.addSingleClickHandler(this.findSitesHandler.bind(this));
+
+      if (initValues.length === 1) {
+        nldiModel.setDataFromUrl(initValues[0]);
+        this.updateNldiSites();
+      }
     },
     beforeInit() {
-      this.input = document.getElementById(this.input);
+      this.inputElement = document.getElementById(this.input);
 
       this.mapDiv = document.getElementById(this.mapDivId);
 
       /* Functions return a geoJson layer with predefined options for flowLine and site layers respectively */
       this.flowlineLayer = partial(L.geoJson);
       this.siteLayer = partial(L.geoJson, partial.placeholder, {
-          pointToLayer: function (featureData, latlng) {
-              return L.circleMarker(latlng, {
-                  radius: 5,
-                  fillColor: '#ff3300',
-                  color: '#000',
-                  weight: 1,
-                  opacity: 1,
-                  fillOpacity: 0.8
-              });
-          }
+        pointToLayer: function (featureData, latlng) {
+          return L.circleMarker(latlng, {
+            radius: 5,
+            fillColor: '#ff3300',
+            color: '#000',
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8
+          });
+        }
       });
 
       // Add change handler for the hidden input so the NLDI can be cleared on a reset
-      if (this.input !== null){
-          this.input.addEventListener('change', () => {
-              if (!this.input.value) {
-                  this.clearHandler();
-              }
-          });
+      if (this.inputElement !== null) {
+        this.inputElement.addEventListener('change', () => {
+          if (!this.inputElement.value) {
+            this.clearHandler();
+          }
+        });
       }
 
       // Add click event to show/hide nldi map
-      if (document.getElementById("showNldiMap") !== null){
-          document.getElementById("showNldiMap").onclick = this.showMap.bind(this);
+      if (document.getElementById('showNldiMap') !== null) {
+        document.getElementById('showNldiMap').onclick = this.showMap.bind(this);
       }
-    },
-  },
-}
+    }
+  }
+};
 </script>
