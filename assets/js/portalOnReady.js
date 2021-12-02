@@ -164,12 +164,6 @@ document.addEventListener("DOMContentLoaded", function() {
         },
         methods: {
             initialize() {
-                // Handler for closing site announcement
-                const announcement = document.getElementById("siteAnnouncement")
-                const announcementcloseButton = document.getElementById("close-announcement")
-
-                announcementcloseButton.onclick = function() { announcement.remove() };
-
                 // Set the loglevel
                 if (Config.DEBUG) {
                     log.setLevel('debug', false);

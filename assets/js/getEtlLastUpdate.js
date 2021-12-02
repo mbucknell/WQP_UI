@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Create action to get the ETL (Extract Transfer Load) last change dates
     fetch('https://www.waterqualitydata.us/data/lastETL')
         .then(response => response.json())
         .then(success => setValues(success.lastEtlRun));
@@ -32,5 +33,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (day.length < 2) day = '0' + day;
 
         return [year, month, day].join('-');
+    }
+
+    // Create action to set event handler to remove the 'New User Interface' alert
+    const announcement = document.getElementById("siteAnnouncement")
+    const announcementCloseButton = document.getElementById("close-announcement")
+    announcementCloseButton.onclick = function() {
+        announcement.remove();
     }
 });
