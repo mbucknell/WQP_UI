@@ -1,7 +1,6 @@
 $theme-font-path: './fonts';
 $theme-image-path: './img';
 
-
 // Import all other custom scss files
 @import 'uswds';
 
@@ -64,11 +63,6 @@ body {
 
 #primary-footer a:link, #primary-footer a:visited {
   @include u-color('gray-1');
-}
-
-.required-field::after {
-  content: "*";
-  @include u-color('red-50v')
 }
 
 //WQP

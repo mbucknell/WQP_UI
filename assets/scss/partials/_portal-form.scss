@@ -96,6 +96,10 @@
     @include u-padding-top('205');
   }
 
+  .usa-accordion__content {
+    overflow: visible;
+  }
+
   .advanced-form-input-section {
     @include grid-row;
     @include grid-gap;

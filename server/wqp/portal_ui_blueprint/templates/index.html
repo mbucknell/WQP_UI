@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block meta_tags %}
-<meta name="google-site-verification" content="U1sI4UZAdEVS_0seZnE7MC97P1Ho6Hecg3wumfV5KoA" />
-<meta name="msvalidate.01" content="E86159A5D7A52A1AF52A3024B0ECC27F" />
+    <meta name="google-site-verification" content="U1sI4UZAdEVS_0seZnE7MC97P1Ho6Hecg3wumfV5KoA"/>
+    <meta name="msvalidate.01" content="E86159A5D7A52A1AF52A3024B0ECC27F"/>
 {% endblock %}
 
 {% block title %}Water Quality Data Home{% endblock %}
@@ -10,62 +10,69 @@
 {% block nav_bar %}{% endblock %}
 
 {% block page_content %}
-<!-- Basic Form -->
-  <div id="forms">
-    <div id="formIntro" v-if="showIntro">
-      <div>
-        <div class="usa-alert__body new-wqp-body">
-          <h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
-          <p class="usa-alert__text">
-            The Water Quality Portal (WQP) is the premiere source of discrete water-quality data 
-            in the United States and beyond. This cooperative service integrates publicly available 
-            water-quality data from the United States Geological Survey (USGS), the Environmental Protection Agency 
-            (EPA), and over 400 state, federal, tribal, and local agencies. 
-            <a href="/wqp/portal_userguide">Learn More</a></p>
-          <br>
-          <p class="usa-alert__text">To download data complete the query below. Returning and experienced users
-            may wish to
-            use the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
-          </p>
+    <!-- Basic Form -->
+    <div id="forms">
+        <div id="formIntro" v-if="showIntro">
+            <div>
+                <div class="usa-alert__body new-wqp-body">
+                    <h3 class="usa-alert__heading">Welcome to the new Water Quality Portal</h3>
+                    <p class="usa-alert__text">
+                        The Water Quality Portal (WQP) is the premiere source of discrete water-quality data
+                        in the United States and beyond. This cooperative service integrates publicly available
+                        water-quality data from the United States Geological Survey (USGS), the Environmental Protection
+                        Agency
+                        (EPA), and over 400 state, federal, tribal, and local agencies.
+                        <a href="/wqp/portal_userguide">Learn More</a></p>
+                    <br>
+                    <p class="usa-alert__text">To download data complete the query below. Returning and experienced
+                        users
+                        may wish to
+                        use the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
+                    </p>
+                </div>
+            </div>
+            <div id="formIntroFooter">
+                <div class="footer-flex">
+                    <button class="usa-button usa-button--outline" id="closeIntroButton" v-on:click="closeIntro">Close
+                        intro
+                    </button>
+                </div>
+                <div class="footer-flex">
+                    <div class="usa-checkbox">
+                        <input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again"
+                               v-on:click="setLocalStorage($event)">
+                        <label class="usa-checkbox__label" for="dont-show-again">Don't show again on this
+                            computer</label>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="formIntroFooter">
-        <div class="footer-flex">
-          <button class="usa-button usa-button--outline" id="closeIntroButton" v-on:click="closeIntro">Close intro</button>
-        </div>
-        <!-- Don't show again checkbox -->
-        <div class="footer-flex">
-          <div class="usa-checkbox">
-            <input class="usa-checkbox__input" id="dont-show-again" type="checkbox" name="dont-show-again" v-on:click="setLocalStorage($event)">
-            <label class="usa-checkbox__label" for="dont-show-again">Don't show again on this computer</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="tabs" aria-label="Two tabs to allow user to toggle between basic and advanced forms.">
-    <div class="tab" aria-label="Tab for basic form. First of two tabs to allow user to toggle between basic and advanced forms.">
-      <input type="radio" id="basic-tab" name="toggle-tabs" v-model="toggleForm" value="true">
-      <label for="basic-tab" class="tab-label" v-on:click="syncAtoBForm()">Basic</label>
-      <div class="tab-panel">
-        <div class="tab-content">
-            {% include "partials/basic_form.html" %}
-        </div>
-      </div>
+        <div class="tabs" aria-label="Two tabs to allow user to toggle between basic and advanced forms.">
+            <div class="tab"
+                 aria-label="Tab for basic form. First of two tabs to allow user to toggle between basic and advanced forms.">
+                <input type="radio" id="basic-tab" name="toggle-tabs" v-model="toggleForm" value="true">
+                <label for="basic-tab" class="tab-label" v-on:click="syncAtoBForm()">Basic</label>
+                <div class="tab-panel">
+                    <div class="tab-content">
+                        {% include "partials/basic_form.html" %}
+                    </div>
+                </div>
 
-    <div class="tab" aria-label="Tab for advanced form. Two of two tabs to allow user to toggle between basic and advanced forms.">
-      <input type="radio" id="advanced-tab" name="toggle-tabs" v-model="toggleForm" value="false">
-      <label for="advanced-tab" class="tab-label" v-on:click="syncBtoAForm()">Advanced</label>
-      <div class="tab-panel">
-        <div class="tab-content">
-            {% include "partials/advanced_form.html" %}
+                <div class="tab"
+                     aria-label="Tab for advanced form. Two of two tabs to allow user to toggle between basic and advanced forms.">
+                    <input type="radio" id="advanced-tab" name="toggle-tabs" v-model="toggleForm" value="false">
+                    <label for="advanced-tab" class="tab-label" v-on:click="syncBtoAForm()">Advanced</label>
+                    <div class="tab-panel">
+                        <div class="tab-content">
+                            {% include "partials/advanced_form.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  </div>
-  </div>
 {% endblock %}
 
 {% block body_page_script %}
-  <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
+    <script type="text/javascript" src="{{ 'scripts/portal.js' | asset_url }}"></script>
 {% endblock %}
