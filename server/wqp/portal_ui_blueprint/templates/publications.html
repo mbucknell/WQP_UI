@@ -7,15 +7,15 @@
 {% block page_header_title %}Publications{% endblock %}
 
 {% block page_content %}
-	<div class="page-sidebar markdown-page">
+    <div class="page-sidebar markdown-page">
 
-		<nav aria-label="Secondary navigation," class="sidebar">
-			{{ md_content.toc|safe }}
-		</nav>
-		
-		<div class="page-sidebar-content">
-			<h1>Publications</h1>
-			{{ md_content.body|safe }}
-		</div>
-	</div>
+        <nav aria-label="Secondary navigation," class="sidebar">
+            {{ md_content.toc|safe }}
+        </nav>
+
+        <div class="page-sidebar-content">
+            <h1>Publications</h1>
+            {{ md_content.body|safe }}
+        </div>
+    </div>
 {% endblock %}
