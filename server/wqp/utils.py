@@ -399,7 +399,7 @@ def get_summary_dataframe(period_of_record_summary_data):
         of 'characteristicType' rows of the same type.
     3) Uses the min function to keep only one row in each characteristic group.
     4) Cleans up by dropping the unneeded 'YearSummarized' column.
-    :param period_of_record_summary_data:
+    :param period_of_record_summary_data: a Pandas DataFrame containing period of record information for data groups
     :return: Pandas Dataframe grouped by CharacteristicType with columns for start and end of period of record
     """
     period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
