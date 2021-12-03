@@ -3,6 +3,7 @@
 }
 
 .wqp-multiselect {
+  @include u-margin-bottom('105');
   .multiselect__tags {
     @include u-border-width('1px');
     @include u-border-color('gray-cool-60');
@@ -74,12 +75,17 @@
 
 #params {
   .wqp-textarea {
-    @include u-height(8);
-    width: 100%;
+    @include u-height(10);
+    @include u-maxw('full');
+    @include u-margin-bottom('105');
   }
 
   .usa-input {
     @include u-margin-top(0);
+    @include u-margin-bottom('105');
+  }
+  .usa-fieldset {
+    @include u-margin-bottom('205');
   }
 
   #useMyLocation {
@@ -88,6 +94,10 @@
 
   .advanced-section {
     @include u-padding-top('205');
+  }
+
+  .usa-accordion__content {
+    overflow: visible;
   }
 
   .advanced-form-input-section {
@@ -100,12 +110,14 @@
     @include at-media('tablet') {
       @include grid-col(3);
     }
+    @include u-margin-bottom('105');
   }
   .advanced-filter-column {
     @include grid-col(12);
     @include at-media('tablet') {
       @include grid-col(4);
     }
+    @include u-margin-bottom('105');
   }
 
   #download-sorted-data-div {
@@ -116,34 +128,38 @@
     @include u-margin-bottom('205');
   }
 
-  #download-box-input-div {
+  #download-div {
     @include grid-row;
     @include grid-gap;
+
     #data-type-parameters-div {
       @include at-media('tablet') {
         @include grid-col(3);
       }
     }
+
     #download-data-kind-box {
       @include at-media('tablet') {
         @include grid-col(9);
       }
     }
+  }
+  #query-box-bold {
+    font-weight: bold;
+  }
 
-    #query-box-bold {
-      font-weight: bold;
-    }
+  #query-box-muted {
+    @include u-color('gray-60')
+  }
+  #current-url-textarea {
+    @include u-margin-bottom('105');
+  }
 
-    #query-box-muted {
-      @include u-color('gray-60')
-    }
-    #current-url-textarea {
-      @include u-margin-bottom('105');
-    }
-
-    .share-container, #query-box-text {
-      width: 100%;
-      @include u-padding-top('105');
-    }
+  .share-container, #query-box-text {
+    @include u-width('full');
+    @include u-padding-top('105');
+  }
+  #advanced-form-buttons {
+    @include u-margin-bottom('205');
   }
 }

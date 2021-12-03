@@ -59,87 +59,85 @@
 
 <!-- Main App Header -->
 <div class="usa-overlay"></div>
-<header class="usa-header usa-header--basic" id="main-header">
+<header class="usa-header usa-header--basic">
     <div class="usa-nav-container">
         <div class="usa-navbar">
-            <div class="custom-nav-branding">
-                <a href="/" title="Home" aria-label="Home">
-                    <img src="{{ 'img/NWQMC.png' | asset_url }}" width="56px" height="76px"
+
+            <div class="usa-logo">
+                <img src="{{ 'img/NWQMC.png' | asset_url }}"
                          alt="National Water Quality Monitoring Council"/>
-                </a>
-                <em><a href="/wqp" title="Home" aria-label="Home">NATIONAL WATER QUALITY MONITORING COUNCIL</a></em>
+                <em class="usa-logo__text">
+                    NATIONAL WATER QUALITY MONITORING COUNCIL
+                </em>
             </div>
             <button class="usa-menu-btn">Menu</button>
         </div>
 
         <!-- Add .usa-current on active usa-nav__link element  -->
-        <nav id="main-menus" aria-label="Primary navigation" class="usa-nav">
+        <nav aria-label="Primary navigation" class="usa-nav">
             <button class="usa-nav__close"><img src="{{ 'img/close.svg' | asset_url }}" role="img" alt="close"></button>
             <ul class="usa-nav__primary usa-accordion">
-
                 <li class="usa-nav__primary-item">
-                    <a class="usa-nav__link" href="{{ url_for('portal_ui.home-canonical') }}">Home</a>
+                    <a href="{{ url_for('portal_ui.home-canonical') }}" class="usa-nav__link">
+                        Home
+                    </a>
                 </li>
-
                 <li class="usa-nav__primary-item">
-                    <div class="header-menu-item">
-                        <button class="usa-accordion__button usa-nav__link" aria-expanded="false"
-                                aria-controls="basic-nav-section-one">
-                            <span>Explore WQP Sites</span>
-                        </button>
-                    </div>
-                    <ul id="basic-nav-section-one" class="usa-nav__submenu">
+                    <button class="usa-accordion__button usa-nav__link" aria-expanded="false"
+                            aria-controls="explore-wqp-sites-menu">
+                        <span>Explore WQP Sites</span>
+                    </button>
+                    <ul id="explore-wqp-sites-menu" class="usa-nav__submenu">
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.uri_provider', provider_id = 'NWIS') }}">NWIS</a>
+                            <a href="{{ url_for('portal_ui.uri_provider', provider_id = 'NWIS') }}"> NWIS </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STEWARDS') }}">STEWARDS</a>
+                            <a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STEWARDS') }}"> STEWARDS </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STORET') }}">WQX</a>
+                            <a href="{{ url_for('portal_ui.uri_provider', provider_id = 'STORET') }}">WQX </a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="usa-nav__primary-item">
                     <button class="usa-accordion__button usa-nav__link" aria-expanded="false"
-                            aria-controls="basic-nav-section-two">
-                        <span>Help & About</span>
+                            aria-controls="help-menu">
+                        <span> Help & About </span>
                     </button>
-                    <ul id="basic-nav-section-two" class="usa-nav__submenu">
+                    <ul id="help-menu" class="usa-nav__submenu">
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.wqp_description') }}">What is the WQP?</a>
+                            <a href="{{ url_for('portal_ui.wqp_description') }}"> What is the WQP? </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.orgs') }}">Contributing Organizations</a>
+                            <a href="{{ url_for('portal_ui.orgs') }}"> Contributing Organizations </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.portal_userguide') }}">User Guide</a>
+                            <a href="{{ url_for('portal_ui.portal_userguide') }}"> User Guide </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.webservices_documentation') }}">Web Services Guide</a>
+                            <a href="{{ url_for('portal_ui.webservices_documentation') }}"> Web Services Guide </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.faqs') }}">FAQs</a>
+                            <a href="{{ url_for('portal_ui.faqs') }}"> FAQs </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.upload_data') }}">Upload Data</a>
+                            <a href="{{ url_for('portal_ui.upload_data') }}"> Upload Data</a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.apps_using_portal') }}">Applications using the WQP</a>
+                            <a href="{{ url_for('portal_ui.apps_using_portal') }}"> Applications using the WQP </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.other_portal_links') }}">Other Water Quality Portals</a>
+                            <a href="{{ url_for('portal_ui.other_portal_links') }}"> Other Water Quality Portals </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.publications') }}">Publications</a>
+                            <a href="{{ url_for('portal_ui.publications') }}"> Publications </a>
                         </li>
                         <li class="usa-nav__submenu-item">
-                            <a href="{{ url_for('portal_ui.contact_us') }}">Contact Us</a>
+                            <a href="{{ url_for('portal_ui.contact_us') }}"> Contact Us</a>
                         </li>
                     </ul>
                 </li>
-
             </ul>
         </nav>
     </div>
