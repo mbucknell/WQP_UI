@@ -3,7 +3,8 @@
 {% block title %}{{ super () }} Station Endpoint{% endblock %}
 
 {% block page_content %}
-    <a href="{{ url_for('portal_ui.home') }}">WQP Home</a> > <a href="{{ url_for('portal_ui.uri_base') }}">Providers</a>
+    <a href="{{ url_for('portal_ui.home-canonical') }}">WQP Home</a>&nbsp;>&nbsp;
+    <a href="{{ url_for('portal_ui.uri_base') }}">Providers</a>
     <h1>Water Quality Portal Data Providers</h1>
 
     <p>Learn more about Water Quality Portal Data Providers <a href="{{ url_for('portal_ui.wqp_description') }}">here</a>.</p>
