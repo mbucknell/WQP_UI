@@ -2,7 +2,6 @@
 </template>
 
 <script>
-import has from 'lodash/has';
 import last from 'lodash/last';
 import union from 'lodash/union';
 import map from 'lodash/map';
