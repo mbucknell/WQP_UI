@@ -1,14 +1,9 @@
 
-from ntpath import basename
-import pandas as pd
-import os
-import tarfile
-import time
-
 from bs4 import BeautifulSoup
 from flask import request, make_response
 import markdown
 from markdown.extensions.toc import TocExtension
+import pandas as pd
 
 from . import app, session
 
@@ -26,21 +21,6 @@ def create_request_resp_log_msg(response):
     msg = 'Status Code: {0}, URL: {1}, Response headers: {2}'.format(response.status_code,
                                                                      response.url,
                                                                      response.headers)
-    return msg
-
-
-def create_redis_log_msg(redis_host, redis_port, db_number):
-    """
-    Generate a logging statement for connections to redis.
-
-    :param redis_host: name of the redis host
-    :param redis_port: redis port number
-    :param db_number: redis database number
-    :return: a string that can be used in a logging statement
-    :rtype: str
-
-    """
-    msg = 'Connecting to Redis database {0} on {1}:{2}.'.format(db_number, redis_host, redis_port)
     return msg
 
 
@@ -282,102 +262,6 @@ def retrieve_site(provider_id, organization_id, site_id):
         app.logger.warning(msg)
         site = None
     return site
-
-
-def generate_redis_db_number(provider):
-    """
-    :param provider: a WQP data provider
-    :return: a database number to assign for redis to allow for cache clearing
-    """
-    # set a default
-    redis_db_number = 0
-    if provider == 'NWIS':
-        redis_db_number = 1
-    elif provider == 'STORET':
-        redis_db_number = 2
-    elif provider == 'STEWARDS':
-        redis_db_number = 3
-    elif provider == 'BIODATA':
-        redis_db_number = 4
-    return redis_db_number
-
-
-def tsv_dict_generator(tsv_iter_lines):
-    """
-    :param tsv_iter_lines: Generator which yields a line for each data line in a tsv.
-    :yield: list of dictionaries. If a line's column count does not match the header, an empty dictionary is
-        returned. Otherwise the dictionary representing the line is returned using the headers as keys
-    """
-
-    header_line = next(tsv_iter_lines)
-    headers = header_line.split('\t')
-    column_count = len(headers)
-
-    for line in tsv_iter_lines:
-        data_row = line.split('\t')
-        if len(data_row) == column_count:
-            data = dict(zip(headers, data_row))
-        else:
-            data = {}
-        yield data
-
-
-def get_site_key(provider_id, organization_id, site_id):
-    """
-    :return: String - Key that can be used to uniquely identify a site
-    """
-
-    return '_'.join(['sites', provider_id, organization_id, site_id])
-
-
-def list_directory_contents(directory):
-    """
-    List of the contents of a directory
-    with their full paths.
-
-    :param str directory: path to a directory
-    :return: fullpaths to the content of the directory
-    :rtype: list
-
-    """
-    contents = os.listdir(directory)
-    fullpaths = [os.path.join(directory, content) for content in contents]
-    return fullpaths
-
-
-def create_targz(archive_name, archive_contents):
-    """
-    Given a list of files add those to a tar.gz.
-
-    :param str archive_name: name of the tar.gz archive
-    :param list archive_contents: list of contents for the archive
-
-    """
-    with tarfile.open(archive_name, 'w:gz') as tar:
-        for archive_content in archive_contents:
-            alternate_name = basename(archive_content)
-            tar.add(archive_content, alternate_name)
-    # clear the log files contents
-    # if the file is deleted, it is not recreated until
-    # wsgi restarts, so truncating seems more effective
-    for log_file in archive_contents:
-        with open(log_file, 'r+') as f:
-            f.truncate()
-
-
-def delete_old_files(files):
-    """
-    Delete files older than the retention time in days.
-
-    :param list files: list of files -- can either be absolute or relative paths
-
-    """
-    current_time = time.time()
-    for f in files:
-        last_mod = os.stat(f).st_mtime
-        days_since_last_mod = float((current_time-last_mod)) / 86400
-        if days_since_last_mod > app.config.get('LOG_RETENTION', 30):
-            os.remove(f)
 
 
 def get_summary_with_pandas_package(url):

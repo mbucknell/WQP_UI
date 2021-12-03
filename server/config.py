@@ -66,20 +66,6 @@ GA_TRACKING_CODE = os.environ.get('GA_TRACKING_CODE', '')
 # or set NLDI_DISABLED in the environment.
 NLDI_ENABLED = 'NLDI_DISABLED' not in os.environ
 
-# Set REDIS_CONFIG if it exists
-# Should be of form: db:password@host:port
-REDIS_CONFIG = os.environ.get('REDIS_CONFIG')
-if REDIS_CONFIG:
-    groups = re.search(r'(\d+):([^\/.]+?)@(.+):(\d+)', REDIS_CONFIG).groups()
-    REDIS_CONFIG = {
-        'db': groups[0],
-        'password': groups[1],
-        'host': groups[2],
-        'port': groups[3]
-    }
-
-# Set the default cache timeout for wqp http caches
-CACHE_TIMEOUT = int(os.environ.get('CACHE_TIMEOUT')) if 'CACHE_TIMEOUT' in os.environ else None
 
 # For robots.txt
 ROBOTS_WELCOME = 'ROBOTS_WELCOME' in os.environ
@@ -89,14 +75,6 @@ LOCAL_BASE_URL = os.environ.get('LOCAL_BASE_URL', '')
 
 # Allow for setting an announcement banner without having to release code
 ANNOUNCEMENT_BANNER = os.environ.get('ANNOUNCEMENT_BANNER')
-
-# Celery configuration
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
-CELERY_TIMEZONE = os.environ.get('CELERY_TIMEZONE', 'US/Central')
-
-# Sets the theme to be used for the portal_ui app pages. Valid values are 'wqp' and 'usgs'
-UI_THEME = os.environ.get('UI_THEME', 'wqp')
 
 # Logging Configuration
 LOGGING_ENABLED = 'LOGGING_DISABLED' not in os.environ

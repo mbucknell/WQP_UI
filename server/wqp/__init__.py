@@ -3,8 +3,6 @@ import json
 import os
 import sys
 
-from celery import Celery
-from celery.signals import after_setup_task_logger
 from flask import Flask, jsonify, request
 from flask_wtf.csrf import CSRFProtect
 from requests import Session
@@ -37,33 +35,12 @@ def _create_log_handler(log_dir=None, log_name=__name__):
     return log_handler
 
 
-def _custom_celery_handler(logger=None, *args, **kwargs):
-    """
-    Function to modify the logger object used by Celery.
-
-    This function should be passed to celery's logging
-    setup signals.
-
-    :param logging.logger logger: Logger object provided by a celery signal
-
-    """
-    log_dir = app.config.get('LOGGING_DIRECTORY')
-    log_level = app.config.get('LOGGING_LEVEL')
-    celery_handler = _create_log_handler(log_dir,
-                                         log_name=Celery.__name__.lower() + '_tasks')
-    logger.setLevel(log_level)
-    logger.addHandler(celery_handler)
-
-
 app = Flask(__name__.split()[0], instance_relative_config='NO_INSTANCE_CONFIG' not in os.environ)
 
 # Loads configuration information from config.py and instance/config.py
 app.config.from_object('config')
 if 'NO_INSTANCE_CONFIG' not in os.environ:
     app.config.from_pyfile('config.py')
-
-celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celery.conf.update(app.config)
 
 if app.config.get('LOGGING_ENABLED'):
     log_directory = app.config.get('LOGGING_DIRECTORY')
@@ -75,10 +52,6 @@ if app.config.get('LOGGING_ENABLED'):
     # Instead, set the level in the logger object.
     app.logger.setLevel(loglevel)
     app.logger.addHandler(handler)
-    # celery uses two loggers: one global/worker logger and a second task logger
-    # global/worker logs are handled by the celeryd process running the VM
-    # this configures a handler for the task logger:
-    after_setup_task_logger.connect(_custom_celery_handler)
 
 csrf = CSRFProtect(app)
 
