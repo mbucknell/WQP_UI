@@ -44,8 +44,6 @@ In addition are the following optional environment variables that may be used:
 WSGI_STR=<this string will be removed when using really URLS. Defaults to empty string
 GA_TRACKING_CODE=<google analytics code, defaults to empty string
 NLDI_DISABLED=<include this if NLDI feature should be disabled>
-REDIS_CONFIG=<Should be in form: db:password@host:port or absent>
-CACHE_TIMEOUT=<integer timeout or don't include to have no timeout>
 ROBOTS_WELCOME=<include if you want to allow robot crawling>
 LOCAL_BASE_URL=<only needed if url mapping requires it>
 
@@ -110,8 +108,7 @@ cd server && make watch
 cd assets && make watch
 ```
 
-See the specific project READMEs for additional information, including how to use Redis
-and Celery with local development.
+See the specific project READMEs for additional information on how to run for local development
 
 - [Flask Server README](./server/README.md)
 - [Assets README](./assets/README.md)

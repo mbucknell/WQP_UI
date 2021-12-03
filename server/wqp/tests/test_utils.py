@@ -5,33 +5,10 @@ from requests import Response
 import requests_mock
 
 from .. import app
-from ..utils import generate_redis_db_number, retrieve_lookups, retrieve_providers, retrieve_organization, \
-    retrieve_organizations, retrieve_county, retrieve_sites_geojson, retrieve_site, tsv_dict_generator, get_site_key, \
-    create_redis_log_msg, create_request_resp_log_msg, get_site_summary_data_with_period_of_record, \
+from ..utils import retrieve_lookups, retrieve_providers, retrieve_organization, \
+    retrieve_organizations, retrieve_county, retrieve_sites_geojson, retrieve_site, \
+    create_request_resp_log_msg, get_site_summary_data_with_period_of_record, \
     get_summary_dataframe
-
-
-class RedisDbNumberTestCase(TestCase):
-    """Tests for generate redis_db_number"""
-    def test_will_nwis_return_1(self):
-        """will NWIS give back a db value of 1?"""
-        assert generate_redis_db_number('NWIS') == 1
-
-    def test_will_storet_return_2(self):
-        """will STORET give back a db value of 2?"""
-        assert generate_redis_db_number('STORET') == 2
-
-    def test_will_stewards_return_3(self):
-        """will STEWARDS give back a db value of 3?"""
-        assert generate_redis_db_number('STEWARDS') == 3
-
-    def test_will_biodata_return_4(self):
-        """will BIODATA give back a db value of 4?"""
-        assert generate_redis_db_number('BIODATA') == 4
-
-    def test_will_other_return_0(self):
-        """will any other value give back a db value of 0?"""
-        assert generate_redis_db_number('RANDOM') == 0
 
 
 class RetrieveLookupsTestCase(TestCase):
@@ -375,55 +352,6 @@ class RetrieveSiteTestCase(TestCase):
         m.get(self.sites_endpoint + 'Station/search', status_code=500)
 
         self.assertIsNone(retrieve_site('NWIS', 'USGS-AZ', 'AZ003-365613111285900'))
-
-
-class TsvDictGenerator(TestCase):
-
-    def test_with_lines_with_the_same_column_count(self):
-        lines = ['H1\tH2\tH3\tH4',
-                 'L1C1\tL1C2\tL1C3\tL1C4',
-                 'L2C1\tL2C2\tL2C3\tL2C4']
-        iter_lines = (line for line in lines)
-        result = tuple(tsv_dict_generator(iter_lines))
-
-        self.assertEqual(len(result), 2)
-        self.assertEqual(result[0], {'H1': 'L1C1', 'H2': 'L1C2', 'H3': 'L1C3', 'H4': 'L1C4'})
-        self.assertEqual(result[1], {'H1': 'L2C1', 'H2': 'L2C2', 'H3': 'L2C3', 'H4': 'L2C4'})
-
-    def test_with_some_lines_with_mismatched_column_counts(self):
-        lines = ['H1\tH2\tH3\tH4',
-                 'L1C1\tL1C2\tL1C3',
-                 'L2C1\tL2C2\tL2C3\tL2C4',
-                 'L3C1\tL3C2\tL3C3\tL3C4\tL3C5',
-                 'L4C1\tL4C2\tL4C3\tL4C4']
-        iter_lines = (line for line in lines)
-        result = tuple(tsv_dict_generator(iter_lines))
-
-        self.assertEqual(len(result), 4)
-        self.assertEqual(result[0], {})
-        self.assertEqual(result[1], {'H1': 'L2C1', 'H2': 'L2C2', 'H3': 'L2C3', 'H4': 'L2C4'})
-        self.assertEqual(result[2], {})
-        self.assertEqual(result[3], {'H1': 'L4C1', 'H2': 'L4C2', 'H3': 'L4C3', 'H4': 'L4C4'})
-
-class GetSiteKey(TestCase):
-
-    def test_get_site_key(self):
-        self.assertEqual(get_site_key('P1', 'Org1', 'Site1'), 'sites_P1_Org1_Site1')
-
-
-class TestCreateRedisLogMsg(TestCase):
-
-    def setUp(self):
-        self.redis_host = 'redis.fakehost.com'
-        self.redis_port = 10089
-        self.db_number = 91
-
-    def test_message(self):
-        result = create_redis_log_msg(self.redis_host,
-                                      self.redis_port,
-                                      self.db_number)
-        expected = 'Connecting to Redis database 91 on redis.fakehost.com:10089.'
-        self.assertEqual(result, expected)
 
 
 class TestCreateRequestResponseLogMsg(TestCase):
