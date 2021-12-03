@@ -76,7 +76,7 @@
 #params {
   .wqp-textarea {
     @include u-height(10);
-    max-width: 100%;
+    @include u-maxw('full');
     @include u-margin-bottom('105');
   }
 
@@ -156,7 +156,7 @@
   }
 
   .share-container, #query-box-text {
-    width: 100%;
+    @include u-width('full');
     @include u-padding-top('105');
   }
   #advanced-form-buttons {
