@@ -37,6 +37,7 @@
         <div id="basicLocation" class="basicForm" v-show="stepOne">
             <p>Specify location parameters to describe the spatial extent of the desired dataset. Additional options are
                 available in the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
+                All fields are optional.
             </p>
             <div id="placeBasic">
                 <div class="formSection">
@@ -118,6 +119,7 @@
             <p>Specify data source, date range, and sampling filters to apply to the desired dataset. Additional options
                 are
                 available in the <span class="advancedLink" v-on:click="toggleForm = false; syncBtoAForm()">Advanced Download</span>.
+                All fields are optional.
             </p>
             <div class="formSection">
                 <label class="usa-label" for="dataSourceBasic">Data Source </label>
