@@ -8,6 +8,13 @@
           @include set_link-from-bg('blue-70');
         }
     }
+
+    .usa-nav__primary button[aria-expanded=false] {
+      @include at-media('desktop') {
+        background-image: url('./img/usa-icons-bg/expand_more--white.svg');
+      }
+    }
+
     .usa-nav__submenu-item {
       @include at-media('desktop') {
           @include set-text-from-bg('blue-70');
