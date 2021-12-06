@@ -15,7 +15,6 @@
       }
     }
 
-    .usa-
     .usa-nav__submenu-item, .usa-nav__submenu-item .usa_accordion__button span{
       @include at-media('desktop') {
           @include set-text-from-bg('blue-70');
