@@ -2,7 +2,7 @@
   @include u-bg('blue-70');
   @include u-color('gray-1');
   nav {
-    .usa-nav__link, .usa-nav__link {
+    .usa-nav__link {
         @include at-media('desktop') {
           @include set-text-from-bg('blue-70');
           @include set_link-from-bg('blue-70');
