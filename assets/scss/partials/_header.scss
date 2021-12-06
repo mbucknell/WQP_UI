@@ -2,13 +2,21 @@
   @include u-bg('blue-70');
   @include u-color('gray-1');
   nav {
-    .usa-nav__link {
+    .usa-nav__link, .usa-nav__link .usa_accordion__button span {
         @include at-media('desktop') {
           @include set-text-from-bg('blue-70');
           @include set_link-from-bg('blue-70');
         }
     }
-    .usa-nav__submenu-item {
+
+    .usa-nav__primary button[aria-expanded=false] {
+      @include at-media('desktop') {
+        background-image: url('./img/usa-icons-bg/expand_more--white.svg');
+      }
+    }
+
+    .usa-
+    .usa-nav__submenu-item, .usa-nav__submenu-item .usa_accordion__button span{
       @include at-media('desktop') {
           @include set-text-from-bg('blue-70');
           @include set_link-from-bg('blue-70');
