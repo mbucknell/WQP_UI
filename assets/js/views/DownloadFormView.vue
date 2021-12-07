@@ -188,9 +188,10 @@ export default {
       boundingBoxInputView.initialize();
 
       // Only create map for advanced form
+      let nldiView;
       if (Config.NLDI_ENABLED && this.form.getAttribute('id') === 'params') {
         let nldiClass = Vue.extend(NldiView);
-        const nldiView = new nldiClass({
+        nldiView = new nldiClass({
           propsData: {
             mapDivId: 'nldi-map',
             input: 'nldi-url'
@@ -274,6 +275,7 @@ export default {
 
           // Clears all other data on advanced form
           placeInputView.resetContainer();
+          nldiView.updateNldiInput('');
           pointLocationInputView.resetContainer();
           boundingBoxInputView.resetContainer();
           samplingParametersInputView.resetContainer();
