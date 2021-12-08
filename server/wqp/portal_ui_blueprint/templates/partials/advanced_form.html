@@ -13,6 +13,7 @@
             <div id="locationaccordion" class="usa-accordion__content usa-prose">
                 <div>
                     Specify location parameters to describe the spatial extent of the desired dataset.
+                    All fields are optional.
                 </div>
                 <div class="advanced-form-input-section">
                     <div id="place" class="advanced-location-column">
@@ -134,7 +135,10 @@
                     </button>
                 </h4>
                 <div id="filteraccordion" class="usa-accordion__content usa-prose">
-                    <div>Specify data source, date range, and sampling filters to apply to the desired dataset.</div>
+                    <div>
+                        Specify data source, date range, and sampling filters to apply to the desired dataset.
+                        All fields are optional.
+                    </div>
                     <div id="sampling" class="advanced-form-input-section">
                         <div class="advanced-filter-column">
                             <label class="usa-label" for="sampleMedia">Sample Media </label>
@@ -277,15 +281,19 @@
                                     <label class="usa-radio__label" for="xlsxAdv">MS Excel 2007+</label>
                                 </div>
                             </fieldset>
-                            <fieldset id="download-sorted-data-div" class="usa-fieldset">
-                                <input class="usa-checkbox__input" type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter"/>
-                                <label class="usa-label" for="sorted">Sort Data </label>
+                            <fieldset {% if not config.SORTING_CHECKBOX_ENABLED %}hidden{% endif %} id="download-sorted-data-div" class="usa-fieldset">
+                                <div class="usa-checkbox">
+                                    <input class="usa-checkbox__input" type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter"/>
+                                    <label class="usa-checkbox__label" for="sorted">
+                                        Sort Data
+                                    </label>
+                                </div>
                                 <div class="tooltip" :title="sortDataTooltip">
                                     <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
                                 </div>
                             </fieldset>
-                            <input type="hidden" name="zip" id="zip" value="yes"/>
                             <input type="hidden" name="sorted" id="hidden-sorted" value="no"/>
+                            <input type="hidden" name="zip" id="zip" value="yes"/>
                         </div>
                         <div id="download-data-kind-box">
                             <label class="usa-label">Data Profiles </label>
