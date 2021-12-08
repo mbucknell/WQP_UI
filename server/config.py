@@ -66,6 +66,7 @@ GA_TRACKING_CODE = os.environ.get('GA_TRACKING_CODE', '')
 # or set NLDI_DISABLED in the environment.
 NLDI_ENABLED = 'NLDI_DISABLED' not in os.environ
 
+SORT_CHECKBOX_ENABLED = False  # Setting  to False as we want this to be off except during development
 
 # For robots.txt
 ROBOTS_WELCOME = 'ROBOTS_WELCOME' in os.environ
