@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 let showAPIView = new showAPIClass({
                   propsData: {
                     container: document.querySelector('#show-queries-div'),
-                    getQueryParamArray: downloadFormView.getQueryParamArray.bind(downloadFormView),
+                    // getQueryParamArray: downloadFormView.getQueryParamArray.bind(downloadFormView),
                     // getResultType: downloadFormView.getResultType.bind(downloadFormView)
                   }
                 });

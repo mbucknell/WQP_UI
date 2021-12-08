@@ -2,7 +2,7 @@
 </template>
 
 <script>
-import { setEnabled, initializeInput, getAnchorQueryValues } from '../utils';
+import {setEnabled, initializeInput, getAnchorQueryValues, getQueryString, getQueryParamArray } from '../utils';
 import store from "../store/store";
 
 /*
@@ -18,6 +18,10 @@ export default {
   props: {
     container: {
       type: HTMLDivElement,
+      required: true
+    },
+    form: {
+      type: HTMLFormElement,
       required: true
     }
     // updateResultTypeAction: {
@@ -48,7 +52,7 @@ export default {
         if (sortedInitValues.length) {
             sorted.checked = sortedInitValues[0] === 'yes';
         }
-        let self = this;
+        const self = this;
         const mimeTypeInitValues = [];
         mimeTypeRadioboxes.forEach(function(radiobox){
             mimeTypeInitValues.push(getAnchorQueryValues(radiobox.getAttribute('name')));
@@ -80,14 +84,22 @@ export default {
             mainProfile: mainDataProfile,
             subProfile: subDataProfile
           });
+          const shareContainer = self.form.querySelector('.share-container');
+          const shareText = shareContainer.querySelector('textarea');
+          const queryParamArray = getQueryParamArray(self.form);
+          const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+          console.log('queryString ', queryString)
+          window.location.hash = `#${queryString}`;
+          shareText.value = window.location.href;
+
           // console.log('here dataprofile after', store.state.dataProfile.mainProfile)
           //       let dataProfileForURLParam = self.container.querySelector('input[name="dataProfileForURLParam"]');
                 // console.log('dataProfileForURLParam ', dataProfileForURLParam)
                 // Uncheck previously checked button
-                document.querySelectorAll('input.result-type:checked:not(#'+ node.id + ')').forEach(function(input){
-                    input.checked = false;
-                    input.removeAttribute("checked", "checked")
-                });
+                // document.querySelectorAll('input.result-type:checked:not(#'+ node.id + ')').forEach(function(input){
+                //     input.checked = false;
+                //     input.removeAttribute("checked", "checked")
+                // });
                 // If activity, biological results or narrow results desired add a hidden input to set the
                 // dataProfileForURLParam, otherwise remove it.
                 // if(dataProfileForURLParam !== null) {
@@ -159,9 +171,9 @@ export default {
     //         return null;
     //     }
     // },
-    getMimeType() {
-        return this.container.querySelector('input[name="mimeType"]:checked').value;
-    }
+    // getMimeType() {
+    //     return this.container.querySelector('input[name="mimeType"]:checked').value;
+    // }
   },
 }
 </script>

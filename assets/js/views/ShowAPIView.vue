@@ -4,8 +4,9 @@
 <script>
 import queryService from '../queryService';
 import {getWfsGetFeatureUrl} from '../leafletUtils';
-import { getQueryString, getCurlString } from '../utils';
+import { getQueryString, getCurlString, getQueryParamArray } from '../utils';
 import store from '../store/store.js';
+
 
 /*
  * Initializes the windows which show the various API calls
@@ -23,10 +24,10 @@ export default {
       type: HTMLDivElement,
       required: true
     },
-    getQueryParamArray: {
-      type: Function,
-      required: true
-    },
+    // getQueryParamArray: {
+    //   type: Function,
+    //   required: true
+    // },
     // getResultType: {
     //   type: Function,
     //   required: true
@@ -45,7 +46,7 @@ export default {
             // let resultType = this.getResultType();
           const dataProfile = store.state.dataProfile.mainProfile;
 
-            let queryParamArray = this.getQueryParamArray(this.container.closest("form"));
+            let queryParamArray = getQueryParamArray(this.container.closest("form"));
             // console.log('in showAPIView queryParamArray ', queryParamArray)
             const queryParamsWithoutCSRFToken = queryParamArray.filter( param => param.name !== 'csrf_token' );
             let apiQueryString;

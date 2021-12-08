@@ -3,6 +3,7 @@ import includes from 'lodash/includes';
 import reject from 'lodash/reject';
 import omit from 'lodash/omit';
 import pick from 'lodash/pick';
+import store from "./store/store";
 
 /*
  * Returns a query string suitable for use as a URL query string with parameters on the ignoreList
@@ -156,3 +157,96 @@ export const getCurlString = function(dataProfile, queryParamArray) {
 
     return `${curlLeadingString}'${curlDataParamsString} '${urlBase}?${params}'`;
 };
+
+
+/*
+    * Return an array of Objects with name, value, and data-multiple attributes representing the current state
+    * of the form. Empty
+    * values are removed from the array. For selects and checkbox fieldsets that can have multiple values value will be an array, otherwise
+    * it will be a string.
+    * @return {Array of Objects with name, value, and multiple properties}
+    */
+export const getQueryParamArray = function(currentForm) {
+    let stores = [
+        {name: 'countrycode', value: store.state.countrySelectedState},
+        {name: 'statecode', value: store.state.stateSelectedState},
+        {name: 'countycode', value: store.state.countySelectedState},
+        {name: 'siteType', value: store.state.sitetypeSelectedState},
+        {name: 'charGroup', value: store.state.chargroupSelectedState},
+        {name: 'sampleMedia', value: store.state.sampleMediaSelectedState},
+        {name: 'organization', value: store.state.orgIDSelectedState},
+        {name: 'project', value: store.state.projIDSelectedState},
+        {name: 'siteid', value: store.state.siteIDSelectedState},
+        {name: 'characteristicName', value: store.state.charSelectedState},
+        {name: 'assemblage', value: store.state.assemblageSelectedState},
+        {name: 'subjectTaxonomicName', value: store.state.taxSelectedState}
+    ];
+
+    // Need to eliminate form parameters within the mapping-div
+    const formInputs =
+        currentForm.querySelectorAll(
+            // 'input:not(#mapping-div input, #nldi-map input, input[name="dataProfile"]), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button)'
+            'input:not(#mapping-div input, #nldi-map input), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button)'
+
+        );
+    let queryString = [];
+    let providersArray = [];
+    formInputs.forEach(function (el, index) {
+        let multiselectArray = [];
+        if (el.type !== 'radio' || el.checked || el.className === 'datasources usa-checkbox__input') {
+
+            const value = el.value;
+            const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
+            const name = el.getAttribute('name');
+
+            if (valueIsNotEmpty && name && el.className != 'multiselect__input' && el.className != 'hidden-input') {
+                if (valueIsNotEmpty && el.className === 'datasources usa-checkbox__input' && el.checked === true) {
+                    providersArray.push(value);
+                } else if (el.className !== 'datasources usa-checkbox__input') {
+                    if(valueIsNotEmpty && name === 'dataProfile') {
+                        if(el.dataset['subprofile'] !== '') {
+                            console.log('sub profile ', el.dataset['subprofile'])
+                            queryString.push({
+                                name: name,
+                                value: el.dataset['subprofile'],
+                                multiple: el.dataset.multiple ? true : false
+                            });
+                        }
+                    } else {
+                        queryString.push({
+                            name: name,
+                            value: value,
+                            multiple: el.dataset.multiple ? true : false
+                        });
+                    }
+                }
+            }
+            if (index === formInputs.length - 1) {
+                queryString.push({
+                    name: 'providers',
+                    value: providersArray,
+                    multiple: el.dataset.multiple ? true : false
+                });
+            } else if (el.className === 'hidden-input') {
+                stores.forEach(function (state) {
+                    if (el.name === state.name) {
+                        state.value.forEach(function (stateValue) {
+                            multiselectArray.push(stateValue.id);
+                        });
+
+                        if (multiselectArray.length !== 0) {
+                            queryString.push({
+                                name: state.name,
+                                value: multiselectArray,
+                                multiple: el.dataset.multiple ? true : false
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    });
+    // console.log('in get query param array queryString ', queryString)
+    return queryString;
+}
+
