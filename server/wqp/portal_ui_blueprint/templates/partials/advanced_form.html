@@ -282,8 +282,12 @@
                                 </div>
                             </fieldset>
                             <fieldset id="download-sorted-data-div" class="usa-fieldset">
-                                <input class="usa-checkbox__input" type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter"/>
-                                <label class="usa-label" for="sorted">Sort Data </label>
+                                <div class="usa-checkbox">
+                                    <input class="usa-checkbox__input" type="checkbox" id="sorted" aria-label="Checkbox for sort data parameter"/>
+                                    <label class="usa-checkbox__label" for="sorted">
+                                        Sort Data
+                                    </label>
+                                </div>
                                 <div class="tooltip" :title="sortDataTooltip">
                                     <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
                                 </div>
