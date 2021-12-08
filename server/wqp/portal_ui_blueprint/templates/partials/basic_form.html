@@ -275,12 +275,16 @@
                     </div>
                 </fieldset>
             </div>
-            <div class="usa-checkbox basicSortDataCheckbox">
-                <input type="checkbox" id="sortDataBasic" aria-label="Checkbox for sort data parameter"/>
-                <label class="usa-label" for="sortDataBasic">Sort Data </label>
-                <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span
-                        class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
-            </div>
+            <fieldset {% if not config.SORTING_CHECKBOX_ENABLED %}hidden{% endif %} class="usa-fieldset">
+                <div class="usa-checkbox basicSortDataCheckbox">
+                    <input class=usa-checkbox__input type="checkbox" id="sortDataBasic" />
+                    <label class="usa-checkbox__label" for="sortDataBasic">Sort Data </label>
+                    <div class="tooltip" :title="sortDataTooltip" class="control-label" for="control-label"><span
+                            class="tooltipIcon"><img src="{{ 'img/info.svg' | asset_url }}" alt="info"/></span></div>
+                </div>
+            </fieldset>
+            <input type="hidden" name="sorted" id="hidden-sorted" value="no"/>
+            <input type="hidden" name="zip" id="zip" value="yes"/>
             <div class="menu-buttons">
                 <button class="clear-form usa-button usa-button--outline" v-on:click="onStartOver()" id="startOver"
                         type="button">Start over
