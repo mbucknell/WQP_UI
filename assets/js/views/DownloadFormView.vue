@@ -348,8 +348,6 @@ export default {
       }
       // Set up the Download button
       form.querySelector(buttonSelector).onclick = (event) => {
-        // const fileFormat = this.dataDetailsView.getMimeType();
-        // const resultType = this.dataDetailsView.getResultType();
         const fileFormat = store.state.mimeType;
         const dataProfile = store.state.dataProfile.mainProfile;
         const queryParamArray = getQueryParamArray(form);
@@ -359,7 +357,6 @@ export default {
           window._gaq.push([
             '_trackEvent',
             'Portal Page',
-            // self.dataDetailsView.getResultType() + 'Download',
             `${dataProfile}Download`,
             queryString,
             parseInt(totalCount)]);
