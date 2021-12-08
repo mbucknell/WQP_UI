@@ -2,19 +2,8 @@
 </template>
 
 <script>
-import { setEnabled, initializeInput, getAnchorQueryValues } from '../utils';
-
-/*
- * Manages the data detail inputs view
- * @param {Object} options
- *      @prop {NodeList} $container - The div where the data detail inputs are contained
- *      @func updateResultTypeAction - called whenever the result-type radio buttons are changed
- *          @param {String} resultType - the checked radio button's value
- * @return {Object}
- *      @func initialize
- *      @func getResultType
- *      @func getMimeType
- */
+import {setEnabled, initializeInput, getAnchorQueryValues, getQueryString, getQueryParamArray } from '../utils';
+import store from "../store/store";
 
 export default {
   name: "DataDetailsView",
@@ -23,8 +12,8 @@ export default {
       type: HTMLDivElement,
       required: true
     },
-    updateResultTypeAction: {
-      type: Function,
+    form: {
+      type: HTMLFormElement,
       required: true
     }
   },
@@ -33,21 +22,17 @@ export default {
      * Initializes the widgets and sets up the DOM event handlers.
      */
     initialize() {
-        let site = this.container.querySelector('#sites');
-        let biosamples = this.container.querySelector('#biosamples');
-        let narrowResults = this.container.querySelector('#narrowsamples');
-        let activity = this.container.querySelector('#activity-input');
+      let sorted = this.container.querySelector('#sorted');
+      let hiddenSorted = this.container.querySelector('input[type="hidden"][name="sorted"]');
+      let mimeTypeRadioboxes = document.querySelectorAll('input[name="mimeType"]');
+      let dataProfileRadioButtons = document.querySelectorAll('input[name="dataProfile"]');
 
-        let sorted = this.container.querySelector('#sorted');
-        let hiddenSorted = this.container.querySelector('input[type="hidden"][name="sorted"]');
-        let mimeTypeRadioboxes = document.querySelectorAll('input[name="mimeType"]');
-        let resultTypeRadioboxes = document.querySelectorAll('input.result-type');
         initializeInput(hiddenSorted);
         const sortedInitValues = getAnchorQueryValues(hiddenSorted.getAttribute('name'));
         if (sortedInitValues.length) {
             sorted.checked = sortedInitValues[0] === 'yes';
         }
-        let self = this;
+        const self = this;
         const mimeTypeInitValues = [];
         mimeTypeRadioboxes.forEach(function(radiobox){
             mimeTypeInitValues.push(getAnchorQueryValues(radiobox.getAttribute('name')));
@@ -59,50 +44,30 @@ export default {
             }
         });
 
-        mimeTypeRadioboxes.forEach(function(radiobox){
-            radiobox.onclick = () => {
-                self.updateResultTypeAction(self.getResultType());
+        mimeTypeRadioboxes.forEach(function(radioButton) {
+          radioButton.onclick = () => {
+              store.commit('updateMimeType', radioButton.value);
             }
         });
 
-        resultTypeRadioboxes.forEach(function(radiobox) {
-            radiobox.onchange = (event) => {
-                const node = event.currentTarget;
-                const resultType = document.querySelector('#' + node.id).value;
-                let dataProfile = self.container.querySelector('input[name="dataProfile"]');
-                // Uncheck previously checked button
-                document.querySelectorAll('input.result-type:checked:not(#'+ node.id + ')').forEach(function(input){
-                    input.checked = false;
-                    input.removeAttribute("checked", "checked")
-                });
-                // If activity, biological results or narrow results desired add a hidden input to set the
-                // dataProfile, otherwise remove it.
-                if(dataProfile !== null){
-                    dataProfile.remove();
-                }
-                if (biosamples.checked) {
-                    let newInput = document.createElement("input");
-                    newInput.type = "hidden";
-                    newInput.value = "biological";
-                    newInput.name = "dataProfile";
-                    self.container.appendChild(newInput);
-                } else if (narrowResults.checked){
-                    let newInput = document.createElement("input");
-                    newInput.type = "hidden";
-                    newInput.value = "narrowResult";
-                    newInput.name = "dataProfile";
-                    self.container.appendChild(newInput);
-                } else if (activity.checked) {
-                    let newInput = document.createElement("input");
-                    newInput.type = "hidden";
-                    newInput.value = "activityAll";
-                    newInput.name = "dataProfile";
-                    self.container.appendChild(newInput);
-                }
+      dataProfileRadioButtons.forEach(function(radioButton) {
+        radioButton.onchange = (event) => {
+          const node = event.currentTarget;
+          const mainDataProfile = document.querySelector('#' + node.id).value;
+          const subDataProfile = document.querySelector('#' + node.id).dataset['subprofile'];
+          store.commit('updateDataProfile', {
+            mainProfile: mainDataProfile,
+            subProfile: subDataProfile
+          });
 
-                self.updateResultTypeAction(resultType);
-            };
-        })
+          const shareContainer = self.form.querySelector('.share-container');
+          const shareText = shareContainer.querySelector('textarea');
+          const queryParamArray = getQueryParamArray(self.form);
+          const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+          window.location.hash = `#${queryString}`;
+          shareText.value = window.location.href;
+        };
+    })
 
         sorted.onchange = function () {
             const val = sorted.checked ? 'yes' : 'no';
@@ -116,6 +81,14 @@ export default {
             }
         };
     },
+    setUrlsInShareSection(form) {
+      const shareContainer = form.querySelector('.share-container');
+      const shareText = shareContainer.querySelector('textarea');
+      const queryParamArray = getQueryParamArray(form);
+      const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+      window.location.hash = `#${queryString}`;
+      shareText.value = window.location.href;
+    },
     resetContainer() {
         let inputs = this.container.querySelectorAll('input[name], select[name], textarea[name], button[name]');
 
@@ -125,24 +98,17 @@ export default {
         document.querySelector('#csv').checked = true;
         document.querySelector('#sorted').checked = false;
         document.querySelector('#hidden-sorted').value = '';
-        if(document.querySelector('input[name="dataProfile"]') !== null){
-            document.querySelector('input[name="dataProfile"]').remove();
-        }
+        store.commit('updateMimeType', 'csv');
+        store.commit('updateDataProfile', {
+          mainProfile: 'Station',
+          subProfile: ''
+        });
+      this.setUrlsInShareSection(this.form);
         setEnabled(document.querySelector('input[name="mimeType"]'), true);
         inputs.forEach(function(input){
             input.dispatchEvent(new Event('change'));
         });
-    },
-    getResultType() {
-        if (document.querySelector('input.result-type:checked') !== null) {
-            return document.querySelector('input.result-type:checked').value;
-        } else {
-            return null;
-        }
-    },
-    getMimeType() {
-        return this.container.querySelector('input[name="mimeType"]:checked').value;
     }
-  },
+  }
 }
 </script>

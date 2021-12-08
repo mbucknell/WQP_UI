@@ -28,7 +28,12 @@ export default new Vuex.Store({
     assemblageSelectedState: [],
     assemblageOptionsState: [],
     taxSelectedState: [],
-    taxOptionsState: {}
+    taxOptionsState: {},
+    dataProfile: {
+      mainProfile: 'Station',
+      subProfile: 'none'
+    },
+    mimeType: 'csv'
   },
   mutations: {
     getCountryState(state, selected) {
@@ -103,6 +108,12 @@ export default new Vuex.Store({
     getTaxOptionsState(state, options) {
         state.taxOptionsState = options;
     },
+    updateDataProfile(state, newDataProfile) {
+      state.dataProfile = newDataProfile
+    },
+    updateMimeType(state, newMimeType) {
+      state.mimeType = newMimeType
+    }
   },
   getters: {
     countrySelectedState: (state) => state.countrySelectedState,
@@ -128,6 +139,8 @@ export default new Vuex.Store({
     assemblageSelectedState: (state) => state.assemblageSelectedState,
     assemblageOptionsState: (state) => state.assemblageOptionsState,
     taxSelectedState: (state) => state.taxSelectedState,
-    taxOptionsState: (state) => state.taxOptionsState
+    taxOptionsState: (state) => state.taxOptionsState,
+    dataProfile: (state) => state.dataProfile,
+    mimeType: (state) => state.mimeType
   }
 })

@@ -82,24 +82,24 @@ export default {
             document.getElementById('closeDownloadModal').remove();
         }
     },
-    updateProgress(counts, resultType, fileFormat, continueFnc) {
+    updateProgress(counts, dataProfile, fileFormat, continueFnc) {
         let elements = this.getFormElements();
-        var totalCount = counts.total[RESULT_TYPE_TO_TOTAL_COUNT_PROPERTY_MAP[resultType]];
+        var totalCount = counts.total[RESULT_TYPE_TO_TOTAL_COUNT_PROPERTY_MAP[dataProfile]];
         let self = this;
 
         var getCountMessage = function () {
             // Return a string showing the site counts, formatted to be shown in html.
             var context = {
                 total: counts.total,
-                showSites: resultType === 'Station' || resultType === 'Result' || resultType === 'Activity' || resultType === 'BiologicalHabitatMetric',
-                isProjects: resultType === 'Project',
-                isProjectMonitoringLocationWeightings: resultType === 'ProjectMonitoringLocationWeighting',
-                isResults : resultType === 'Result',
-                isActivities : resultType === 'Activity',
-                isActivityMetrics : resultType === 'ActivityMetric',
-                isResultDetection: resultType === 'ResultDetectionQuantitationLimit',
-                isOrganization: resultType === 'Organization',
-                isBiologicalHabitatMetric: resultType === 'BiologicalHabitatMetric'
+                showSites: dataProfile === 'Station' || dataProfile === 'Result' || dataProfile === 'Activity' || dataProfile === 'BiologicalHabitatMetric',
+                isProjects: dataProfile === 'Project',
+                isProjectMonitoringLocationWeightings: dataProfile === 'ProjectMonitoringLocationWeighting',
+                isResults : dataProfile === 'Result',
+                isActivities : dataProfile === 'Activity',
+                isActivityMetrics : dataProfile === 'ActivityMetric',
+                isResultDetection: dataProfile === 'ResultDetectionQuantitationLimit',
+                isOrganization: dataProfile === 'Organization',
+                isBiologicalHabitatMetric: dataProfile === 'BiologicalHabitatMetric'
             };
             context.providers = map(self.providers.getIds(), function (provider) {
                 return {

@@ -302,70 +302,143 @@
                             </div>
                             <fieldset class="usa-fieldset" id="dataprofiles">
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="organization-data" type="radio"
-                                           value="Organization"/>
-                                    <label class="usa-radio__label" for="organization-data">Organization Data</label>
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="organization-data"
+                                            type="radio"
+                                           value="Organization"
+                                            name="dataProfile"
+                                            data-subprofile=""
+                                    />
+                                    <label class="usa-radio__label" for="organization-data">
+                                        Organization Data
+                                    </label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input checked="checked" type="radio" class="result-type usa-radio__input"
+                                    <input
+                                            checked="checked"
+                                            type="radio"
+                                            class="result-type usa-radio__input"
                                            id="sites"
-                                           value="Station"/>
+                                           value="Station"
+                                            name="dataProfile"
+                                            data-subprofile=""
+                                    />
                                     <label class="usa-radio__label" for="sites">Site Data Only</label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="projects" type="radio"
-                                           value="Project"/>
-                                    <label class="usa-radio__label" for="projects">Project Data</label>
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="projects"
+                                            type="radio"
+                                           value="Project"
+                                            name="dataProfile"
+                                            data-subprofile=""
+                                    />
+                                    <label class="usa-radio__label" for="projects">
+                                        Project Data
+                                    </label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="proj-mon-weight" type="radio"
-                                           value="ProjectMonitoringLocationWeighting"/>
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="proj-mon-weight"
+                                            type="radio"
+                                           value="ProjectMonitoringLocationWeighting"
+                                            name="dataProfile"
+                                            data-subprofile=""
+                                    />
                                     <label class="usa-radio__label" for="proj-mon-weight">
                                         Project Monitoring Location Weighting Data
                                     </label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="samples" type="radio"
-                                           value="Result"/>
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="samples"
+                                            type="radio"
+                                           value="Result"
+                                            name="dataProfile"
+                                            data-subprofile="resultPhysChem"
+                                    />
                                     <label class="usa-radio__label" for="samples">
                                         Sample Results (physical/chemical metadata)
                                     </label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="biosamples" type="radio"
-                                           value="Result"/>
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="biosamples"
+                                            type="radio"
+                                           value="Result"
+                                            name="dataProfile"
+                                            data-subprofile="biological"
+                                    />
                                     <label class="usa-radio__label" for="biosamples">
                                         Sample Results (biological metadata)
                                     </label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="narrowsamples" type="radio"
-                                           value="Result"/>
-                                    <label class="usa-radio__label" for="narrowsamples">Sample Results (narrow)</label>
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="narrowsamples"
+                                            type="radio"
+                                           value="Result"
+                                            name="dataProfile"
+                                            data-subprofile="narrowResult"
+                                    />
+                                    <label class="usa-radio__label" for="narrowsamples">
+                                        Sample Results (narrow)
+                                    </label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="activity-input" type="radio"
-                                           value="Activity"/>
-                                    <label class="usa-radio__label" for="activity-input">Sampling Activity</label>
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="activity-input"
+                                            type="radio"
+                                           value="Activity"
+                                            name="dataProfile"
+                                            data-subprofile="activityAll"
+                                    />
+                                    <label class="usa-radio__label" for="activity-input">
+                                        Sampling Activity
+                                    </label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="activitymetric-input" type="radio"
-                                           value="ActivityMetric"/>
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="activitymetric-input"
+                                            type="radio"
+                                           value="ActivityMetric"
+                                            name="dataProfile"
+                                            data-subprofile=""
+                                    />
                                     <label class="usa-radio__label" for="activitymetric-input">
                                         Sampling Activity Metrics
                                     </label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="resultdetection" type="radio"
-                                           value="ResultDetectionQuantitationLimit"/>
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="resultdetection"
+                                            type="radio"
+                                           value="ResultDetectionQuantitationLimit"
+                                            name="dataProfile"
+                                            data-subprofile=""
+                                    />
                                     <label class="usa-radio__label" for="resultdetection">
                                         Result Detection Quantitation Limit Data
                                     </label>
                                 </div>
                                 <div class="usa-radio">
-                                    <input class="result-type usa-radio__input" id="biologicalHabitatMetric"
+                                    <input
+                                            class="result-type usa-radio__input"
+                                            id="biologicalHabitatMetric"
                                            type="radio"
-                                           value="BiologicalHabitatMetric"/>
+                                           value="BiologicalHabitatMetric"
+                                            name="dataProfile"
+                                            data-subprofile=""
+                                    />
                                     <label class="usa-radio__label" for="biologicalHabitatMetric">
                                         Biological Habitat Metrics
                                     </label>

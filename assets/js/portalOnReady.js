@@ -202,9 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 let showAPIClass = Vue.extend(ShowAPIView);
                 let showAPIView = new showAPIClass({
                   propsData: {
-                    container: document.querySelector('#show-queries-div'),
-                    getQueryParamArray: downloadFormView.getQueryParamArray.bind(downloadFormView),
-                    getResultType: downloadFormView.getResultType.bind(downloadFormView)
+                    container: document.querySelector('#show-queries-div')
                   }
                 });
 
@@ -341,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function() {
               closeIntro() {
                 document.querySelector('#formIntro').style.display = "none";
               },
-              syncBtoAForm() {  
+              syncBtoAForm() {
                 // within
                 var basicWithin = document.querySelector('#withinBasic').value;
                 var within = document.querySelector('#within');
@@ -471,8 +469,6 @@ document.addEventListener("DOMContentLoaded", function() {
                   }
               },
               syncAtoBForm() {
-                
-                // within
                 var basicWithin = document.querySelector('#within').value;
                 var withinBasic = document.querySelector('#withinBasic');
                 withinBasic.value = basicWithin;
@@ -535,7 +531,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 let radiobuttonsAdvancedInput = radiobuttonsAdvanced.querySelectorAll('input');
                 for (const button in radiobuttonsAdvancedInput) {
                   if (radiobuttonsAdvancedInput[button].checked === true) {
-                    selectedRadio = radiobuttonsAdvancedInput[button].id    
+                    selectedRadio = radiobuttonsAdvancedInput[button].id
                     break;
                   }
                 }
@@ -584,7 +580,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 for (const button in formatbuttonsAdvancedInput) {
                   if (formatbuttonsAdvancedInput[button].checked === true) {
                     selectedFormatRadio = formatbuttonsAdvancedInput[button].id;
-                    
+
                     break;
                   }
                 }
