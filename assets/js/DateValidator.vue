@@ -18,7 +18,6 @@ export default {
         // Function takes a string value and returns an object with properties isValid indicating
         // whether the value is a valid date. If the value is invalid, an errorMessage property is
         // added to the returned object.
-
         var dateValues;
         var i;
         if (value) {

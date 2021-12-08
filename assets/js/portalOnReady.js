@@ -202,9 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 let showAPIClass = Vue.extend(ShowAPIView);
                 let showAPIView = new showAPIClass({
                   propsData: {
-                    container: document.querySelector('#show-queries-div'),
-                    // getQueryParamArray: downloadFormView.getQueryParamArray.bind(downloadFormView),
-                    // getResultType: downloadFormView.getResultType.bind(downloadFormView)
+                    container: document.querySelector('#show-queries-div')
                   }
                 });
 

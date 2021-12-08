@@ -23,15 +23,7 @@ export default {
     container: {
       type: HTMLDivElement,
       required: true
-    },
-    // getQueryParamArray: {
-    //   type: Function,
-    //   required: true
-    // },
-    // getResultType: {
-    //   type: Function,
-    //   required: true
-    // }
+    }
   },
   methods: {
     initialize() {
@@ -43,45 +35,27 @@ export default {
         let wfsText = this.container.querySelector('#getfeature-query-div textarea');
 
         const showServiceCallsHandler = () => {
-            // let resultType = this.getResultType();
           const dataProfile = store.state.dataProfile.mainProfile;
+          let queryParamArray = getQueryParamArray(this.container.closest("form"));
+          const queryParamsWithoutCSRFToken = queryParamArray.filter( param => param.name !== 'csrf_token' );
+          let apiQueryString;
+          let curlString;
 
-            let queryParamArray = getQueryParamArray(this.container.closest("form"));
-            // console.log('in showAPIView queryParamArray ', queryParamArray)
-            const queryParamsWithoutCSRFToken = queryParamArray.filter( param => param.name !== 'csrf_token' );
-            let apiQueryString;
-            let curlString;
-            // if (resultType !== null) {
-
-                // apiQueryString = queryService.getFormUrl(resultType, getQueryString(queryParamsWithoutCSRFToken));
           apiQueryString = queryService.getFormUrl(dataProfile, getQueryString(queryParamsWithoutCSRFToken));
-
           curlString = getCurlString(dataProfile, queryParamsWithoutCSRFToken);
-            // } else {
-            //   console.log('in else showServiceCallsHandler with resultType ', resultType)
-            //     apiQueryString = queryService.getFormUrl("Station", getQueryString(queryParamsWithoutCSRFToken));
-            //     curlString = getCurlString("Station", queryParamsWithoutCSRFToken);
-            // }
-
-            apiQueryDiv.style.display = 'block';
-            // if(resultType !== null) {
-            //     apiQueryTitle.innerHTML = resultType.replace(/([A-Z])/g, ' $1');
+          apiQueryDiv.style.display = 'block';
           apiQueryTitle.innerHTML = dataProfile.replace(/([A-Z])/g, ' $1');
-            // } else {
-            //     apiQueryTitle.innerHTML = 'Station';
-            // }
-            apiQueryText.innerHTML = apiQueryString;
-            curlText.innerHTML = curlString;
+          apiQueryText.innerHTML = apiQueryString;
+          curlText.innerHTML = curlString;
             
-            if (queryParamsWithoutCSRFToken.filter(param => param.name.includes('dataProfile'))){
-                let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter(param => param.name !== 'dataProfile');
-                wfsText.innerHTML = getWfsGetFeatureUrl(queryWithoutDataProfileArray);
-            } else {
-                wfsText.innerHTML =getWfsGetFeatureUrl(queryParamsWithoutCSRFToken);
-            }
-        };
+          if (queryParamsWithoutCSRFToken.filter(param => param.name.includes('dataProfile'))){
+              let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter(param => param.name !== 'dataProfile');
+              wfsText.innerHTML = getWfsGetFeatureUrl(queryWithoutDataProfileArray);
+          } else {
+              wfsText.innerHTML =getWfsGetFeatureUrl(queryParamsWithoutCSRFToken);
+          }
+      };
 
-        // Update the service calls when the
         this.showAPIViewVisible = true;
         showServiceCallsHandler();
 
@@ -91,11 +65,9 @@ export default {
             }
         };
         document.querySelector('#advanced-tab').onclick = () => {
-            // this.showAPIViewVisible;
             this.container.closest('form').dispatchEvent(new Event('change'));
         }
         document.querySelector('.advancedLink').onclick = () => {
-            // this.showAPIViewVisible;
             this.container.closest('form').dispatchEvent(new Event('change'));
         }
 

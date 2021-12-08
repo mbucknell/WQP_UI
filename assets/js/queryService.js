@@ -20,9 +20,6 @@ export default {
      *      @reject {String} - If the fetch fails, returns an error message.
      */
     fetchQueryCounts: function(dataProfile, queryParamArray, providers) {
-        // console.log('dataProfile ', dataProfile)
-        // console.log('queryParamArray ', queryParamArray)
-        // console.log('providers ', providers)
         var rejectPromise;
         var resolvePromise;
         var deferred = new Promise(function(resolve, reject){
@@ -90,12 +87,9 @@ export default {
      */
     getFormUrl: function(dataProfile, queryParams) {
         let url = Config.QUERY_URLS[dataProfile];
-        // console.log('dataProfile in getFormUrl', dataProfile)
-        // console.log('queryParams in getFormUrl', queryParams)
         if (queryParams) {
             url = `${url}?${queryParams}`;
         }
-        // console.log('final url in getFormUrl', url)
         return url;
     }
 };

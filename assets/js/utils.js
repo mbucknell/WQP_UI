@@ -15,7 +15,6 @@ import store from "./store/store";
  * @return {String} - String suitable for use as a URL query string.
  */
 export const getQueryString = function(queryParamArray, ignoreList, multiSelectDelimited) {
-    // console.log('in utils getQuery queryParamArray ', queryParamArray)
     var thisIgnoreList = ignoreList ? ignoreList : [];
     var resultArray = reject(queryParamArray, function (param) {
         return includes(thisIgnoreList, param.name);
@@ -205,7 +204,6 @@ export const getQueryParamArray = function(currentForm) {
                 } else if (el.className !== 'datasources usa-checkbox__input') {
                     if(valueIsNotEmpty && name === 'dataProfile') {
                         if(el.dataset['subprofile'] !== '') {
-                            console.log('sub profile ', el.dataset['subprofile'])
                             queryString.push({
                                 name: name,
                                 value: el.dataset['subprofile'],

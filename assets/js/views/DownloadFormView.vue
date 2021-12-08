@@ -154,23 +154,6 @@ export default {
         propsData: {
           container: this.form.querySelector('.download-box-input-div'),
           form: this.form
-          // updateResultTypeAction: (dataProfile) => {
-            // Change the 'form action' on both the basic and advanced forms everytime the 'Data Profiles'
-            // radio buttons are changed. This keeps the form action correctly selected when the basic form
-            // 'id=params-basic' is selected. This is acceptable behavior because the 'form action' attribute
-            // only accepts the URL and not the URL parameters. The URL parameters are only for the pre-download
-            // query which reports the number of database entries that will be returned. The actual data download is
-            // accomplished through the form action which sends the form data to a URL that changes depending on
-            // the 'Data Profile' selected. For example, the default form action attribute value is
-            // 'https://www.waterqualitydata.us/data/Station/search', if the user would change the radio buttons
-            // for the 'Data Profiles' to 'Project' the form action attribute value would be
-            // 'https://www.waterqualitydata.us/data/Project/search'.
-          //   const basicForm = document.querySelector('#params-basic');
-          //   const advancedForm = document.querySelector('#params');
-          //   console.log('about to set form attribute with this dataProfile ', dataProfile)
-          //   basicForm.setAttribute('action', queryService.getFormUrl(dataProfile));
-          //   advancedForm.setAttribute('action', queryService.getFormUrl(dataProfile));
-          // }
         }
       });
 
@@ -226,17 +209,15 @@ export default {
 
       const basicForm = document.querySelector('#params-basic');
       // Set up change event handler for form inputs to update the hash part of the url
-      // this.form.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
       this.form.querySelectorAll('input[name]:not([name="dataProfile"]), select[name], textarea[name], button[name]').forEach(input => {
           input.onchange = () => {
-          // console.log('in downloadview this.form ', this.form)
           const queryParamArray = getQueryParamArray(this.form);
           const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
           window.location.hash = `#${queryString}`;
           shareText.value = window.location.href;
         };
       });
-      // basicForm.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
+
       basicForm.querySelectorAll('input[name]:not([name="dataProfile"]), select[name], textarea[name], button[name]').forEach(input => {
         input.onchange = () => {
           const queryParamArray = getQueryParamArray(basicForm);
@@ -394,17 +375,14 @@ export default {
         window._gaq.push([
           '_trackEvent',
           'Portal Page',
-          // resultType + 'Count',
-            `${dataProfile}Count`,
+          `${dataProfile}Count`,
           queryString
         ]);
 
         downloadProgressDialog.show('download');
-        // queryService.fetchQueryCounts(resultType, queryParamArray, this.providers.getIds())
         queryService.fetchQueryCounts(dataProfile, queryParamArray, this.providers.getIds())
 
             .then((counts) => {
-              // downloadProgressDialog.updateProgress(counts, resultType, fileFormat, startDownload);
               downloadProgressDialog.updateProgress(counts, dataProfile, fileFormat, startDownload);
             })
             .catch((message) => {
@@ -419,102 +397,7 @@ export default {
      */
     validateDownloadForm() {
       return downloadFormController.validateDownloadForm(this.form);
-    },
-
-    // /*
-    //  * Return an array of Objects with name, value, and data-multiple attributes representing the current state
-    //  * of the form. Empty
-    //  * values are removed from the array. For selects and checkbox fieldsets that can have multiple values value will be an array, otherwise
-    //  * it will be a string.
-    //  * @return {Array of Objects with name, value, and multiple properties}
-    //  */
-    // getQueryParamArray(currentForm) {
-    //   let stores = [
-    //     {name: 'countrycode', value: store.state.countrySelectedState},
-    //     {name: 'statecode', value: store.state.stateSelectedState},
-    //     {name: 'countycode', value: store.state.countySelectedState},
-    //     {name: 'siteType', value: store.state.sitetypeSelectedState},
-    //     {name: 'charGroup', value: store.state.chargroupSelectedState},
-    //     {name: 'sampleMedia', value: store.state.sampleMediaSelectedState},
-    //     {name: 'organization', value: store.state.orgIDSelectedState},
-    //     {name: 'project', value: store.state.projIDSelectedState},
-    //     {name: 'siteid', value: store.state.siteIDSelectedState},
-    //     {name: 'characteristicName', value: store.state.charSelectedState},
-    //     {name: 'assemblage', value: store.state.assemblageSelectedState},
-    //     {name: 'subjectTaxonomicName', value: store.state.taxSelectedState}
-    //   ];
-    //
-    //   // Need to eliminate form parameters within the mapping-div
-    //   const formInputs =
-    //       currentForm.querySelectorAll(
-    //           // 'input:not(#mapping-div input, #nldi-map input, input[name="dataProfile"]), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button)'
-    //           'input:not(#mapping-div input, #nldi-map input), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button)'
-    //
-    //       );
-    //   let queryString = [];
-    //   let providersArray = [];
-    //   formInputs.forEach(function (el, index) {
-    //     let multiselectArray = [];
-    //     if (el.type !== 'radio' || el.checked || el.className === 'datasources usa-checkbox__input') {
-    //
-    //         const value = el.value;
-    //         const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
-    //         const name = el.getAttribute('name');
-    //
-    //         if (valueIsNotEmpty && name && el.className != 'multiselect__input' && el.className != 'hidden-input') {
-    //           if (valueIsNotEmpty && el.className === 'datasources usa-checkbox__input' && el.checked === true) {
-    //             providersArray.push(value);
-    //           } else if (el.className !== 'datasources usa-checkbox__input') {
-    //             if(valueIsNotEmpty && name === 'dataProfile') {
-    //               if(el.dataset['subprofile'] !== '') {
-    //                 console.log('sub profile ', el.dataset['subprofile'])
-    //                 queryString.push({
-    //                   name: name,
-    //                   value: el.dataset['subprofile'],
-    //                   multiple: el.dataset.multiple ? true : false
-    //                 });
-    //               }
-    //             } else {
-    //               queryString.push({
-    //                 name: name,
-    //                 value: value,
-    //                 multiple: el.dataset.multiple ? true : false
-    //               });
-    //             }
-    //           }
-    //         }
-    //         if (index === formInputs.length - 1) {
-    //           queryString.push({
-    //             name: 'providers',
-    //             value: providersArray,
-    //             multiple: el.dataset.multiple ? true : false
-    //           });
-    //         } else if (el.className === 'hidden-input') {
-    //           stores.forEach(function (state) {
-    //             if (el.name === state.name) {
-    //               state.value.forEach(function (stateValue) {
-    //                 multiselectArray.push(stateValue.id);
-    //               });
-    //
-    //               if (multiselectArray.length !== 0) {
-    //                 queryString.push({
-    //                   name: state.name,
-    //                   value: multiselectArray,
-    //                   multiple: el.dataset.multiple ? true : false
-    //                 });
-    //               }
-    //             }
-    //           });
-    //         }
-    //       }
-    //   });
-    //   // console.log('in get query param array queryString ', queryString)
-    //   return queryString;
-    // },
-
-    // getResultType() {
-    //   return this.dataDetailsView.getResultType();
-    // }
+    }
   }
 };
 </script>
