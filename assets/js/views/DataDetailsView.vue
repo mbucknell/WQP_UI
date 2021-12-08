@@ -84,11 +84,11 @@ export default {
             mainProfile: mainDataProfile,
             subProfile: subDataProfile
           });
+          // this.setUrlsInShareSection(this.form);
           const shareContainer = self.form.querySelector('.share-container');
           const shareText = shareContainer.querySelector('textarea');
           const queryParamArray = getQueryParamArray(self.form);
           const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
-          console.log('queryString ', queryString)
           window.location.hash = `#${queryString}`;
           shareText.value = window.location.href;
 
@@ -147,6 +147,14 @@ export default {
             }
         };
     },
+    setUrlsInShareSection(form) {
+      const shareContainer = form.querySelector('.share-container');
+      const shareText = shareContainer.querySelector('textarea');
+      const queryParamArray = getQueryParamArray(form);
+      const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+      window.location.hash = `#${queryString}`;
+      shareText.value = window.location.href;
+    },
     resetContainer() {
         let inputs = this.container.querySelectorAll('input[name], select[name], textarea[name], button[name]');
 
@@ -156,9 +164,18 @@ export default {
         document.querySelector('#csv').checked = true;
         document.querySelector('#sorted').checked = false;
         document.querySelector('#hidden-sorted').value = '';
-        if(document.querySelector('input[name="dataProfile"]') !== null){
-            document.querySelector('input[name="dataProfile"]').remove();
-        }
+        store.commit('updateMimeType', 'csv');
+        store.commit('updateDataProfile', {
+          mainProfile: 'Station',
+          subProfile: ''
+        });
+      this.setUrlsInShareSection(this.form);
+
+
+
+        // if(document.querySelector('input[name="dataProfile"]') !== null){
+        //     document.querySelector('input[name="dataProfile"]').remove();
+        // }
         setEnabled(document.querySelector('input[name="mimeType"]'), true);
         inputs.forEach(function(input){
             input.dispatchEvent(new Event('change'));
