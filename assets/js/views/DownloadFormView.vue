@@ -153,7 +153,7 @@ export default {
       this.dataDetailsView = new dataDetailsClass({
         propsData: {
           container: this.form.querySelector('.download-box-input-div'),
-          updateResultTypeAction: (resultType) => {
+          updateResultTypeAction: (dataProfile) => {
             // Change the 'form action' on both the basic and advanced forms everytime the 'Data Profiles'
             // radio buttons are changed. This keeps the form action correctly selected when the basic form
             // 'id=params-basic' is selected. This is acceptable behavior because the 'form action' attribute
@@ -166,8 +166,9 @@ export default {
             // 'https://www.waterqualitydata.us/data/Project/search'.
             const basicForm = document.querySelector('#params-basic');
             const advancedForm = document.querySelector('#params');
-            basicForm.setAttribute('action', queryService.getFormUrl(resultType));
-            advancedForm.setAttribute('action', queryService.getFormUrl(resultType));
+            console.log('about to set form attribute with this dataProfile ', dataProfile)
+            basicForm.setAttribute('action', queryService.getFormUrl(dataProfile));
+            advancedForm.setAttribute('action', queryService.getFormUrl(dataProfile));
           }
         }
       });
@@ -223,22 +224,23 @@ export default {
 
       const basicForm = document.querySelector('#params-basic');
       // Set up change event handler for form inputs to update the hash part of the url
-      this.form.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
-        input.onchange = () => {
-          const queryParamArray = this.getQueryParamArray(this.form);
-          const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
-          window.location.hash = `#${queryString}`;
-          shareText.value = window.location.href;
-        };
-      });
-      basicForm.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
-        input.onchange = () => {
-          const queryParamArray = this.getQueryParamArray(basicForm);
-          const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
-          window.location.hash = `#${queryString}`;
-          shareText.value = window.location.href;
-        };
-      });
+      // this.form.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
+      //   input.onchange = () => {
+      //     // console.log('in downloadview this.form ', this.form)
+      //     const queryParamArray = this.getQueryParamArray(this.form);
+      //     const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+      //     window.location.hash = `#${queryString}`;
+      //     shareText.value = window.location.href;
+      //   };
+      // });
+      // basicForm.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
+      //   input.onchange = () => {
+      //     const queryParamArray = this.getQueryParamArray(basicForm);
+      //     const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+      //     window.location.hash = `#${queryString}`;
+      //     shareText.value = window.location.href;
+      //   };
+      // });
 
       // Sets up clear form action for all clear search buttons
       const dataDetailsView = this.dataDetailsView;
@@ -354,7 +356,8 @@ export default {
       // Set up the Download button
       form.querySelector(buttonSelector).onclick = (event) => {
         const fileFormat = this.dataDetailsView.getMimeType();
-        const resultType = this.dataDetailsView.getResultType();
+        // const resultType = this.dataDetailsView.getResultType();
+        const dataProfile = store.state.dataProfile.mainProfile;
         const queryParamArray = this.getQueryParamArray(form);
         const queryString = decodeURIComponent(getQueryString(queryParamArray));
         const self = this;
@@ -362,7 +365,8 @@ export default {
           window._gaq.push([
             '_trackEvent',
             'Portal Page',
-            self.dataDetailsView.getResultType() + 'Download',
+            // self.dataDetailsView.getResultType() + 'Download',
+            `${dataProfile}Download`,
             queryString,
             parseInt(totalCount)]);
           form.submit();
@@ -377,14 +381,18 @@ export default {
         window._gaq.push([
           '_trackEvent',
           'Portal Page',
-          resultType + 'Count',
+          // resultType + 'Count',
+            `${dataProfile}Count`,
           queryString
         ]);
 
         downloadProgressDialog.show('download');
-        queryService.fetchQueryCounts(resultType, queryParamArray, this.providers.getIds())
+        // queryService.fetchQueryCounts(resultType, queryParamArray, this.providers.getIds())
+        queryService.fetchQueryCounts(dataProfile, queryParamArray, this.providers.getIds())
+
             .then((counts) => {
-              downloadProgressDialog.updateProgress(counts, resultType, fileFormat, startDownload);
+              // downloadProgressDialog.updateProgress(counts, resultType, fileFormat, startDownload);
+              downloadProgressDialog.updateProgress(counts, dataProfile, fileFormat, startDownload);
             })
             .catch((message) => {
               downloadProgressDialog.cancelProgress(message);
@@ -428,12 +436,12 @@ export default {
           currentForm.querySelectorAll(
               'input:not(#mapping-div input, #nldi-map input, input[name="dataProfile"]), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button)'
           );
-      let result = [];
+      let queryString = [];
       let providersArray = [];
       formInputs.forEach(function (el, index) {
         let multiselectArray = [];
-        if (el.type != 'radio' || el.checked || el.className === 'datasources usa-checkbox__input') {
-          if (el.name != 'dataProfile') {
+        if (el.type !== 'radio' || el.checked || el.className === 'datasources usa-checkbox__input') {
+          if (el.name !== 'dataProfileForURLParam') {
             const value = el.value;
             const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
             const name = el.getAttribute('name');
@@ -441,7 +449,7 @@ export default {
               if (valueIsNotEmpty && el.className === 'datasources usa-checkbox__input' && el.checked === true) {
                 providersArray.push(value);
               } else if (el.className !== 'datasources usa-checkbox__input') {
-                result.push({
+                queryString.push({
                   name: name,
                   value: value,
                   multiple: el.dataset.multiple ? true : false
@@ -449,7 +457,7 @@ export default {
               }
             }
             if (index === formInputs.length - 1) {
-              result.push({
+              queryString.push({
                 name: 'providers',
                 value: providersArray,
                 multiple: el.dataset.multiple ? true : false
@@ -462,7 +470,7 @@ export default {
                   });
 
                   if (multiselectArray.length !== 0) {
-                    result.push({
+                    queryString.push({
                       name: state.name,
                       value: multiselectArray,
                       multiple: el.dataset.multiple ? true : false
@@ -472,14 +480,19 @@ export default {
               });
             }
           }
+        } else {
+          // console.log('el.name !== dataProfileForURLParam')
+          // console.log('el.name is ', el.name)
+          // console.log('el.className ', el.className)
         }
       });
-      return result;
+      // console.log('in get query param array queryString ', queryString)
+      return queryString;
     },
 
-    getResultType() {
-      return this.dataDetailsView.getResultType();
-    }
+    // getResultType() {
+    //   return this.dataDetailsView.getResultType();
+    // }
   }
 };
 </script>

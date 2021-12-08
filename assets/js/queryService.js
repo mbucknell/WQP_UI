@@ -10,7 +10,7 @@ import { getQueryParamJson } from './utils';
 // Export an object so we can mock the functions in the test suite.
 export default {
     /*
-     * @param {String} resultType - 'Station' or 'Result'
+     * @param {String} dataProfile - 'Station' or 'Result'
      * @param {Array of Objects with name, value and multiple properties representing query parameters} queryParamArray
      * @param {Array of Strings} providers - The application's providers.
      * @return {Jquery.Promise}
@@ -19,7 +19,10 @@ export default {
      *          will contain the counts for that provider (or total)
      *      @reject {String} - If the fetch fails, returns an error message.
      */
-    fetchQueryCounts: function(resultType, queryParamArray, providers) {
+    fetchQueryCounts: function(dataProfile, queryParamArray, providers) {
+        // console.log('dataProfile ', dataProfile)
+        // console.log('queryParamArray ', queryParamArray)
+        // console.log('providers ', providers)
         var rejectPromise;
         var resolvePromise;
         var deferred = new Promise(function(resolve, reject){
@@ -35,7 +38,7 @@ export default {
             var result = numeral(countString).format('0,0');
             return result === '0' ? '0' : result;
         };
-        axios.post(Config.QUERY_URLS[resultType] + '/count?mimeType=json', countQueryJson, {})
+        axios.post(Config.QUERY_URLS[dataProfile] + '/count?mimeType=json', countQueryJson, {})
         .then(function (response) {
             let data = response.data;
             var result = {
@@ -81,16 +84,18 @@ export default {
     },
 
     /*
-     * @param {String} resultType
+     * @param {String} dataProfile
      * @param {String} queryParams - a query string
      * @returns {String} - the url and query params to download data
      */
-    getFormUrl: function(resultType, queryParams) {
-        var result = Config.QUERY_URLS[resultType];
+    getFormUrl: function(dataProfile, queryParams) {
+        let url = Config.QUERY_URLS[dataProfile];
+        // console.log('dataProfile in getFormUrl', dataProfile)
+        // console.log('queryParams in getFormUrl', queryParams)
         if (queryParams) {
-            result = result + '?' + queryParams;
+            url = `${url}?${queryParams}`;
         }
-
-        return result;
+        // console.log('final url in getFormUrl', url)
+        return url;
     }
 };

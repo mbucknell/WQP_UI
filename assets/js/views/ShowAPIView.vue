@@ -27,10 +27,10 @@ export default {
       type: Function,
       required: true
     },
-    getResultType: {
-      type: Function,
-      requried: true
-    }
+    // getResultType: {
+    //   type: Function,
+    //   required: true
+    // }
   },
   methods: {
     initialize() {
@@ -42,30 +42,38 @@ export default {
         let wfsText = this.container.querySelector('#getfeature-query-div textarea');
 
         const showServiceCallsHandler = () => {
-            let resultType = this.getResultType();
+            // let resultType = this.getResultType();
+          const dataProfile = store.state.dataProfile.mainProfile;
+
             let queryParamArray = this.getQueryParamArray(this.container.closest("form"));
+            // console.log('in showAPIView queryParamArray ', queryParamArray)
             const queryParamsWithoutCSRFToken = queryParamArray.filter( param => param.name !== 'csrf_token' );
             let apiQueryString;
             let curlString;
-            if (resultType !== null) {
-                apiQueryString = queryService.getFormUrl(resultType, getQueryString(queryParamsWithoutCSRFToken));
-                curlString = getCurlString(resultType, queryParamsWithoutCSRFToken);
-            } else {
-                apiQueryString = queryService.getFormUrl("Station", getQueryString(queryParamsWithoutCSRFToken));
-                curlString = getCurlString("Station", queryParamsWithoutCSRFToken);
-            }
+            // if (resultType !== null) {
+
+                // apiQueryString = queryService.getFormUrl(resultType, getQueryString(queryParamsWithoutCSRFToken));
+          apiQueryString = queryService.getFormUrl(dataProfile, getQueryString(queryParamsWithoutCSRFToken));
+
+          curlString = getCurlString(dataProfile, queryParamsWithoutCSRFToken);
+            // } else {
+            //   console.log('in else showServiceCallsHandler with resultType ', resultType)
+            //     apiQueryString = queryService.getFormUrl("Station", getQueryString(queryParamsWithoutCSRFToken));
+            //     curlString = getCurlString("Station", queryParamsWithoutCSRFToken);
+            // }
 
             apiQueryDiv.style.display = 'block';
-            if(resultType !== null) {
-                apiQueryTitle.innerHTML = resultType.replace(/([A-Z])/g, ' $1');
-            } else {
-                apiQueryTitle.innerHTML = 'Station';
-            }
+            // if(resultType !== null) {
+            //     apiQueryTitle.innerHTML = resultType.replace(/([A-Z])/g, ' $1');
+          apiQueryTitle.innerHTML = dataProfile.replace(/([A-Z])/g, ' $1');
+            // } else {
+            //     apiQueryTitle.innerHTML = 'Station';
+            // }
             apiQueryText.innerHTML = apiQueryString;
             curlText.innerHTML = curlString;
             
-            if (queryParamsWithoutCSRFToken.filter(param => param.name.includes('dataProfile'))){
-                let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter(param => param.name !== 'dataProfile');
+            if (queryParamsWithoutCSRFToken.filter(param => param.name.includes('dataProfileForURLParam'))){
+                let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter(param => param.name !== 'dataProfileForURLParam');
                 wfsText.innerHTML = getWfsGetFeatureUrl(queryWithoutDataProfileArray);
             } else {
                 wfsText.innerHTML =getWfsGetFeatureUrl(queryParamsWithoutCSRFToken);
@@ -73,8 +81,8 @@ export default {
         };
 
         // Update the service calls when the
-            this.showAPIViewVisible = true;
-            showServiceCallsHandler();
+        this.showAPIViewVisible = true;
+        showServiceCallsHandler();
 
         this.container.closest('form').onchange = () => {
             if (this.showAPIViewVisible) {
@@ -82,11 +90,11 @@ export default {
             }
         };
         document.querySelector('#advanced-tab').onclick = () => {
-            this.showAPIViewVisible;
+            // this.showAPIViewVisible;
             this.container.closest('form').dispatchEvent(new Event('change'));
         }
         document.querySelector('.advancedLink').onclick = () => {
-            this.showAPIViewVisible;
+            // this.showAPIViewVisible;
             this.container.closest('form').dispatchEvent(new Event('change'));
         }
 

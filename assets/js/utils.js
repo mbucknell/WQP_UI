@@ -14,6 +14,7 @@ import pick from 'lodash/pick';
  * @return {String} - String suitable for use as a URL query string.
  */
 export const getQueryString = function(queryParamArray, ignoreList, multiSelectDelimited) {
+    // console.log('in utils getQuery queryParamArray ', queryParamArray)
     var thisIgnoreList = ignoreList ? ignoreList : [];
     var resultArray = reject(queryParamArray, function (param) {
         return includes(thisIgnoreList, param.name);
@@ -135,14 +136,14 @@ export const initializeInput = function(el) {
 
 /*
  * Assembles a curl string from the user entered form values
- * @param resultType {string} The value gathered from user input on the web form.
+ * @param dataProfile {string} The value gathered from user input on the web form.
  * @param queryParamArray An array of values gathered from user input on web form.
  * @return {string} a formatted line that can be used a curl command.
  */
 
-export const getCurlString = function(resultType, queryParamArray) {
+export const getCurlString = function(dataProfile, queryParamArray) {
     let curlLeadingString = 'curl -X POST --header \'Content-Type: application/json\' --header \'Accept: application/zip';
-    let urlBase = Config.QUERY_URLS[resultType];
+    let urlBase = Config.QUERY_URLS[dataProfile];
     let queryParamJson = getQueryParamJson(queryParamArray);
     let dataParameters = omit(queryParamJson, ['mimeType', 'zip', 'sorted']);
     let queryParameters = pick(queryParamJson, ['mimeType', 'zip', 'sorted']);
