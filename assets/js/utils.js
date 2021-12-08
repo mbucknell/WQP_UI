@@ -246,7 +246,7 @@ export const getQueryParamArray = function(currentForm) {
             }
         }
     });
-    // console.log('in get query param array queryString ', queryString)
+
     return queryString;
 }
 
