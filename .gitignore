@@ -67,6 +67,8 @@ target/
 *.sublime-workspace
 .DS_Store
 
+.python-version
+
 /server/wqp/static/
 /server/instance/
 
