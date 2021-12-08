@@ -53,7 +53,8 @@ export default {
   },
   data() {
     return {
-      selectedForm: document.querySelector('#params-basic')
+      selectedForm: document.querySelector('#params-basic'),
+      container: this.form.querySelector('.download-box-input-div')
     };
   },
   methods: {
@@ -152,8 +153,8 @@ export default {
       let dataDetailsClass = Vue.extend(DataDetailsView);
       this.dataDetailsView = new dataDetailsClass({
         propsData: {
-          container: this.form.querySelector('.download-box-input-div'),
-          updateResultTypeAction: (dataProfile) => {
+          container: this.form.querySelector('.download-box-input-div')
+          // updateResultTypeAction: (dataProfile) => {
             // Change the 'form action' on both the basic and advanced forms everytime the 'Data Profiles'
             // radio buttons are changed. This keeps the form action correctly selected when the basic form
             // 'id=params-basic' is selected. This is acceptable behavior because the 'form action' attribute
@@ -164,12 +165,12 @@ export default {
             // 'https://www.waterqualitydata.us/data/Station/search', if the user would change the radio buttons
             // for the 'Data Profiles' to 'Project' the form action attribute value would be
             // 'https://www.waterqualitydata.us/data/Project/search'.
-            const basicForm = document.querySelector('#params-basic');
-            const advancedForm = document.querySelector('#params');
-            console.log('about to set form attribute with this dataProfile ', dataProfile)
-            basicForm.setAttribute('action', queryService.getFormUrl(dataProfile));
-            advancedForm.setAttribute('action', queryService.getFormUrl(dataProfile));
-          }
+          //   const basicForm = document.querySelector('#params-basic');
+          //   const advancedForm = document.querySelector('#params');
+          //   console.log('about to set form attribute with this dataProfile ', dataProfile)
+          //   basicForm.setAttribute('action', queryService.getFormUrl(dataProfile));
+          //   advancedForm.setAttribute('action', queryService.getFormUrl(dataProfile));
+          // }
         }
       });
 
@@ -224,23 +225,23 @@ export default {
 
       const basicForm = document.querySelector('#params-basic');
       // Set up change event handler for form inputs to update the hash part of the url
-      // this.form.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
-      //   input.onchange = () => {
-      //     // console.log('in downloadview this.form ', this.form)
-      //     const queryParamArray = this.getQueryParamArray(this.form);
-      //     const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
-      //     window.location.hash = `#${queryString}`;
-      //     shareText.value = window.location.href;
-      //   };
-      // });
-      // basicForm.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
-      //   input.onchange = () => {
-      //     const queryParamArray = this.getQueryParamArray(basicForm);
-      //     const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
-      //     window.location.hash = `#${queryString}`;
-      //     shareText.value = window.location.href;
-      //   };
-      // });
+      this.form.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
+        input.onchange = () => {
+          // console.log('in downloadview this.form ', this.form)
+          const queryParamArray = this.getQueryParamArray(this.form);
+          const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+          window.location.hash = `#${queryString}`;
+          shareText.value = window.location.href;
+        };
+      });
+      basicForm.querySelectorAll('input[name], select[name], textarea[name], button[name]').forEach(input => {
+        input.onchange = () => {
+          const queryParamArray = this.getQueryParamArray(basicForm);
+          const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
+          window.location.hash = `#${queryString}`;
+          shareText.value = window.location.href;
+        };
+      });
 
       // Sets up clear form action for all clear search buttons
       const dataDetailsView = this.dataDetailsView;
@@ -434,26 +435,40 @@ export default {
       // Need to eliminate form parameters within the mapping-div
       const formInputs =
           currentForm.querySelectorAll(
-              'input:not(#mapping-div input, #nldi-map input, input[name="dataProfile"]), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button)'
+              // 'input:not(#mapping-div input, #nldi-map input, input[name="dataProfile"]), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button)'
+              'input:not(#mapping-div input, #nldi-map input), textarea:not(#mapping-div textarea, #nldi-map textarea), select:not(#mapping-div select, #nldi-map select), button:not(#mapping-div button, #nldi-map button)'
+
           );
       let queryString = [];
       let providersArray = [];
       formInputs.forEach(function (el, index) {
         let multiselectArray = [];
         if (el.type !== 'radio' || el.checked || el.className === 'datasources usa-checkbox__input') {
-          if (el.name !== 'dataProfileForURLParam') {
+
             const value = el.value;
             const valueIsNotEmpty = typeof value === 'string' ? value : value.length > 0;
             const name = el.getAttribute('name');
+
             if (valueIsNotEmpty && name && el.className != 'multiselect__input' && el.className != 'hidden-input') {
               if (valueIsNotEmpty && el.className === 'datasources usa-checkbox__input' && el.checked === true) {
                 providersArray.push(value);
               } else if (el.className !== 'datasources usa-checkbox__input') {
-                queryString.push({
-                  name: name,
-                  value: value,
-                  multiple: el.dataset.multiple ? true : false
-                });
+                if(valueIsNotEmpty && name === 'dataProfile') {
+                  if(el.dataset['subprofile'] !== '') {
+                    console.log('sub profile ', el.dataset['subprofile'])
+                    queryString.push({
+                      name: name,
+                      value: el.dataset['subprofile'],
+                      multiple: el.dataset.multiple ? true : false
+                    });
+                  }
+                } else {
+                  queryString.push({
+                    name: name,
+                    value: value,
+                    multiple: el.dataset.multiple ? true : false
+                  });
+                }
               }
             }
             if (index === formInputs.length - 1) {
@@ -480,11 +495,7 @@ export default {
               });
             }
           }
-        } else {
-          // console.log('el.name !== dataProfileForURLParam')
-          // console.log('el.name is ', el.name)
-          // console.log('el.className ', el.className)
-        }
+
       });
       // console.log('in get query param array queryString ', queryString)
       return queryString;

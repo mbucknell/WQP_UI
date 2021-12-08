@@ -72,8 +72,8 @@ export default {
             apiQueryText.innerHTML = apiQueryString;
             curlText.innerHTML = curlString;
             
-            if (queryParamsWithoutCSRFToken.filter(param => param.name.includes('dataProfileForURLParam'))){
-                let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter(param => param.name !== 'dataProfileForURLParam');
+            if (queryParamsWithoutCSRFToken.filter(param => param.name.includes('dataProfile'))){
+                let queryWithoutDataProfileArray = queryParamsWithoutCSRFToken.filter(param => param.name !== 'dataProfile');
                 wfsText.innerHTML = getWfsGetFeatureUrl(queryWithoutDataProfileArray);
             } else {
                 wfsText.innerHTML =getWfsGetFeatureUrl(queryParamsWithoutCSRFToken);

@@ -19,21 +19,21 @@ export default {
     container: {
       type: HTMLDivElement,
       required: true
-    },
-    updateResultTypeAction: {
-      type: Function,
-      required: true
     }
+    // updateResultTypeAction: {
+    //   type: Function,
+    //   required: true
+    // }
   },
   methods: {
         /*
      * Initializes the widgets and sets up the DOM event handlers.
      */
     initialize() {
-        let site = this.container.querySelector('#sites');
-        let biosamples = this.container.querySelector('#biosamples');
-        let narrowResults = this.container.querySelector('#narrowsamples');
-        let activity = this.container.querySelector('#activity-input');
+        // let site = this.container.querySelector('#sites');
+        // let biosamples = this.container.querySelector('#biosamples');
+        // let narrowResults = this.container.querySelector('#narrowsamples');
+        // let activity = this.container.querySelector('#activity-input');
 
         let sorted = this.container.querySelector('#sorted');
         let hiddenSorted = this.container.querySelector('input[type="hidden"][name="sorted"]');
@@ -64,7 +64,7 @@ export default {
           radioButton.onclick = () => {
               store.commit('updateMimeType', radioButton.value);
                 // self.updateResultTypeAction(self.getResultType());
-              self.updateResultTypeAction(store.state.mimeType);
+              // self.updateResultTypeAction(store.state.mimeType);
             }
         });
 
@@ -72,17 +72,16 @@ export default {
         radioButton.onchange = (event) => {
           const node = event.currentTarget;
           const mainDataProfile = document.querySelector('#' + node.id).value;
-          const dataName = 'subprofile';
-          const subDataProfile = document.querySelector('#' + node.id).dataset[dataName];
-          console.log('dataProfile  main ', mainDataProfile)
-          console.log('dataProfile  sub ', subDataProfile)
-          console.log('here dataprofile before', store.state.dataProfile.mainProfile)
+          const subDataProfile = document.querySelector('#' + node.id).dataset['subprofile'];
+          // console.log('dataProfile  main ', mainDataProfile)
+          // console.log('dataProfile  sub ', subDataProfile)
+          // console.log('here dataprofile before', store.state.dataProfile.mainProfile)
           store.commit('updateDataProfile', {
             mainProfile: mainDataProfile,
             subProfile: subDataProfile
           });
-          console.log('here dataprofile after', store.state.dataProfile.mainProfile)
-                let dataProfileForURLParam = self.container.querySelector('input[name="dataProfileForURLParam"]');
+          // console.log('here dataprofile after', store.state.dataProfile.mainProfile)
+          //       let dataProfileForURLParam = self.container.querySelector('input[name="dataProfileForURLParam"]');
                 // console.log('dataProfileForURLParam ', dataProfileForURLParam)
                 // Uncheck previously checked button
                 document.querySelectorAll('input.result-type:checked:not(#'+ node.id + ')').forEach(function(input){
@@ -145,8 +144,8 @@ export default {
         document.querySelector('#csv').checked = true;
         document.querySelector('#sorted').checked = false;
         document.querySelector('#hidden-sorted').value = '';
-        if(document.querySelector('input[name="dataProfileForURLParam"]') !== null){
-            document.querySelector('input[name="dataProfileForURLParam"]').remove();
+        if(document.querySelector('input[name="dataProfile"]') !== null){
+            document.querySelector('input[name="dataProfile"]').remove();
         }
         setEnabled(document.querySelector('input[name="mimeType"]'), true);
         inputs.forEach(function(input){
