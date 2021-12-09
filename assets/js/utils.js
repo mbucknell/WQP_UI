@@ -202,10 +202,10 @@ export const getQueryParamArray = function(currentForm) {
                 if (valueIsNotEmpty && el.className === 'datasources usa-checkbox__input' && el.checked === true) {
                     providersArray.push(value);
                 } else if (el.className !== 'datasources usa-checkbox__input') {
-                    if(valueIsNotEmpty && name === 'dataProfile') {
+                    if(valueIsNotEmpty && name === 'dataProfileRadioButton') {
                         if(el.dataset['subprofile'] !== '') {
                             queryString.push({
-                                name: name,
+                                name: 'dataProfile',
                                 value: el.dataset['subprofile'],
                                 multiple: el.dataset.multiple ? true : false
                             });

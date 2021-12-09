@@ -25,7 +25,7 @@ export default {
       let sorted = this.container.querySelector('#sorted');
       let hiddenSorted = this.container.querySelector('input[type="hidden"][name="sorted"]');
       let mimeTypeRadioboxes = document.querySelectorAll('input[name="mimeType"]');
-      let dataProfileRadioButtons = document.querySelectorAll('input[name="dataProfile"]');
+      let dataProfileRadioButtons = document.querySelectorAll('input[name="dataProfileRadioButton"]');
 
         initializeInput(hiddenSorted);
         const sortedInitValues = getAnchorQueryValues(hiddenSorted.getAttribute('name'));
@@ -66,6 +66,20 @@ export default {
           const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
           window.location.hash = `#${queryString}`;
           shareText.value = window.location.href;
+
+          //  add or remove hidden input so that the server download will have the right params in the form
+          const hiddenDataProfile = self.container.querySelector('input[type="hidden"][name="dataProfile"]');
+          if (hiddenDataProfile) {
+              hiddenDataProfile.remove();
+          }
+          const subProfile = store.state.dataProfile.subProfile;
+          if (subProfile !== '') {
+            const hiddenDataProfileNew = document.createElement("input");
+            hiddenDataProfileNew.type = "hidden";
+            hiddenDataProfileNew.value = subProfile;
+            hiddenDataProfileNew.name = "dataProfile";
+            self.container.appendChild(hiddenDataProfileNew);
+          }
         };
     })
 
