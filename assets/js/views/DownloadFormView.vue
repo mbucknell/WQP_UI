@@ -209,7 +209,7 @@ export default {
 
       const basicForm = document.querySelector('#params-basic');
       // Set up change event handler for form inputs to update the hash part of the url
-      this.form.querySelectorAll('input[name]:not([name="dataProfile"]), select[name], textarea[name], button[name]').forEach(input => {
+      this.form.querySelectorAll('input[name]:not([name="dataProfileRadioButton"]), select[name], textarea[name], button[name]').forEach(input => {
           input.onchange = () => {
           const queryParamArray = getQueryParamArray(this.form);
           const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
@@ -218,7 +218,7 @@ export default {
         };
       });
 
-      basicForm.querySelectorAll('input[name]:not([name="dataProfile"]), select[name], textarea[name], button[name]').forEach(input => {
+      basicForm.querySelectorAll('input[name]:not([name="dataProfileRadioButton"]), select[name], textarea[name], button[name]').forEach(input => {
         input.onchange = () => {
           const queryParamArray = getQueryParamArray(basicForm);
           const queryString = getQueryString(queryParamArray, ['zip', 'csrf_token']);
