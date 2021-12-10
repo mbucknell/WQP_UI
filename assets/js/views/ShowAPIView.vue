@@ -2,9 +2,8 @@
 </template>
 
 <script>
-import queryService from '../queryService';
 import {getWfsGetFeatureUrl} from '../leafletUtils';
-import { getQueryString, getCurlString, getQueryParamArray } from '../utils';
+import { getQueryString, getCurlString, getQueryParamArray, getFormUrl } from '../utils';
 import store from '../store/store.js';
 
 
@@ -41,7 +40,7 @@ export default {
           let apiQueryString;
           let curlString;
 
-          apiQueryString = queryService.getFormUrl(dataProfile, getQueryString(queryParamsWithoutCSRFToken));
+          apiQueryString = getFormUrl(dataProfile, getQueryString(queryParamsWithoutCSRFToken));
           curlString = getCurlString(dataProfile, queryParamsWithoutCSRFToken);
           apiQueryDiv.style.display = 'block';
           apiQueryTitle.innerHTML = dataProfile.replace(/([A-Z])/g, ' $1');
