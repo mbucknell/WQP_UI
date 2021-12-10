@@ -78,18 +78,5 @@ export default {
         })
 
         return deferred;
-    },
-
-    /*
-     * @param {String} dataProfile
-     * @param {String} queryParams - a query string
-     * @returns {String} - the url and query params to download data
-     */
-    getFormUrl: function(dataProfile, queryParams) {
-        let url = Config.QUERY_URLS[dataProfile];
-        if (queryParams) {
-            url = `${url}?${queryParams}`;
-        }
-        return url;
     }
 };

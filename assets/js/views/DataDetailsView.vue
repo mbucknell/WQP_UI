@@ -2,7 +2,7 @@
 </template>
 
 <script>
-import {setEnabled, initializeInput, getAnchorQueryValues, getQueryString, getQueryParamArray } from '../utils';
+import {setEnabled, initializeInput, getAnchorQueryValues, getQueryString, getQueryParamArray, getFormUrl } from '../utils';
 import store from "../store/store";
 
 export default {
@@ -81,7 +81,18 @@ export default {
             self.container.appendChild(hiddenDataProfileNew);
           }
         };
-    })
+
+        // update the form action so that the correct dataProfile (formerly called resultType) is used.
+        // For example, the default form action attribute value is
+        // 'https://www.waterqualitydata.us/data/Station/search', if the user would change the radio buttons
+        // for the 'Data Profiles' to 'Project' the form action attribute value would be
+        // 'https://www.waterqualitydata.us/data/Project/search'.
+        const basicForm = document.querySelector('#params-basic');
+        const advancedForm = document.querySelector('#params');
+        const dataProfile = store.state.dataProfile.mainProfile;
+        basicForm.setAttribute('action', getFormUrl(dataProfile));
+        advancedForm.setAttribute('action', getFormUrl(dataProfile));
+    });
 
         sorted.onchange = function () {
             const val = sorted.checked ? 'yes' : 'no';
