@@ -52,6 +52,7 @@ export default {
 
       dataProfileRadioButtons.forEach(function(radioButton) {
         radioButton.onchange = (event) => {
+          // Get ALL the 'data profile' radio buttons (both the advanced and basic form)
           const node = event.currentTarget;
           const mainDataProfile = document.querySelector('#' + node.id).value;
           const subDataProfile = document.querySelector('#' + node.id).dataset['subprofile'];
@@ -60,6 +61,7 @@ export default {
             subProfile: subDataProfile
           });
 
+          // Update the share URLs (only show in advanced form)
           const shareContainer = self.form.querySelector('.share-container');
           const shareText = shareContainer.querySelector('textarea');
           const queryParamArray = getQueryParamArray(self.form);
@@ -80,18 +82,18 @@ export default {
             hiddenDataProfileNew.name = "dataProfile";
             self.container.appendChild(hiddenDataProfileNew);
           }
+          // update the form action so that the correct dataProfile (formerly called resultType) is used.
+          // For example, the default form action attribute value is
+          // 'https://www.waterqualitydata.us/data/Station/search', if the user would change the radio buttons
+          // for the 'Data Profiles' to 'Project' the form action attribute value would be
+          // 'https://www.waterqualitydata.us/data/Project/search'.
+          const basicForm = document.querySelector('#params-basic');
+          const advancedForm = document.querySelector('#params');
+          const dataProfile = store.state.dataProfile.mainProfile;
+          console.log('ran with dataProfile ', dataProfile)
+          basicForm.setAttribute('action', getFormUrl(dataProfile));
+          advancedForm.setAttribute('action', getFormUrl(dataProfile));
         };
-
-        // update the form action so that the correct dataProfile (formerly called resultType) is used.
-        // For example, the default form action attribute value is
-        // 'https://www.waterqualitydata.us/data/Station/search', if the user would change the radio buttons
-        // for the 'Data Profiles' to 'Project' the form action attribute value would be
-        // 'https://www.waterqualitydata.us/data/Project/search'.
-        const basicForm = document.querySelector('#params-basic');
-        const advancedForm = document.querySelector('#params');
-        const dataProfile = store.state.dataProfile.mainProfile;
-        basicForm.setAttribute('action', getFormUrl(dataProfile));
-        advancedForm.setAttribute('action', getFormUrl(dataProfile));
     });
 
         sorted.onchange = function () {
