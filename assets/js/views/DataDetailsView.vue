@@ -56,6 +56,12 @@ export default {
           const node = event.currentTarget;
           const mainDataProfile = document.querySelector('#' + node.id).value;
           const subDataProfile = document.querySelector('#' + node.id).dataset['subprofile'];
+          // Note - the mainDataProfile is used in the form action attribute value. For example,
+          // 'https://www.waterqualitydata.us/data/Station/search'. If the user changes the radio buttons
+          // for the 'Data Profiles' to 'Project' the form action attribute value would be
+          // 'https://www.waterqualitydata.us/data/Project/search'. In the form, this represented by the 'value'
+          // attribute. The mainDataProfile was previously called 'resultType' in relationship with the underlying services.
+          // The subProfile - is used to define the URL parameter 'dataProfile'. For example &dataProfile=narrowResult
           store.commit('updateDataProfile', {
             mainProfile: mainDataProfile,
             subProfile: subDataProfile
@@ -69,30 +75,33 @@ export default {
           window.location.hash = `#${queryString}`;
           shareText.value = window.location.href;
 
-          //  add or remove hidden input so that the server download will have the right params in the form
-          const hiddenDataProfile = self.container.querySelector('input[type="hidden"][name="dataProfile"]');
-          if (hiddenDataProfile) {
-              hiddenDataProfile.remove();
-          }
-          const subProfile = store.state.dataProfile.subProfile;
-          if (subProfile !== '') {
-            const hiddenDataProfileNew = document.createElement("input");
-            hiddenDataProfileNew.type = "hidden";
-            hiddenDataProfileNew.value = subProfile;
-            hiddenDataProfileNew.name = "dataProfile";
-            self.container.appendChild(hiddenDataProfileNew);
-          }
-          // update the form action so that the correct dataProfile (formerly called resultType) is used.
-          // For example, the default form action attribute value is
-          // 'https://www.waterqualitydata.us/data/Station/search', if the user would change the radio buttons
-          // for the 'Data Profiles' to 'Project' the form action attribute value would be
-          // 'https://www.waterqualitydata.us/data/Project/search'.
+          // Add or remove hidden input so that the server download will have the right params in the form
+          // Start by grabbing BOTH the basic and advanced forms
+          const formArray = [];
           const basicForm = document.querySelector('#params-basic');
           const advancedForm = document.querySelector('#params');
-          const dataProfile = store.state.dataProfile.mainProfile;
-          console.log('ran with dataProfile ', dataProfile)
-          basicForm.setAttribute('action', getFormUrl(dataProfile));
-          advancedForm.setAttribute('action', getFormUrl(dataProfile));
+          formArray.push(basicForm, advancedForm);
+          formArray.forEach((form) => {
+            // Check if there is a hidden form field for the dataProfile (or as noted above subDataProfile)
+            const hiddenProfile = form.querySelector('input[type="hidden"][name="dataProfile"]');
+            if (hiddenProfile) {
+              hiddenProfile.remove();
+            }
+            const subProfile = store.state.dataProfile.subProfile;
+            // If the form radio button is set to a value for which the 'subProfile' is not blank, add a new hidden
+            // input so that the data will be sent with the form action submission
+            if (subProfile !== '') {
+              const hiddenProfileNew = document.createElement("input");
+              hiddenProfileNew.type = "hidden";
+              hiddenProfileNew.value = subProfile;
+              hiddenProfileNew.name = "dataProfile";
+              form.appendChild(hiddenProfileNew);
+            }
+
+            // Set the form action to use the 'data profile' (called resultType in data from the service calls)
+            const dataProfile = store.state.dataProfile.mainProfile;
+            form.setAttribute('action', getFormUrl(dataProfile));
+          });
         };
     });
 
