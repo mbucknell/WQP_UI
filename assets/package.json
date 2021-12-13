@@ -85,7 +85,7 @@
   },
   "dependencies": {
     "axios": "0.24.0",
-    "esri-leaflet": "3.0.3",
+    "esri-leaflet": "3.0.4",
     "font-awesome": "4.7.0",
     "jquery": "3.5.1",
     "leaflet": "1.7.1",
