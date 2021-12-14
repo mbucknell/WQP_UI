@@ -1,13 +1,13 @@
 # docker image path in artifactory
 artifactoryPath: "wqp_ui"
 # name of the docker image
-dockerImageName: "wim_wqp_ui"
+dockerImageName: "wqp_ui"
 # type of build
 gitRepoUrl: "https://github.com/NWQMC/WQP_UI.git"
 # the Jenkins credential ID to be use when pushing commits
 gitRepoCredentialsId: "Jenkins-GitHub-Read-Write-Token"
 # name of the deploy job to trigger
-deployJobName: "wim-wqp-ui-deploy"
+deployJobName: "wqp-ui-deploy"
 # name of the project
 projectName: "iow-allgemein"
 # location of the Dockerfile
@@ -15,7 +15,7 @@ buildContext: "./server/"
 # maximum amount of RAM for running Docker containers in the service
 memory: 512
 # name of the application or service
-applicationName: "wim_wqp_ui"
+applicationName: "wqp_ui"
 # port that is exposed by your container
 containerPort: 5050
 # string parameter specifying a path that ALB should use to verify that your application is alive

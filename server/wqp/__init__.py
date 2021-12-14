@@ -9,7 +9,7 @@ from requests import Session
 from whitenoise import WhiteNoise
 
 
-__version__ = '5.25.0dev'
+__version__ = '6.0.0dev'
 
 
 def _create_log_handler(log_dir=None, log_name=__name__):
@@ -87,7 +87,7 @@ from .portal_ui_blueprint.views import portal_ui  # pylint: disable=C0413
 from .wqx.views import wqx  # pylint: disable=C0413
 from . import filters  # pylint: disable=C0413
 
-app.register_blueprint(portal_ui, url_prefix='/wqp')
+app.register_blueprint(portal_ui, url_prefix='/')
 app.register_blueprint(wqx, url_prefix='/portal/schemas')
 
 if os.getenv('CONTAINER_RUN'):
