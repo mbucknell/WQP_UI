@@ -27,7 +27,7 @@ urlRules:
   - type: forward
     conditions:
       - "/wqp/*"
-    priority: 503
+    priority: 504
 tags:
   wma:costCenter: TBD
   wma:organization: iow
