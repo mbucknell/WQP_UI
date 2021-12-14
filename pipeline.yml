@@ -9,7 +9,7 @@ gitRepoCredentialsId: "Jenkins-GitHub-Read-Write-Token"
 # name of the deploy job to trigger
 deployJobName: "wqp-ui-deploy"
 # name of the project
-projectName: "iow-allgemein"
+projectName: "wqp-external"
 # location of the Dockerfile
 buildContext: "./server/"
 # maximum amount of RAM for running Docker containers in the service
