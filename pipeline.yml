@@ -26,7 +26,7 @@ configCredentialsId: "wma-eto-eb-rsa"
 urlRules:
   - type: forward
     conditions:
-      - "/wqp/*"
+      - "/*"
     priority: 504
 tags:
   wma:costCenter: TBD
