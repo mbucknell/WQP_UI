@@ -19,7 +19,7 @@ applicationName: "wqp_ui"
 # port that is exposed by your container
 containerPort: 5050
 # string parameter specifying a path that ALB should use to verify that your application is alive
-healthCheck: "/wqp/robots.txt"
+healthCheck: "/robots.txt"
 # configuration repository paths
 configRepoPath: "wma/docker/wqp/wqp_ui"
 configCredentialsId: "wma-eto-eb-rsa"

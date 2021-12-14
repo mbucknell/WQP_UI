@@ -14,7 +14,7 @@
 * [Table 11. Sampling Activity Metrics](/server/wqp/markdownTextFiles/portal_userguide.md#table-11-sampling-activity-metrics-result-retrieval-metadata)
 * [Table 12. Result Detection Quantitation Limit Data](/server/wqp/markdownTextFiles/portal_userguide.md#table-12-result-detection-quantitation-limit-data-result-retrieval-metadata) -->
 
-[**Download all Water Quality Exchange (WQX) allowable value lists and definitions**](/server/wqp/markdownTextFiles/portal_userguide.md#water-quality-exchange-allowable-value-lists-and-definitions)
+[**Download all Water Quality Exchange (WQX) allowable value lists and definitions**](/portal_userguide/#water-quality-exchange-allowable-value-lists-and-definitions)
 
 
 The ***Water Quality Data Portal (WQP)*** provides an easy way to access data stored in three large water quality databases. Input parameters on the [form](https://www.waterqualitydata.us/portal/) include *location*, *site*, *sampling*, and *date* parameters. The WQP can return ***site information*** (locations where samples were collected), or it can return ***sample results*** (analytical data of collected samples). Any field in the form left blank will cause a search for **all** parameters in that field. 
