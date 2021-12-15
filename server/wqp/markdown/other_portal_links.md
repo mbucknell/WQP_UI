@@ -42,7 +42,7 @@ These are other sources of water quality data that the Water Quality Portal team
 
 ![Northwest Association of Networked Ocean Observing Systems (NANOOS) Logo](img/other_portal_links_image10.png)
 
-[**Northeastern Regional Association Coastal Ocean Observing System (NERACOOS)**](http://www.neracoos.org/realtime_map)
+[**Northeastern Regional Association Coastal Ocean Observing System (NERACOOS)**](https://mariners.neracoos.org/)
 
 ![Northeastern Regional Association Coastal Ocean Observing System (NERACOOS) Logo](img/other_portal_links_image11.png)
 
