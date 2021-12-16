@@ -30,10 +30,6 @@ These are other sources of water quality data that the Water Quality Portal team
 
 ![Gulf of Mexico Coastal Ocean Observing System (GCOOS) Logo](img/other_portal_links_image7.png)
 
-[**Great Lakes Observing System (GLOS)**](https://www.glos.us/data-products/)
-
-![Great Lakes Observing System (GLOS) Logo](img/other_portal_links_image8.png)
-
 [**Mid-Atlantic Regional Association Coastal Ocean Observing System (MARACOOS)**](http://maracoos.org/tools.shtml)
 
 ![Mid-Atlantic Regional Association Coastal Ocean Observing System (MARACOOS) Logo](img/other_portal_links_image9.png)
