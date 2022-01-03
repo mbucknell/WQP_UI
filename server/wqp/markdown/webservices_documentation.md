@@ -43,14 +43,23 @@ Constructing a Request:
 
 Every request starts with a base URL: the base URL will vary depending on the type of information requested:
 
+* Base URL for downloading project data:
+`https://www.waterqualitydata.us/data/Project/search?`
 * Base URL for downloading site data and associated metadata:
 `https://www.waterqualitydata.us/data/Station/search?`
 * Base URL for downloading results: 
 `https://www.waterqualitydata.us/data/Result/search?`
+* Base URL for downloading result detection quantitation limit data: 
+`https://www.waterqualitydata.us/data/ResultDetectionQuantitationLimit/search?`
 * Base URL for downloading activity data:
 `https://www.waterqualitydata.us/data/Activity/search?`
 * Base URL for downloading activity metric data:
 `https://www.waterqualitydata.us/data/ActivityMetric/search?`
+* Base URL for downloading biological metric data:
+`https://www.waterqualitydata.us/data/BiologicalMetric/search?`
+* Base URL for downloading project monitoring location weighting data:
+`https://www.waterqualitydata.us/data/ProjectMonitoringLocationWeighting/search?`
+
 
 Construct a query by concatenating the base URL with the desired parameters and arguments,as shown in ***Table 1***.  At least one parameter-argument pair must be specified. Separate multiple parameter-argument pairs with an *ampersand* ("&"). For downloads, if no file format (*mime type*) is specified, the retrieval will default to **WQX-XML format**. See the [WQP User Guide](https://www.waterqualitydata.us/portal_userguide/) for a list of elements included in the result retrievals. 
 

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## [Unreleased](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-6.0.0...master)
+### Changed
+- The User Guide has been updated with the following major changes: URL links updated as required; Tables 1 and 2 updated with most recent Location and Filter options; Biological filtering options text updated.
+- Web services guide updated with recently added Base URLs for downloading data.
+- Updated FAQs.
 
 ## [6.0.0](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.24.0...WQP_UI-6.0.0) - 2021-12-16
 This was a complete redesign of the front end UI look. Major changes are listed below.

@@ -198,7 +198,7 @@ Small differences in naming may cause chemically identical characteristics to be
 | **Comma-separated** | Output format is comma-separated columns.                                                                                                                                                                                                                                                      |
 | **Tab-separated**   | Output format is tab-separated columns.                                                                                                                                                                                                                                                        |
 | **MS Excel**        | Output format is a .xlsx file compatible with MS Excel 2007 and greater(Excel 2003 and earlier may be able to use a helper program to open the file) . Excel 2007 and later have a limit of 1,048,576 rows. If your download file exceeds this limit, only the first 1,048,576 rows will open. |
-| **KML**             | Output format is Keyhole Markup Language (KML) compatible with Google Earth and other GIS tools. This option is not available for the results web services tool.                                                                                                                                         |
+                                       |
 
 </details>
 
