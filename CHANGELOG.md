@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Web services guide updated with recently added Base URLs for downloading data.
 - Updated FAQs.
 
+### Fixed
+- The characteristic group selection now works correctly and sets the value of the "characteristicType" query parameter.
+
 ## [6.0.0](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-5.24.0...WQP_UI-6.0.0) - 2021-12-16
 This was a complete redesign of the front end UI look. Major changes are listed below.
 

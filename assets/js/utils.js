@@ -171,7 +171,7 @@ export const getQueryParamArray = function(currentForm) {
         {name: 'statecode', value: store.state.stateSelectedState},
         {name: 'countycode', value: store.state.countySelectedState},
         {name: 'siteType', value: store.state.sitetypeSelectedState},
-        {name: 'charGroup', value: store.state.chargroupSelectedState},
+        {name: 'characteristicType', value: store.state.chargroupSelectedState},
         {name: 'sampleMedia', value: store.state.sampleMediaSelectedState},
         {name: 'organization', value: store.state.orgIDSelectedState},
         {name: 'project', value: store.state.projIDSelectedState},

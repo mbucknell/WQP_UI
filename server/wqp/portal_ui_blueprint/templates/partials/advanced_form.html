@@ -150,7 +150,11 @@
                             <div class="tooltip" :title="charGroupTooltip" >
                                 <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
                             </div>
-                            <Multiselectchargroup class="wqp-multiselect" id="characteristicType" name="charGroup"></Multiselectchargroup>
+                            <Multiselectchargroup
+                                    class="wqp-multiselect"
+                                    id="characteristicType"
+                                    name="characteristicType">
+                            </Multiselectchargroup>
                             <label class="usa-label" for="characteristicName">Characteristics </label>
                             <div class="tooltip" :title="characteristicsTooltip">
                                 <img src="{{ 'img/info.svg' | asset_url }}" alt="info"/>
