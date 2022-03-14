@@ -39,7 +39,7 @@ PUBLIC_SRSNAMES_ENDPOINT = os.environ.get('PUBLIC_SRSNAMES_ENDPOINT')
 
 HYDRO_LAYER_ENDPOINT = 'https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer'
 NHDPLUS_FLOWLINE_ENDPOINT = 'https://labs.waterdata.usgs.gov/geoserver/wms'
-NHDPLUS_FLOWLINE_LAYER_NAME = 'nhdplus:nhdflowline_network'
+NHDPLUS_FLOWLINE_LAYER_NAME = 'wmadata:nhdflowline_network'
 
 # Points to the endpoint which returns flow lines and sites for a comid
 NLDI_SERVICES_ENDPOINT = os.environ.get('NLDI_SERVICES_ENDPOINT')
