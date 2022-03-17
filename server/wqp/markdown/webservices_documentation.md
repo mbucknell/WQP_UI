@@ -160,16 +160,16 @@ Construct a query by concatenating the base URL with the desired parameters and 
 
 >*Example:* Summary service request to retrieve annual summary counts from the most recent 5 years of *Nutrient* data from sites in Benton County, Arkansas in *csv* format, *zipped*:
 
-`https://www.waterqualitydata.us/data/summary/monitoringLocation/search?countycode=US%3A05%3A007&characteristicType=Nutrient&mimeType=csv&providers=NWIS&providers=STEWARDS&providers=STORET&zip=yes&dataProfile=periodOfRecord&summaryYears=5`
+`https://www.waterqualitydata.us/data/summary/monitoringLocation/search?countycode=US%3A05%3A007&characteristicType=Nutrient&mimeType=csv&zip=yes&dataProfile=periodOfRecord&summaryYears=5`
 
 
 >*Example:* Summary service request to retrieve total counts from the most recent 5 years of *Nutrient* data from sites in Benton County, Arkansas in *GeoJSON* format, *zipped*:
 
-`https://www.waterqualitydata.us/data/summary/monitoringLocation/search?countycode=US%3A05%3A007&characteristicType=Nutrient&providers=NWIS&providers=STEWARDS&providers=STORET&zip=yes&dataProfile=summaryMonitoringLocation&summaryYears=5&mimeType=geojson`
+`https://www.waterqualitydata.us/data/summary/monitoringLocation/search?countycode=US%3A05%3A007&characteristicType=Nutrient&zip=yes&dataProfile=summaryMonitoringLocation&summaryYears=5&mimeType=geojson`
 
 
 **Table 2. URL-encoded retrieval parameters and arguments for WQP web services.**
-<details>
+<details markdown="1">
   <summary>Expand Table</summary>
 
 |    REST parameter   |                                                                                                                                                                                                                    Argument                                                                                                                                                                                                                    |                                                                                                                                                                                                                      Discussion                                                                                                                                                                                                                     |
