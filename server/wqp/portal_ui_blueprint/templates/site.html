@@ -107,16 +107,22 @@
         <h2 class="section-heading">What other information is available for this location?</h2>
         <div class="subheading">Detailed Metadata</div>
         <p>For the definitions of the metadata elements, please go to the Water Quality Portal <a href="{{ url_for('portal_ui.portal_userguide') }}">user guide</a> </p>
-        <table class="usa-table--striped">
-            {% for key, value in site.items() %}
-            {% if value %}
-                <tr>
-                    <td>{{key}}</td>
-                    <td>{{value}}</td>
-                </tr>
-            {% endif %}
-            {% endfor %}
-        </table>
+            <table class="usa-table--striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Location Metadata</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                {% for key, value in site.items() %}
+                {% if value %}
+                    <tr>
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
         </div>
     </div>
 {% endblock %}
