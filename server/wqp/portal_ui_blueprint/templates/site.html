@@ -78,32 +78,36 @@
             The upstream and downstream functionality is provided by the National Linked Data Index, part of the <a title="Link to ACWI Open Water Data Initiative page" href="http://acwi.gov/spatial/owdi/">Open Water Data Initiative</a>.
         </p>
         <div id="site-map"></div>
-        <div class="characteristic-group-table-container">
-            <table class="usa-table usa-table--borderless usa-table--striped">
-                <caption>
-                    <h2 class="section-heading">When were data collected at this location?</h2>
-                    <div class="subheading">Periods of record for data characteristic groups</div>
-                </caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Characteristic Group</th>
-                        <th scope="col">Date Range<sup>&ast;</sup></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for key,value in summary_data_with_period_of_record.iterrows() %}
+        {% if summary_data_with_period_of_record %}
+            <div class="characteristic-group-table-container">
+                <table class="usa-table usa-table--borderless usa-table--striped">
+                    <caption>
+                        <h2 class="section-heading">When were data collected at this location?</h2>
+                        <div class="subheading">Periods of record for data characteristic groups</div>
+                    </caption>
+                    <thead>
                         <tr>
-                            <th scope="row">{{ key }}</th>
-                            <td>
-                                {{ value['startYear'] }} - {{ value['endYear'] }}
-                            </td>
+                            <th scope="col">Characteristic Group</th>
+                            <th scope="col">Date Range<sup>&ast;</sup></th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <span class="characteristic-group-table-footnote"><sup>&ast;</sup>Date ranges may contain gap years</span>
-        </div>
-
+                    </thead>
+                    <tbody>
+                        {% for key,value in summary_data_with_period_of_record.iterrows() %}
+                            <tr>
+                                <th scope="row">{{ key }}</th>
+                                <td>
+                                    {{ value['startYear'] }} - {{ value['endYear'] }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <span class="characteristic-group-table-footnote"><sup>&ast;</sup>Date ranges may contain gap years</span>
+            </div>
+        {% else %}
+            <h2 class="section-heading">When were data collected at this location?</h2>
+            <p> No data has been collected at this monitoring location</p>
+        {% endif %}
         <h2 class="section-heading">What other information is available for this location?</h2>
         <div class="subheading">Detailed Metadata</div>
         <p>For the definitions of the metadata elements, please go to the Water Quality Portal <a href="{{ url_for('portal_ui.portal_userguide') }}">user guide</a> </p>
