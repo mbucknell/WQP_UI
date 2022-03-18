@@ -286,15 +286,20 @@ def get_summary_dataframe(period_of_record_summary_data):
     :param period_of_record_summary_data: a Pandas DataFrame containing period of record information for data groups
     :return: Pandas Dataframe grouped by CharacteristicType with columns for start and end of period of record
     """
-    period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
-    period_of_record_summary_data['startYear'] = \
-        period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('min')
-    period_of_record_summary_data['endYear'] = \
-        period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('max')
-    one_row_for_each_characteristic_group = \
-        period_of_record_summary_data.groupby('CharacteristicType').min('YearSummarized')
 
-    return one_row_for_each_characteristic_group.drop('YearSummarized', 1)
+    if len(period_of_record_summary_data.index) >= 1:
+        period_of_record_summary_data = period_of_record_summary_data[['CharacteristicType', 'YearSummarized']]
+        period_of_record_summary_data['startYear'] = \
+            period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('min')
+        period_of_record_summary_data['endYear'] = \
+            period_of_record_summary_data.groupby('CharacteristicType')['YearSummarized'].transform('max')
+        one_row_for_each_characteristic_group = \
+            period_of_record_summary_data.groupby('CharacteristicType').min('YearSummarized')
+        characteristic_group_summary = one_row_for_each_characteristic_group.drop('YearSummarized', 1)
+    else:
+        characteristic_group_summary = None
+
+    return characteristic_group_summary
 
 
 def get_site_summary_data_with_period_of_record(site_id):
