@@ -78,7 +78,7 @@
             The upstream and downstream functionality is provided by the National Linked Data Index, part of the <a title="Link to ACWI Open Water Data Initiative page" href="http://acwi.gov/spatial/owdi/">Open Water Data Initiative</a>.
         </p>
         <div id="site-map"></div>
-        {% if summary_data_with_period_of_record %}
+        {% if summary_data_with_period_of_record is not none %}
             <div class="characteristic-group-table-container">
                 <table class="usa-table usa-table--borderless usa-table--striped">
                     <caption>
