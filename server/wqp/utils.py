@@ -1,3 +1,4 @@
+import urllib.parse
 
 from bs4 import BeautifulSoup
 from flask import request, make_response
@@ -309,7 +310,7 @@ def get_site_summary_data_with_period_of_record(site_id):
     :param site_id: An identifier for the monitoring location
     :return: Pandas Dataframe grouped by CharacteristicType with columns for start and end of period of record
     """
-    summary_csv_url = f"{app.config['SITE_SUMMARY_ENDPOINT']}?siteid={site_id}&dataProfile=periodOfRecord&" \
+    summary_csv_url = f"{app.config['SITE_SUMMARY_ENDPOINT']}?siteid={urllib.parse.quote(site_id)}&dataProfile=periodOfRecord&" \
                       f"summaryYears=all&mimeType=csv&zip=no"
     period_of_record_summary_data = get_summary_with_pandas_package(summary_csv_url)
     return get_summary_dataframe(period_of_record_summary_data)
