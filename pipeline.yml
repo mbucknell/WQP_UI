@@ -27,7 +27,7 @@ urlRules:
   - type: forward
     conditions:
       - "/*"
-    priority: 504
+    priority: 40000
 tags:
   wma:costCenter: TBD
   wma:organization: IOW
