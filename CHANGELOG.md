@@ -3,7 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
-## [Unreleased](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-6.4.0...master)
+## [Unreleased](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-6.6.0...master)
+
+## [Unreleased](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-6.4.0...WQP_UI-6.5.0) - 2022-04-25
+### Changed
+- URL rule priority was increased in order to work with the new blue/green deployment system for the services.
 
 ## [6.4.0](https://github.com/NWQMC/WQP_UI/compare/WQP_UI-6.3.0...WQP_UI-6.4.0) - 2022-04-18
 ### Fixed
