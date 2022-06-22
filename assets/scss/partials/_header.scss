@@ -42,16 +42,3 @@
   }
 }
 
-#siteAnnouncement {
-  #close-announcement {
-    @include u-margin-right('105');
-    img {
-      @include u-height('105');
-    }
-  }
-  .announcement-body {
-    @include u-padding-bottom('105');
-    @include u-maxw('desktop');
-    margin: 0 auto;
-  }
-}

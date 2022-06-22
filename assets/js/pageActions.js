@@ -34,11 +34,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
         return [year, month, day].join('-');
     }
-
-    // Create action to set event handler to remove the 'New User Interface' alert
-    const announcement = document.getElementById("siteAnnouncement")
-    const announcementCloseButton = document.getElementById("close-announcement")
-    announcementCloseButton.onclick = function() {
-        announcement.remove();
-    }
 });
