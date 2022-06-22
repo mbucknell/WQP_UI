@@ -12,23 +12,6 @@ $theme-image-path: './img';
 body {
   @include u-bg('gray-1');
 
-  #siteAnnouncement {
-    .announcement-body {
-      @include u-position('relative');
-      @include u-margin-top(1);
-      #close-announcement {
-        @include u-position('absolute');
-        @include u-top(-2);
-        @include u-right(0);
-        background: none;
-        @include u-border(0);
-      }
-      #close-announcement:hover {
-        cursor: pointer;
-      }
-    }
-  }
-
   #forms {
     @include u-padding-top('205');
     .usa-button {
