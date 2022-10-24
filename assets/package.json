@@ -46,7 +46,7 @@
   },
   "homepage": "https://github.com/USGS-CIDA/WQP_UI",
   "devDependencies": {
-    "@rollup/plugin-alias": "^3.1.8",
+    "@rollup/plugin-alias": "^4.0.2",
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "14.0.0",
     "@rollup/plugin-json": "^4.1.0",
