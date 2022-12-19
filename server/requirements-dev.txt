@@ -1,6 +1,6 @@
 bumpversion==0.5.3
 coverage==6.2
-pylint==2.12.2
+pylint==2.15.9
 requests-mock==1.9.3
 SaltPyLint==2020.9.28
 
